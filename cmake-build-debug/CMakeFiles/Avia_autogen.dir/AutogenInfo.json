@@ -1,0 +1,229 @@
+{
+	"BUILD_DIR" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/Avia_autogen",
+	"CMAKE_BINARY_DIR" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug",
+	"CMAKE_CURRENT_BINARY_DIR" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/Users/leonidsolanoj/Documents/pr/C++/Avia",
+	"CMAKE_EXECUTABLE" : "/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake",
+	"CMAKE_LIST_FILES" : 
+	[
+		"/Users/leonidsolanoj/Documents/pr/C++/Avia/CMakeLists.txt",
+		"/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/CMakeFiles/3.21.1/CMakeSystem.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeSystemSpecificInitialize.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Platform/Darwin-Initialize.cmake",
+		"/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/CMakeFiles/3.21.1/CMakeCXXCompiler.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeSystemSpecificInformation.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeGenericSystem.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeInitializeConfigs.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Platform/Darwin.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Platform/UnixPaths.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeCXXInformation.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeLanguageInformation.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Compiler/AppleClang-CXX.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Compiler/Clang.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Compiler/GNU.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Compiler/CMakeCommonCompilerMacros.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Platform/Apple-AppleClang-CXX.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Platform/Apple-Clang-CXX.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/Platform/Apple-Clang.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeCommonLanguageInclude.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5/Qt5Config.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Svg/Qt5SvgConfigVersion.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Svg/Qt5SvgConfig.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfigVersion.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfig.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigVersion.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Core/Qt5CoreConfig.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigExtras.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Core/Qt5CoreConfigExtrasMkspecDir.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Core/Qt5CoreMacros.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeParseArguments.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QCocoaIntegrationPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QGifPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QICNSPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QICOPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QJpegPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QMacHeifPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QMacJp2Plugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QMinimalIntegrationPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QOffscreenIntegrationPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QSvgIconPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QSvgPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTgaPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTiffPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QTuioTouchPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QWbmpPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QWebGLIntegrationPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QWebpPlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5Gui_QXdgDesktopPortalThemePlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Gui/Qt5GuiConfigExtras.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Widgets/Qt5Widgets_QMacStylePlugin.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigExtras.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsMacros.cmake",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeParseArguments.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5/Qt5ConfigVersion.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5/Qt5Config.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5/Qt5ModuleLocation.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfigVersion.cmake",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5Widgets/Qt5WidgetsConfig.cmake"
+	],
+	"CMAKE_SOURCE_DIR" : "/Users/leonidsolanoj/Documents/pr/C++/Avia",
+	"DEP_FILE" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/Avia_autogen/deps",
+	"DEP_FILE_RULE_NAME" : "Avia_autogen/timestamp",
+	"HEADERS" : 
+	[
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/mainwindow.h",
+			"MU",
+			"UVLADIE3JM/moc_mainwindow.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/navigation/Router.h",
+			"MU",
+			"RKY6Q6CDJN/moc_Router.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/navigation/base/basefragment/BaseFragment.h",
+			"MU",
+			"QC6N7UYGSB/moc_BaseFragment.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/navigation/base/basefragmentfactory/BaseFragmentFactory.h",
+			"MU",
+			"AM4MQDOYDN/moc_BaseFragmentFactory.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/navigation/base/basemodel/BaseModel.h",
+			"MU",
+			"LWRKLTMAPX/moc_BaseModel.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/widgets/slidingstackedwidget/SlidingStackedWidget.h",
+			"MU",
+			"MPWTG4MS3I/moc_SlidingStackedWidget.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/fragmentfactory/FragmentFactoryImpl.h",
+			"MU",
+			"T3MPAGPOYL/moc_FragmentFactoryImpl.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/screens/splash/SplashFragment.h",
+			"MU",
+			"NLGIZTJAH6/moc_SplashFragment.cpp",
+			null
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/Avia_autogen/include",
+	"MOC_COMPILATION_FILE" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/Avia_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : [ "QT_CORE_LIB", "QT_GUI_LIB", "QT_SVG_LIB", "QT_WIDGETS_LIB" ],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug",
+		"/Users/leonidsolanoj/Documents/pr/C++/Avia",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Headers",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Headers",
+		"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/System/Library/Frameworks/OpenGL.framework/Headers",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Headers",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/mkspecs/macx-clang",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtSvg.framework",
+		"/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtSvg.framework/Headers",
+		"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include/c++/v1",
+		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include",
+		"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk/usr/include",
+		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"
+	],
+	"MOC_MACRO_NAMES" : [ "Q_OBJECT", "Q_GADGET", "Q_NAMESPACE", "Q_NAMESPACE_EXPORT" ],
+	"MOC_OPTIONS" : [],
+	"MOC_PATH_PREFIX" : false,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/Applications/CLion.app/Contents/bin/cmake/mac/share/cmake-3.21/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/Avia_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : [],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 10,
+	"PARSE_CACHE_FILE" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/CMakeFiles/Avia_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/Users/leonidsolanoj/Qt/5.15.2/clang_64/bin/moc",
+	"QT_UIC_EXECUTABLE" : "/Users/leonidsolanoj/Qt/5.15.2/clang_64/bin/uic",
+	"QT_VERSION_MAJOR" : 5,
+	"QT_VERSION_MINOR" : 15,
+	"SETTINGS_FILE" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug/CMakeFiles/Avia_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[ "/Users/leonidsolanoj/Documents/pr/C++/Avia/main.cpp", "MU", null ],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/mainwindow.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/navigation/Router.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/navigation/base/basefragment/BaseFragment.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/navigation/base/basefragmentfactory/BaseFragmentFactory.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/navigation/base/basemodel/BaseModel.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/common/widgets/slidingstackedwidget/SlidingStackedWidget.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/fragmentfactory/FragmentFactoryImpl.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/pr/C++/Avia/src/ui/screens/splash/SplashFragment.cpp",
+			"MU",
+			null
+		]
+	],
+	"UIC_OPTIONS" : [],
+	"UIC_SEARCH_PATHS" : [],
+	"UIC_SKIP" : [],
+	"UIC_UI_FILES" : [],
+	"VERBOSITY" : 0
+}

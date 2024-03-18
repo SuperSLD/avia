@@ -1,0 +1,25 @@
+<RCC>
+    <qresource prefix="/resc">
+        <file>resc/splash.svg</file>
+        <file>resc/splash_dark.svg</file>
+        <file>resc/settings.svg</file>
+        <file>resc/settings_dark.svg</file>
+        <file>resc/routes.svg</file>
+        <file>resc/routes_dark.svg</file>
+        <file>resc/radio_on.svg</file>
+        <file>resc/radio_off.svg</file>
+        <file>resc/map.svg</file>
+        <file>resc/map_dark.svg</file>
+        <file>resc/flights.svg</file>
+        <file>resc/flights_dark.svg</file>
+        <file>resc/edit.svg</file>
+        <file>resc/edit_dark.svg</file>
+        <file>resc/db_icon.svg</file>
+        <file>resc/close.svg</file>
+        <file>resc/chevron_right.svg</file>
+        <file>resc/chevron_left.svg</file>
+        <file>resc/arrow.svg</file>
+        <file>resc/analytics.svg</file>
+        <file>resc/analytics_dark.svg</file>
+    </qresource>
+</RCC>
