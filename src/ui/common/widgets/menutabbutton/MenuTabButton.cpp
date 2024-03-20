@@ -41,3 +41,31 @@ MenuTabButton::~MenuTabButton() {
 void MenuTabButton::selfClick() {
     emit onClicked(id);
 }
+
+void MenuTabButton::setSelected(int id) {
+    if (id == this->id) {
+        coloredCardStyle(
+                "MenuTabButton",
+                this,
+                colorWhite(),
+                24,
+                24,
+                1,
+                colorPrimary(),
+                colorWhite(),
+                colorTextPrimary()
+        );
+    } else {
+        coloredCardStyle(
+                "MenuTabButton",
+                this,
+                colorWhite(),
+                24,
+                24,
+                1,
+                colorGray(),
+                colorWhite(),
+                colorPrimary()
+        );
+    }
+}

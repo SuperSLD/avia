@@ -80,13 +80,13 @@ namespace theme {
         widget->setMaximumSize(QSize(size, size));
     }
 
-    static void whiteCardStyle(QString name, QWidget *widget) {
+    static void whiteCardStyle(QString name, QWidget *widget, int padding = 24, int borderRadius = 24) {
         widget->setObjectName(name);
         widget->setStyleSheet(
                 "QWidget#"+name+" {"
                 "   background-color:"+colorWhite()+";"
-                "   border-radius: 24px;"
-                "   padding: 24px;"
+                "   border-radius: "+QString::number(borderRadius)+"px;"
+                "   padding: "+QString::number(padding)+"px;"
                 "}"
         );
     }

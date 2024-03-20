@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         qDebug() << "App: create main window";
 
         settingsRepository = new SettingsRepository();
-        settingsRepository->setTheme(true);
+        settingsRepository->setTheme(false);
 
         container = new SlidingStackedWidget(this);
         container->setSpeed(500);

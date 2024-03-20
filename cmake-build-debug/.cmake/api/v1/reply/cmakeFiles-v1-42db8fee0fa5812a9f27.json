@@ -283,8 +283,8 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/leonidsolanoj/Documents/pr/C++/Avia/cmake-build-debug",
-		"source" : "/Users/leonidsolanoj/Documents/pr/C++/Avia"
+		"build" : "/Users/leonidsolanoj/Documents/GitHub/avia/cmake-build-debug",
+		"source" : "/Users/leonidsolanoj/Documents/GitHub/avia"
 	},
 	"version" : 
 	{

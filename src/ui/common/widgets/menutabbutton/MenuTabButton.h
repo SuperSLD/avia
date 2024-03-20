@@ -19,6 +19,8 @@ public:
     MenuTabButton(QString title, QString icon, QString iconDark, int id);
     ~MenuTabButton();
 
+    void setSelected(int id);
+
 private slots:
     void selfClick();
 

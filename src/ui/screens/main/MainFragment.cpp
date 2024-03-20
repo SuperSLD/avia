@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QSvgWidget>
 #include <QLabel>
+#include <QDebug>
 
 #include <src/ui/common/widgets/menutabbutton/MenuTabButton.h>
 
@@ -13,6 +14,12 @@
 using namespace theme;
 
 #include "src/ui/fragmentfactory/FragmentFactoryImpl.h"
+#include "src/ui/screens/main/settingstab/SettingsTabFragment.h"
+#include "src/ui/screens/main/flightstab/FlightsTabFragment.h"
+#include "src/ui/screens/main/routestab/RoutesTabFragment.h"
+#include "src/ui/screens/main/maptab/MapTabFragment.h"
+#include "src/ui/screens/main/analyticstab/AnalyticsTabFragment.h"
+
 using namespace screens;
 
 MainFragment::MainFragment() {
@@ -59,17 +66,16 @@ MainFragment::MainFragment() {
     dbInfoVContainer->setSpacing(0);
 
     // Кнопки табов
-    MenuTabButton *flightTabButton = new MenuTabButton("Данные о перелетах", "flights", "flights_dark", FLIGHTS);
-    MenuTabButton *routesTabButton = new MenuTabButton("Данные о маршрутах", "routes", "routes_dark", ROUTES);
-    MenuTabButton *mapTabButton = new MenuTabButton("Транспортная сеть", "map", "map_dark", MAP);
-    MenuTabButton *analyticsTabButton = new MenuTabButton("Статистика", "analytics", "analytics_dark", ANALYTICS);
-    MenuTabButton *settingsTabButton = new MenuTabButton("Настройки", "settings", "settings_dark", SETTINGS);
-
-    menuContainer->addWidget(flightTabButton);
-    menuContainer->addWidget(routesTabButton);
-    menuContainer->addWidget(mapTabButton);
-    menuContainer->addWidget(analyticsTabButton);
-    menuContainer->addWidget(settingsTabButton);
+    tabButtons.append(new MenuTabButton("Данные о перелетах", "flights", "flights_dark", FLIGHTS));
+    tabButtons.append(new MenuTabButton("Данные о маршрутах", "routes", "routes_dark", ROUTES));
+    tabButtons.append(new MenuTabButton("Транспортная сеть", "map", "map_dark", MAP));
+    tabButtons.append(new MenuTabButton("Статистика", "analytics", "analytics_dark", ANALYTICS));
+    tabButtons.append(new MenuTabButton("Настройки", "settings", "settings_dark", SETTINGS));
+    foreach(MenuTabButton *button, tabButtons) {
+            connect(button, &MenuTabButton::onClicked, this, &MainFragment::onTabButtonClicked);
+            menuContainer->addWidget(button);
+            button->setSelected(FLIGHTS);
+    }
 
     // Контейнер табов ========================================================================
     QFrame *tabsFrame = new QFrame;
@@ -77,8 +83,21 @@ MainFragment::MainFragment() {
     centerContainer->addWidget(tabsFrame);
     tabsFrame->setLayout(tabsContainer);
     tabsContainer->setContentsMargins(0,0,0,0);
-    whiteCardStyle("tabsFrame",tabsFrame);
+    whiteCardStyle("tabsFrame",tabsFrame, 0);
     tabsFrame->setSizePolicy(QSizePolicy::Minimum,QSizePolicy::Minimum);
+
+    tabs = new QStackedWidget();
+    tabs->setContentsMargins(0,0,0,0);
+    tabsContainer->addWidget(tabs);
+
+    tabFragments.append(new FlightsTabFragment());
+    tabFragments.append(new RoutesTabFragment());
+    tabFragments.append(new MapTabFragment());
+    tabFragments.append(new AnalyticsTabFragment());
+    tabFragments.append(new SettingsTabFragment());
+    foreach(BaseFragment *tab, tabFragments) {
+        tabs->addWidget(tab);
+    }
 
     coloredCardStyle("MainFragment", this, colorGray(), 0);
     this->setLayout(mainHLayout);
@@ -86,4 +105,13 @@ MainFragment::MainFragment() {
 
 MainFragment::~MainFragment() {
     delete infoUrl;
+    delete tabs;
+}
+
+void MainFragment::onTabButtonClicked(int id) {
+    qDebug() << "MainFragment::onTabButtonClicked ->" << id;
+    tabs->setCurrentIndex(id);
+    foreach(MenuTabButton *button, tabButtons) {
+        button->setSelected(id);
+    }
 }

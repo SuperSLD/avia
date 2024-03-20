@@ -6,7 +6,9 @@
 #define AVIA_MAINFRAGMENT_H
 
 #include <QLabel>
+#include <QStackedWidget>
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
+#include "src/ui/common/widgets/menutabbutton/MenuTabButton.h"
 
 class MainFragment: public BaseFragment {
     Q_OBJECT
@@ -20,6 +22,13 @@ private:
     const int SETTINGS = 4;
 
     QLabel *infoUrl;
+
+    QStackedWidget *tabs;
+    QList<BaseFragment*> tabFragments;
+    QList<MenuTabButton*> tabButtons;
+
+private slots:
+    void onTabButtonClicked(int id);
 
 public:
     MainFragment();
