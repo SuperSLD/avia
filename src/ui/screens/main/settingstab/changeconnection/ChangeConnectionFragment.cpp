@@ -33,7 +33,7 @@ ChangeConnectionFragment::ChangeConnectionFragment() {
     ipEdit->setText(settingsRep->getConnectionIp());
     vContainer->addWidget(ipEdit);
 
-    passwordEdit = new TextEdit("passwordEdit", "Пароль");
+    passwordEdit = new TextEdit("passwordEdit", "Пароль", true);
     passwordEdit->setMaximumWidth(650);
     vContainer->addWidget(passwordEdit);
 
