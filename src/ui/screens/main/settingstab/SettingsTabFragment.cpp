@@ -66,7 +66,7 @@ SettingsTabFragment::SettingsTabFragment() {
     textStyle("mongoLabel", mongoLabel, 16, colorPrimary(), true);
     connectionInfoContainer->addWidget(mongoLabel);
 
-    Button *dbConnectionButton = new Button("dbConnectionButton", "Сменить подключение", false);
+    Button *dbConnectionButton = new Button("dbConnectionButton", "Настроить подключение", false);
     dbConnectionButtonContainer->addWidget(dbConnectionButton);
     connect(dbConnectionButton, &Button::clicked, this, &SettingsTabFragment::onDatabaseChangeClicked);
     contentVContainer->addLayout(dbConnectionButtonContainer);

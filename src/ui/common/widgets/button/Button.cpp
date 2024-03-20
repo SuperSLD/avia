@@ -4,10 +4,10 @@
 
 #include "Button.h"
 
-#include <src/ui/theme/AppTheme.h>
 #include <QVBoxLayout>
 #include <QLabel>
 
+#include <src/ui/theme/AppTheme.h>
 using namespace theme;
 
 Button::Button(QString id, QString title, bool solid) {
