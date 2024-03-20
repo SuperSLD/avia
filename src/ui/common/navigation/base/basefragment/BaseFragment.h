@@ -19,6 +19,7 @@ class BaseFragment: public QFrame {
 Q_OBJECT
 
 signals:
+
     void back();
     void backWhithData(BaseModel* model);
 
@@ -29,9 +30,14 @@ signals:
     void replace(QString tag);
     void replaceWhithData(QString tag, BaseModel* model);
 
+    void provideThemeChanged();
+
 protected:
+
     void clearList(QLayout *list);
+
 public:
+
     BaseFragment();
     ~BaseFragment();
 

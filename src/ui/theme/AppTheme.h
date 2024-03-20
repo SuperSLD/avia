@@ -19,6 +19,7 @@ namespace theme {
     static const QString _COLOR_WHITE = "#FFFFFF";
     static const QString _COLOR_WHITE_TEXT = "#FFFFFF";
     static const QString _COLOR_GRAY = "#F0F0F6";
+    static const QString _COLOR_BORDER = "#F0F0F6";
     static const QString _COLOR_TEXT_GRAY = "#C7C9D8";
     static const QString _COLOR_TEXT_PRIMARY = "#C6E5CE";
     static const QString _COLOR_GRAY_SECONDARY = "#FAFBFC";
@@ -30,6 +31,7 @@ namespace theme {
     static const QString _DARK_COLOR_WHITE = "#33363A";
     static const QString _DARK_COLOR_WHITE_TEXT = "#FFFFFF";
     static const QString _DARK_COLOR_GRAY = "#2D2D32";
+    static const QString _DARK_COLOR_BORDER = "#50515A";
     static const QString _DARK_COLOR_TEXT_GRAY = "#C7C9D8";
     static const QString _DARK_COLOR_TEXT_PRIMARY = "#C6E5CE";
     static const QString _DARK_COLOR_GRAY_SECONDARY = "#FAFBFC";
@@ -57,6 +59,10 @@ namespace theme {
 
     static QString colorGray() {
         return settingsRep.getTheme() ? _COLOR_GRAY : _DARK_COLOR_GRAY;
+    }
+
+    static QString colorBorder() {
+        return settingsRep.getTheme() ? _COLOR_BORDER : _DARK_COLOR_BORDER;
     }
 
     static QString colorTextGray() {
@@ -100,7 +106,8 @@ namespace theme {
             int border = 0,
             QString borderColor = nullptr,
             QString hoverColor = nullptr,
-            QString hoverBorderColor = nullptr
+            QString hoverBorderColor = nullptr,
+            QString other = ""
     ) {
         borderColor = (borderColor == nullptr) ? color : borderColor;
         widget->setObjectName(name);
@@ -111,10 +118,12 @@ namespace theme {
                     "   border-radius: "+QString::number(corners)+"px;"
                     "   padding: "+QString::number(padding)+"px;"
                     "   border:"+ QString::number(border) +"px solid " + borderColor + ";"
+                    "" + other + ""
                     "}"
                     "QWidget#"+name+":hover {"
                     "   background-color:"+hoverColor+";"
                     "   border:"+ QString::number(border) +"px solid " + hoverBorderColor+ ";"
+                    "" + other + ""
                     "}"
             );
         } else {
@@ -124,6 +133,7 @@ namespace theme {
                     "   border-radius: "+QString::number(corners)+"px;"
                     "   padding: "+QString::number(padding)+"px;"
                     "   border:"+ QString::number(border) +"px solid " + borderColor + ";"
+                    "" + other + ""
                     "}"
             );
         }

@@ -32,6 +32,7 @@ void Router::navigateTo(QString tag) {
     disconnectFragment(stack.last());
     connectFragment(newFragment);
     stack.append(newFragment);
+    stack.last()->onResume();
     currentContainer->addWidget(newFragment);
     currentContainer->slideInIdx(stack.size()-1);
 }
@@ -69,6 +70,7 @@ void Router::removeOnReplace() {
     currentContainer->removeWidget(stack.last());
     stack.removeLast();
     stack.append(last);
+    stack.last()->onResume();
 }
 
 void Router::newRootScreen(QString tag) {
@@ -93,6 +95,7 @@ void Router::removeOnRoot() {
         widget->deleteLater();
     }
     stack.append(last);
+    stack.last()->onResume();
 }
 
 void Router::backWhithData(BaseModel* model) {
@@ -107,11 +110,15 @@ void Router::navigateWhithData(QString tag, BaseModel* model) {
     stack.last()->bindData(model);
 }
 
-
 void Router::replaceWhithData(QString tag, BaseModel* model) {
     qDebug() << "Router: replaceWhithData - {" << tag << "}";
     replace(tag);
     stack.last()->bindData(model);
+}
+
+void Router::provideThemeChanged() {
+    qDebug() << "Router: provide theme changed";
+    emit onThemeChanged();
 }
 
 BaseFragment* Router::getStartScreen() {
@@ -127,6 +134,7 @@ void Router::connectFragment(BaseFragment *fragment) {
     connect(fragment, &BaseFragment::backWhithData, this, &Router::backWhithData);
     connect(fragment, &BaseFragment::navigateWhithData, this, &Router::navigateWhithData);
     connect(fragment, &BaseFragment::replaceWhithData, this, &Router::replaceWhithData);
+    connect(fragment, &BaseFragment::provideThemeChanged, this, &Router::provideThemeChanged);
 }
 
 void Router::disconnectFragment(BaseFragment *fragment) {
@@ -138,6 +146,7 @@ void Router::disconnectFragment(BaseFragment *fragment) {
     disconnect(fragment, &BaseFragment::backWhithData, this, &Router::backWhithData);
     disconnect(fragment, &BaseFragment::navigateWhithData, this, &Router::navigateWhithData);
     disconnect(fragment, &BaseFragment::replaceWhithData, this, &Router::replaceWhithData);
+    disconnect(fragment, &BaseFragment::provideThemeChanged, this, &Router::provideThemeChanged);
 }
 
 BaseFragment* Router::createAndConnect(QString tag) {

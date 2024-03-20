@@ -13,7 +13,7 @@ class MenuTabButton: public QPushButton {
 
 private:
     int id;
-    SettingsRepository settingsRep = SettingsRepository();
+    SettingsRepository *settingsRep = new SettingsRepository();
 
 public:
     MenuTabButton(QString title, QString icon, QString iconDark, int id);

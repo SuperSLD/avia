@@ -848,6 +848,7 @@ Avia_autogen/timestamp: \
   ../resc.qrc \
   ../src/data/settings/SettingsRepository.cpp \
   ../src/data/settings/SettingsRepository.h \
+  ../src/domain/models/tabopen/TabOpenModel.h \
   ../src/mainwindow.cpp \
   ../src/mainwindow.h \
   ../src/ui/common/navigation/Router.cpp \
@@ -858,10 +859,19 @@ Avia_autogen/timestamp: \
   ../src/ui/common/navigation/base/basefragmentfactory/BaseFragmentFactory.h \
   ../src/ui/common/navigation/base/basemodel/BaseModel.cpp \
   ../src/ui/common/navigation/base/basemodel/BaseModel.h \
+  ../src/ui/common/widgets/button/Button.cpp \
+  ../src/ui/common/widgets/button/Button.h \
   ../src/ui/common/widgets/menutabbutton/MenuTabButton.cpp \
   ../src/ui/common/widgets/menutabbutton/MenuTabButton.h \
   ../src/ui/common/widgets/slidingstackedwidget/SlidingStackedWidget.cpp \
   ../src/ui/common/widgets/slidingstackedwidget/SlidingStackedWidget.h \
+  ../src/ui/common/widgets/switcher/Switcher.cpp \
+  ../src/ui/common/widgets/switcher/Switcher.h \
+  ../src/ui/common/widgets/switcher/SwitcherVariant.h \
+  ../src/ui/common/widgets/table/Table.cpp \
+  ../src/ui/common/widgets/table/Table.h \
+  ../src/ui/common/widgets/textedit/TextEdit.cpp \
+  ../src/ui/common/widgets/textedit/TextEdit.h \
   ../src/ui/common/widgets/toolbar/Toolbar.cpp \
   ../src/ui/common/widgets/toolbar/Toolbar.h \
   ../src/ui/fragmentfactory/FragmentFactoryImpl.cpp \
@@ -878,12 +888,15 @@ Avia_autogen/timestamp: \
   ../src/ui/screens/main/routestab/RoutesTabFragment.h \
   ../src/ui/screens/main/settingstab/SettingsTabFragment.cpp \
   ../src/ui/screens/main/settingstab/SettingsTabFragment.h \
+  ../src/ui/screens/main/settingstab/changeconnection/ChangeConnectionFragment.cpp \
+  ../src/ui/screens/main/settingstab/changeconnection/ChangeConnectionFragment.h \
   ../src/ui/screens/splash/SplashFragment.cpp \
   ../src/ui/screens/splash/SplashFragment.h \
   ../src/ui/theme/AppTheme.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/QEasingCurve \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/QObject \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/QParallelAnimationGroup \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/QString \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qabstractanimation.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qalgorithms.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qanimationgroup.h \
@@ -958,18 +971,23 @@ Avia_autogen/timestamp: \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qmatrix.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qpaintdevice.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qpalette.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qpen.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixelformat.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qpixmap.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qpolygon.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qregion.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qrgb.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qrgba64.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextcursor.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextformat.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qtextoption.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qtgui-config.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qtguiglobal.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qtransform.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindowdefs.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFrame \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLineEdit \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QMainWindow \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QPushButton \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QStackedWidget \
@@ -982,6 +1000,7 @@ Avia_autogen/timestamp: \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlayout.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlayoutitem.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlineedit.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qmainwindow.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qpushbutton.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qsizepolicy.h \

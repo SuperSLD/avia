@@ -14,13 +14,14 @@
 using namespace theme;
 
 #include "src/ui/fragmentfactory/FragmentFactoryImpl.h"
+using namespace screens;
+
 #include "src/ui/screens/main/settingstab/SettingsTabFragment.h"
 #include "src/ui/screens/main/flightstab/FlightsTabFragment.h"
 #include "src/ui/screens/main/routestab/RoutesTabFragment.h"
 #include "src/ui/screens/main/maptab/MapTabFragment.h"
 #include "src/ui/screens/main/analyticstab/AnalyticsTabFragment.h"
-
-using namespace screens;
+#include "src/domain/models/tabopen/TabOpenModel.h"
 
 MainFragment::MainFragment() {
     QHBoxLayout *mainHLayout = new QHBoxLayout;
@@ -59,6 +60,8 @@ MainFragment::MainFragment() {
     QLabel *infoTitle = new QLabel("MongoDB");
     textStyle("infoTitle", infoTitle, 20, colorWhiteText(), true);
     infoUrl = new QLabel("localhost:2345");
+    QString ip = settingsRep->getConnectionIp();
+    infoUrl->setText(ip.size() > 1 ? ip : "Не выбрано");
     textStyle("infoUrl", infoUrl, 20, colorTextPrimary(), true);
     dbInfoVContainer->addWidget(infoTitle);
     dbInfoVContainer->addWidget(infoUrl);
@@ -94,7 +97,12 @@ MainFragment::MainFragment() {
     tabFragments.append(new RoutesTabFragment());
     tabFragments.append(new MapTabFragment());
     tabFragments.append(new AnalyticsTabFragment());
-    tabFragments.append(new SettingsTabFragment());
+
+    SettingsTabFragment *settingsTabFragment = new SettingsTabFragment();
+    connect(settingsTabFragment, &SettingsTabFragment::onThemeSwitched, this, &MainFragment::onThemeSwitched);
+    connect(settingsTabFragment, &SettingsTabFragment::onDatabaseChange, this, &MainFragment::onOpenChangeConnection);
+    tabFragments.append(settingsTabFragment);
+
     foreach(BaseFragment *tab, tabFragments) {
         tabs->addWidget(tab);
     }
@@ -103,9 +111,18 @@ MainFragment::MainFragment() {
     this->setLayout(mainHLayout);
 }
 
+void MainFragment::bindData(BaseModel *model) {
+    TabOpenModel tbo = *dynamic_cast<TabOpenModel*>(model);
+    tabs->setCurrentIndex(tbo.getTabId());
+    foreach(MenuTabButton *button, tabButtons) {
+        button->setSelected(tbo.getTabId());
+    }
+}
+
 MainFragment::~MainFragment() {
     delete infoUrl;
     delete tabs;
+    delete settingsRep;
 }
 
 void MainFragment::onTabButtonClicked(int id) {
@@ -113,5 +130,28 @@ void MainFragment::onTabButtonClicked(int id) {
     tabs->setCurrentIndex(id);
     foreach(MenuTabButton *button, tabButtons) {
         button->setSelected(id);
+    }
+}
+
+void MainFragment::onThemeSwitched() {
+    emit provideThemeChanged();
+    emit replaceWhithData(MAIN_SCREEN, new TabOpenModel(SETTINGS));
+}
+
+void MainFragment::onOpenChangeConnection() {
+    emit navigateTo(CHANGE_CONNECTION_SCREEN);
+}
+
+void MainFragment::onResume() {
+    QString ip = settingsRep->getConnectionIp();
+    infoUrl->setText(ip.size() > 1 ? ip : "Не выбрано");
+    foreach(BaseFragment *tab, tabFragments) {
+        tab->onResume();
+    }
+}
+
+void MainFragment::onPause() {
+    foreach(BaseFragment *tab, tabFragments) {
+        tab->onPause();
     }
 }

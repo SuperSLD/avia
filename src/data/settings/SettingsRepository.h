@@ -19,8 +19,11 @@ public:
     void setTheme(bool isLight);
     bool getTheme();
 
-    void saveConnections();
-    QList<QString> getConnections();
+    void setConnectionIp(QString ip);
+    QString getConnectionIp();
+
+    void setConnectionPassword(QString password);
+    QString setConnectionPassword();
 };
 
 #endif //AVIA_SETTINGSREPOSITORY_H

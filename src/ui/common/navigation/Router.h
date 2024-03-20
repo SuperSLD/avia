@@ -56,6 +56,7 @@ private:
      * Отключение сигналов от фрагмента.
      */
     void disconnectFragment(BaseFragment *fragment);
+
 public:
     Router(
             SlidingStackedWidget *container,
@@ -65,13 +66,13 @@ public:
     BaseFragment* getStartScreen();
 
 public slots:
-            /**
-             * @brief navigateTo
-             * @param tag имя следующего экрана.
-             *
-             * Переход к следующему экрану.
-             */
-            void navigateTo(QString tag);
+    /**
+     * @brief navigateTo
+     * @param tag имя следующего экрана.
+     *
+     * Переход к следующему экрану.
+     */
+    void navigateTo(QString tag);
 
     /**
      * @brief back
@@ -145,6 +146,18 @@ public slots:
      * Тот же replace но с данными.
      */
     void replaceWhithData(QString tag, BaseModel* model);
+
+    /**
+     * @brief provideThemeChanged
+     *
+     * Перебрасывает событие сммены темы до главного окна.
+     */
+    void provideThemeChanged();
+
+signals:
+
+    void onThemeChanged();
+
 };;
 
 

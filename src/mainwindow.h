@@ -17,8 +17,13 @@ private:
     Router *navigator;
     BaseFragmentFactory *factory;
 
+private slots:
+    void onThemeChanged();
+
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    void setWindowBackColor();
 };
 #endif // MAINWINDOW_H

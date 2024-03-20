@@ -32,7 +32,7 @@ Toolbar::Toolbar(QString title, QString icon, QString iconDark) {
     QWidget *line = new QWidget();
     line->setMinimumHeight(1);
     line->setMaximumHeight(1);
-    coloredCardStyle("line", line, colorGray(), 0, 0);
+    coloredCardStyle("line", line, colorBorder(), 0, 0);
     verticalContainer->addWidget(line);
 
     this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Maximum);

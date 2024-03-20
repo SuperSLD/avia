@@ -84,6 +84,12 @@
 			null
 		],
 		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/domain/models/tabopen/TabOpenModel.h",
+			"MU",
+			"JLCA4MPS6H/moc_TabOpenModel.cpp",
+			null
+		],
+		[
 			"/Users/leonidsolanoj/Documents/GitHub/avia/src/mainwindow.h",
 			"MU",
 			"UVLADIE3JM/moc_mainwindow.cpp",
@@ -114,6 +120,12 @@
 			null
 		],
 		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/button/Button.h",
+			"MU",
+			"P74OK3TXMF/moc_Button.cpp",
+			null
+		],
+		[
 			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/menutabbutton/MenuTabButton.h",
 			"MU",
 			"DI24D37ZWT/moc_MenuTabButton.cpp",
@@ -123,6 +135,30 @@
 			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/slidingstackedwidget/SlidingStackedWidget.h",
 			"MU",
 			"MPWTG4MS3I/moc_SlidingStackedWidget.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/switcher/Switcher.h",
+			"MU",
+			"RCZUCAZU7W/moc_Switcher.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/switcher/SwitcherVariant.h",
+			"MU",
+			"RCZUCAZU7W/moc_SwitcherVariant.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/table/Table.h",
+			"MU",
+			"IIGUARYIDQ/moc_Table.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/textedit/TextEdit.h",
+			"MU",
+			"FYK5G63GR2/moc_TextEdit.cpp",
 			null
 		],
 		[
@@ -171,6 +207,12 @@
 			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/screens/main/settingstab/SettingsTabFragment.h",
 			"MU",
 			"ECO3O46JAZ/moc_SettingsTabFragment.cpp",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/screens/main/settingstab/changeconnection/ChangeConnectionFragment.h",
+			"MU",
+			"57S54V7KEV/moc_ChangeConnectionFragment.cpp",
 			null
 		],
 		[
@@ -272,12 +314,32 @@
 			null
 		],
 		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/button/Button.cpp",
+			"MU",
+			null
+		],
+		[
 			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/menutabbutton/MenuTabButton.cpp",
 			"MU",
 			null
 		],
 		[
 			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/slidingstackedwidget/SlidingStackedWidget.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/switcher/Switcher.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/table/Table.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/widgets/textedit/TextEdit.cpp",
 			"MU",
 			null
 		],
@@ -318,6 +380,11 @@
 		],
 		[
 			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/screens/main/settingstab/SettingsTabFragment.cpp",
+			"MU",
+			null
+		],
+		[
+			"/Users/leonidsolanoj/Documents/GitHub/avia/src/ui/screens/main/settingstab/changeconnection/ChangeConnectionFragment.cpp",
 			"MU",
 			null
 		],

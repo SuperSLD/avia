@@ -823,6 +823,7 @@
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/xlocale.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/xlocale/_time.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/15.0.0/include/stdarg.h \
+  /Users/leonidsolanoj/Documents/GitHub/avia/src/data/settings/SettingsRepository.h \
   /Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/navigation/base/basefragment/BaseFragment.h \
   /Users/leonidsolanoj/Documents/GitHub/avia/src/ui/common/navigation/base/basemodel/BaseModel.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qalgorithms.h \
@@ -847,6 +848,7 @@
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qline.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qlist.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qlogging.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qmap.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qmargins.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qmetatype.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qmutex.h \
@@ -863,6 +865,7 @@
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qrefcount.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qregexp.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qscopedpointer.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qsettings.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qshareddata.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qsharedpointer.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qsharedpointer_impl.h \
@@ -877,6 +880,7 @@
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qsystemdetection.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qtcore-config.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qtypeinfo.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qvariant.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qvarlengtharray.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qvector.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtCore.framework/Versions/5/Headers/qversiontagging.h \
@@ -902,11 +906,13 @@
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qtransform.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtGui.framework/Versions/5/Headers/qwindowdefs.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QFrame \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QLabel \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QVBoxLayout \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/QWidget \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qboxlayout.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qframe.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qgridlayout.h \
+  /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlabel.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlayout.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qlayoutitem.h \
   /Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/QtWidgets.framework/Versions/5/Headers/qsizepolicy.h \

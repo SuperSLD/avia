@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SettingsTabFragment_t {
-    QByteArrayData data[1];
-    char stringdata0[20];
+    QByteArrayData data[7];
+    char stringdata0[100];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,10 +32,18 @@ struct qt_meta_stringdata_SettingsTabFragment_t {
     )
 static const qt_meta_stringdata_SettingsTabFragment_t qt_meta_stringdata_SettingsTabFragment = {
     {
-QT_MOC_LITERAL(0, 0, 19) // "SettingsTabFragment"
+QT_MOC_LITERAL(0, 0, 19), // "SettingsTabFragment"
+QT_MOC_LITERAL(1, 20, 15), // "onThemeSwitched"
+QT_MOC_LITERAL(2, 36, 0), // ""
+QT_MOC_LITERAL(3, 37, 16), // "onDatabaseChange"
+QT_MOC_LITERAL(4, 54, 15), // "onThemeSelected"
+QT_MOC_LITERAL(5, 70, 5), // "theme"
+QT_MOC_LITERAL(6, 76, 23) // "onDatabaseChangeClicked"
 
     },
-    "SettingsTabFragment"
+    "SettingsTabFragment\0onThemeSwitched\0"
+    "\0onDatabaseChange\0onThemeSelected\0"
+    "theme\0onDatabaseChangeClicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -45,22 +53,61 @@ static const uint qt_meta_data_SettingsTabFragment[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       4,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    0,   34,    2, 0x06 /* Public */,
+       3,    0,   35,    2, 0x06 /* Public */,
+
+ // slots: name, argc, parameters, tag, flags
+       4,    1,   36,    2, 0x08 /* Private */,
+       6,    0,   39,    2, 0x08 /* Private */,
+
+ // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+
+ // slots: parameters
+    QMetaType::Void, QMetaType::QString,    5,
+    QMetaType::Void,
 
        0        // eod
 };
 
 void SettingsTabFragment::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<SettingsTabFragment *>(_o);
+        Q_UNUSED(_t)
+        switch (_id) {
+        case 0: _t->onThemeSwitched(); break;
+        case 1: _t->onDatabaseChange(); break;
+        case 2: _t->onThemeSelected((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 3: _t->onDatabaseChangeClicked(); break;
+        default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (SettingsTabFragment::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&SettingsTabFragment::onThemeSwitched)) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (SettingsTabFragment::*)();
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&SettingsTabFragment::onDatabaseChange)) {
+                *result = 1;
+                return;
+            }
+        }
+    }
 }
 
 QT_INIT_METAOBJECT const QMetaObject SettingsTabFragment::staticMetaObject = { {
@@ -89,7 +136,30 @@ void *SettingsTabFragment::qt_metacast(const char *_clname)
 int SettingsTabFragment::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = BaseFragment::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 4)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 4;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 4)
+            *reinterpret_cast<int*>(_a[0]) = -1;
+        _id -= 4;
+    }
     return _id;
+}
+
+// SIGNAL 0
+void SettingsTabFragment::onThemeSwitched()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void SettingsTabFragment::onDatabaseChange()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

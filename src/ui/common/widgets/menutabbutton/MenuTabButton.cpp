@@ -20,7 +20,7 @@ MenuTabButton::MenuTabButton(
         int id
 ) {
     QHBoxLayout *mainContainer = new QHBoxLayout;
-    QSvgWidget *image = new QSvgWidget(":/resc/resc/" + (settingsRep.getTheme() ? icon : iconDark) + ".svg");
+    QSvgWidget *image = new QSvgWidget(":/resc/resc/" + (settingsRep->getTheme() ? icon : iconDark) + ".svg");
     squareWidgetStyle(image, 24);
     QLabel *titleLabel = new QLabel(title);
     textStyle("titleLabel", titleLabel, 20, colorBlack());
@@ -28,14 +28,14 @@ MenuTabButton::MenuTabButton(
     mainContainer->addWidget(titleLabel);
     mainContainer->setContentsMargins(16,0,16,0);
 
-    coloredCardStyle("MenuTabButton", this, colorWhite(), 24, 24, 1, colorGray(), colorWhite(), colorPrimary());
+    coloredCardStyle("MenuTabButton", this, colorWhite(), 24, 24, 1, colorBorder(), colorWhite(), colorPrimary());
     this->setLayout(mainContainer);
     this->id = id;
     connect(this, &MenuTabButton::clicked, this, &MenuTabButton::selfClick);
 }
 
 MenuTabButton::~MenuTabButton() {
-
+    delete settingsRep;
 }
 
 void MenuTabButton::selfClick() {
@@ -63,7 +63,7 @@ void MenuTabButton::setSelected(int id) {
                 24,
                 24,
                 1,
-                colorGray(),
+                colorBorder(),
                 colorWhite(),
                 colorPrimary()
         );

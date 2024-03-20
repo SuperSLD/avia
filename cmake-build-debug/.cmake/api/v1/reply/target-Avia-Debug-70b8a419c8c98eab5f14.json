@@ -164,7 +164,12 @@
 				55,
 				57,
 				59,
-				62
+				61,
+				63,
+				67,
+				69,
+				71,
+				74
 			]
 		}
 	],
@@ -248,7 +253,12 @@
 				55,
 				57,
 				59,
-				62
+				61,
+				63,
+				67,
+				69,
+				71,
+				74
 			]
 		},
 		{
@@ -279,7 +289,7 @@
 				22,
 				23,
 				24,
-				61
+				73
 			]
 		},
 		{
@@ -303,15 +313,22 @@
 				54,
 				56,
 				58,
-				60
+				60,
+				62,
+				64,
+				65,
+				66,
+				68,
+				70,
+				72
 			]
 		},
 		{
 			"name" : "CMake Rules",
 			"sourceIndexes" : 
 			[
-				63,
-				64
+				75,
+				76
 			]
 		}
 	],
@@ -640,6 +657,71 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/ui/screens/main/analyticstab/AnalyticsTabFragment.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/ui/common/widgets/button/Button.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ui/common/widgets/button/Button.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/ui/common/widgets/switcher/Switcher.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ui/common/widgets/switcher/Switcher.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ui/common/widgets/switcher/SwitcherVariant.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/domain/models/tabopen/TabOpenModel.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/ui/screens/main/settingstab/changeconnection/ChangeConnectionFragment.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ui/screens/main/settingstab/changeconnection/ChangeConnectionFragment.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/ui/common/widgets/textedit/TextEdit.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ui/common/widgets/textedit/TextEdit.h",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/ui/common/widgets/table/Table.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/ui/common/widgets/table/Table.h",
 			"sourceGroupIndex" : 2
 		},
 		{

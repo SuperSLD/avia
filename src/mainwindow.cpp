@@ -12,7 +12,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         qDebug() << "App: create main window";
 
         settingsRepository = new SettingsRepository();
-        settingsRepository->setTheme(false);
 
         container = new SlidingStackedWidget(this);
         container->setSpeed(500);
@@ -24,11 +23,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
                 this->factory
         );
 
-        QString mainStyle = "QWidget#window {"
-                            "   background-color:"+colorWhite()+";"
-                            "}";
-        container->setStyleSheet(mainStyle);
-        container->setObjectName("window");
+        connect(this->navigator, &Router::onThemeChanged, this, &MainWindow::onThemeChanged);
+
+        setWindowBackColor();
 
         this->setWindowTitle("Avia");
         this->setWindowIcon(QIcon("/resc/splash.svg"));
@@ -44,5 +41,18 @@ MainWindow::~MainWindow() {
     delete container;
     delete navigator;
     delete factory;
+}
+
+void MainWindow::setWindowBackColor() {
+    QString mainStyle = "QWidget#window {"
+                        "   background-color:"+colorWhite()+";"
+                        "}";
+    container->setStyleSheet(mainStyle);
+    container->setObjectName("window");
+}
+
+void MainWindow::onThemeChanged() {
+    qDebug() << "MainWindow::onThemeChanged";
+    setWindowBackColor();
 }
 

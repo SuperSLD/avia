@@ -15,6 +15,8 @@ class MainFragment: public BaseFragment {
 
 private:
 
+    SettingsRepository *settingsRep = new SettingsRepository();
+
     const int FLIGHTS = 0;
     const int ROUTES = 1;
     const int MAP = 2;
@@ -29,10 +31,16 @@ private:
 
 private slots:
     void onTabButtonClicked(int id);
+    void onThemeSwitched();
+    void onOpenChangeConnection();
 
 public:
     MainFragment();
     ~MainFragment();
+
+    void bindData(BaseModel* model) override;
+    void onResume() override;
+    void onPause() override;
 };
 
 #endif //AVIA_MAINFRAGMENT_H

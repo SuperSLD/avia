@@ -21,12 +21,20 @@ bool SettingsRepository::getTheme() {
     return settings->value("theme").toBool();
 }
 
-void SettingsRepository::saveConnections() {
-    //settings->setValue("token", token);
-    //settings->sync();
+void SettingsRepository::setConnectionIp(QString ip) {
+    settings->setValue("ip", ip);
+    settings->sync();
 }
 
-QList<QString> SettingsRepository::getConnections() {
-    //return settings->value("token", "").toString();
-    return QList<QString>();
+QString SettingsRepository::getConnectionIp() {
+    return settings->value("ip").toString();
+}
+
+void SettingsRepository::setConnectionPassword(QString password) {
+    settings->setValue("password", password);
+    settings->sync();
+}
+
+QString SettingsRepository::setConnectionPassword() {
+    return settings->value("password").toString();
 }
