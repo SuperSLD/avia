@@ -38,3 +38,12 @@ void SettingsRepository::setConnectionPassword(QString password) {
 QString SettingsRepository::setConnectionPassword() {
     return settings->value("password").toString();
 }
+
+void SettingsRepository::setConnectionUser(QString user) {
+    settings->setValue("user",user);
+    settings->sync();
+}
+
+QString SettingsRepository::getConnectionUser() {
+    return settings->value("user").toString();
+}

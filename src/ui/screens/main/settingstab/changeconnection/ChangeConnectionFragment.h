@@ -16,6 +16,7 @@ private:
     SettingsRepository *settingsRep = new SettingsRepository();
 
     TextEdit *ipEdit;
+    TextEdit *userEdit;
     TextEdit *passwordEdit;
 
 private slots:

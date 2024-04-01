@@ -8,6 +8,7 @@
 #include "src/ui/common/widgets/textedit/TextEdit.h"
 
 #include <src/ui/theme/AppTheme.h>
+
 using namespace theme;
 
 ChangeConnectionFragment::ChangeConnectionFragment() {
@@ -32,6 +33,11 @@ ChangeConnectionFragment::ChangeConnectionFragment() {
     ipEdit->setMaximumWidth(650);
     ipEdit->setText(settingsRep->getConnectionIp());
     vContainer->addWidget(ipEdit);
+
+    userEdit = new TextEdit("userEdit", "Пользователь");
+    userEdit->setMaximumWidth(650);
+    userEdit->setText(settingsRep->getConnectionUser());
+    vContainer->addWidget(userEdit);
 
     passwordEdit = new TextEdit("passwordEdit", "Пароль", true);
     passwordEdit->setMaximumWidth(650);
@@ -62,7 +68,10 @@ void ChangeConnectionFragment::onBack() {
 }
 
 void ChangeConnectionFragment::onSave() {
-    settingsRep->setConnectionIp(ipEdit->text());
-    settingsRep->setConnectionPassword(passwordEdit->text());
-    emit back();
+    if(ipEdit->text().length() > 2 && userEdit->text().length() > 2 && passwordEdit->text().length() > 2) {
+        settingsRep->setConnectionIp(ipEdit->text());
+        settingsRep->setConnectionUser(userEdit->text());
+        settingsRep->setConnectionPassword(passwordEdit->text());
+        emit back();
+    }
 }

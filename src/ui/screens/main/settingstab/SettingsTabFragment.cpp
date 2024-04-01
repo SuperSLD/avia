@@ -58,7 +58,8 @@ SettingsTabFragment::SettingsTabFragment() {
 
     ipLabel = new QLabel("localhost::35564");
     QString ip = settingsRep->getConnectionIp();
-    ipLabel->setText(ip.size() > 1 ? ip : "Не выбрано");
+    QString user = settingsRep->getConnectionUser();
+    ipLabel->setText(ip.size() > 1 ? ip + " -> " + user : "Не выбрано");
     textStyle("ipLabel", ipLabel, 20, colorBlack());
     connectionInfoContainer->addWidget(ipLabel);
 
@@ -114,5 +115,6 @@ void SettingsTabFragment::onDatabaseChangeClicked() {
 void SettingsTabFragment::onResume() {
     qDebug() << "SettingsTabFragment: onResume";
     QString ip = settingsRep->getConnectionIp();
-    ipLabel->setText(ip.size() > 1 ? ip : "Не выбрано");
+    QString user = settingsRep->getConnectionUser();
+    ipLabel->setText(ip.size() > 1 ? ip + " -> " + user : "Не выбрано");
 }

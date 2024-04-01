@@ -9,11 +9,14 @@
 #include <QStackedWidget>
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/widgets/menutabbutton/MenuTabButton.h"
+#include "src/data/db/dbconnector/DBConnector.h"
 
 class MainFragment: public BaseFragment {
     Q_OBJECT
 
 private:
+
+    DBConnector *connector = nullptr;
 
     SettingsRepository *settingsRep = new SettingsRepository();
 

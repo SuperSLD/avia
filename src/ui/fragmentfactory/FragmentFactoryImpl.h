@@ -8,6 +8,8 @@
 
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/navigation/base/basefragmentfactory/BaseFragmentFactory.h"
+#include "src/data/settings/SettingsRepository.h"
+#include "src/data/db/dbconnector/DBConnector.h"
 
 namespace screens {
 
