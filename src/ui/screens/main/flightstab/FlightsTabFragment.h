@@ -7,13 +7,23 @@
 
 
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
+#include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
+#include "src/data/settings/SettingsRepository.h"
 
 class FlightsTabFragment: public BaseFragment {
     Q_OBJECT
 
+private:
+
+    LoadingContainerWidget *loadingContainer;
+    SettingsRepository *settingsRep = new SettingsRepository();
+    DBConnector *dbConnector;
+
 public:
     FlightsTabFragment();
     ~FlightsTabFragment();
+
+    void onResume() override;
 };
 
 

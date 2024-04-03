@@ -24,6 +24,7 @@ namespace theme {
     static const QString _COLOR_TEXT_PRIMARY = "#C6E5CE";
     static const QString _COLOR_GRAY_SECONDARY = "#FAFBFC";
     static const QString _COLOR_RED = "#FF7474";
+    static const QColor  _COLOR_PRIMARY_QT = QColor(128, 198, 147);
 
     static const QString _DARK_COLOR_PRIMARY = "#80C693";
     static const QString _DARK_COLOR_SECONDARY = "#B9AAFF";
@@ -36,6 +37,7 @@ namespace theme {
     static const QString _DARK_COLOR_TEXT_PRIMARY = "#C6E5CE";
     static const QString _DARK_COLOR_GRAY_SECONDARY = "#FAFBFC";
     static const QString _DARK_COLOR_RED = "#FF7474";
+    static const QColor  _DARK_COLOR_PRIMARY_QT = QColor(128, 198, 147);
 
     static QString colorPrimary() {
         return settingsRep.getTheme() ? _COLOR_PRIMARY : _DARK_COLOR_PRIMARY;
@@ -77,8 +79,12 @@ namespace theme {
         return settingsRep.getTheme() ? _COLOR_GRAY_SECONDARY : _DARK_COLOR_GRAY_SECONDARY;
     }
 
-    static QString colorRes() {
+    static QString colorRed() {
         return settingsRep.getTheme() ? _COLOR_RED : _DARK_COLOR_RED;
+    }
+
+    static QColor colorPrimaryQt() {
+        return settingsRep.getTheme() ? _COLOR_PRIMARY_QT : _DARK_COLOR_PRIMARY_QT;
     }
 
     static void squareWidgetStyle(QWidget *widget, int size) {

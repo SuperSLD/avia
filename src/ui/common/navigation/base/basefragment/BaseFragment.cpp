@@ -11,6 +11,7 @@ BaseFragment::~BaseFragment() {}
 void BaseFragment::onPause() {}
 void BaseFragment::onResume() {}
 void BaseFragment::bindData(BaseModel* model) {}
+void BaseFragment::setConnector(DBConnector *connector) {}
 
 void BaseFragment::clearList(QLayout *list) {
     QLayoutItem* child;

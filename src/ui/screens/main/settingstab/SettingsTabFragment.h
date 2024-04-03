@@ -9,14 +9,16 @@
 #include <QLabel>
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/data/settings/SettingsRepository.h"
+#include "src/data/db/dbconnector/DBConnector.h"
 
 class SettingsTabFragment: public BaseFragment {
     Q_OBJECT
 
 private:
     SettingsRepository *settingsRep = new SettingsRepository();
-
+    DBConnector* connector = nullptr;
     QLabel *ipLabel;
+    QLabel *mongoLabel;
 
 private slots:
     void onThemeSelected(QString theme);
@@ -26,6 +28,8 @@ public:
     ~SettingsTabFragment();
 
     void onResume() override;
+
+    void setConnector(DBConnector *connector) override;
 
 signals:
     void onThemeSwitched();

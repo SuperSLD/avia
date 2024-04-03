@@ -4,24 +4,31 @@
 
 #include "DBConnector.h"
 
-#include <bsoncxx/builder/basic/document.hpp>
-#include <bsoncxx/json.hpp>
-#include <mongocxx/client.hpp>
-#include <mongocxx/instance.hpp>
-#include <mongocxx/stdx.hpp>
+#include <QDebug>
 #include <mongocxx/uri.hpp>
-
-using bsoncxx::builder::basic::kvp;
-using bsoncxx::builder::basic::make_array;
-using bsoncxx::builder::basic::make_document;
+#include <mongocxx/client.hpp>
 
 DBConnector::DBConnector(QString url, QString user, QString password) {
-    mongocxx::instance instance{};
-    mongocxx::uri uri(("mongodb://" + user + ":" + password + "@" +url).toStdString());
-    mongocxx::client client(uri);
-    auto db = client["avianav"];
+    this->url = url;
+    this->user = user;
+    this->password = password;
 }
 
 DBConnector::~DBConnector() {
 
+}
+
+bool DBConnector::isConnected() {
+    try {
+        mongocxx::uri uri(("mongodb://" + user + ":" + password + "@" +url).toStdString());
+        mongocxx::client client(uri);
+        qDebug() << "DBConnector check connection";
+                foreach(std::string name, client["avianav"].list_collection_names()) {
+                qDebug() << "DBConnector ->" << QString::fromStdString(name);
+            }
+        return !client.list_database_names().empty();
+    } catch (std::exception& e) {
+        qDebug("%s", e.what());
+    }
+    return false;
 }

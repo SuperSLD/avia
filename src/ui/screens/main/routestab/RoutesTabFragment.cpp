@@ -18,9 +18,26 @@ RoutesTabFragment::RoutesTabFragment() {
     QVBoxLayout *contentContainer = new QVBoxLayout();
     contentFrame->setLayout(contentContainer);
     contentFrame->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    mainContainer->addWidget(contentFrame);
-}
+
+    loadingContainer = new LoadingContainerWidget(contentFrame);
+    loadingContainer->startLoading("Загрузка данных");
+    mainContainer->addWidget(loadingContainer);}
 
 RoutesTabFragment::~RoutesTabFragment() {
+    delete loadingContainer;
+    delete settingsRep;
+    delete dbConnector;
+}
 
+void RoutesTabFragment::onResume() {
+    dbConnector = new DBConnector(
+            settingsRep->getConnectionIp(),
+            settingsRep->getConnectionUser(),
+            settingsRep->setConnectionPassword()
+    );
+    if (dbConnector->isConnected()) {
+        loadingContainer->stopLoading();
+    } else {
+        loadingContainer->error("Ошибка загрузки");
+    }
 }

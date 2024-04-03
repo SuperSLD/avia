@@ -5,16 +5,20 @@
 #ifndef AVIA_DBCONNECTOR_H
 #define AVIA_DBCONNECTOR_H
 
-
 #include <QString>
 
 class DBConnector {
 
-public:
+private:
+    QString url;
+    QString user;
+    QString password;
 
+public:
     DBConnector(QString url, QString user, QString password);
     ~DBConnector();
 
+    bool isConnected();
 };
 
 #endif //AVIA_DBCONNECTOR_H

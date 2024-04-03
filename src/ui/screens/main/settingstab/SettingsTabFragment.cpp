@@ -7,13 +7,15 @@
 #include "src/ui/common/widgets/button/Button.h"
 #include "src/ui/common/widgets/switcher/Switcher.h"
 
-#include <src/ui/theme/AppTheme.h>
 #include <QLabel>
 #include <QDebug>
 
+#include <src/ui/theme/AppTheme.h>
 using namespace theme;
 
 SettingsTabFragment::SettingsTabFragment() {
+    this->connector = connector;
+
     // Tулбар
     QVBoxLayout *mainContainer = new QVBoxLayout;
     this->setLayout(mainContainer);
@@ -63,7 +65,7 @@ SettingsTabFragment::SettingsTabFragment() {
     textStyle("ipLabel", ipLabel, 20, colorBlack());
     connectionInfoContainer->addWidget(ipLabel);
 
-    QLabel *mongoLabel = new QLabel("MongoDB");
+    mongoLabel = new QLabel("MongoDB");
     textStyle("mongoLabel", mongoLabel, 16, colorPrimary(), true);
     connectionInfoContainer->addWidget(mongoLabel);
 
@@ -100,6 +102,7 @@ SettingsTabFragment::SettingsTabFragment() {
 SettingsTabFragment::~SettingsTabFragment() {
     delete settingsRep;
     delete ipLabel;
+    delete mongoLabel;
 }
 
 void SettingsTabFragment::onThemeSelected(QString theme) {
@@ -117,4 +120,14 @@ void SettingsTabFragment::onResume() {
     QString ip = settingsRep->getConnectionIp();
     QString user = settingsRep->getConnectionUser();
     ipLabel->setText(ip.size() > 1 ? ip + " -> " + user : "Не выбрано");
+    if (connector->isConnected()) {
+        textStyle("mongoLabel", mongoLabel, 16, colorPrimary(), true);
+    } else {
+        textStyle("mongoLabel", mongoLabel, 16, colorRed(), true);
+    }
+}
+
+void SettingsTabFragment::setConnector(DBConnector *connector) {
+    qDebug() << "SettingsTabFragment: setConnector";
+    this->connector = connector;
 }

@@ -146,11 +146,14 @@ void MainFragment::onOpenChangeConnection() {
 void MainFragment::onResume() {
     QString ip = settingsRep->getConnectionIp();
     infoUrl->setText(ip.size() > 1 ? ip : "Не выбрано");
+    if (ip.length() > 1) {
+        connector = new DBConnector(ip, settingsRep->getConnectionUser(), settingsRep->setConnectionPassword());
+        foreach(BaseFragment *tab, tabFragments) {
+            tab->setConnector(connector);
+        }
+    }
     foreach(BaseFragment *tab, tabFragments) {
         tab->onResume();
-    }
-    if (ip.length() > 1 && connector == nullptr) {
-        connector = new DBConnector(ip, settingsRep->getConnectionUser(), settingsRep->setConnectionPassword());
     }
 }
 
