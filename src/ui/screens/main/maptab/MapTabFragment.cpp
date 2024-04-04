@@ -31,14 +31,20 @@ MapTabFragment::~MapTabFragment() {
 }
 
 void MapTabFragment::onResume() {
-    dbConnector = new DBConnector(
-            settingsRep->getConnectionIp(),
-            settingsRep->getConnectionUser(),
-            settingsRep->setConnectionPassword()
-    );
-    if (dbConnector->isConnected()) {
+
+}
+
+void MapTabFragment::onConnectionChecked(bool isConnected) {
+    if (isConnected) {
         loadingContainer->stopLoading();
     } else {
-        loadingContainer->error("Ошибка загрузки");
+        loadingContainer->error("Нет подключения к базе");
     }
 }
+
+void MapTabFragment::setConnector(DBConnector *connector) {
+    disconnect(connector, &DBConnector::onConnectionChecked, this, &MapTabFragment::onConnectionChecked);
+    this->dbConnector = connector;
+    connect(connector, &DBConnector::onConnectionChecked, this, &MapTabFragment::onConnectionChecked);
+}
+

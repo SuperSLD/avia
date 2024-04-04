@@ -23,6 +23,8 @@ private:
 private slots:
     void onThemeSelected(QString theme);
     void onDatabaseChangeClicked();
+    void onConnectionChecked(bool isConnected);
+
 public:
     SettingsTabFragment();
     ~SettingsTabFragment();

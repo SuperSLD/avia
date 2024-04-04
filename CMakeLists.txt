@@ -70,7 +70,9 @@ set(PROJECT_SOURCES
         src/ui/common/widgets/waitingspinner/WaitingSpinnerWidget.cpp
         src/ui/common/widgets/waitingspinner/WaitingSpinnerWidget.h
         src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.cpp
-        src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h)
+        src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h
+        src/data/db/dbconnector/workers/checkconnection/CheckConnectionWorker.h
+        src/data/db/dbconnector/workers/checkconnection/CheckConnectionWorker.cpp)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Avia

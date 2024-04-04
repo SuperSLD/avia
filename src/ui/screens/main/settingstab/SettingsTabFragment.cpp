@@ -14,7 +14,6 @@
 using namespace theme;
 
 SettingsTabFragment::SettingsTabFragment() {
-    this->connector = connector;
 
     // Tулбар
     QVBoxLayout *mainContainer = new QVBoxLayout;
@@ -120,14 +119,19 @@ void SettingsTabFragment::onResume() {
     QString ip = settingsRep->getConnectionIp();
     QString user = settingsRep->getConnectionUser();
     ipLabel->setText(ip.size() > 1 ? ip + " -> " + user : "Не выбрано");
-    if (connector->isConnected()) {
-        textStyle("mongoLabel", mongoLabel, 16, colorPrimary(), true);
-    } else {
-        textStyle("mongoLabel", mongoLabel, 16, colorRed(), true);
-    }
 }
 
 void SettingsTabFragment::setConnector(DBConnector *connector) {
     qDebug() << "SettingsTabFragment: setConnector";
+    disconnect(connector, &DBConnector::onConnectionChecked, this, &SettingsTabFragment::onConnectionChecked);
     this->connector = connector;
+    connect(connector, &DBConnector::onConnectionChecked, this, &SettingsTabFragment::onConnectionChecked);
+}
+
+void SettingsTabFragment::onConnectionChecked(bool isConnected) {
+    if (isConnected) {
+        textStyle("mongoLabel", mongoLabel, 16, colorPrimary(), true);
+    } else {
+        textStyle("mongoLabel", mongoLabel, 16, colorRed(), true);
+    }
 }

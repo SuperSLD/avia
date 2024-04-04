@@ -30,14 +30,20 @@ RoutesTabFragment::~RoutesTabFragment() {
 }
 
 void RoutesTabFragment::onResume() {
-    dbConnector = new DBConnector(
-            settingsRep->getConnectionIp(),
-            settingsRep->getConnectionUser(),
-            settingsRep->setConnectionPassword()
-    );
-    if (dbConnector->isConnected()) {
+
+}
+
+void RoutesTabFragment::onConnectionChecked(bool isConnected) {
+    if (isConnected) {
         loadingContainer->stopLoading();
     } else {
-        loadingContainer->error("Ошибка загрузки");
+        loadingContainer->error("Нет подключения к базе");
     }
 }
+
+void RoutesTabFragment::setConnector(DBConnector *connector) {
+    disconnect(connector, &DBConnector::onConnectionChecked, this, &RoutesTabFragment::onConnectionChecked);
+    this->dbConnector = connector;
+    connect(connector, &DBConnector::onConnectionChecked, this, &RoutesTabFragment::onConnectionChecked);
+}
+

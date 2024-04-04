@@ -24,6 +24,10 @@ public:
     ~AnalyticsTabFragment();
 
     void onResume() override;
+    void setConnector(DBConnector *connector) override;
+
+private slots:
+    void onConnectionChecked(bool isConnected);
 };
 
 #endif //AVIA_ANALYTICSTABFRAGMENT_H

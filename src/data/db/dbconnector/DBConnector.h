@@ -6,9 +6,10 @@
 #define AVIA_DBCONNECTOR_H
 
 #include <QString>
+#include <QThread>
 
-class DBConnector {
-
+class DBConnector: public QObject {
+    Q_OBJECT
 private:
     QString url;
     QString user;
@@ -18,7 +19,13 @@ public:
     DBConnector(QString url, QString user, QString password);
     ~DBConnector();
 
-    bool isConnected();
+    void checkConnection();
+
+private slots:
+    void handleConnectionChecked(bool isConnected);
+
+signals:
+    void onConnectionChecked(bool isConnected);
 };
 
 #endif //AVIA_DBCONNECTOR_H

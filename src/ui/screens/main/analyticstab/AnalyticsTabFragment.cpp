@@ -31,14 +31,19 @@ AnalyticsTabFragment::~AnalyticsTabFragment() {
 }
 
 void AnalyticsTabFragment::onResume() {
-    dbConnector = new DBConnector(
-            settingsRep->getConnectionIp(),
-            settingsRep->getConnectionUser(),
-            settingsRep->setConnectionPassword()
-    );
-    if (dbConnector->isConnected()) {
+
+}
+
+void AnalyticsTabFragment::onConnectionChecked(bool isConnected) {
+    if (isConnected) {
         loadingContainer->stopLoading();
     } else {
-        loadingContainer->error("Ошибка загрузки");
+        loadingContainer->error("Нет подключения к базе");
     }
+}
+
+void AnalyticsTabFragment::setConnector(DBConnector *connector) {
+    disconnect(connector, &DBConnector::onConnectionChecked, this, &AnalyticsTabFragment::onConnectionChecked);
+    this->dbConnector = connector;
+    connect(connector, &DBConnector::onConnectionChecked, this, &AnalyticsTabFragment::onConnectionChecked);
 }

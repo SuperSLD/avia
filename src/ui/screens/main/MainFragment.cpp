@@ -155,6 +155,7 @@ void MainFragment::onResume() {
     foreach(BaseFragment *tab, tabFragments) {
         tab->onResume();
     }
+    connector->checkConnection();
 }
 
 void MainFragment::onPause() {

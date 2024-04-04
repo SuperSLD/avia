@@ -3,10 +3,10 @@
 //
 
 #include "DBConnector.h"
+#include "src/data/db/dbconnector/workers/checkconnection/CheckConnectionWorker.h"
 
 #include <QDebug>
-#include <mongocxx/uri.hpp>
-#include <mongocxx/client.hpp>
+#include <thread>
 
 DBConnector::DBConnector(QString url, QString user, QString password) {
     this->url = url;
@@ -18,17 +18,12 @@ DBConnector::~DBConnector() {
 
 }
 
-bool DBConnector::isConnected() {
-    try {
-        mongocxx::uri uri(("mongodb://" + user + ":" + password + "@" +url).toStdString());
-        mongocxx::client client(uri);
-        qDebug() << "DBConnector check connection";
-                foreach(std::string name, client["avianav"].list_collection_names()) {
-                qDebug() << "DBConnector ->" << QString::fromStdString(name);
-            }
-        return !client.list_database_names().empty();
-    } catch (std::exception& e) {
-        qDebug("%s", e.what());
-    }
-    return false;
+void DBConnector::checkConnection() {
+    auto *checkConnection = new CheckConnectionWorker("mongodb://" + user + ":" + password + "@" +url);
+    connect(checkConnection, &CheckConnectionWorker::resultReady, this, &DBConnector::handleConnectionChecked);
+    checkConnection->start();
+}
+
+void DBConnector::handleConnectionChecked(bool isConnected) {
+    emit onConnectionChecked(isConnected);
 }
