@@ -35,9 +35,9 @@ void GetPageWorker::run() {
             );
             result.push_back(document.object());
         }
-        emit resultReady(result);
+        emit resultReady(result, table);
     } catch (std::exception& e) {
         qDebug("%s", e.what());
-        emit resultReady(result);
+        emit resultReady(result, table);
     }
 }

@@ -36,7 +36,7 @@ public:
     void run() override;
 
 signals:
-    void resultReady(QJsonArray array);
+    void resultReady(QJsonArray array, QString table);
 };
 
 

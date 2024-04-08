@@ -124,15 +124,17 @@ void Table::setConnector(DBConnector *connector) {
     dbConnector->loadPage(modelFactory->tableName(), currentPage, PAGE_SIZE);
 }
 
-void Table::onPageLoaded(QJsonArray array) {
-    qDebug() << "Table::onPageLoaded" << array.size();
-    clearList(rowsContainer);
-    loader->stop();
-    int i = 0;
-    foreach(QJsonValue val, array) {
-        BaseDBModel *model = modelFactory->createModel(val.toObject());
-        rowsContainer->addWidget(new TableRow(model, i % 2 != 0));
-        i++;
+void Table::onPageLoaded(QJsonArray array, QString table) {
+    if (table == modelFactory->tableName()) {
+        qDebug() << "Table::onPageLoaded" << array.size();
+        clearList(rowsContainer);
+        loader->stop();
+        int i = 0;
+                foreach(QJsonValue val, array) {
+                BaseDBModel *model = modelFactory->createModel(val.toObject());
+                rowsContainer->addWidget(new TableRow(model, i % 2 != 0));
+                i++;
+            }
     }
 }
 

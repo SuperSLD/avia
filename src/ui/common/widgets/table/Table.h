@@ -42,7 +42,7 @@ public:
     void setConnector(DBConnector *connector);
 
 private slots:
-    void onPageLoaded(QJsonArray array);
+    void onPageLoaded(QJsonArray array, QString table);
     void onButtonClicked(QString name);
 
 };

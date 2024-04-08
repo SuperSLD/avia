@@ -91,6 +91,14 @@ set(PROJECT_SOURCES
         src/data/db/dbconnector/models/basedbmodel/PreviewItem.h
         src/ui/common/widgets/swgbutton/SwgButton.cpp
         src/ui/common/widgets/swgbutton/SwgButton.h
+        src/data/db/dbconnector/modelfactory/routesmodelfactory/RoutesModelFactory.cpp
+        src/data/db/dbconnector/modelfactory/routesmodelfactory/RoutesModelFactory.h
+        src/data/db/dbconnector/models/routemodel/RouteModel.cpp
+        src/data/db/dbconnector/models/routemodel/RouteModel.h
+        src/data/db/dbconnector/models/routemodel/routedata/RouteDataModel.cpp
+        src/data/db/dbconnector/models/routemodel/routedata/RouteDataModel.h
+        src/data/db/dbconnector/models/routemodel/routepoint/RoutePointModel.cpp
+        src/data/db/dbconnector/models/routemodel/routepoint/RoutePointModel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -40,7 +40,7 @@ void DBConnector::loadPage(QString table, int page, int pageSize) {
     getPageWorker->start();
 }
 
-void DBConnector::handleLoadedPage(QJsonArray array) {
+void DBConnector::handleLoadedPage(QJsonArray array, QString table) {
     qDebug() << "DBConnector::handleLoadedPage" << array.size();
-    emit onPageLoaded(array);
+    emit onPageLoaded(array, table);
 }

@@ -9,6 +9,7 @@
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
 #include "src/data/settings/SettingsRepository.h"
+#include "src/ui/common/widgets/table/Table.h"
 
 class RoutesTabFragment: public BaseFragment {
     Q_OBJECT
@@ -17,6 +18,7 @@ private:
     LoadingContainerWidget *loadingContainer;
     SettingsRepository *settingsRep = new SettingsRepository();
     DBConnector *dbConnector;
+    Table *table;
 
 public:
     RoutesTabFragment();

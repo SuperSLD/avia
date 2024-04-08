@@ -31,11 +31,11 @@ public:
 
 private slots:
     void handleConnectionChecked(bool isConnected);
-    void handleLoadedPage(QJsonArray array);
+    void handleLoadedPage(QJsonArray array, QString table);
 
 signals:
     void onConnectionChecked(bool isConnected);
-    void onPageLoaded(QJsonArray array);
+    void onPageLoaded(QJsonArray array, QString table);
 };
 
 #endif //AVIA_DBCONNECTOR_H
