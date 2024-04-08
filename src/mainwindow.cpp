@@ -32,6 +32,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         this->resize(QDesktopWidget().availableGeometry(this).size() * 0.95);
         this->setCentralWidget(container);
     } catch (std::exception& e) {
+        qDebug("Application error");
         qDebug("%s", e.what());
     }
 }

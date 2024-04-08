@@ -35,7 +35,7 @@ namespace theme {
     static const QString _DARK_COLOR_BORDER = "#50515A";
     static const QString _DARK_COLOR_TEXT_GRAY = "#C7C9D8";
     static const QString _DARK_COLOR_TEXT_PRIMARY = "#C6E5CE";
-    static const QString _DARK_COLOR_GRAY_SECONDARY = "#FAFBFC";
+    static const QString _DARK_COLOR_GRAY_SECONDARY = "#383C40";
     static const QString _DARK_COLOR_RED = "#FF7474";
     static const QColor  _DARK_COLOR_PRIMARY_QT = QColor(128, 198, 147);
 
@@ -159,6 +159,58 @@ namespace theme {
                 "QWidget#"+name+" {"
                 "   color: "+color+";"
                 "}"
+        );
+    }
+
+    static void scrollBar(
+        QString name,
+        QWidget *widget,
+        int bottomRadius = 24
+    ) {
+        widget->setObjectName(name);
+        widget->setStyleSheet(
+            "QWidget#"+name+" {"
+            "   background-color:"+colorWhite()+";"
+            "   border-bottom-right-radius: "+QString::number(bottomRadius)+"px;"
+            "   border-bottom-left-radius: "+QString::number(bottomRadius)+"px;"
+            "}"
+            "QScrollBar:vertical {"
+            "   border: 0px solid "+colorWhite()+";"//COLOR_BORDER+";"
+            "   background-color: "+colorWhite()+";"
+            "   width: 0px;"
+            "   margin: 0px 0px 0px 0px;"
+            "}"
+            "QScrollBar:horizontal {"
+            "   border: 0px solid "+colorWhite()+";"//COLOR_BORDER+";"
+            "   background-color: "+colorWhite()+";"
+            "   height: 0px;"
+            "   margin: 0px 0px 0px 0px;"
+            "}"
+            "QScrollBar::handle {"
+            "   background-color: "+colorWhite()+";"//COLOR_TEXT_HINT+";"
+            "   border: 3px solid "+colorWhite()+";"
+            "   border-radius: 6px;"
+            "}"
+            "QScrollBar::add-line:vertical {"
+            "   height: 0px;"
+            "   subcontrol-position: bottom;"
+            "   subcontrol-origin: margin;"
+            "}"
+            "QScrollBar::sub-line:vertical {"
+            "   height: 0 px;"
+            "   subcontrol-position: top;"
+            "   subcontrol-origin: margin;"
+            "}"
+            "QScrollBar::add-line:horizontal {"
+            "   width: 0px;"
+            "   subcontrol-position: right;"
+            "   subcontrol-origin: margin;"
+            "}"
+            "QScrollBar::sub-line:horizontal {"
+            "   width: 0 px;"
+            "   subcontrol-position: left;"
+            "   subcontrol-origin: margin;"
+            "}"
         );
     }
 }

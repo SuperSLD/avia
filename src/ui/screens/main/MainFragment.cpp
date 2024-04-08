@@ -146,13 +146,9 @@ void MainFragment::onOpenChangeConnection() {
 void MainFragment::onResume() {
     QString ip = settingsRep->getConnectionIp();
     infoUrl->setText(ip.size() > 1 ? ip : "Не выбрано");
-    if (ip.length() > 1) {
-        connector = new DBConnector(ip, settingsRep->getConnectionUser(), settingsRep->setConnectionPassword());
-        foreach(BaseFragment *tab, tabFragments) {
-            tab->setConnector(connector);
-        }
-    }
+    connector = new DBConnector(settingsRep->getConnectionIp(), settingsRep->getConnectionUser(), settingsRep->setConnectionPassword());
     foreach(BaseFragment *tab, tabFragments) {
+        tab->setConnector(connector);
         tab->onResume();
     }
     connector->checkConnection();

@@ -20,7 +20,7 @@ MapTabFragment::MapTabFragment() {
     contentFrame->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     loadingContainer = new LoadingContainerWidget(contentFrame);
-    loadingContainer->startLoading("Загрузка данных");
+    loadingContainer->startLoading("Проверка подключения");
     mainContainer->addWidget(loadingContainer);
 }
 

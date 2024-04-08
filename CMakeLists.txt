@@ -12,10 +12,9 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_OSX_ARCHITECTURES x86_64)
-#set(CMAKE_OSX_ARCHITECTURES arm64)
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check https://doc.qt.io/qt/deployment-android.html for more information.
@@ -63,6 +62,8 @@ set(PROJECT_SOURCES
         resc/chevron_left_dark.svg
         resc/analytics_dark.svg
         resc/close.svg
+        resc/arrow_button_left.svg
+        resc/arrow_button_right.svg
         main.cpp
         src/mainwindow.cpp
         src/mainwindow.h
@@ -72,7 +73,25 @@ set(PROJECT_SOURCES
         src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.cpp
         src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h
         src/data/db/dbconnector/workers/checkconnection/CheckConnectionWorker.h
-        src/data/db/dbconnector/workers/checkconnection/CheckConnectionWorker.cpp)
+        src/data/db/dbconnector/workers/checkconnection/CheckConnectionWorker.cpp
+        src/data/db/dbconnector/models/basedbmodel/BaseDBModel.cpp
+        src/data/db/dbconnector/models/basedbmodel/BaseDBModel.h
+        src/data/db/dbconnector/modelfactory/BaseDBModelFactory.cpp
+        src/data/db/dbconnector/modelfactory/BaseDBModelFactory.h
+        src/data/db/dbconnector/modelfactory/flightmodelsfactory/FlightModelsFactory.cpp
+        src/data/db/dbconnector/modelfactory/flightmodelsfactory/FlightModelsFactory.h
+        src/data/db/dbconnector/workers/getpage/GetPageWorker.cpp
+        src/data/db/dbconnector/workers/getpage/GetPageWorker.h
+        src/data/db/dbconnector/models/flightmodel/FlightModel.cpp
+        src/data/db/dbconnector/models/flightmodel/FlightModel.h
+        src/data/db/dbconnector/models/flightmodel/flightdata/FlightDataModel.cpp
+        src/data/db/dbconnector/models/flightmodel/flightdata/FlightDataModel.h
+        src/ui/common/widgets/table/row/TableRow.cpp
+        src/ui/common/widgets/table/row/TableRow.h
+        src/data/db/dbconnector/models/basedbmodel/PreviewItem.h
+        src/ui/common/widgets/swgbutton/SwgButton.cpp
+        src/ui/common/widgets/swgbutton/SwgButton.h
+)
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(Avia
