@@ -24,6 +24,7 @@ using namespace screens;
 #include "src/domain/models/tabopen/TabOpenModel.h"
 
 MainFragment::MainFragment() {
+
     QHBoxLayout *mainHLayout = new QHBoxLayout;
     mainHLayout->setContentsMargins(0,0,0,0);
 
@@ -145,9 +146,12 @@ void MainFragment::onOpenChangeConnection() {
 void MainFragment::onResume() {
     QString ip = settingsRep->getConnectionIp();
     infoUrl->setText(ip.size() > 1 ? ip : "Не выбрано");
+    connector = new DBConnector(settingsRep->getConnectionIp(), settingsRep->getConnectionUser(), settingsRep->setConnectionPassword());
     foreach(BaseFragment *tab, tabFragments) {
+        tab->setConnector(connector);
         tab->onResume();
     }
+    connector->checkConnection();
 }
 
 void MainFragment::onPause() {

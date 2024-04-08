@@ -7,13 +7,14 @@
 #include "src/ui/common/widgets/button/Button.h"
 #include "src/ui/common/widgets/switcher/Switcher.h"
 
-#include <src/ui/theme/AppTheme.h>
 #include <QLabel>
 #include <QDebug>
 
+#include <src/ui/theme/AppTheme.h>
 using namespace theme;
 
 SettingsTabFragment::SettingsTabFragment() {
+
     // Tулбар
     QVBoxLayout *mainContainer = new QVBoxLayout;
     this->setLayout(mainContainer);
@@ -58,11 +59,12 @@ SettingsTabFragment::SettingsTabFragment() {
 
     ipLabel = new QLabel("localhost::35564");
     QString ip = settingsRep->getConnectionIp();
-    ipLabel->setText(ip.size() > 1 ? ip : "Не выбрано");
+    QString user = settingsRep->getConnectionUser();
+    ipLabel->setText(ip.size() > 1 ? ip + " -> " + user : "Не выбрано");
     textStyle("ipLabel", ipLabel, 20, colorBlack());
     connectionInfoContainer->addWidget(ipLabel);
 
-    QLabel *mongoLabel = new QLabel("MongoDB");
+    mongoLabel = new QLabel("MongoDB");
     textStyle("mongoLabel", mongoLabel, 16, colorPrimary(), true);
     connectionInfoContainer->addWidget(mongoLabel);
 
@@ -99,6 +101,7 @@ SettingsTabFragment::SettingsTabFragment() {
 SettingsTabFragment::~SettingsTabFragment() {
     delete settingsRep;
     delete ipLabel;
+    delete mongoLabel;
 }
 
 void SettingsTabFragment::onThemeSelected(QString theme) {
@@ -114,5 +117,21 @@ void SettingsTabFragment::onDatabaseChangeClicked() {
 void SettingsTabFragment::onResume() {
     qDebug() << "SettingsTabFragment: onResume";
     QString ip = settingsRep->getConnectionIp();
-    ipLabel->setText(ip.size() > 1 ? ip : "Не выбрано");
+    QString user = settingsRep->getConnectionUser();
+    ipLabel->setText(ip.size() > 1 ? ip + " -> " + user : "Не выбрано");
+}
+
+void SettingsTabFragment::setConnector(DBConnector *connector) {
+    qDebug() << "SettingsTabFragment: setConnector";
+    disconnect(connector, &DBConnector::onConnectionChecked, this, &SettingsTabFragment::onConnectionChecked);
+    this->connector = connector;
+    connect(connector, &DBConnector::onConnectionChecked, this, &SettingsTabFragment::onConnectionChecked);
+}
+
+void SettingsTabFragment::onConnectionChecked(bool isConnected) {
+    if (isConnected) {
+        textStyle("mongoLabel", mongoLabel, 16, colorPrimary(), true);
+    } else {
+        textStyle("mongoLabel", mongoLabel, 16, colorRed(), true);
+    }
 }

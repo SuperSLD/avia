@@ -7,13 +7,26 @@
 
 
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
+#include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
+#include "src/data/settings/SettingsRepository.h"
 
 class RoutesTabFragment: public BaseFragment {
     Q_OBJECT
+private:
+
+    LoadingContainerWidget *loadingContainer;
+    SettingsRepository *settingsRep = new SettingsRepository();
+    DBConnector *dbConnector;
 
 public:
     RoutesTabFragment();
     ~RoutesTabFragment();
+
+    void onResume() override;
+    void setConnector(DBConnector *connector) override;
+
+private slots:
+    void onConnectionChecked(bool isConnected);
 };
 
 

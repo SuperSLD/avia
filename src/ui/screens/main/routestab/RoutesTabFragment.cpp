@@ -18,9 +18,32 @@ RoutesTabFragment::RoutesTabFragment() {
     QVBoxLayout *contentContainer = new QVBoxLayout();
     contentFrame->setLayout(contentContainer);
     contentFrame->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-    mainContainer->addWidget(contentFrame);
-}
+
+    loadingContainer = new LoadingContainerWidget(contentFrame);
+    loadingContainer->startLoading("Проверка подключения");
+    mainContainer->addWidget(loadingContainer);}
 
 RoutesTabFragment::~RoutesTabFragment() {
+    delete loadingContainer;
+    delete settingsRep;
+    delete dbConnector;
+}
+
+void RoutesTabFragment::onResume() {
 
 }
+
+void RoutesTabFragment::onConnectionChecked(bool isConnected) {
+    if (isConnected) {
+        loadingContainer->stopLoading();
+    } else {
+        loadingContainer->error("Нет подключения к базе");
+    }
+}
+
+void RoutesTabFragment::setConnector(DBConnector *connector) {
+    disconnect(connector, &DBConnector::onConnectionChecked, this, &RoutesTabFragment::onConnectionChecked);
+    this->dbConnector = connector;
+    connect(connector, &DBConnector::onConnectionChecked, this, &RoutesTabFragment::onConnectionChecked);
+}
+

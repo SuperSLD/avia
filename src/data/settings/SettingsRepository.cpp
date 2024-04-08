@@ -27,7 +27,7 @@ void SettingsRepository::setConnectionIp(QString ip) {
 }
 
 QString SettingsRepository::getConnectionIp() {
-    return settings->value("ip").toString();
+    return settings->contains("ip") ? settings->value("ip").toString() : "";
 }
 
 void SettingsRepository::setConnectionPassword(QString password) {
@@ -36,5 +36,14 @@ void SettingsRepository::setConnectionPassword(QString password) {
 }
 
 QString SettingsRepository::setConnectionPassword() {
-    return settings->value("password").toString();
+    return settings->contains("password") ? settings->value("password").toString() : "";
+}
+
+void SettingsRepository::setConnectionUser(QString user) {
+    settings->setValue("user",user);
+    settings->sync();
+}
+
+QString SettingsRepository::getConnectionUser() {
+    return settings->contains("user") ? settings->value("user").toString() : "";
 }

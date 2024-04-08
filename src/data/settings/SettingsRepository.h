@@ -5,7 +5,7 @@
 #ifndef AVIA_SETTINGSREPOSITORY_H
 #define AVIA_SETTINGSREPOSITORY_H
 
-#include <qsettings.h>
+#include <QSettings.h>
 
 class SettingsRepository {
 
@@ -21,6 +21,9 @@ public:
 
     void setConnectionIp(QString ip);
     QString getConnectionIp();
+
+    void setConnectionUser(QString user);
+    QString getConnectionUser();
 
     void setConnectionPassword(QString password);
     QString setConnectionPassword();

@@ -9,6 +9,7 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include "src/ui/common/navigation/base/basemodel/BaseModel.h"
+#include "src/data/db/dbconnector/DBConnector.h"
 
 /**
  * @brief The BaseFragment class
@@ -65,6 +66,8 @@ public:
      * @param model модель данных
      */
     virtual void bindData(BaseModel* model);
+
+    virtual void setConnector(DBConnector *connector);
 };
 
 #endif //AVIA_BASEFRAGMENT_H
