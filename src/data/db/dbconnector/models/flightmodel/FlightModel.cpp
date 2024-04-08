@@ -7,7 +7,8 @@
 #include <src/ui/theme/AppTheme.h>
 using namespace theme;
 
-FlightModel::FlightModel(QString id, QString passedTime, QString airport, QString type, FlightDataModel data) {
+FlightModel::FlightModel(QJsonObject original, QString id, QString passedTime, QString airport, QString type, FlightDataModel data) {
+    this->original = original;
     this->id = id;
     this->passedTime = passedTime;
     this->airport = airport;

@@ -6,12 +6,14 @@
 #define AVIA_FLIGHTMODEL_H
 
 
+#include <QJsonObject>
 #include "src/data/db/dbconnector/models/basedbmodel/BaseDBModel.h"
 #include "src/data/db/dbconnector/models/flightmodel/flightdata/FlightDataModel.h"
 
 class FlightModel: public BaseDBModel {
 
 public:
+    QJsonObject original;
     QString id;
     QString passedTime;
     QString airport;
@@ -19,6 +21,7 @@ public:
     FlightDataModel data;
 
     FlightModel(
+            QJsonObject original,
             QString id,
             QString passedTime,
             QString airport,

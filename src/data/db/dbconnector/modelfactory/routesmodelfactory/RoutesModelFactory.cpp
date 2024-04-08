@@ -52,6 +52,7 @@ BaseDBModel *RoutesModelFactory::createModel(QJsonObject json) {
         );
     }
     return new RouteModel(
+            json,
             json["_id"].toObject()["$oid"].toString(),
             json["fnia"].toString(),
             json["fid"].toString(),

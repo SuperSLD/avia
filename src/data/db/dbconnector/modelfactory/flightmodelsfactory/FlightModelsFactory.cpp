@@ -21,6 +21,7 @@ QString FlightModelsFactory::tableName() {
 BaseDBModel* FlightModelsFactory::createModel(QJsonObject json) {
     auto data = json["data"].toObject();
     return new FlightModel(
+        json,
         json["_id"].toObject()["$oid"].toString(),
         json["passedTime"].toString(),
         json["airport"].toString(),

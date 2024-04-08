@@ -8,11 +8,13 @@
 using namespace theme;
 
 RouteModel::RouteModel(
+        QJsonObject original,
         QString id,
         QString fnia,
         QString fid,
         RouteDataModel data
 ) {
+    this->original = original;
     this->id = id;
     this->fnia = fnia;
     this->fid = fid;
