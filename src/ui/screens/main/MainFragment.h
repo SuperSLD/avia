@@ -10,6 +10,7 @@
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/widgets/menutabbutton/MenuTabButton.h"
 #include "src/data/db/dbconnector/DBConnector.h"
+#include "src/data/db/dbconnector/models/basedbmodel/BaseDBModel.h"
 
 class MainFragment: public BaseFragment {
     Q_OBJECT
@@ -36,6 +37,7 @@ private slots:
     void onTabButtonClicked(int id);
     void onThemeSwitched();
     void onOpenChangeConnection();
+    void onOpenModelDetail(BaseDBModel *model);
 
 public:
     MainFragment();

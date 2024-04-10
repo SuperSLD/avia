@@ -17,11 +17,6 @@ QString BaseDBModelFactory::tableName() {
     return nullptr;
 }
 
-
-void BaseDBModelFactory::setConnector(DBConnector *dbConnector) {
-    this->dbConnector = dbConnector;
-}
-
 BaseDBModel* BaseDBModelFactory::createModel(QJsonObject json) {
     return new BaseDBModel();
 }

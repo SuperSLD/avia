@@ -120,7 +120,6 @@ void Table::setConnector(DBConnector *connector) {
     disconnect(dbConnector, &DBConnector::onPageLoaded, this, &Table::onPageLoaded);
     this->dbConnector = connector;
     connect(dbConnector, &DBConnector::onPageLoaded, this, &Table::onPageLoaded);
-    this->modelFactory->setConnector(connector);
     dbConnector->loadPage(modelFactory->tableName(), currentPage, PAGE_SIZE);
 }
 
@@ -132,7 +131,9 @@ void Table::onPageLoaded(QJsonArray array, QString table) {
         int i = 0;
                 foreach(QJsonValue val, array) {
                 BaseDBModel *model = modelFactory->createModel(val.toObject());
-                rowsContainer->addWidget(new TableRow(model, i % 2 != 0));
+                auto row = new TableRow(model, i % 2 != 0);
+                connect(row, &TableRow::onModelOpen, this, &Table::handleModelOpen);
+                rowsContainer->addWidget(row);
                 i++;
             }
     }
@@ -163,4 +164,8 @@ void Table::onButtonClicked(QString name) {
     loader->start();
     currentPageLabel->setText(QString::number(currentPage));
     dbConnector->loadPage(modelFactory->tableName(), currentPage, PAGE_SIZE);
+}
+
+void Table::handleModelOpen(BaseDBModel *model) {
+    emit onModelOpen(model);
 }

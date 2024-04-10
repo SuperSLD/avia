@@ -32,3 +32,37 @@ QList<PreviewItem> FlightModel::getPreview() {
     preview.append(PreviewItem("text", data.deps_utc, colorTextGray(), 14, 3));
     return preview;
 }
+
+QList<DetailItem> FlightModel::getDetail() {
+    QList<DetailItem> detail;
+    detail.append(DetailItem("id", "Идентификатор", id));
+    detail.append(DetailItem("passedTime", "", passedTime));
+    detail.append(DetailItem("airport", "Аэропорт", airport));
+    detail.append(DetailItem("type", "Тип", type));
+    detail.append(DetailItem("fid", "", data.fid));
+    detail.append(DetailItem("accl", "", QString::number(data.accl)));
+    detail.append(DetailItem("accountry", "Код страны", data.accountry));
+    detail.append(DetailItem("acd", "Модель самолета", data.acd));
+    detail.append(DetailItem("acr", "Номер самолета", data.acr));
+    detail.append(DetailItem("act", "Сокращенная модель", data.act));
+    detail.append(DetailItem("alia", "Код компании", data.alia));
+    detail.append(DetailItem("alic", "Код компании", data.alic));
+    detail.append(DetailItem("alna", "Название компании", data.alna));
+    detail.append(DetailItem("alt", "", QString::number(data.alt)));
+    detail.append(DetailItem("apdstci", "Город вылета", data.apdstci));
+    detail.append(DetailItem("apdstco", "Страна вылета", data.apdstco));
+    detail.append(DetailItem("apdstia", "Аэропорт вылета", data.apdstia));
+    detail.append(DetailItem("apdstic", "", data.apdstic));
+    detail.append(DetailItem("apdstla", "", QString::number(data.apdstla)));
+    detail.append(DetailItem("apdstlo", "", QString::number(data.apdstlo)));
+    detail.append(DetailItem("apdstna", "", data.apdstna));
+    detail.append(DetailItem("apdstst", "", data.apdstst));
+    detail.append(DetailItem("apdsttz", "", QString::number(data.apdsttz)));
+    detail.append(DetailItem("apdsttznl", "", data.apdsttznl));
+    detail.append(DetailItem("apdsttzns", "", data.apdsttzns));
+    detail.append(DetailItem("aporgci", "Город прилета", data.aporgci));
+    detail.append(DetailItem("aporgco", "Страна прилета", data.aporgco));
+    detail.append(DetailItem("aporgia", "Аэропорт прилета", data.aporgia));
+    detail.append(DetailItem("aporgia", "", data.apdstst));
+    return detail;
+}

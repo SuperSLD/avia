@@ -44,7 +44,10 @@ public:
 private slots:
     void onPageLoaded(QJsonArray array, QString table);
     void onButtonClicked(QString name);
+    void handleModelOpen(BaseDBModel *model);
 
+signals:
+    void onModelOpen(BaseDBModel *model);
 };
 
 #endif //AVIA_TABLE_H

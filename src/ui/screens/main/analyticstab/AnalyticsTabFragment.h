@@ -9,6 +9,11 @@
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
 #include "src/data/settings/SettingsRepository.h"
+#include "src/data/db/dbconnector/modelfactory/flightmodelsfactory/FlightModelsFactory.h"
+#include "src/data/db/dbconnector/modelfactory/routesmodelfactory/RoutesModelFactory.h"
+#include "src/data/db/dbconnector/models/flightmodel/FlightModel.h"
+#include "src/ui/common/widgets/analytictable/AnalyticTable.h"
+#include "src/domain/models/analytics/AnalyticsModel.h"
 
 class AnalyticsTabFragment: public BaseFragment {
     Q_OBJECT
@@ -19,6 +24,14 @@ private:
     SettingsRepository *settingsRep = new SettingsRepository();
     DBConnector *dbConnector;
 
+    FlightModelsFactory *flightsFactory = new FlightModelsFactory();
+    RoutesModelFactory *routesFactory = new RoutesModelFactory();
+
+    AnalyticTable *table;
+    AnalyticsModel analyticsModel;
+    bool analyticsLoaded = false;
+    int progress = 0;
+
 public:
     AnalyticsTabFragment();
     ~AnalyticsTabFragment();
@@ -28,6 +41,8 @@ public:
 
 private slots:
     void onConnectionChecked(bool isConnected);
+    void onAnalyticsLoaded(AnalyticsModel analyticsModel);
+    void onAnalyticsLoadedChangeProgress(int progress);
 };
 
 #endif //AVIA_ANALYTICSTABFRAGMENT_H

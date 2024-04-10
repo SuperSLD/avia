@@ -8,7 +8,6 @@
 #include "src/ui/common/widgets/textedit/TextEdit.h"
 
 #include <src/ui/theme/AppTheme.h>
-
 using namespace theme;
 
 ChangeConnectionFragment::ChangeConnectionFragment() {

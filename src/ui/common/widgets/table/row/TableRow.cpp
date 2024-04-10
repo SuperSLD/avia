@@ -13,6 +13,7 @@
 using namespace theme;
 
 TableRow::TableRow(BaseDBModel *model, bool isGray) {
+    this->model = model;
     QHBoxLayout *container = new QHBoxLayout;
     container->setContentsMargins(16, 8, 16, 8);
     container->setSpacing(0);
@@ -48,6 +49,7 @@ TableRow::TableRow(BaseDBModel *model, bool isGray) {
             QSize(24, 24),
             "edit"
     );
+    connect(editButton, &SwgButton::onClicked, this, &TableRow::onEditButtonClicked);
     action->addWidget(editButton);
 
     this->setLayout(container);
@@ -59,5 +61,9 @@ TableRow::TableRow(BaseDBModel *model, bool isGray) {
 }
 
 TableRow::~TableRow() {
+    delete model;
+}
 
+void TableRow::onEditButtonClicked(QString name) {
+    emit onModelOpen(model);
 }

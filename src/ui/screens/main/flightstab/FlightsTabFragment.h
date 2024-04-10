@@ -30,6 +30,10 @@ public:
 
 private slots:
     void onConnectionChecked(bool isConnected);
+    void handleModelOpen(BaseDBModel *model);
+
+signals:
+    void onModelOpen(BaseDBModel *model);
 };
 
 

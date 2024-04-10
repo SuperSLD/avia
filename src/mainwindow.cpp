@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     try {
         qDebug() << "App: create main window";
 
+        qRegisterMetaType<AnalyticsModel>();
+
         settingsRepository = new SettingsRepository();
 
         container = new SlidingStackedWidget(this);

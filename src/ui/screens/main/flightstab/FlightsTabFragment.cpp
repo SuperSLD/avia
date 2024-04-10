@@ -22,6 +22,7 @@ FlightsTabFragment::FlightsTabFragment() {
     contentFrame->setLayout(contentContainer);
 
     table = new Table(new FlightModelsFactory);
+    connect(table, &Table::onModelOpen, this, &FlightsTabFragment::handleModelOpen);
     table->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     contentContainer->addWidget(table);
 
@@ -55,4 +56,8 @@ void FlightsTabFragment::setConnector(DBConnector *connector) {
     disconnect(connector, &DBConnector::onConnectionChecked, this, &FlightsTabFragment::onConnectionChecked);
     this->dbConnector = connector;
     connect(connector, &DBConnector::onConnectionChecked, this, &FlightsTabFragment::onConnectionChecked);
+}
+
+void FlightsTabFragment::handleModelOpen(BaseDBModel *model) {
+    emit onModelOpen(model);
 }

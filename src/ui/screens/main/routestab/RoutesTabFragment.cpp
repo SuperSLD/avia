@@ -22,6 +22,7 @@ RoutesTabFragment::RoutesTabFragment() {
     contentFrame->setLayout(contentContainer);
 
     table = new Table(new RoutesModelFactory);
+    connect(table, &Table::onModelOpen, this, &RoutesTabFragment::handleModelOpen);
     table->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
     contentContainer->addWidget(table);
 
@@ -54,5 +55,9 @@ void RoutesTabFragment::setConnector(DBConnector *connector) {
     disconnect(connector, &DBConnector::onConnectionChecked, this, &RoutesTabFragment::onConnectionChecked);
     this->dbConnector = connector;
     connect(connector, &DBConnector::onConnectionChecked, this, &RoutesTabFragment::onConnectionChecked);
+}
+
+void RoutesTabFragment::handleModelOpen(BaseDBModel *model) {
+    emit onModelOpen(model);
 }
 

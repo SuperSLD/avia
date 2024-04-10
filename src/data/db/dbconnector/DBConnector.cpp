@@ -21,6 +21,10 @@ DBConnector::~DBConnector() {
 
 }
 
+bool DBConnector::dataEquals(QString url, QString user, QString password) {
+    return url == this->url && user == this->user && password == this->password;
+}
+
 void DBConnector::checkConnection() {
     if (checkConnectionWorker != nullptr) checkConnectionWorker->exit();
     checkConnectionWorker = new CheckConnectionWorker("mongodb://" + user + ":" + password + "@" + url);
@@ -43,4 +47,24 @@ void DBConnector::loadPage(QString table, int page, int pageSize) {
 void DBConnector::handleLoadedPage(QJsonArray array, QString table) {
     qDebug() << "DBConnector::handleLoadedPage" << array.size();
     emit onPageLoaded(array, table);
+}
+
+void DBConnector::loadAnalytics() {
+    if (getAnalyticsWorker != nullptr) getAnalyticsWorker->exit();
+    getAnalyticsWorker = new GetAnalyticsWorker("mongodb://" + user + ":" + password + "@" +url);
+    connect(getAnalyticsWorker, &GetAnalyticsWorker::resultReady, this, &DBConnector::handleAnalyticsLoaded);
+    connect(getAnalyticsWorker, &GetAnalyticsWorker::onChangeProgress, this, &DBConnector::handleAnalyticsLoadedProgress);
+    getAnalyticsWorker->start();
+}
+
+void DBConnector::handleAnalyticsLoaded(AnalyticsModel analyticsModel) {
+    emit onAnalyticsLoded(analyticsModel);
+}
+
+void DBConnector::handleAnalyticsLoadedProgress(int progress) {
+    emit onChangeAnalyticsLoadedProgress(progress);
+}
+
+bool DBConnector::analyticsLoadingInProgress() {
+    return getAnalyticsWorker != nullptr && getAnalyticsWorker->isRunning();
 }

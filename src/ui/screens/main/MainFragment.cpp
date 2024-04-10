@@ -94,12 +94,18 @@ MainFragment::MainFragment() {
     tabs->setContentsMargins(0,0,0,0);
     tabsContainer->addWidget(tabs);
 
-    tabFragments.append(new FlightsTabFragment());
-    tabFragments.append(new RoutesTabFragment());
+    auto *flightsTabFragment = new FlightsTabFragment();
+    connect(flightsTabFragment, &FlightsTabFragment::onModelOpen, this, &MainFragment::onOpenModelDetail);
+    tabFragments.append(flightsTabFragment);
+
+    auto *routesTabFragment = new RoutesTabFragment();
+    connect(routesTabFragment, &RoutesTabFragment::onModelOpen, this, &MainFragment::onOpenModelDetail);
+    tabFragments.append(routesTabFragment);
+
     tabFragments.append(new MapTabFragment());
     tabFragments.append(new AnalyticsTabFragment());
 
-    SettingsTabFragment *settingsTabFragment = new SettingsTabFragment();
+    auto *settingsTabFragment = new SettingsTabFragment();
     connect(settingsTabFragment, &SettingsTabFragment::onThemeSwitched, this, &MainFragment::onThemeSwitched);
     connect(settingsTabFragment, &SettingsTabFragment::onDatabaseChange, this, &MainFragment::onOpenChangeConnection);
     tabFragments.append(settingsTabFragment);
@@ -143,10 +149,20 @@ void MainFragment::onOpenChangeConnection() {
     emit navigateTo(CHANGE_CONNECTION_SCREEN);
 }
 
+void MainFragment::onOpenModelDetail(BaseDBModel *model) {
+    emit navigateWhithData(MODEL_DETAIL_SCREEN, model);
+}
+
 void MainFragment::onResume() {
     QString ip = settingsRep->getConnectionIp();
     infoUrl->setText(ip.size() > 1 ? ip : "Не выбрано");
-    connector = new DBConnector(settingsRep->getConnectionIp(), settingsRep->getConnectionUser(), settingsRep->setConnectionPassword());
+    if (connector == nullptr || !connector->dataEquals(settingsRep->getConnectionIp(), settingsRep->getConnectionUser(), settingsRep->setConnectionPassword())) {
+        connector = new DBConnector(
+                settingsRep->getConnectionIp(),
+                settingsRep->getConnectionUser(),
+                settingsRep->setConnectionPassword()
+        );
+    }
     foreach(BaseFragment *tab, tabFragments) {
         tab->setConnector(connector);
         tab->onResume();

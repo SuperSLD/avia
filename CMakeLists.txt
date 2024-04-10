@@ -99,6 +99,23 @@ set(PROJECT_SOURCES
         src/data/db/dbconnector/models/routemodel/routedata/RouteDataModel.h
         src/data/db/dbconnector/models/routemodel/routepoint/RoutePointModel.cpp
         src/data/db/dbconnector/models/routemodel/routepoint/RoutePointModel.h
+        src/ui/screens/main/modeldetail/ModelDetailFragment.cpp
+        src/ui/screens/main/modeldetail/ModelDetailFragment.h
+        src/data/db/dbconnector/models/basedbmodel/DetailItem.h
+        src/data/db/dbconnector/workers/getanalytics/GetAnalyticsWorker.cpp
+        src/data/db/dbconnector/workers/getanalytics/GetAnalyticsWorker.h
+        src/ui/common/widgets/analytictable/AnalyticTable.cpp
+        src/ui/common/widgets/analytictable/AnalyticTable.h
+        src/domain/models/analytics/AnalyticsModel.cpp
+        src/domain/models/analytics/AnalyticsModel.h
+        src/domain/models/analytics/view/AnalyticsRow.h
+        src/domain/models/analytics/view/NumberAnalyticsCell.h
+        src/domain/models/analytics/view/BaseAnalyticsCell.h
+        src/ui/common/widgets/analytictable/numbercell/NumberCellWidget.cpp
+        src/ui/common/widgets/analytictable/numbercell/NumberCellWidget.h
+        src/domain/models/analytics/view/TitleAnalyticsCell.h
+        src/ui/common/widgets/analytictable/titlecell/TitleCellWidget.cpp
+        src/ui/common/widgets/analytictable/titlecell/TitleCellWidget.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -6,9 +6,10 @@
 #include "src/ui/common/navigation/Router.h"
 #include "src/data/settings/SettingsRepository.h"
 
-class MainWindow : public QMainWindow
-{
-Q_OBJECT
+Q_DECLARE_METATYPE(AnalyticsModel)
+
+class MainWindow : public QMainWindow {
+    Q_OBJECT
 
 private:
     SettingsRepository *settingsRepository;

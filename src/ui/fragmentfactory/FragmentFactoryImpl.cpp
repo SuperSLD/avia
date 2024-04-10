@@ -6,6 +6,7 @@
 #include "src/ui/screens/splash/SplashFragment.h"
 #include "src/ui/screens/main/MainFragment.h"
 #include "src/ui/screens/main/settingstab/changeconnection/ChangeConnectionFragment.h"
+#include "src/ui/screens/main/modeldetail/ModelDetailFragment.h"
 #include <QDebug>
 
 using namespace screens;
@@ -21,6 +22,8 @@ BaseFragment* FragmentFactoryImpl::create(QString tag) {
         return new MainFragment;
     } else if (tag == CHANGE_CONNECTION_SCREEN) {
         return new ChangeConnectionFragment;
+    } else if (tag == MODEL_DETAIL_SCREEN) {
+        return new ModelDetailFragment;
     } else {
         return nullptr;
     }

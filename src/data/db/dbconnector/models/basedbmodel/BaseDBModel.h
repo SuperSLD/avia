@@ -10,6 +10,7 @@
 #include <QList>
 #include "src/ui/common/navigation/base/basemodel/BaseModel.h"
 #include "PreviewItem.h"
+#include "DetailItem.h"
 
 class BaseDBModel: public BaseModel {
 
@@ -19,6 +20,7 @@ public:
 
     virtual QString getId();
     virtual QList<PreviewItem> getPreview();
+    virtual QList<DetailItem> getDetail();
 };
 
 #endif //AVIA_BASEDBMODEL_H

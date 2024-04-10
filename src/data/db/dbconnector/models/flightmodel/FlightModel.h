@@ -33,6 +33,7 @@ public:
 
     QString getId() override;
     QList<PreviewItem> getPreview() override;
+    QList<DetailItem> getDetail() override;
 };
 
 

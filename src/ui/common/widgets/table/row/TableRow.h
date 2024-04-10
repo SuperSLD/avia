@@ -12,9 +12,18 @@
 class TableRow: public QFrame {
     Q_OBJECT
 
+private:
+    BaseDBModel *model;
+
 public:
     TableRow(BaseDBModel *model, bool isGray);
     ~TableRow();
+
+private slots:
+    void onEditButtonClicked(QString name);
+
+signals:
+    void onModelOpen(BaseDBModel *model);
 };
 
 

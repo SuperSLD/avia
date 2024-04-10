@@ -16,6 +16,7 @@ namespace screens {
     static const QString SPLASH_SCREEN = "splash";
     static const QString MAIN_SCREEN = "main";
     static const QString CHANGE_CONNECTION_SCREEN = "change_connection";
+    static const QString MODEL_DETAIL_SCREEN = "model_detail_connection";
 }
 
 class FragmentFactoryImpl: public BaseFragmentFactory {

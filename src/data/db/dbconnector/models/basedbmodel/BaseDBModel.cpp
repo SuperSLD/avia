@@ -20,3 +20,7 @@ QString BaseDBModel::getId() {
 QList<PreviewItem> BaseDBModel::getPreview() {
     return QList<PreviewItem>();
 }
+
+QList<DetailItem> BaseDBModel::getDetail() {
+    return QList<DetailItem>();
+}
