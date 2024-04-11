@@ -29,7 +29,7 @@ NumberCellWidget::NumberCellWidget(QString value,
     nameLabel->setMinimumWidth(300);
     nameLabel->setMinimumHeight(50);
 
-    coloredCardStyle("NumberCellWidget", this, colorWhite(), 24, 0, 1, colorGray());
+    coloredCardStyle("NumberCellWidget", this, colorWhite(), 24, 0, 1, colorBorder());
     this->setLayout(vContainer);
 }
 
