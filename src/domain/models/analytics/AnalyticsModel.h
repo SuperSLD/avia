@@ -19,8 +19,12 @@ public:
     int inRussiaCount = 0;
     int notRussia = 0;
 
+    QList<double> distance;
+    QList<double> distance2;
+
     QList<ChartLine> flightCountPieChart;
     QList<ChartLine> flightCountBarChart;
+    QList<ChartLine> distanceLineChart;
 
 
     AnalyticsModel(QList<FlightModel*> flights);

@@ -18,6 +18,7 @@ using namespace theme;
 class AnalyticsRow {
 
 public:
+
     QList<BaseAnalyticsCell *> cells;
     bool alignLeft;
 

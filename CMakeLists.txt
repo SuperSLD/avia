@@ -124,6 +124,8 @@ set(PROJECT_SOURCES
         src/ui/common/widgets/analytictable/chart/pie/PieChartWidget.h
         src/ui/common/widgets/analytictable/chart/bar/BarChartWidget.cpp
         src/ui/common/widgets/analytictable/chart/bar/BarChartWidget.h
+        src/ui/common/widgets/analytictable/chart/line/LineChartWidget.cpp
+        src/ui/common/widgets/analytictable/chart/line/LineChartWidget.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

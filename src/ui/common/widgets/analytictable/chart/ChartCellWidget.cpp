@@ -6,6 +6,7 @@
 #include "src/domain/models/analytics/view/chart/ChartLine.h"
 #include "src/ui/common/widgets/analytictable/chart/pie/PieChartWidget.h"
 #include "src/ui/common/widgets/analytictable/chart/bar/BarChartWidget.h"
+#include "src/ui/common/widgets/analytictable/chart/line/LineChartWidget.h"
 
 #include <QVBoxLayout>
 #include <QLabel>
@@ -30,7 +31,7 @@ ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> li
     if (type == "pie") {
         chart = new PieChartWidget(400 - 10, lines);
     } else if (type == "line") {
-
+        chart = new LineChartWidget(400 - 10, lines);
     } else if (type == "bar") {
         chart = new BarChartWidget(400 - 10, lines);
     } else {
