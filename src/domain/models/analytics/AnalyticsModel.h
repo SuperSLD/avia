@@ -14,18 +14,21 @@
 
 class AnalyticsModel: public BaseModel {
 
+private:
+    void createDataForCharts();
+
 public:
     int allCount = 0;
     int inRussiaCount = 0;
     int notRussia = 0;
 
-    QList<double> distance;
-    QList<double> distance2;
-
     QList<ChartLine> flightCountPieChart;
     QList<ChartLine> flightCountBarChart;
     QList<ChartLine> distanceLineChart;
 
+    QHash<QString, int> airports;
+    QList<int> airportsCount;
+    QList<ChartLine> airportsPieChart;
 
     AnalyticsModel(QList<FlightModel*> flights);
     AnalyticsModel() {};

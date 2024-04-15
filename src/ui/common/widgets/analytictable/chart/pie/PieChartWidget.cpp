@@ -30,7 +30,11 @@ void PieChartWidget::paintEvent(QPaintEvent *event) {
     for (int i = 0; i < data.values.size(); i++) {
         QPainterPath path;
         path.moveTo(this->width()/2, this->height()/2);
-        path.arcTo(rect, currentDeg + 90, data.values[i] * degInOne + 1);
+        if (i == data.values.size() - 1) {
+            path.arcTo(rect, 90, -data.values[i] * degInOne);
+        } else {
+            path.arcTo(rect, currentDeg + 90, data.values[i] * degInOne + 3);
+        }
         //painter.setPen(QPen(QColor(data.colors[i]), Qt::SolidPattern));
         painter.fillPath(path, QColor(data.colors[i]));
         currentDeg += data.values[i] * degInOne;

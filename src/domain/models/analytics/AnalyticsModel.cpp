@@ -13,22 +13,29 @@ using namespace theme;
 AnalyticsModel::AnalyticsModel(QList<FlightModel *> flights) {
     allCount = flights.size();
     foreach(auto flight, flights) {
-        //distance.append(50.0);//flight->data.distance.toDouble());
-        //distance2.append(40.0);//flight->data.distance.toDouble() * 0.7);
-        distance.append(flight->data.distance.toDouble());
-        distance2.append(flight->data.distance.toDouble() * 0.7);
         if (flight->data.apdstco == "Russia" && flight->data.aporgco == "Russia") {
             inRussiaCount++;
+            airports[flight->data.apdstia] += 1;
         } else {
             notRussia++;
         }
     }
+    airportsCount = airports.values();
+    std::sort(airportsCount.begin(), airportsCount.end());
+    createDataForCharts();
+}
+
+AnalyticsModel::~AnalyticsModel() {
+
+}
+
+void AnalyticsModel::createDataForCharts() {
     flightCountPieChart.append(
-        ChartLine(
-                QList<QString>({colorPrimary(), colorSecondary()}),
-                QList<double>({(double) inRussiaCount, (double)  notRussia}),
-                QList<QString>({"В россии", "За границу"})
-        )
+            ChartLine(
+                    QList<QString>({colorPrimary(), colorSecondary()}),
+                    QList<double>({(double) inRussiaCount, (double)  notRussia}),
+                    QList<QString>({"В россии", "За границу"})
+            )
     );
 
     flightCountBarChart.append(
@@ -40,34 +47,10 @@ AnalyticsModel::AnalyticsModel(QList<FlightModel *> flights) {
             )
     );
 
-//    distanceLineChart.append(
-//            ChartLine(
-//                    QList<QString>({colorPrimary()}),
-//                    distance,
-//                    QList<QString>({"Дистанция"}),
-//                    distance
-//            )
-//    );
-//    distanceLineChart.append(
-//            ChartLine(
-//                    QList<QString>({colorSecondary()}),
-//                    distance2,
-//                    QList<QString>({"Дистанция поменьше"}),
-//                    distance2
-//            )
-//    );
     distanceLineChart.append(
             ChartLine(
                     QList<QString>({colorPrimary()}),
                     QList<double>({(double) 20.0, 24.0, 10.0, 54.0, 40.0}),
-                    QList<QString>({"Дистанция"}),
-                    QList<double>({(double) 10, 20, 30, 40, 50})
-            )
-    );
-    distanceLineChart.append(
-            ChartLine(
-                    QList<QString>({colorRed()}),
-                    QList<double>({(double) 0.0, 10.0, 20.0, 30.0, 54.0}),
                     QList<QString>({"Дистанция"}),
                     QList<double>({(double) 10, 20, 30, 40, 50})
             )
@@ -80,11 +63,16 @@ AnalyticsModel::AnalyticsModel(QList<FlightModel *> flights) {
                     QList<double>({(double) 10, 20, 30, 40})
             )
     );
+
+    airportsPieChart.append(
+            ChartLine(
+                    QList<QString>({colorPrimary(), colorSecondary(), colorBlack()}),
+                    QList<double>({(double) airportsCount[airportsCount.size() - 1], (double)  airportsCount[airportsCount.size() - 2], (double) airportsCount[airportsCount.size() - 3]}),
+                    QList<QString>({airports.key(airportsCount[airportsCount.size() - 1]), airports.key(airportsCount[airportsCount.size() - 2]), airports.key(airportsCount[airportsCount.size() - 3])})
+            )
+    );
 }
 
-AnalyticsModel::~AnalyticsModel() {
-
-}
 
 QList<AnalyticsRow> AnalyticsModel::getRows() {
     QList<AnalyticsRow> rows;
@@ -108,14 +96,14 @@ QList<AnalyticsRow> AnalyticsModel::getRows() {
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-           new ChartAnalyticsCell("line", "Дистанция (хз в чем измененная)", distanceLineChart),
+            new NumberAnalyticsCell("#1 " + airports.key(airportsCount[airportsCount.size() - 1]) + "\n#2 " + airports.key(airportsCount[airportsCount.size() - 2]) + "\n#3 " + airports.key(airportsCount[airportsCount.size() - 3]), "Аэропорты с самым большим количеством рейсов", colorPrimary()),
+            new ChartAnalyticsCell("pie", "Рейсы крупнейших аэропортов", airportsPieChart),
        }))
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-           new ChartAnalyticsCell("line", "Дистанция (хз в чем измененная)", distanceLineChart),
-           new ChartAnalyticsCell("line", "Дистанция (хз в чем измененная)", distanceLineChart),
-        }))
+               new ChartAnalyticsCell("line", "Дистанция (хз в чем измененная)", distanceLineChart),
+       }))
     );
     return rows;
 }
