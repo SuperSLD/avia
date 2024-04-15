@@ -26,6 +26,23 @@ AnalyticsModel::AnalyticsModel(QList<FlightModel *> flights) {
                 QList<QString>({"В россии", "За границу"})
         )
     );
+
+    flightCountBarChart.append(
+            ChartLine(
+                    QList<QString>({colorSecondary()}),
+                    QList<double>({(double) allCount, (double)  allCount}),
+                    QList<QString>({"Все рейсы"}),
+                    QList<double>({(double) allCount, (double)  allCount})
+            )
+    );
+    flightCountBarChart.append(
+            ChartLine(
+                    QList<QString>({colorPrimary()}),
+                    QList<double>({(double) inRussiaCount, (double)  notRussia, 30000.0, 13000.0, 13000.0, 13000.0}),
+                    QList<QString>({"В россии и за границей"}),
+                    QList<double>({(double) inRussiaCount, (double)  notRussia, 30000.0, 13000.0, 13000.0, 13000.0})
+            )
+    );
 }
 
 AnalyticsModel::~AnalyticsModel() {
@@ -41,19 +58,19 @@ QList<AnalyticsRow> AnalyticsModel::getRows() {
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-            new NumberAnalyticsCell(QString::number(allCount), "Общее количество\nперелетов", colorSecondary()),
+            new NumberAnalyticsCell(QString::number(allCount), "Общее количество\nперелетов", colorPrimary()),
             new NumberAnalyticsCell(QString::number(inRussiaCount), "Общее количество перелетов внутри страны", colorPrimary()),
-            new NumberAnalyticsCell(QString::number(notRussia), "Количество перелетов с одним аэропортом в России", colorPrimary()),
+            new NumberAnalyticsCell(QString::number(notRussia), "Количество перелетов с одним аэропортом в России", colorSecondary()),
         }))
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-           new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
+           new ChartAnalyticsCell("bar", "Распределение рейсов", flightCountBarChart),
        }))
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-           new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
+           new ChartAnalyticsCell("bar", "Распределение рейсов", flightCountBarChart),
            new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
        }))
     );

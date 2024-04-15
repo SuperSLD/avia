@@ -6,8 +6,7 @@
 #include <QPainter>
 #include <QPainterPath>
 
-PieChartWidget::PieChartWidget(int h, QString type, QList<ChartLine> lines) {
-    this->type = type;
+PieChartWidget::PieChartWidget(int h, QList<ChartLine> lines) {
     this->lines = lines;
     this->h = h;
 }

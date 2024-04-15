@@ -2,27 +2,31 @@
 // Created by Леонид Соляной on 15.04.2024.
 //
 
-#ifndef AVIA_PIECHARTWIDGET_H
-#define AVIA_PIECHARTWIDGET_H
+#ifndef AVIA_BARCHARTWIDGET_H
+#define AVIA_BARCHARTWIDGET_H
 
 
 #include <QFrame>
 #include "src/domain/models/analytics/view/chart/ChartLine.h"
 
-class PieChartWidget: public QFrame {
+class BarChartWidget: public QFrame {
     Q_OBJECT
 
 private:
     int h;
     QList<ChartLine> lines;
 
+    bool shortLabels;
+
+    QString getLabel(double val);
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 
 public:
-    PieChartWidget(int h, QList<ChartLine> lines);
-    ~PieChartWidget();
+    BarChartWidget(int h, QList<ChartLine> lines);
+    ~BarChartWidget();
 };
 
 
-#endif //AVIA_PIECHARTWIDGET_H
+#endif //AVIA_BARCHARTWIDGET_H

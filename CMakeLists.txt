@@ -122,6 +122,8 @@ set(PROJECT_SOURCES
         src/domain/models/analytics/view/chart/ChartLine.h
         src/ui/common/widgets/analytictable/chart/pie/PieChartWidget.cpp
         src/ui/common/widgets/analytictable/chart/pie/PieChartWidget.h
+        src/ui/common/widgets/analytictable/chart/bar/BarChartWidget.cpp
+        src/ui/common/widgets/analytictable/chart/bar/BarChartWidget.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -20,6 +20,8 @@ public:
     int notRussia = 0;
 
     QList<ChartLine> flightCountPieChart;
+    QList<ChartLine> flightCountBarChart;
+
 
     AnalyticsModel(QList<FlightModel*> flights);
     AnalyticsModel() {};

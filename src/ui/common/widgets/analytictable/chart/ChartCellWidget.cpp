@@ -5,6 +5,7 @@
 #include "ChartCellWidget.h"
 #include "src/domain/models/analytics/view/chart/ChartLine.h"
 #include "src/ui/common/widgets/analytictable/chart/pie/PieChartWidget.h"
+#include "src/ui/common/widgets/analytictable/chart/bar/BarChartWidget.h"
 
 #include <QVBoxLayout>
 #include <QLabel>
@@ -27,11 +28,11 @@ ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> li
 
     QFrame *chart;
     if (type == "pie") {
-        chart = new PieChartWidget(400 - 10, type, lines);
+        chart = new PieChartWidget(400 - 10, lines);
     } else if (type == "line") {
 
     } else if (type == "bar") {
-
+        chart = new BarChartWidget(400 - 10, lines);
     } else {
         chart = new QFrame;
     }
@@ -52,7 +53,11 @@ ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> li
             labelsContainer->addWidget(partLabel);
         }
     } else {
-
+        for (int i = 0; i < lines.size(); i++) {
+            auto *partLabel = new QLabel( "▲ " + lines[i].name.first());
+            textStyle("partLabel", partLabel, 16, lines[i].colors.first());
+            labelsContainer->addWidget(partLabel);
+        }
     }
     vContainer->addLayout(labelsContainer);
 
