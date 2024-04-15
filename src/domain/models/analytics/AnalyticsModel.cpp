@@ -4,7 +4,11 @@
 
 #include "AnalyticsModel.h"
 #include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
+#include "src/domain/models/analytics/view/chart/ChartAnalyticsCell.h"
 #include <QList>
+
+#include <src/ui/theme/AppTheme.h>
+using namespace theme;
 
 AnalyticsModel::AnalyticsModel(QList<FlightModel *> flights) {
     allCount = flights.size();
@@ -15,6 +19,13 @@ AnalyticsModel::AnalyticsModel(QList<FlightModel *> flights) {
             notRussia++;
         }
     }
+    flightCountPieChart.append(
+        ChartLine(
+                QList<QString>({colorPrimary(), colorSecondary()}),
+                QList<double>({(double) inRussiaCount, (double)  notRussia}),
+                QList<QString>({"В россии", "За границу"})
+        )
+    );
 }
 
 AnalyticsModel::~AnalyticsModel() {
@@ -34,6 +45,17 @@ QList<AnalyticsRow> AnalyticsModel::getRows() {
             new NumberAnalyticsCell(QString::number(inRussiaCount), "Общее количество перелетов внутри страны", colorPrimary()),
             new NumberAnalyticsCell(QString::number(notRussia), "Количество перелетов с одним аэропортом в России", colorPrimary()),
         }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell*>({
+           new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
+       }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell*>({
+           new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
+           new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
+       }))
     );
     return rows;
 }

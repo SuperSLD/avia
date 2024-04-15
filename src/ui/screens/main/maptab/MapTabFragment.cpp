@@ -10,6 +10,7 @@ MapTabFragment::MapTabFragment() {
     this->setLayout(mainContainer);
     this->setContentsMargins(0, 0 , 0, 0);
     mainContainer->setContentsMargins(0, 0, 0, 0);
+    mainContainer->setSpacing(0);
 
     Toolbar *toolbar = new Toolbar("Транспортная сеть", "map", "map_dark");
     mainContainer->addWidget(toolbar);

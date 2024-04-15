@@ -116,6 +116,12 @@ set(PROJECT_SOURCES
         src/domain/models/analytics/view/TitleAnalyticsCell.h
         src/ui/common/widgets/analytictable/titlecell/TitleCellWidget.cpp
         src/ui/common/widgets/analytictable/titlecell/TitleCellWidget.h
+        src/ui/common/widgets/analytictable/chart/ChartCellWidget.cpp
+        src/ui/common/widgets/analytictable/chart/ChartCellWidget.h
+        src/domain/models/analytics/view/chart/ChartAnalyticsCell.h
+        src/domain/models/analytics/view/chart/ChartLine.h
+        src/ui/common/widgets/analytictable/chart/pie/PieChartWidget.cpp
+        src/ui/common/widgets/analytictable/chart/pie/PieChartWidget.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
