@@ -29,18 +29,10 @@ AnalyticsModel::AnalyticsModel(QList<FlightModel *> flights) {
 
     flightCountBarChart.append(
             ChartLine(
-                    QList<QString>({colorSecondary()}),
-                    QList<double>({(double) allCount, (double)  allCount}),
-                    QList<QString>({"Все рейсы"}),
-                    QList<double>({(double) allCount, (double)  allCount})
-            )
-    );
-    flightCountBarChart.append(
-            ChartLine(
                     QList<QString>({colorPrimary()}),
-                    QList<double>({(double) inRussiaCount, (double)  notRussia, 30000.0, 13000.0, 13000.0, 13000.0}),
+                    QList<double>({(double) inRussiaCount, (double)  notRussia}),
                     QList<QString>({"В россии и за границей"}),
-                    QList<double>({(double) inRussiaCount, (double)  notRussia, 30000.0, 13000.0, 13000.0, 13000.0})
+                    QList<double>({(double) inRussiaCount, (double)  notRussia})
             )
     );
 }
@@ -66,12 +58,12 @@ QList<AnalyticsRow> AnalyticsModel::getRows() {
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
            new ChartAnalyticsCell("bar", "Распределение рейсов", flightCountBarChart),
+           new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
        }))
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
            new ChartAnalyticsCell("bar", "Распределение рейсов", flightCountBarChart),
-           new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
        }))
     );
     return rows;
