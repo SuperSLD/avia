@@ -68,3 +68,23 @@ void DBConnector::handleAnalyticsLoadedProgress(int progress) {
 bool DBConnector::analyticsLoadingInProgress() {
     return getAnalyticsWorker != nullptr && getAnalyticsWorker->isRunning();
 }
+
+void DBConnector::loadRoutes() {
+    if (getAllRoutesWorker != nullptr) getAllRoutesWorker->exit();
+    getAllRoutesWorker = new GetAllRoutesWorker("mongodb://" + user + ":" + password + "@" +url);
+    connect(getAllRoutesWorker, &GetAllRoutesWorker::resultReady, this, &DBConnector::handleRoutesLoaded);
+    connect(getAllRoutesWorker, &GetAllRoutesWorker::onChangeProgress, this, &DBConnector::handleAllRoutesLoadedProgress);
+    getAllRoutesWorker->start();
+}
+
+bool DBConnector::routesLoadingInProgress() {
+    return getAllRoutesWorker != nullptr && getAllRoutesWorker->isRunning();
+}
+
+void DBConnector::handleRoutesLoaded(QList<RouteModel*> routes) {
+    emit onRoutesLoaded(routes);
+}
+
+void DBConnector::handleAllRoutesLoadedProgress(int progress) {
+    emit onChangeRoutesLoadedProgress(progress);
+}

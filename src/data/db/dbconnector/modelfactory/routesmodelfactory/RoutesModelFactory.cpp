@@ -13,7 +13,7 @@ RoutesModelFactory::~RoutesModelFactory() {
 
 }
 
-BaseDBModel *RoutesModelFactory::createModel(QJsonObject json) {
+BaseDBModel* RoutesModelFactory::createModel(QJsonObject json) {
     auto data = json["data"].toObject();
     auto current = data["current"].toObject();
     auto list = data["list"].toArray();

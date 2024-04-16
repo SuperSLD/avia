@@ -39,7 +39,6 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
         }
     }
     if (max > 10000) shortLabels = true;
-    qDebug() << "LineChartWidget::paintEvent" << max << pointCount << lineWithMaxPointCount;
 
     // лейблы значений
     painter.setFont(QFont("Roboto", 16, QFont::Normal));
@@ -115,7 +114,6 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
                     this->width() * j / (pointCount - 1),
                     this->height() - 0.2 * this->height() - this->height() * 0.8 * lines[i].values[j] / max
             );
-            qDebug() << "LineChartWidget::paintEvent" << this->width() * j / pointCount << pointCount << j;
             if (j != 0) {
                 path.lineTo(point);
             } else {

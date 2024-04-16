@@ -7,6 +7,7 @@
 #include "src/data/settings/SettingsRepository.h"
 
 Q_DECLARE_METATYPE(AnalyticsModel)
+Q_DECLARE_METATYPE(QList<RouteModel*>)
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

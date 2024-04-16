@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         qDebug() << "App: create main window";
 
         qRegisterMetaType<AnalyticsModel>();
+        qRegisterMetaType<QList<RouteModel*>>();
 
         settingsRepository = new SettingsRepository();
 

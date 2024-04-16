@@ -39,6 +39,7 @@ find_package(mongocxx REQUIRED)
 
 set(PROJECT_SOURCES
         resc.qrc
+        resc/russia.json
         resc/splash.svg
         resc/settings.svg
         resc/routes.svg
@@ -64,6 +65,8 @@ set(PROJECT_SOURCES
         resc/close.svg
         resc/arrow_button_left.svg
         resc/arrow_button_right.svg
+        resc/minus.svg
+        resc/plus.svg
         main.cpp
         src/mainwindow.cpp
         src/mainwindow.h
@@ -126,6 +129,10 @@ set(PROJECT_SOURCES
         src/ui/common/widgets/analytictable/chart/bar/BarChartWidget.h
         src/ui/common/widgets/analytictable/chart/line/LineChartWidget.cpp
         src/ui/common/widgets/analytictable/chart/line/LineChartWidget.h
+        src/data/db/dbconnector/workers/getallroutes/GetAllRoutesWorker.cpp
+        src/data/db/dbconnector/workers/getallroutes/GetAllRoutesWorker.h
+        src/ui/common/widgets/map/MapWidget.cpp
+        src/ui/common/widgets/map/MapWidget.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
