@@ -54,7 +54,11 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
                 this->height() * 0.1
         );
         painter.setPen(QPen(QColor(colorTextGray()), 3));
-        painter.drawText(textRect, getLabel(lines[lineWithMaxBarCount].values[i]));
+        if (lines[lineWithMaxBarCount].valuesName.isEmpty()) {
+            painter.drawText(textRect, getLabel(lines[lineWithMaxBarCount].values[i]));
+        } else {
+            painter.drawText(textRect, lines[lineWithMaxBarCount].valuesName[i]);
+        }
         painter.setPen(QPen(QColor(colorBorder()), 3));
         painter.drawLine(
                 barSpace * (i + 1) + barWidth * i + 2,

@@ -18,10 +18,13 @@ AnalyticsModel::AnalyticsModel(QList<FlightModel *> flights) {
             airports[flight->data.apdstia] += 1;
         } else {
             notRussia++;
+            airportsOut[flight->data.apdstia] += 1;
         }
     }
     airportsCount = airports.values();
     std::sort(airportsCount.begin(), airportsCount.end());
+    airportsCountOut = airportsOut.values();
+    std::sort(airportsCountOut.begin(), airportsCountOut.end());
     createDataForCharts();
 }
 
@@ -30,20 +33,21 @@ AnalyticsModel::~AnalyticsModel() {
 }
 
 void AnalyticsModel::createDataForCharts() {
-    flightCountPieChart.append(
-            ChartLine(
-                    QList<QString>({colorPrimary(), colorSecondary()}),
-                    QList<double>({(double) inRussiaCount, (double)  notRussia}),
-                    QList<QString>({"В россии", "За границу"})
-            )
-    );
-
     flightCountBarChart.append(
             ChartLine(
                     QList<QString>({colorPrimary()}),
                     QList<double>({(double) inRussiaCount, (double)  notRussia}),
                     QList<QString>({"В россии и за границей"}),
-                    QList<double>({(double) inRussiaCount, (double)  notRussia})
+                    QList<double>(),
+                    QList<QString>({"Внутренние", "Внешние"})
+            )
+    );
+
+    flightCountPieChart.append(
+            ChartLine(
+                    QList<QString>({colorPrimary(), colorSecondary()}),
+                    QList<double>({(double) inRussiaCount, (double)  notRussia}),
+                    QList<QString>({"В россии", "За границу"})
             )
     );
 
@@ -64,11 +68,40 @@ void AnalyticsModel::createDataForCharts() {
             )
     );
 
+    sumOfTopAirports = airportsCount[airportsCount.size() - 1] + airportsCount[airportsCount.size() - 2] + airportsCount[airportsCount.size() - 3];
+    percentOfTopAirports = sumOfTopAirports / (double) inRussiaCount * 100;
     airportsPieChart.append(
             ChartLine(
                     QList<QString>({colorPrimary(), colorSecondary(), colorBlack()}),
                     QList<double>({(double) airportsCount[airportsCount.size() - 1], (double)  airportsCount[airportsCount.size() - 2], (double) airportsCount[airportsCount.size() - 3]}),
                     QList<QString>({airports.key(airportsCount[airportsCount.size() - 1]), airports.key(airportsCount[airportsCount.size() - 2]), airports.key(airportsCount[airportsCount.size() - 3])})
+            )
+    );
+
+    QList<QString> airportCountName;
+    QList<double> airportCountValue;
+    for (int i = 0; i < 13; i++) {
+        airportCountName.append(airports.key(airportsCount[airportsCount.size() - 1 - i]));
+        airportCountValue.append(airportsCount[airportsCount.size() - 1 - i]);
+    }
+    QList<double> airportCountValueOut;
+    for (int i = 0; i < 13; i++) {
+        airportCountValueOut.append(airportsCountOut[airportsCountOut.size() - 1 - i]);
+    }
+    airportsBarChart.append(
+            ChartLine(
+                    QList<QString>({colorSecondary()}),
+                    airportCountValue,
+                    QList<QString>({"Внутренние рейсы"}),
+                    QList<double>(),
+                    airportCountName
+            )
+    );
+    airportsBarChart.append(
+            ChartLine(
+                    QList<QString>({colorPrimary()}),
+                    airportCountValueOut,
+                    QList<QString>({"Внешние рейсы"})
             )
     );
 }
@@ -78,7 +111,7 @@ QList<AnalyticsRow> AnalyticsModel::getRows() {
     QList<AnalyticsRow> rows;
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-            new TitleAnalyticsCell("Общие данные"),
+            new TitleAnalyticsCell("Общие данные о рейсах"),
         }), true)
     );
     rows.append(
@@ -96,8 +129,17 @@ QList<AnalyticsRow> AnalyticsModel::getRows() {
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-            new NumberAnalyticsCell("#1 " + airports.key(airportsCount[airportsCount.size() - 1]) + "\n#2 " + airports.key(airportsCount[airportsCount.size() - 2]) + "\n#3 " + airports.key(airportsCount[airportsCount.size() - 3]), "Аэропорты с самым большим количеством рейсов", colorPrimary()),
             new ChartAnalyticsCell("pie", "Рейсы крупнейших аэропортов", airportsPieChart),
+            new NumberAnalyticsCell(
+                    "#1 " + airports.key(airportsCount[airportsCount.size() - 1]) + "\n#2 " + airports.key(airportsCount[airportsCount.size() - 2]) + "\n#3 " + airports.key(airportsCount[airportsCount.size() - 3]),
+                    "Аэропорты с самым большим количеством рейсов принимают на себя " + QString::number(sumOfTopAirports) + " перелетов, что составляет " + QString::number(percentOfTopAirports) + "% от общего количества внутренних перелетов",
+                    colorPrimary()
+            ),
+       }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell*>({
+               new ChartAnalyticsCell("bar", "Распределение рейсов по аэропортам", airportsBarChart),
        }))
     );
     rows.append(

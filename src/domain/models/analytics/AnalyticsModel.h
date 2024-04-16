@@ -26,9 +26,14 @@ public:
     QList<ChartLine> flightCountBarChart;
     QList<ChartLine> distanceLineChart;
 
+    int sumOfTopAirports = 0;
+    int percentOfTopAirports = 0;
     QHash<QString, int> airports;
     QList<int> airportsCount;
+    QHash<QString, int> airportsOut;
+    QList<int> airportsCountOut;
     QList<ChartLine> airportsPieChart;
+    QList<ChartLine> airportsBarChart;
 
     AnalyticsModel(QList<FlightModel*> flights);
     AnalyticsModel() {};
