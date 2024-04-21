@@ -1,41 +1,40 @@
 //
-// Created by Леонид Соляной on 10.04.2024.
+// Created by Леонид Соляной on 21.04.2024.
 //
 
-#ifndef AVIA_GETANALYTICSWORKER_H
-#define AVIA_GETANALYTICSWORKER_H
+#ifndef AVIA_GETAIRPORTSWORKER_H
+#define AVIA_GETAIRPORTSWORKER_H
+
 
 #include <QThread>
 #include "src/data/db/dbconnector/modelfactory/flightmodelsfactory/FlightModelsFactory.h"
-#include "src/domain/models/analytics/AnalyticsModel.h"
 #include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
 
-
-class GetAnalyticsWorker: public QThread {
+class GetAirportsWorker: public QThread {
     Q_OBJECT
 
 private:
     QString uriString;
     FlightModelsFactory *factory = new FlightModelsFactory();
+    QHash<QString, AirportModel> airports;
 
 public:
 
-    GetAnalyticsWorker(
+    GetAirportsWorker(
             QString uriStr
     ) {
         this->uriString = uriStr;
     }
 
-    ~GetAnalyticsWorker() {
+    ~GetAirportsWorker() {
         delete factory;
     }
 
     void run() override;
 
 signals:
-    void resultReady(AnalyticsModel analyticsModel);
+    void resultReady(QList<AirportModel> airports);
     void onChangeProgress(int progress);
 };
 
-
-#endif //AVIA_GETANALYTICSWORKER_H
+#endif //AVIA_GETAIRPORTSWORKER_H

@@ -274,6 +274,8 @@ public:
     );
 
     FlightDataModel() {}
+
+    bool inRussia();
 };
 
 

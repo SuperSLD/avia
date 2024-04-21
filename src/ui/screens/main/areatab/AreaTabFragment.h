@@ -1,17 +1,16 @@
 //
-// Created by Леонид Соляной on 20.03.2024.
+// Created by Леонид Соляной on 21.04.2024.
 //
 
-#ifndef AVIA_MAPTABFRAGMENT_H
-#define AVIA_MAPTABFRAGMENT_H
+#ifndef AVIA_AREATABFRAGMENT_H
+#define AVIA_AREATABFRAGMENT_H
 
 
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
-#include "src/data/settings/SettingsRepository.h"
 #include "src/ui/common/widgets/map/MapWidget.h"
 
-class MapTabFragment: public BaseFragment {
+class AreaTabFragment : public BaseFragment {
     Q_OBJECT
 private:
 
@@ -25,17 +24,16 @@ private:
     int progress = 0;
 
 public:
-    MapTabFragment();
-    ~MapTabFragment();
+    AreaTabFragment();
+    ~AreaTabFragment();
 
     void onResume() override;
     void setConnector(DBConnector *connector) override;
 
 private slots:
     void onConnectionChecked(bool isConnected);
-
     void onAirportsLoaded(QList<AirportModel> airports);
+    void onAirportsLoadedChangeProgress(int progress);
 };
 
-
-#endif //AVIA_MAPTABFRAGMENT_H
+#endif //AVIA_AREATABFRAGMENT_H

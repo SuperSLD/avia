@@ -19,7 +19,7 @@ using namespace theme;
 
 MapWidget::MapWidget() {
     QFile file;
-    file.setFileName(":/resc/resc/russia.json");
+    file.setFileName(":/resc/resc/jsondata/russia.json");
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     auto val = file.readAll();
     russia = QJsonDocument::fromJson(val);
@@ -71,12 +71,11 @@ void MapWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
     QPainter painter(this);
 
-    // границы
-    painter.setPen(QPen(QColor(colorBorder()), 1));
+    // заливка
     foreach(auto region, russia.object()) {
         auto points = region.toObject()["0"].toArray();
         QPainterPath path;
-        for(int i = 0; i < points.size(); i += 1) {
+        for (int i = 0; i < points.size(); i += 1) {
             auto p = latLonToXY(points[i].toArray()[0].toDouble(), points[i].toArray()[1].toDouble());
             if (i == 0) {
                 path.moveTo(p);
@@ -84,8 +83,23 @@ void MapWidget::paintEvent(QPaintEvent *event) {
                 path.lineTo(p);
             }
         }
-        painter.drawPath(path);
+        painter.fillPath(path, QColor(colorBorder()));
     }
+    // границы
+    painter.setPen(QPen(QColor(colorGraySecondary()), 1));
+            foreach(auto region, russia.object()) {
+            auto points = region.toObject()["0"].toArray();
+            QPainterPath path;
+            for (int i = 0; i < points.size(); i += 1) {
+                auto p = latLonToXY(points[i].toArray()[0].toDouble(), points[i].toArray()[1].toDouble());
+                if (i == 0) {
+                    path.moveTo(p);
+                } else {
+                    path.lineTo(p);
+                }
+            }
+            painter.drawPath(path);
+        }
 
     // полеты
     painter.setPen(QPen(QColor(colorPrimary()), 2));
@@ -103,6 +117,29 @@ void MapWidget::paintEvent(QPaintEvent *event) {
             }
         }
         painter.drawPath(path);
+    }
+
+    // аэропорты
+    foreach(auto airport, airports) {
+        auto p = latLonToXY(airport.lat, airport.lon);
+        if (p.x() >= 0 && p.x() <= this->width() && p.y() > 0 && p.y() < this->height()) {
+            auto r = AIRPORT_POINT_SIZE_MIN + (AIRPORT_POINT_SIZE_MAX - AIRPORT_POINT_SIZE_MIN) *
+                                              (airport.flightCount / (double) maxAirportFlightCount);
+            auto color = colors[(int) (airport.flightCount / (double) maxAirportFlightCount * (colors.size() - 1))];
+            QPainterPath path;
+            path.addEllipse(p, r, r);
+            painter.fillPath(path, QColor(color));
+            if (zoom > 14) {
+                painter.setPen(QPen(QColor(colorBlack()), 2));
+                painter.setFont(QFont("Roboto", 16, QFont::Bold));
+                painter.drawText(p.x() - r, p.y() + r * 3, airport.id);
+                painter.setFont(QFont("Roboto", 12, QFont::Normal));
+                painter.drawText(p.x() - r, p.y() + r * 3 + 16, airport.name);
+                painter.drawText(p.x() - r, p.y() + r * 3 + 28, airport.city);
+                painter.setPen(QPen(QColor(color), 2));
+                painter.drawText(p.x() - r, p.y() + r * 3 + 40, "Вылетов: " + QString::number(airport.flightCount));
+            }
+        }
     }
 }
 
@@ -141,15 +178,30 @@ void MapWidget::mouseReleaseEvent(QMouseEvent *event) {
 
 void MapWidget::onZoomChange(QString name) {
     double scaleFactor;
+    int k = 0;
     if (name == "plus") {
         scaleFactor = 1.1;
+        k = +1;
     } else {
         scaleFactor = 0.9;
+        k = -1;
     }
     zoom *= scaleFactor;
-    cameraX = cameraX * scaleFactor;
-    cameraY = cameraY * scaleFactor;
+    qDebug() << "zoom =" << zoom;
+    cameraX = cameraX * scaleFactor;// + (this->width() / 2) * scaleFactor * k;
+    cameraY = cameraY * scaleFactor;// + (this->height() / 2) * scaleFactor * k;
     lastCameraX = cameraX;
     lastCameraY = cameraY;
+    repaint();
+}
+
+void MapWidget::setAirports(QList<AirportModel> airports) {
+    foreach(auto airport, airports) {
+        if (maxAirportFlightCount < airport.flightCount) {
+            maxAirportFlightCount = airport.flightCount;
+        }
+    }
+    qDebug() << maxAirportFlightCount;
+    this->airports = airports;
     repaint();
 }

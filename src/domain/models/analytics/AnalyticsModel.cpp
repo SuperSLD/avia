@@ -144,7 +144,7 @@ QList<AnalyticsRow> AnalyticsModel::getRows() {
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-               new ChartAnalyticsCell("line", "Дистанция (хз в чем измененная)", distanceLineChart),
+               new ChartAnalyticsCell("line", "Проверка графика (случайные цифры)", distanceLineChart),
        }))
     );
     return rows;

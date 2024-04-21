@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/resc">
-        <file>resc/russia.json</file>
+        <file>resc/jsondata/russia.json</file>
         <file>resc/splash.svg</file>
         <file>resc/splash_dark.svg</file>
         <file>resc/settings.svg</file>
@@ -26,5 +26,7 @@
         <file>resc/arrow_button_right.svg</file>
         <file>resc/minus.svg</file>
         <file>resc/plus.svg</file>
+        <file>resc/calc.svg</file>
+        <file>resc/calc_dark.svg</file>
     </qresource>
 </RCC>

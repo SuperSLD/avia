@@ -18,7 +18,26 @@ DBConnector::DBConnector(QString url, QString user, QString password) {
 }
 
 DBConnector::~DBConnector() {
-
+    if (checkConnectionWorker != nullptr) {
+        checkConnectionWorker->exit();
+        delete checkConnectionWorker;
+    }
+    if (getPageWorker != nullptr) {
+        getPageWorker->exit();
+        delete getPageWorker;
+    }
+    if (getAnalyticsWorker != nullptr) {
+        getAnalyticsWorker->exit();
+        delete getAnalyticsWorker;
+    }
+    if (getAllRoutesWorker != nullptr) {
+        getAllRoutesWorker->exit();
+        delete getAllRoutesWorker;
+    }
+    if (getAirportsWorker != nullptr) {
+        getAirportsWorker->exit();
+        delete getAirportsWorker;
+    }
 }
 
 bool DBConnector::dataEquals(QString url, QString user, QString password) {
@@ -50,14 +69,19 @@ void DBConnector::handleLoadedPage(QJsonArray array, QString table) {
 }
 
 void DBConnector::loadAnalytics() {
-    if (getAnalyticsWorker != nullptr) getAnalyticsWorker->exit();
-    getAnalyticsWorker = new GetAnalyticsWorker("mongodb://" + user + ":" + password + "@" +url);
-    connect(getAnalyticsWorker, &GetAnalyticsWorker::resultReady, this, &DBConnector::handleAnalyticsLoaded);
-    connect(getAnalyticsWorker, &GetAnalyticsWorker::onChangeProgress, this, &DBConnector::handleAnalyticsLoadedProgress);
-    getAnalyticsWorker->start();
+    if (!getAnalyticsWorkerIsStart) {
+        getAnalyticsWorkerIsStart = true;
+        if (getAnalyticsWorker != nullptr) getAnalyticsWorker->exit();
+        getAnalyticsWorker = new GetAnalyticsWorker("mongodb://" + user + ":" + password + "@" + url);
+        connect(getAnalyticsWorker, &GetAnalyticsWorker::resultReady, this, &DBConnector::handleAnalyticsLoaded);
+        connect(getAnalyticsWorker, &GetAnalyticsWorker::onChangeProgress, this,
+                &DBConnector::handleAnalyticsLoadedProgress);
+        getAnalyticsWorker->start();
+    }
 }
 
 void DBConnector::handleAnalyticsLoaded(AnalyticsModel analyticsModel) {
+    getAnalyticsWorkerIsStart = false;
     emit onAnalyticsLoded(analyticsModel);
 }
 
@@ -70,11 +94,15 @@ bool DBConnector::analyticsLoadingInProgress() {
 }
 
 void DBConnector::loadRoutes() {
-    if (getAllRoutesWorker != nullptr) getAllRoutesWorker->exit();
-    getAllRoutesWorker = new GetAllRoutesWorker("mongodb://" + user + ":" + password + "@" +url);
-    connect(getAllRoutesWorker, &GetAllRoutesWorker::resultReady, this, &DBConnector::handleRoutesLoaded);
-    connect(getAllRoutesWorker, &GetAllRoutesWorker::onChangeProgress, this, &DBConnector::handleAllRoutesLoadedProgress);
-    getAllRoutesWorker->start();
+    if (!getAllRoutesWorkerIsStart) {
+        getAllRoutesWorkerIsStart = true;
+        if (getAllRoutesWorker != nullptr) getAllRoutesWorker->exit();
+        getAllRoutesWorker = new GetAllRoutesWorker("mongodb://" + user + ":" + password + "@" + url);
+        connect(getAllRoutesWorker, &GetAllRoutesWorker::resultReady, this, &DBConnector::handleRoutesLoaded);
+        connect(getAllRoutesWorker, &GetAllRoutesWorker::onChangeProgress, this,
+                &DBConnector::handleAllRoutesLoadedProgress);
+        getAllRoutesWorker->start();
+    }
 }
 
 bool DBConnector::routesLoadingInProgress() {
@@ -82,9 +110,31 @@ bool DBConnector::routesLoadingInProgress() {
 }
 
 void DBConnector::handleRoutesLoaded(QList<RouteModel*> routes) {
+    getAllRoutesWorkerIsStart = false;
     emit onRoutesLoaded(routes);
 }
 
 void DBConnector::handleAllRoutesLoadedProgress(int progress) {
     emit onChangeRoutesLoadedProgress(progress);
+}
+
+void DBConnector::loadAirports() {
+    if (!getAirportsWorkerIsStart) {
+        getAirportsWorkerIsStart = true;
+        if (getAirportsWorker != nullptr) getAirportsWorker->exit();
+        getAirportsWorker = new GetAirportsWorker("mongodb://" + user + ":" + password + "@" + url);
+        connect(getAirportsWorker, &GetAirportsWorker::resultReady, this, &DBConnector::handleAirportsLoaded);
+        connect(getAirportsWorker, &GetAirportsWorker::onChangeProgress, this,
+                &DBConnector::handleAirportsLoadedProgress);
+        getAirportsWorker->start();
+    }
+}
+
+void DBConnector::handleAirportsLoaded(QList<AirportModel> airports) {
+    getAirportsWorkerIsStart = false;
+    emit onAirportsLoaded(airports);
+}
+
+void DBConnector::handleAirportsLoadedProgress(int progress) {
+    emit onChangeAirportsLoadedProgress(progress);
 }

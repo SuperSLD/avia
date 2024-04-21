@@ -8,6 +8,7 @@
 
 Q_DECLARE_METATYPE(AnalyticsModel)
 Q_DECLARE_METATYPE(QList<RouteModel*>)
+Q_DECLARE_METATYPE(QList<AirportModel>)
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

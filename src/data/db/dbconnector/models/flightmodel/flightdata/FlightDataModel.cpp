@@ -265,3 +265,7 @@ FlightDataModel::FlightDataModel(
     this->replay = replay;
     this->isFuture = isFuture;
 }
+
+bool FlightDataModel::inRussia() {
+    return apdstco == "Russia" && aporgco == "Russia";
+}

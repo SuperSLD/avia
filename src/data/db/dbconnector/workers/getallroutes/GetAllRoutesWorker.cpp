@@ -40,7 +40,7 @@ void GetAllRoutesWorker::run() {
             auto route = dynamic_cast<RouteModel*>(factory->createModel(document.object()));
             auto routeCode = route->data.current.apdstia + route->data.current.aporgci;
             auto routeCodeRev = route->data.current.aporgci + route->data.current.apdstia;
-            if (!addedRoute.contains(routeCode) && !addedRoute.contains(routeCodeRev) && route->data.current.apdstco == "Russia" && route->data.current.aporgco == "Russia") {
+            if (!addedRoute.contains(routeCode) && !addedRoute.contains(routeCodeRev) && route->data.current.inRussia()) {
                 result.append(route);
                 addedRoute.append(routeCode);
                 addedRoute.append(routeCodeRev);

@@ -9,11 +9,27 @@
 #include <QFrame>
 #include <QJsonDocument>
 #include "src/data/db/dbconnector/models/routemodel/RouteModel.h"
+#include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
 
 class MapWidget: public QFrame {
 
 private:
+    int AIRPORT_POINT_SIZE_MAX = 15;
+    int AIRPORT_POINT_SIZE_MIN = 8;
+    int maxAirportFlightCount = 0;
+    QList<QString> colors = QList<QString> {
+            "#86C28E",
+            "#BBE48D",
+            "#E0E182",
+            "#F6C961",
+            "#F1AE52",
+            "#FDA149",
+            "#F87D1E",
+    };
+
     QList<RouteModel*> routes;
+    QList<AirportModel> airports;
+
     QPoint latLonToXY(double lat, double lon);
     QJsonDocument russia;
 
@@ -37,6 +53,7 @@ public:
     ~MapWidget();
 
     void setRoutes(QList<RouteModel*> routes);
+    void setAirports(QList<AirportModel> airports);
 
 private slots:
     void onZoomChange(QString name);

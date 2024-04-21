@@ -14,6 +14,7 @@
 #include "src/data/db/dbconnector/workers/getanalytics/GetAnalyticsWorker.h"
 #include "src/domain/models/analytics/AnalyticsModel.h"
 #include "src/data/db/dbconnector/workers/getallroutes/GetAllRoutesWorker.h"
+#include "src/data/db/dbconnector/workers/getairports/GetAirportsWorker.h"
 
 class DBConnector: public QObject {
     Q_OBJECT
@@ -25,7 +26,11 @@ private:
     CheckConnectionWorker *checkConnectionWorker;
     GetPageWorker *getPageWorker;
     GetAnalyticsWorker *getAnalyticsWorker;
+    bool getAnalyticsWorkerIsStart = false;
     GetAllRoutesWorker *getAllRoutesWorker;
+    bool getAllRoutesWorkerIsStart = false;
+    GetAirportsWorker *getAirportsWorker;
+    bool getAirportsWorkerIsStart = false;
 
 public:
     DBConnector(QString url, QString user, QString password);
@@ -43,6 +48,8 @@ public:
     void loadRoutes();
     bool routesLoadingInProgress();
 
+    void loadAirports();
+
 private slots:
     void handleConnectionChecked(bool isConnected);
 
@@ -54,6 +61,9 @@ private slots:
     void handleRoutesLoaded(QList<RouteModel*> routes);
     void handleAllRoutesLoadedProgress(int progress);
 
+    void handleAirportsLoaded(QList<AirportModel> airports);
+    void handleAirportsLoadedProgress(int progress);
+
 signals:
     void onConnectionChecked(bool isConnected);
 
@@ -64,6 +74,9 @@ signals:
 
     void onRoutesLoaded(QList<RouteModel*> routes);
     void onChangeRoutesLoadedProgress(int progress);
+
+    void onAirportsLoaded(QList<AirportModel> airports);
+    void onChangeAirportsLoadedProgress(int progress);
 };
 
 #endif //AVIA_DBCONNECTOR_H

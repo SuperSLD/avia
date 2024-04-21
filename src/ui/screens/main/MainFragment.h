@@ -23,15 +23,19 @@ private:
 
     const int FLIGHTS = 0;
     const int ROUTES = 1;
-    const int MAP = 2;
-    const int ANALYTICS = 3;
-    const int SETTINGS = 4;
+    const int CALCULATE_GRAPH = 2;
+    const int CALCULATE_AREA = 3;
+    const int MAP = 4;
+    const int ANALYTICS = 5;
+    const int SETTINGS = 6;
 
     QLabel *infoUrl;
 
     QStackedWidget *tabs;
     QList<BaseFragment*> tabFragments;
     QList<MenuTabButton*> tabButtons;
+
+    bool airportsLoadingStarted = false;
 
 private slots:
     void onTabButtonClicked(int id);

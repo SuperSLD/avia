@@ -22,6 +22,7 @@ using namespace screens;
 #include "src/ui/screens/main/maptab/MapTabFragment.h"
 #include "src/ui/screens/main/analyticstab/AnalyticsTabFragment.h"
 #include "src/domain/models/tabopen/TabOpenModel.h"
+#include "src/ui/screens/main/areatab/AreaTabFragment.h"
 
 MainFragment::MainFragment() {
 
@@ -72,6 +73,8 @@ MainFragment::MainFragment() {
     // Кнопки табов
     tabButtons.append(new MenuTabButton("Данные о перелетах", "flights", "flights_dark", FLIGHTS));
     tabButtons.append(new MenuTabButton("Данные о маршрутах", "routes", "routes_dark", ROUTES));
+    tabButtons.append(new MenuTabButton("Рассчет населения", "calc", "calc_dark", CALCULATE_AREA));
+    tabButtons.append(new MenuTabButton("Рассчет графа", "calc", "calc_dark", CALCULATE_GRAPH));
     tabButtons.append(new MenuTabButton("Транспортная сеть", "map", "map_dark", MAP));
     tabButtons.append(new MenuTabButton("Статистика", "analytics", "analytics_dark", ANALYTICS));
     tabButtons.append(new MenuTabButton("Настройки", "settings", "settings_dark", SETTINGS));
@@ -102,6 +105,8 @@ MainFragment::MainFragment() {
     connect(routesTabFragment, &RoutesTabFragment::onModelOpen, this, &MainFragment::onOpenModelDetail);
     tabFragments.append(routesTabFragment);
 
+    tabFragments.append(new AreaTabFragment());
+    tabFragments.append(new AreaTabFragment());
     tabFragments.append(new MapTabFragment());
     tabFragments.append(new AnalyticsTabFragment());
 
@@ -168,6 +173,10 @@ void MainFragment::onResume() {
         tab->onResume();
     }
     connector->checkConnection();
+    if (!airportsLoadingStarted) {
+        airportsLoadingStarted = true;
+        connector->loadAirports();
+    }
 }
 
 void MainFragment::onPause() {

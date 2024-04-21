@@ -42,30 +42,23 @@ void MapTabFragment::onResume() {
 
 void MapTabFragment::onConnectionChecked(bool isConnected) {
     if (isConnected) {
-        loadingContainer->startLoading("Загружаем маршруты 0%");
-        dbConnector->loadRoutes();
+        loadingContainer->stopLoading();
     } else {
         loadingContainer->error("Нет подключения к базе");
     }
 }
 
 void MapTabFragment::setConnector(DBConnector *connector) {
+    disconnect(connector, &DBConnector::onAirportsLoaded, this, &MapTabFragment::onAirportsLoaded);
     disconnect(connector, &DBConnector::onConnectionChecked, this, &MapTabFragment::onConnectionChecked);
     this->dbConnector = connector;
     connect(connector, &DBConnector::onConnectionChecked, this, &MapTabFragment::onConnectionChecked);
-    connect(connector, &DBConnector::onRoutesLoaded, this, &MapTabFragment::onRoutesLoaded);
-    connect(connector, &DBConnector::onChangeRoutesLoadedProgress, this, &MapTabFragment::onRoutesLoadedChangeProgress);
+    connect(connector, &DBConnector::onAirportsLoaded, this, &MapTabFragment::onAirportsLoaded);
 }
 
-void MapTabFragment::onRoutesLoaded(QList<RouteModel*> routes) {
-    map->setRoutes(routes);
+void MapTabFragment::onAirportsLoaded(QList<AirportModel> airports) {
     loadingContainer->stopLoading();
+    map->setAirports(airports);
 }
 
-void MapTabFragment::onRoutesLoadedChangeProgress(int progress) {
-    if (progress != this->progress) {
-        this->progress = progress;
-        loadingContainer->startLoading("Загружаем маршруты " + QString::number(progress) + "%");
-    }
-}
 

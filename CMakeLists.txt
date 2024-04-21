@@ -39,7 +39,7 @@ find_package(mongocxx REQUIRED)
 
 set(PROJECT_SOURCES
         resc.qrc
-        resc/russia.json
+        resc/jsondata/russia.json
         resc/splash.svg
         resc/settings.svg
         resc/routes.svg
@@ -67,6 +67,8 @@ set(PROJECT_SOURCES
         resc/arrow_button_right.svg
         resc/minus.svg
         resc/plus.svg
+        resc/calc.svg
+        resc/calc_dark.svg
         main.cpp
         src/mainwindow.cpp
         src/mainwindow.h
@@ -133,6 +135,16 @@ set(PROJECT_SOURCES
         src/data/db/dbconnector/workers/getallroutes/GetAllRoutesWorker.h
         src/ui/common/widgets/map/MapWidget.cpp
         src/ui/common/widgets/map/MapWidget.h
+        src/domain/usecases/area/CalculateAreaWorker.cpp
+        src/domain/usecases/area/CalculateAreaWorker.h
+        src/domain/usecases/graph/CalculateGraphWorker.cpp
+        src/domain/usecases/graph/CalculateGraphWorker.h
+        src/data/db/dbconnector/models/airportmodel/AirportModel.cpp
+        src/data/db/dbconnector/models/airportmodel/AirportModel.h
+        src/ui/screens/main/areatab/AreaTabFragment.cpp
+        src/ui/screens/main/areatab/AreaTabFragment.h
+        src/data/db/dbconnector/workers/getairports/GetAirportsWorker.cpp
+        src/data/db/dbconnector/workers/getairports/GetAirportsWorker.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
