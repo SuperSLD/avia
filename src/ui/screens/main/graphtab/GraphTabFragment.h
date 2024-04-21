@@ -2,15 +2,13 @@
 // Created by Леонид Соляной on 21.04.2024.
 //
 
-#ifndef AVIA_AREATABFRAGMENT_H
-#define AVIA_AREATABFRAGMENT_H
-
+#ifndef AVIA_GRAPHTABFRAGMENT_H
+#define AVIA_GRAPHTABFRAGMENT_H
 
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
-#include "src/ui/common/widgets/map/MapWidget.h"
 
-class AreaTabFragment : public BaseFragment {
+class GraphTabFragment : public BaseFragment {
     Q_OBJECT
 private:
 
@@ -18,11 +16,13 @@ private:
     SettingsRepository *settingsRep = new SettingsRepository();
     DBConnector *dbConnector;
 
+    int progress = 0;
+
     QList<AirportModel> airports;
 
 public:
-    AreaTabFragment();
-    ~AreaTabFragment();
+    GraphTabFragment();
+    ~GraphTabFragment();
 
     void onResume() override;
     void setConnector(DBConnector *connector) override;
@@ -33,7 +33,7 @@ private slots:
     void onAirportsLoadedChangeProgress(int progress);
 
     void startCalculation();
-    void onAreaCalculated();
+    void onGraphCalculated();
 };
 
-#endif //AVIA_AREATABFRAGMENT_H
+#endif //AVIA_GRAPHTABFRAGMENT_H

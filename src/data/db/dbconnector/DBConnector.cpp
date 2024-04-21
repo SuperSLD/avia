@@ -138,3 +138,25 @@ void DBConnector::handleAirportsLoaded(QList<AirportModel> airports) {
 void DBConnector::handleAirportsLoadedProgress(int progress) {
     emit onChangeAirportsLoadedProgress(progress);
 }
+
+void DBConnector::calculateArea(QList<AirportModel> airports) {
+    if (calculateAreaWorker != nullptr) calculateAreaWorker->exit();
+    calculateAreaWorker = new CalculateAreaWorker("mongodb://" + user + ":" + password + "@" + url, airports);
+    connect(calculateAreaWorker, &CalculateAreaWorker::resultReady, this, &DBConnector::handleCalculatedArea);
+    calculateAreaWorker->start();
+}
+
+void DBConnector::handleCalculatedArea() {
+    emit onAreaCalculated();
+}
+
+void DBConnector::calculateGraph(QList<AirportModel> airports) {
+    if (calculateGraphWorker != nullptr) calculateGraphWorker->exit();
+    calculateGraphWorker = new CalculateGraphWorker("mongodb://" + user + ":" + password + "@" + url, airports);
+    connect(calculateGraphWorker, &CalculateGraphWorker::resultReady, this, &DBConnector::handleCalculatedGraph);
+    calculateGraphWorker->start();
+}
+
+void DBConnector::handleCalculatedGraph() {
+    emit onGraphCalculated();
+}

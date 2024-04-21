@@ -15,6 +15,8 @@
 #include "src/domain/models/analytics/AnalyticsModel.h"
 #include "src/data/db/dbconnector/workers/getallroutes/GetAllRoutesWorker.h"
 #include "src/data/db/dbconnector/workers/getairports/GetAirportsWorker.h"
+#include "src/domain/usecases/area/CalculateAreaWorker.h"
+#include "src/domain/usecases/graph/CalculateGraphWorker.h"
 
 class DBConnector: public QObject {
     Q_OBJECT
@@ -31,6 +33,9 @@ private:
     bool getAllRoutesWorkerIsStart = false;
     GetAirportsWorker *getAirportsWorker;
     bool getAirportsWorkerIsStart = false;
+
+    CalculateAreaWorker *calculateAreaWorker;
+    CalculateGraphWorker *calculateGraphWorker;
 
 public:
     DBConnector(QString url, QString user, QString password);
@@ -50,6 +55,9 @@ public:
 
     void loadAirports();
 
+    void calculateArea(QList<AirportModel> airports);
+    void calculateGraph(QList<AirportModel> airports);
+
 private slots:
     void handleConnectionChecked(bool isConnected);
 
@@ -64,6 +72,9 @@ private slots:
     void handleAirportsLoaded(QList<AirportModel> airports);
     void handleAirportsLoadedProgress(int progress);
 
+    void handleCalculatedArea();
+    void handleCalculatedGraph();
+
 signals:
     void onConnectionChecked(bool isConnected);
 
@@ -77,6 +88,9 @@ signals:
 
     void onAirportsLoaded(QList<AirportModel> airports);
     void onChangeAirportsLoadedProgress(int progress);
+
+    void onAreaCalculated();
+    void onGraphCalculated();
 };
 
 #endif //AVIA_DBCONNECTOR_H

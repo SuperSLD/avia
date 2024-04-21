@@ -145,6 +145,8 @@ set(PROJECT_SOURCES
         src/ui/screens/main/areatab/AreaTabFragment.h
         src/data/db/dbconnector/workers/getairports/GetAirportsWorker.cpp
         src/data/db/dbconnector/workers/getairports/GetAirportsWorker.h
+        src/ui/screens/main/graphtab/GraphTabFragment.cpp
+        src/ui/screens/main/graphtab/GraphTabFragment.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

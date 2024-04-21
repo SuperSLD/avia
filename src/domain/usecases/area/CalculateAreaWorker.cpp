@@ -4,3 +4,13 @@
 
 #include "CalculateAreaWorker.h"
 
+#include <QDebug>
+
+void CalculateAreaWorker::run() {
+
+    // место для кода Егора
+
+    qDebug() << "CalculateAreaWorker все посчитал";
+
+    emit resultReady();
+}

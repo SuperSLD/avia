@@ -2,18 +2,18 @@
 // Created by Леонид Соляной on 21.04.2024.
 //
 
-#include "AreaTabFragment.h"
+#include "GraphTabFragment.h"
 #include "src/ui/common/widgets/toolbar/Toolbar.h"
 #include "src/ui/common/widgets/button/Button.h"
 
-AreaTabFragment::AreaTabFragment() {
+GraphTabFragment::GraphTabFragment() {
     auto *mainContainer = new QVBoxLayout;
     this->setLayout(mainContainer);
     this->setContentsMargins(0, 0 , 0, 0);
     mainContainer->setContentsMargins(0, 0, 0, 0);
     mainContainer->setSpacing(0);
 
-    auto *toolbar = new Toolbar("Расчет транспортной доступности", "calc", "calc_dark");
+    auto *toolbar = new Toolbar("Расчет графа транспортной сети", "calc", "calc_dark");
     mainContainer->addWidget(toolbar);
 
     auto *contentFrame = new QFrame();
@@ -25,7 +25,7 @@ AreaTabFragment::AreaTabFragment() {
     contentContainer->setAlignment(Qt::AlignCenter);
 
     auto startCalculationButton = new Button("startCalculationButton", "Начать вычисление", true);
-    connect(startCalculationButton, &Button::clicked, this, &AreaTabFragment::startCalculation);
+    connect(startCalculationButton, &Button::clicked, this, &GraphTabFragment::startCalculation);
     contentContainer->addWidget(startCalculationButton);
 
     loadingContainer = new LoadingContainerWidget(contentFrame);
@@ -33,26 +33,26 @@ AreaTabFragment::AreaTabFragment() {
     mainContainer->addWidget(loadingContainer);
 }
 
-AreaTabFragment::~AreaTabFragment() {
+GraphTabFragment::~GraphTabFragment() {
     delete settingsRep;
     delete loadingContainer;
 }
 
-void AreaTabFragment::onResume() {
+void GraphTabFragment::onResume() {
 
 }
 
-void AreaTabFragment::setConnector(DBConnector *connector) {
-    disconnect(dbConnector, &DBConnector::onAirportsLoaded, this, &AreaTabFragment::onAirportsLoaded);
-    disconnect(dbConnector, &DBConnector::onChangeAirportsLoadedProgress, this, &AreaTabFragment::onAirportsLoadedChangeProgress);
-    disconnect(dbConnector, &DBConnector::onAreaCalculated, this, &AreaTabFragment::onAreaCalculated);
+void GraphTabFragment::setConnector(DBConnector *connector) {
+    disconnect(dbConnector, &DBConnector::onAirportsLoaded, this, &GraphTabFragment::onAirportsLoaded);
+    disconnect(dbConnector, &DBConnector::onChangeAirportsLoadedProgress, this, &GraphTabFragment::onAirportsLoadedChangeProgress);
+    disconnect(dbConnector, &DBConnector::onGraphCalculated, this, &GraphTabFragment::onGraphCalculated);
     this->dbConnector = connector;
-    connect(dbConnector, &DBConnector::onAirportsLoaded, this, &AreaTabFragment::onAirportsLoaded);
-    connect(dbConnector, &DBConnector::onChangeAirportsLoadedProgress, this, &AreaTabFragment::onAirportsLoadedChangeProgress);
-    connect(dbConnector, &DBConnector::onAreaCalculated, this, &AreaTabFragment::onAreaCalculated);
+    connect(dbConnector, &DBConnector::onAirportsLoaded, this, &GraphTabFragment::onAirportsLoaded);
+    connect(dbConnector, &DBConnector::onChangeAirportsLoadedProgress, this, &GraphTabFragment::onAirportsLoadedChangeProgress);
+    connect(dbConnector, &DBConnector::onGraphCalculated, this, &GraphTabFragment::onGraphCalculated);
 }
 
-void AreaTabFragment::onConnectionChecked(bool isConnected) {
+void GraphTabFragment::onConnectionChecked(bool isConnected) {
     if (isConnected) {
         // pass //
     } else {
@@ -60,21 +60,22 @@ void AreaTabFragment::onConnectionChecked(bool isConnected) {
     }
 }
 
-void AreaTabFragment::onAirportsLoaded(QList<AirportModel> airports) {
+void GraphTabFragment::onAirportsLoaded(QList<AirportModel> airports) {
     loadingContainer->stopLoading();
     qDebug() << "Количество аэропортов" << airports.size();
     this->airports = airports;
 }
 
-void AreaTabFragment::onAirportsLoadedChangeProgress(int progress) {
+void GraphTabFragment::onAirportsLoadedChangeProgress(int progress) {
     loadingContainer->startLoading("Поиск аэропортов " + QString::number(progress) + "%");
 }
 
-void AreaTabFragment::startCalculation() {
-    dbConnector->calculateArea(airports);
+void GraphTabFragment::startCalculation() {
+    dbConnector->calculateGraph(airports);
     loadingContainer->startLoading("Считаем");
 }
 
-void AreaTabFragment::onAreaCalculated() {
+void GraphTabFragment::onGraphCalculated() {
     loadingContainer->stopLoading();
 }
+

@@ -7,15 +7,25 @@
 
 
 #include <QThread>
+#include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
 
 class CalculateGraphWorker: public QThread {
-    Q_OBJECT
+Q_OBJECT
 
 private:
+    QString uriString;
+    QList<AirportModel> airports;
 
 public:
-    CalculateGraphWorker();
-};
+    CalculateGraphWorker(QString uri, QList<AirportModel> airports) {
+        this->uriString = uri;
+        this->airports = airports;
+    }
 
+    void run() override;
+
+signals:
+    void resultReady();
+};
 
 #endif //AVIA_CALCULATEGRAPHWORKER_H

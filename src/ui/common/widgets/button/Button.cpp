@@ -54,3 +54,8 @@ Button::Button(QString id, QString title, bool solid) {
 Button::~Button() {
 
 }
+
+void Button::enabled(bool isEnabled) {
+    this->isEnabled = isEnabled;
+    this->setEnabled(isEnabled);
+}
