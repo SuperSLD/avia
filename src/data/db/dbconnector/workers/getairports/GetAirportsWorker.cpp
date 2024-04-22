@@ -4,6 +4,7 @@
 
 #include "GetAirportsWorker.h"
 #include "src/data/db/dbconnector/models/flightmodel/FlightModel.h"
+#include "src/domain/models/transportgraph/PassengersCountBlock.h"
 
 #include <mongocxx/uri.hpp>
 #include <mongocxx/client.hpp>
@@ -22,8 +23,7 @@ using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
 void GetAirportsWorker::run() {
-    QList<FlightModel*> result;
-    //QJsonArray result = QJsonArray();
+    auto passengersCount = PassengersCountBlock();
     try {
         mongocxx::uri uri((uriString.toStdString()));
         mongocxx::client client(uri);
@@ -44,12 +44,19 @@ void GetAirportsWorker::run() {
                         flight->data.apdstci,
                         flight->data.apdstlo,
                         flight->data.apdstla,
+                        passengersCount.passengersCount(0.8, flight->data.act),
+                        0,
                         QList<QString>()
                 );
                 if (airports.contains(airport.id)) {
                     if (flight->data.aporgia.size() > 1) {
                         airports[airport.id].incFlight();
                         airports[airport.id].addConnection(flight->data.aporgia);
+                        auto pCount = passengersCount.passengersCount(0.8, flight->data.act);
+                        if (airports.contains(flight->data.aporgia)) {
+                            airports[flight->data.aporgia].incPassengerCount(pCount, true);
+                        }
+                        airports[airport.id].incPassengerCount(pCount,false);
                     }
                 } else {
                     airports[airport.id] = airport;

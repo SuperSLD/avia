@@ -137,7 +137,8 @@ void MapWidget::paintEvent(QPaintEvent *event) {
                 painter.drawText(p.x() - r, p.y() + r * 3 + 16, airport.name);
                 painter.drawText(p.x() - r, p.y() + r * 3 + 28, airport.city);
                 painter.setPen(QPen(QColor(color), 2));
-                painter.drawText(p.x() - r, p.y() + r * 3 + 40, "Вылетов: " + QString::number(airport.flightCount));
+                painter.drawText(p.x() - r, p.y() + r * 3 + 40, "Пассажиров: " + QString::number(airport.passengersCountIn + airport.passengersCountOut));
+                painter.drawText(p.x() - r, p.y() + r * 3 + 52, "Вылетов: " + QString::number(airport.flightCount));
             }
         }
     }

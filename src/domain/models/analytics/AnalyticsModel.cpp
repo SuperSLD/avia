@@ -142,10 +142,10 @@ QList<AnalyticsRow> AnalyticsModel::getRows() {
                new ChartAnalyticsCell("bar", "Распределение рейсов по аэропортам", airportsBarChart),
        }))
     );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell*>({
-               new ChartAnalyticsCell("line", "Проверка графика (случайные цифры)", distanceLineChart),
-       }))
-    );
+//    rows.append(
+//        AnalyticsRow(QList<BaseAnalyticsCell*>({
+//               new ChartAnalyticsCell("line", "Проверка графика (случайные цифры)", distanceLineChart),
+//       }))
+//    );
     return rows;
 }

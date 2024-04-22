@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/resc">
+        <file>resc/jsondata/aircraft_models.json</file>
         <file>resc/jsondata/russia.json</file>
         <file>resc/splash.svg</file>
         <file>resc/splash_dark.svg</file>

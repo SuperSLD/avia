@@ -1,0 +1,226 @@
+[
+  {
+    "model": "A321",
+    "seatsCount": 220
+  },
+  {
+    "model": "B738",
+    "seatsCount": 189
+  },
+  {
+    "model": "A20N",
+    "seatsCount": 164
+  },
+  {
+    "model": "A320",
+    "seatsCount": 146
+  },
+  {
+    "model": "SU95",
+    "seatsCount": 98
+  },
+  {
+    "model": "IL76",
+    "seatsCount": 10
+  },
+  {
+    "model": "A319",
+    "seatsCount": 156
+  },
+  {
+    "model": "BE9L",
+    "seatsCount": 9
+  },
+  {
+    "model": "CL35",
+    "seatsCount": 10
+  },
+  {
+    "model": "CRJ2",
+    "seatsCount": 50
+  },
+  {
+    "model": "A21N",
+    "seatsCount": 220
+  },
+  {
+    "model": "E190",
+    "seatsCount": 100
+  },
+  {
+    "model": "B734",
+    "seatsCount": 159
+  },
+  {
+    "model": "DH8D",
+    "seatsCount": 78
+  },
+  {
+    "model": "YK42",
+    "seatsCount": 120
+  },
+  {
+    "model": "B773",
+    "seatsCount": 550
+  },
+  {
+    "model": "A359",
+    "seatsCount": 440
+  },
+  {
+    "model": "B77W",
+    "seatsCount": 550
+  },
+  {
+    "model": "B735",
+    "seatsCount": 132
+  },
+  {
+    "model": "AT72",
+    "seatsCount": 74
+  },
+  {
+    "model": "CL60",
+    "seatsCount": 19
+  },
+  {
+    "model": "B739",
+    "seatsCount": 188
+  },
+  {
+    "model": "B733",
+    "seatsCount": 149
+  },
+  {
+    "model": "B737",
+    "seatsCount": 188
+  },
+  {
+    "model": "",
+    "seatsCount": 100
+  },
+  {
+    "model": "B752",
+    "seatsCount": 200
+  },
+  {
+    "model": "PC12",
+    "seatsCount": 9
+  },
+  {
+    "model": "GLEX",
+    "seatsCount": 19
+  },
+  {
+    "model": "A148",
+    "seatsCount": 75
+  },
+  {
+    "model": "B350",
+    "seatsCount": 9
+  },
+  {
+    "model": "E35L",
+    "seatsCount": 13
+  },
+  {
+    "model": "L410",
+    "seatsCount": 19
+  },
+  {
+    "model": "A333",
+    "seatsCount": 440
+  },
+  {
+    "model": "DHC6",
+    "seatsCount": 19
+  },
+  {
+    "model": "T204",
+    "seatsCount": 26
+  },
+  {
+    "model": "E170",
+    "seatsCount": 100
+  },
+  {
+    "model": "GLF6",
+    "seatsCount": 18
+  },
+  {
+    "model": "CRJ1",
+    "seatsCount": 50
+  },
+  {
+    "model": "A124",
+    "seatsCount": 7
+  },
+  {
+    "model": "B38M",
+    "seatsCount": 189
+  },
+  {
+    "model": "IL62",
+    "seatsCount": 195
+  },
+  {
+    "model": "E75L",
+    "seatsCount": 80
+  },
+  {
+    "model": "BR23",
+    "seatsCount": 2
+  },
+  {
+    "model": "A332",
+    "seatsCount": 380
+  },
+  {
+    "model": "FA7X",
+    "seatsCount": 14
+  },
+  {
+    "model": "F900",
+    "seatsCount": 19
+  },
+  {
+    "model": "GLF4",
+    "seatsCount": 16
+  },
+  {
+    "model": "B763",
+    "seatsCount": 202
+  },
+  {
+    "model": "T154",
+    "seatsCount": 180
+  },
+  {
+    "model": "SIRA",
+    "seatsCount": 10
+  },
+  {
+    "model": "GLF5",
+    "seatsCount": 19
+  },
+  {
+    "model": "B789",
+    "seatsCount": 246
+  },
+  {
+    "model": "GRND",
+    "seatsCount": 10
+  },
+  {
+    "model": "AEST",
+    "seatsCount": 2
+  },
+  {
+    "model": "GL5T",
+    "seatsCount": 16
+  },
+  {
+    "model": "EC35",
+    "seatsCount": 5
+  }
+]

@@ -10,6 +10,8 @@ AirportModel::AirportModel(
         QString city,
         double lon,
         double lat,
+        long passengersCountOut,
+        long passengersCountIn,
         QList<QString> connectedAirports
 ) {
     this->id = id;
@@ -17,6 +19,8 @@ AirportModel::AirportModel(
     this->city = city;
     this->lon = lon;
     this->lat = lat;
+    this->passengersCountOut = passengersCountOut;
+    this->passengersCountIn = passengersCountIn;
     this->connectedAirports = connectedAirports;
 }
 
@@ -41,6 +45,16 @@ AirportModel AirportModel::getWithEmptyEdges() {
         city,
         lon,
         lat,
+        passengersCountOut,
+        passengersCountIn,
         QList<QString>()
     );
+}
+
+void AirportModel::incPassengerCount(int count, bool in) {
+    if (in) {
+        passengersCountIn += count;
+    } else {
+        passengersCountOut += count;
+    }
 }

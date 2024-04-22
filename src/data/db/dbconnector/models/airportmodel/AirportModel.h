@@ -17,6 +17,8 @@ public:
     QString city;
     double lon;
     double lat;
+    long passengersCountOut;
+    long passengersCountIn;
     QList<QString> connectedAirports;
     int flightCount = 1;
 
@@ -26,6 +28,8 @@ public:
         QString city,
         double lon,
         double lat,
+        long passengersCountOut,
+        long passengersCountIn,
         QList<QString> connectedAirports
     );
     AirportModel() {};
@@ -34,6 +38,7 @@ public:
 
     void addConnection(QString id);
     void incFlight();
+    void incPassengerCount(int count, bool in);
 
     AirportModel getWithEmptyEdges();
 };

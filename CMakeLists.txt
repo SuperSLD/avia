@@ -39,6 +39,7 @@ find_package(mongocxx REQUIRED)
 
 set(PROJECT_SOURCES
         resc.qrc
+        resc/jsondata/aircraft_models.json
         resc/jsondata/russia.json
         resc/splash.svg
         resc/settings.svg
@@ -149,6 +150,8 @@ set(PROJECT_SOURCES
         src/ui/screens/main/graphtab/GraphTabFragment.h
         src/domain/models/transportgraph/TransportGraphModel.cpp
         src/domain/models/transportgraph/TransportGraphModel.h
+        src/domain/models/transportgraph/PassengersCountBlock.cpp
+        src/domain/models/transportgraph/PassengersCountBlock.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
