@@ -6,19 +6,19 @@
 #define AVIA_CALCULATEAREAWORKER_H
 
 #include <QThread>
-#include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
+#include "src/domain/models/transportgraph/TransportGraphModel.h"
 
 class CalculateAreaWorker: public QThread {
     Q_OBJECT
 
 private:
     QString uriString;
-    QList<AirportModel> airports;
+    TransportGraphModel graph;
 
 public:
-    CalculateAreaWorker(QString uri, QList<AirportModel> airports) {
+    CalculateAreaWorker(QString uri, TransportGraphModel graph) {
         this->uriString = uri;
-        this->airports = airports;
+        this->graph = graph;
     }
 
     void run() override;

@@ -75,7 +75,7 @@ void MapWidget::paintEvent(QPaintEvent *event) {
     foreach(auto region, russia.object()) {
         auto points = region.toObject()["0"].toArray();
         QPainterPath path;
-        for (int i = 0; i < points.size(); i += 1) {
+        for (int i = 0; i < points.size(); i++) {
             auto p = latLonToXY(points[i].toArray()[0].toDouble(), points[i].toArray()[1].toDouble());
             if (i == 0) {
                 path.moveTo(p);
@@ -90,7 +90,7 @@ void MapWidget::paintEvent(QPaintEvent *event) {
             foreach(auto region, russia.object()) {
             auto points = region.toObject()["0"].toArray();
             QPainterPath path;
-            for (int i = 0; i < points.size(); i += 1) {
+            for (int i = 0; i < points.size(); i++) {
                 auto p = latLonToXY(points[i].toArray()[0].toDouble(), points[i].toArray()[1].toDouble());
                 if (i == 0) {
                     path.moveTo(p);
@@ -120,7 +120,7 @@ void MapWidget::paintEvent(QPaintEvent *event) {
     }
 
     // аэропорты
-    foreach(auto airport, airports) {
+    foreach(auto airport, graph.airports) {
         auto p = latLonToXY(airport.lat, airport.lon);
         if (p.x() >= 0 && p.x() <= this->width() && p.y() > 0 && p.y() < this->height()) {
             auto r = AIRPORT_POINT_SIZE_MIN + (AIRPORT_POINT_SIZE_MAX - AIRPORT_POINT_SIZE_MIN) *
@@ -195,13 +195,13 @@ void MapWidget::onZoomChange(QString name) {
     repaint();
 }
 
-void MapWidget::setAirports(QList<AirportModel> airports) {
-    foreach(auto airport, airports) {
+void MapWidget::setAirports(TransportGraphModel graph) {
+    foreach(auto airport, graph.airports) {
         if (maxAirportFlightCount < airport.flightCount) {
             maxAirportFlightCount = airport.flightCount;
         }
     }
     qDebug() << maxAirportFlightCount;
-    this->airports = airports;
+    this->graph = graph;
     repaint();
 }

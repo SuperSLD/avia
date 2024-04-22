@@ -130,18 +130,18 @@ void DBConnector::loadAirports() {
     }
 }
 
-void DBConnector::handleAirportsLoaded(QList<AirportModel> airports) {
+void DBConnector::handleAirportsLoaded(TransportGraphModel graph) {
     getAirportsWorkerIsStart = false;
-    emit onAirportsLoaded(airports);
+    emit onAirportsLoaded(graph);
 }
 
 void DBConnector::handleAirportsLoadedProgress(int progress) {
     emit onChangeAirportsLoadedProgress(progress);
 }
 
-void DBConnector::calculateArea(QList<AirportModel> airports) {
+void DBConnector::calculateArea(TransportGraphModel graph) {
     if (calculateAreaWorker != nullptr) calculateAreaWorker->exit();
-    calculateAreaWorker = new CalculateAreaWorker("mongodb://" + user + ":" + password + "@" + url, airports);
+    calculateAreaWorker = new CalculateAreaWorker("mongodb://" + user + ":" + password + "@" + url, graph);
     connect(calculateAreaWorker, &CalculateAreaWorker::resultReady, this, &DBConnector::handleCalculatedArea);
     calculateAreaWorker->start();
 }
@@ -150,9 +150,9 @@ void DBConnector::handleCalculatedArea() {
     emit onAreaCalculated();
 }
 
-void DBConnector::calculateGraph(QList<AirportModel> airports) {
+void DBConnector::calculateGraph(TransportGraphModel graph) {
     if (calculateGraphWorker != nullptr) calculateGraphWorker->exit();
-    calculateGraphWorker = new CalculateGraphWorker("mongodb://" + user + ":" + password + "@" + url, airports);
+    calculateGraphWorker = new CalculateGraphWorker("mongodb://" + user + ":" + password + "@" + url, graph);
     connect(calculateGraphWorker, &CalculateGraphWorker::resultReady, this, &DBConnector::handleCalculatedGraph);
     calculateGraphWorker->start();
 }

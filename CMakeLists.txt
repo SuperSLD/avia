@@ -147,6 +147,8 @@ set(PROJECT_SOURCES
         src/data/db/dbconnector/workers/getairports/GetAirportsWorker.h
         src/ui/screens/main/graphtab/GraphTabFragment.cpp
         src/ui/screens/main/graphtab/GraphTabFragment.h
+        src/domain/models/transportgraph/TransportGraphModel.cpp
+        src/domain/models/transportgraph/TransportGraphModel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

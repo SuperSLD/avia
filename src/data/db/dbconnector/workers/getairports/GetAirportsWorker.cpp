@@ -58,9 +58,9 @@ void GetAirportsWorker::run() {
             index++;
             emit onChangeProgress(index / count * 100);
         }
-        emit resultReady(airports.values());
+        emit resultReady(TransportGraphModel(airports.values()));
     } catch (std::exception& e) {
         qDebug("%s", e.what());
-        emit resultReady(airports.values());
+        emit resultReady(TransportGraphModel(airports.values()));
     }
 }

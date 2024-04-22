@@ -55,8 +55,8 @@ public:
 
     void loadAirports();
 
-    void calculateArea(QList<AirportModel> airports);
-    void calculateGraph(QList<AirportModel> airports);
+    void calculateArea(TransportGraphModel graph);
+    void calculateGraph(TransportGraphModel graph);
 
 private slots:
     void handleConnectionChecked(bool isConnected);
@@ -69,7 +69,7 @@ private slots:
     void handleRoutesLoaded(QList<RouteModel*> routes);
     void handleAllRoutesLoadedProgress(int progress);
 
-    void handleAirportsLoaded(QList<AirportModel> airports);
+    void handleAirportsLoaded(TransportGraphModel graph);
     void handleAirportsLoadedProgress(int progress);
 
     void handleCalculatedArea();
@@ -86,7 +86,7 @@ signals:
     void onRoutesLoaded(QList<RouteModel*> routes);
     void onChangeRoutesLoadedProgress(int progress);
 
-    void onAirportsLoaded(QList<AirportModel> airports);
+    void onAirportsLoaded(TransportGraphModel graph);
     void onChangeAirportsLoadedProgress(int progress);
 
     void onAreaCalculated();

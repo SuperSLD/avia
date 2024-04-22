@@ -56,9 +56,9 @@ void MapTabFragment::setConnector(DBConnector *connector) {
     connect(connector, &DBConnector::onAirportsLoaded, this, &MapTabFragment::onAirportsLoaded);
 }
 
-void MapTabFragment::onAirportsLoaded(QList<AirportModel> airports) {
+void MapTabFragment::onAirportsLoaded(TransportGraphModel graph) {
     loadingContainer->stopLoading();
-    map->setAirports(airports);
+    map->setAirports(graph);
 }
 
 

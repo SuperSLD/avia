@@ -34,7 +34,7 @@ public:
 private slots:
     void onConnectionChecked(bool isConnected);
 
-    void onAirportsLoaded(QList<AirportModel> airports);
+    void onAirportsLoaded(TransportGraphModel graph);
 };
 
 

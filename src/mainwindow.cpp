@@ -13,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
         qRegisterMetaType<AnalyticsModel>();
         qRegisterMetaType<QList<RouteModel*>>();
-        qRegisterMetaType<QList<AirportModel>>();
+        qRegisterMetaType<TransportGraphModel>();
 
         settingsRepository = new SettingsRepository();
 

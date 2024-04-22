@@ -10,6 +10,7 @@
 #include <QJsonDocument>
 #include "src/data/db/dbconnector/models/routemodel/RouteModel.h"
 #include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
+#include "src/domain/models/transportgraph/TransportGraphModel.h"
 
 class MapWidget: public QFrame {
 
@@ -28,7 +29,7 @@ private:
     };
 
     QList<RouteModel*> routes;
-    QList<AirportModel> airports;
+    TransportGraphModel graph;
 
     QPoint latLonToXY(double lat, double lon);
     QJsonDocument russia;
@@ -53,7 +54,7 @@ public:
     ~MapWidget();
 
     void setRoutes(QList<RouteModel*> routes);
-    void setAirports(QList<AirportModel> airports);
+    void setAirports(TransportGraphModel graph);
 
 private slots:
     void onZoomChange(QString name);

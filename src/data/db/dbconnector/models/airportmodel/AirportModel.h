@@ -34,6 +34,8 @@ public:
 
     void addConnection(QString id);
     void incFlight();
+
+    AirportModel getWithEmptyEdges();
 };
 
 

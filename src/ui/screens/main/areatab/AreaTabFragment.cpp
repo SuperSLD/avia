@@ -60,10 +60,9 @@ void AreaTabFragment::onConnectionChecked(bool isConnected) {
     }
 }
 
-void AreaTabFragment::onAirportsLoaded(QList<AirportModel> airports) {
+void AreaTabFragment::onAirportsLoaded(TransportGraphModel graph) {
     loadingContainer->stopLoading();
-    qDebug() << "Количество аэропортов" << airports.size();
-    this->airports = airports;
+    this->graph = graph;
 }
 
 void AreaTabFragment::onAirportsLoadedChangeProgress(int progress) {
@@ -71,7 +70,7 @@ void AreaTabFragment::onAirportsLoadedChangeProgress(int progress) {
 }
 
 void AreaTabFragment::startCalculation() {
-    dbConnector->calculateArea(airports);
+    dbConnector->calculateArea(graph);
     loadingContainer->startLoading("Считаем");
 }
 

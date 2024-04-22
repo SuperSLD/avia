@@ -9,6 +9,7 @@
 #include <QThread>
 #include "src/data/db/dbconnector/modelfactory/flightmodelsfactory/FlightModelsFactory.h"
 #include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
+#include "src/domain/models/transportgraph/TransportGraphModel.h"
 
 class GetAirportsWorker: public QThread {
     Q_OBJECT
@@ -33,7 +34,7 @@ public:
     void run() override;
 
 signals:
-    void resultReady(QList<AirportModel> airports);
+    void resultReady(TransportGraphModel graph);
     void onChangeProgress(int progress);
 };
 

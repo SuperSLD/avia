@@ -33,3 +33,14 @@ void AirportModel::addConnection(QString id) {
 void AirportModel::incFlight() {
     flightCount++;
 }
+
+AirportModel AirportModel::getWithEmptyEdges() {
+    return AirportModel(
+        id,
+        name,
+        city,
+        lon,
+        lat,
+        QList<QString>()
+    );
+}

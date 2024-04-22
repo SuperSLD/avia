@@ -18,7 +18,7 @@ private:
     SettingsRepository *settingsRep = new SettingsRepository();
     DBConnector *dbConnector;
 
-    QList<AirportModel> airports;
+    TransportGraphModel graph;
 
 public:
     AreaTabFragment();
@@ -29,7 +29,7 @@ public:
 
 private slots:
     void onConnectionChecked(bool isConnected);
-    void onAirportsLoaded(QList<AirportModel> airports);
+    void onAirportsLoaded(TransportGraphModel graph);
     void onAirportsLoadedChangeProgress(int progress);
 
     void startCalculation();

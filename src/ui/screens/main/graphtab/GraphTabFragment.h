@@ -18,7 +18,7 @@ private:
 
     int progress = 0;
 
-    QList<AirportModel> airports;
+    TransportGraphModel graph;
 
 public:
     GraphTabFragment();
@@ -29,7 +29,7 @@ public:
 
 private slots:
     void onConnectionChecked(bool isConnected);
-    void onAirportsLoaded(QList<AirportModel> airports);
+    void onAirportsLoaded(TransportGraphModel graph);
     void onAirportsLoadedChangeProgress(int progress);
 
     void startCalculation();
