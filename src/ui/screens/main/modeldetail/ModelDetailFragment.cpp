@@ -25,7 +25,7 @@ ModelDetailFragment::ModelDetailFragment() {
 
     headerContainer = new QHBoxLayout;
     headerContainer->setAlignment(Qt::AlignLeft);
-    QLabel *titleLabel = new QLabel("Просмотр модели");
+    QLabel *titleLabel = new QLabel("Просмотр записи");
     titleLabel->setMinimumWidth(650);
     textStyle("titleLabel", titleLabel, 24, colorBlack(), true);
     vContainer->addWidget(titleLabel);
@@ -61,9 +61,6 @@ ModelDetailFragment::ModelDetailFragment() {
     Button *backButton = new Button("backButton", "Назад", false);
     buttonContainer->addWidget(backButton);
     connect(backButton, &Button::clicked, this, &ModelDetailFragment::onBack);
-    Button *confirmButton = new Button("backButton", "Изменить", true);
-    buttonContainer->addWidget(confirmButton);
-    connect(confirmButton, &Button::clicked, this, &ModelDetailFragment::onEdit);
 
     coloredCardStyle("ChangeConnectionFragment", this, colorWhite(), 0, 0, 0);
     this->setLayout(hContainer);
