@@ -128,7 +128,7 @@ BaseDBModel* FlightModelsFactory::createModel(QJsonObject json) {
                     data["depdelay"].toString(),
                     data["progress"].toString(),
                     data["duration"].toString(),
-                    data["durationTs"].toString(),
+                    data["durationTs"].toInt(),
                     data["durationType"].toString(),
                     data["distance"].toString(),
                     data["lastlalotRelative"].toString(),

@@ -64,5 +64,22 @@ QList<DetailItem> FlightModel::getDetail() {
     detail.append(DetailItem("aporgco", "Страна прилета", data.aporgco));
     detail.append(DetailItem("aporgia", "Аэропорт прилета", data.aporgia));
     detail.append(DetailItem("aporgia", "", data.apdstst));
+    detail.append(DetailItem("apdsttz", "", QString::number(data.apdsttz)));
+    detail.append(DetailItem("aporgtznl", "", data.aporgtznl));
+    detail.append(DetailItem("aporgtzns", "", data.aporgtzns));
+    detail.append(DetailItem("arrau", "", data.arrau));
+    detail.append(DetailItem("arrdeld", "", data.arrdeld));
+    detail.append(DetailItem("arrdelr", "", data.arrdelr));
+    detail.append(DetailItem("arre", "", data.arre));
+    detail.append(DetailItem("arresu", "", data.arresu));
+    detail.append(DetailItem("arrgate", "", data.arrgate));
+    detail.append(DetailItem("arrs", "", data.arrs));
+    detail.append(DetailItem("arrsu", "", data.arrsu));
+    detail.append(DetailItem("arrterm", "", data.arrterm));
+    detail.append(DetailItem("bl", "", data.bl ? "true" : "false"));
+
+    detail.append(DetailItem("distance", "Дистанция", QString::number(data.distance.toInt() / 1000)));
+    detail.append(DetailItem("duration", "Продолжительность", data.duration));
+    detail.append(DetailItem("durationTs", "Продолжительность (час)", QString::number(data.durationTs / 60 / (double) 60)));
     return detail;
 }

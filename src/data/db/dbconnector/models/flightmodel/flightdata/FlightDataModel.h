@@ -112,7 +112,7 @@ public:
     QString depdelay;
     QString progress;
     QString duration;
-    QString durationTs;
+    int durationTs;
     QString durationType;
     QString distance;
     QString lastlalotRelative;
@@ -243,7 +243,7 @@ public:
             QString depdelay,
             QString progress,
             QString duration,
-            QString durationTs,
+            int durationTs,
             QString durationType,
             QString distance,
             QString lastlalotRelative,

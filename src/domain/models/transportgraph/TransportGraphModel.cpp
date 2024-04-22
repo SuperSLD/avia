@@ -13,5 +13,5 @@ TransportGraphModel TransportGraphModel::getWithEmptyEdges() {
     foreach(auto airport, airports) {
         emptyEdgesList.append(airport.getWithEmptyEdges());
     }
-    return TransportGraphModel(emptyEdgesList);
+    return {emptyEdgesList};
 }

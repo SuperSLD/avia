@@ -159,7 +159,7 @@ BaseDBModel* RoutesModelFactory::createModel(QJsonObject json) {
                         current["depdelay"].toString(),
                         current["progress"].toString(),
                         current["duration"].toString(),
-                        current["durationTs"].toString(),
+                        current["durationTs"].toInt(),
                         current["durationType"].toString(),
                         current["distance"].toString(),
                         current["lastlalotRelative"].toString(),
