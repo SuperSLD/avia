@@ -9,6 +9,7 @@
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
 #include "src/ui/common/widgets/map/MapWidget.h"
+#include "src/data/net/osmnetrepository/OSMNetRepository.h"
 
 class AreaTabFragment : public BaseFragment {
     Q_OBJECT
@@ -19,6 +20,8 @@ private:
     DBConnector *dbConnector;
 
     TransportGraphModel graph;
+
+    OSMNetRepository *netRep;
 
 public:
     AreaTabFragment();

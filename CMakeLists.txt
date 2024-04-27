@@ -33,6 +33,7 @@ set(CMAKE_PREFIX_PATH "/Users/leonidsolanoj/Qt/5.15.2/clang_64")
 #set(Qt5_DIR "/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5")
 find_package(QT NAMES Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5Svg REQUIRED)
+find_package(Qt5 COMPONENTS Network REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 find_package(mongocxx REQUIRED)
@@ -152,6 +153,15 @@ set(PROJECT_SOURCES
         src/domain/models/transportgraph/TransportGraphModel.h
         src/domain/models/transportgraph/PassengersCountBlock.cpp
         src/domain/models/transportgraph/PassengersCountBlock.h
+        src/data/net/models/datawrapper/DataWrapper.cpp
+        src/data/net/models/datawrapper/DataWrapper.h
+        src/data/net/apiservice/ApiService.h
+        src/data/net/osmnetrepository/OSMNetRepository.cpp
+        src/data/net/osmnetrepository/OSMNetRepository.h
+        src/data/net/models/osm/versions/OSMVersionsModel.cpp
+        src/data/net/models/osm/versions/OSMVersionsModel.h
+        src/data/net/apiservice/HandlerData.h
+        src/data/net/apiservice/BaseRep.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
@@ -171,8 +181,8 @@ else()
     endif()
 endif()
 
-qt5_import_plugins(${PROJECT_NAME} INCLUDE Qt5::QSvgPlugin)
-target_link_libraries(Avia PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg mongo::mongocxx_shared)
+qt5_import_plugins(${PROJECT_NAME} INCLUDE Qt5::QSvgPlugin Network)
+target_link_libraries(Avia PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::Svg mongo::mongocxx_shared Qt5::Network)
 
 set_target_properties(Avia PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
