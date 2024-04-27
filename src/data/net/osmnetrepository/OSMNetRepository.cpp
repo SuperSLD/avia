@@ -12,6 +12,11 @@ OSMNetRepository::OSMNetRepository(bool debug) {
 
 OSMNetRepository::~OSMNetRepository() { delete service; }
 
+QHash<QString, QString> OSMNetRepository::headers() {
+    QHash<QString, QString> headers;
+    return headers;
+}
+
 void OSMNetRepository::getVersions() {
     service->get( "api/versions.json",
         [](QJsonObject o, BaseRep *r) {

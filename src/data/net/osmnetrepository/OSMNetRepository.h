@@ -27,6 +27,8 @@ public:
     OSMNetRepository(bool debug = false);
     ~OSMNetRepository();
 
+    QHash<QString, QString> headers() override;
+
     /**
      * @brief getCreativeGroups
      *

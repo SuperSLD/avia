@@ -44,7 +44,10 @@ private:
                 QNetworkRequest::ContentTypeHeader,
                 QStringLiteral("application/json;charset=utf-8")
         );
-        request.setRawHeader("ApiKey", "f723a6fc-09ff-4825-ac05-c1c2f5309d1c");
+        auto requestHeaders = rep->headers();
+        foreach(auto header, requestHeaders.keys()) {
+            request.setRawHeader(header.toUtf8(), requestHeaders[header].toUtf8());
+        }
         return request;
     }
 
