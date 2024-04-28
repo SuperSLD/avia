@@ -158,10 +158,14 @@ set(PROJECT_SOURCES
         src/data/net/apiservice/ApiService.h
         src/data/net/osmnetrepository/OSMNetRepository.cpp
         src/data/net/osmnetrepository/OSMNetRepository.h
-        src/data/net/models/osm/versions/OSMVersionsModel.cpp
-        src/data/net/models/osm/versions/OSMVersionsModel.h
+        src/data/net/models/osm/direcrion/OSMDirectionModel.cpp
+        src/data/net/models/osm/direcrion/OSMDirectionModel.h
         src/data/net/apiservice/HandlerData.h
         src/data/net/apiservice/BaseRep.h
+        src/domain/usecases/area/countryshape/CountryShape.cpp
+        src/domain/usecases/area/countryshape/CountryShape.h
+        src/domain/models/area/Area.h
+        src/domain/models/area/areapoint/AreaPoint.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
