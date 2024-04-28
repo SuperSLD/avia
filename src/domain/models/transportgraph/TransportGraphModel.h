@@ -18,6 +18,8 @@ public:
     TransportGraphModel() {}
 
     TransportGraphModel getWithEmptyEdges();
+
+    AirportModel getMinDistanceAirport(double lon, double lat);
 };
 
 
