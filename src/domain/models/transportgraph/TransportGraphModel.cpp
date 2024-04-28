@@ -15,3 +15,16 @@ TransportGraphModel TransportGraphModel::getWithEmptyEdges() {
     }
     return {emptyEdgesList};
 }
+
+AirportModel TransportGraphModel::getMinDistanceAirport(double lon, double lat) {
+    double minDistance = 100000000000.0;
+    AirportModel minDistanceAirport;
+    foreach(auto airport, airports) {
+        auto distance = sqrt(pow(lat - airport.lat, 2) + pow(lon - airport.lon, 2));
+        if (distance < minDistance) {
+            minDistance = distance;
+            minDistanceAirport = airport;
+        }
+    }
+    return minDistanceAirport;
+}
