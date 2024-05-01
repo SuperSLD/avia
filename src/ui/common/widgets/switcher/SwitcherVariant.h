@@ -45,6 +45,7 @@ public:
     }
 
     void setSelected(bool selected) {
+        isSelected = selected;
         if (selected) {
             textStyle(id + "t", textLabel, 16, colorWhite(), true);
             coloredCardStyle(
@@ -71,7 +72,7 @@ public:
     }
 
     signals:
-            void onSelect(QString text);
+        void onSelect(QString text);
 };
 
 #endif //AVIA_SWITCHERVARIANT_H
