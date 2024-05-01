@@ -55,7 +55,7 @@ public:
 
     void loadAirports();
 
-    void calculateArea(TransportGraphModel graph);
+    void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep);
     void calculateGraph(TransportGraphModel graph);
 
 private slots:
@@ -72,7 +72,9 @@ private slots:
     void handleAirportsLoaded(TransportGraphModel graph);
     void handleAirportsLoadedProgress(int progress);
 
-    void handleCalculatedArea();
+    void handleCalculatedArea(Area area);
+    void handleCalculatedAreaProgress(int progress);
+
     void handleCalculatedGraph();
 
 signals:
@@ -89,7 +91,9 @@ signals:
     void onAirportsLoaded(TransportGraphModel graph);
     void onChangeAirportsLoadedProgress(int progress);
 
-    void onAreaCalculated();
+    void onAreaCalculated(Area area);
+    void onChangeCalculateAreaProgress(int progress);
+
     void onGraphCalculated();
 };
 

@@ -7,6 +7,10 @@
 #include "src/ui/common/widgets/button/Button.h"
 
 AreaTabFragment::AreaTabFragment() {
+    netRep = new OSMNetRepository(false);
+
+    netRep->direction(55.108529, 36.600162, 55.4088, 37.9063);
+
     auto *mainContainer = new QVBoxLayout;
     this->setLayout(mainContainer);
     this->setContentsMargins(0, 0 , 0, 0);
@@ -36,6 +40,7 @@ AreaTabFragment::AreaTabFragment() {
 AreaTabFragment::~AreaTabFragment() {
     delete settingsRep;
     delete loadingContainer;
+    delete netRep;
 }
 
 void AreaTabFragment::onResume() {
@@ -50,6 +55,7 @@ void AreaTabFragment::setConnector(DBConnector *connector) {
     connect(dbConnector, &DBConnector::onAirportsLoaded, this, &AreaTabFragment::onAirportsLoaded);
     connect(dbConnector, &DBConnector::onChangeAirportsLoadedProgress, this, &AreaTabFragment::onAirportsLoadedChangeProgress);
     connect(dbConnector, &DBConnector::onAreaCalculated, this, &AreaTabFragment::onAreaCalculated);
+    connect(dbConnector, &DBConnector::onChangeCalculateAreaProgress, this, &AreaTabFragment::onChangeCalculateAreaProgress);
 }
 
 void AreaTabFragment::onConnectionChecked(bool isConnected) {
@@ -70,10 +76,17 @@ void AreaTabFragment::onAirportsLoadedChangeProgress(int progress) {
 }
 
 void AreaTabFragment::startCalculation() {
-    dbConnector->calculateArea(graph);
+    dbConnector->calculateArea(graph, netRep);
     loadingContainer->startLoading("Считаем");
 }
 
-void AreaTabFragment::onAreaCalculated() {
+void AreaTabFragment::onAreaCalculated(Area area) {
     loadingContainer->stopLoading();
+}
+
+void AreaTabFragment::onChangeCalculateAreaProgress(int progress) {
+    if (progress != this->progress) {
+        this->progress = progress;
+        loadingContainer->startLoading("Считаем " + QString::number(progress) + "%");
+    }
 }

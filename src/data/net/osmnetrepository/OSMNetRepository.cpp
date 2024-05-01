@@ -35,8 +35,9 @@ void OSMNetRepository::direction(double lon1, double lat1, double lon2, double l
     radiuses.append(5000);
     body["coordinates"] = coordinates;
     body["radiuses"] = radiuses;
+    body["maximum_speed"] = 100;
 
-    service->post( "direction/driving-car/json",
+    service->post( "directions/driving-car/json",
         [](QJsonObject o, BaseRep *r) {
             static_cast<OSMNetRepository*>(r)->directionsLoad(OSMDirectionModel(o));
         },

@@ -35,6 +35,7 @@ private slots:
     void onConnectionChecked(bool isConnected);
 
     void onAirportsLoaded(TransportGraphModel graph);
+    void onAreaCalculated(Area area);
 };
 
 

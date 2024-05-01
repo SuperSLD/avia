@@ -14,10 +14,20 @@ class Area: public BaseModel {
 
 public:
     QList<QList<AreaPoint>> points;
+    double maxDistance = 0;
 
     Area(QList<QList<AreaPoint>> points) {
         this->points = points;
+        foreach(auto line, points) {
+            foreach(auto point, line) {
+                if (point.distance > maxDistance) {
+                    maxDistance = point.distance;
+                }
+            }
+        }
     }
+
+    Area() {}
 };
 
 #endif //AVIA_AREA_H

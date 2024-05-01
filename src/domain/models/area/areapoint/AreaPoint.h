@@ -12,18 +12,30 @@ class AreaPoint: public BaseModel {
 
 public:
     QString airportId;
-    QString distance;
-    QString duration;
-    bool isValid;
+    double distance;
+    double duration;
+    bool isValid = false;
+    double w;
+    double h;
+    double lon;
+    double lat;
 
     AreaPoint(
         QString airportId,
-        QString distance,
-        QString duration
+        double distance,
+        double duration,
+        double w,
+        double h,
+        double lon,
+        double lat
     ) {
         this->airportId = airportId;
         this->distance = distance;
         this->duration = duration;
+        this->w = w;
+        this->h = h;
+        this->lon = lon;
+        this->lat = lat;
         isValid = true;
     }
 
@@ -33,6 +45,8 @@ public:
         this->airportId = airportId;
         isValid = false;
     }
+
+    AreaPoint() {};
 };
 
 #endif //AVIA_AREAPOINT_H

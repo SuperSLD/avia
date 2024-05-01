@@ -119,6 +119,18 @@ void MapWidget::paintEvent(QPaintEvent *event) {
         painter.drawPath(path);
     }
 
+    // зоны доступности
+    foreach(auto line, area.points) {
+        foreach(auto point, line) {
+                QPainterPath path;
+                auto p1 = latLonToXY(point.lat, point.lon);
+                path.addRect(p1.x(), p1.y(), point.w * 5 * zoom + 1, point.h * 10 * zoom + 1);
+                auto color = QColor(colors[(int) (point.distance / (double) area.maxDistance * (colors.size() - 1))]);
+                color.setAlphaF(0.3);
+                painter.fillPath(path, color);
+        }
+    }
+
     // аэропорты
     foreach(auto airport, graph.airports) {
         auto p = latLonToXY(airport.lat, airport.lon);
@@ -204,5 +216,10 @@ void MapWidget::setAirports(TransportGraphModel graph) {
     }
     qDebug() << maxAirportFlightCount;
     this->graph = graph;
+    repaint();
+}
+
+void MapWidget::setArea(Area area) {
+    this->area = area;
     repaint();
 }

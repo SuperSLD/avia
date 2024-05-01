@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
         qRegisterMetaType<AnalyticsModel>();
         qRegisterMetaType<QList<RouteModel*>>();
         qRegisterMetaType<TransportGraphModel>();
+        qRegisterMetaType<Area>();
 
         settingsRepository = new SettingsRepository();
 

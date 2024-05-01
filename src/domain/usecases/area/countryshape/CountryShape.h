@@ -11,6 +11,8 @@
 
 class CountryShape {
 
+    QList<QList<QList<double>>> regions;
+
 public:
     double maxLon = -181;
     double maxLat = -91;
@@ -18,6 +20,8 @@ public:
     double minLat = 91;
 
     CountryShape(QString name);
+
+    bool pointInCountry(double lon, double lat);
 };
 
 

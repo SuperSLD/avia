@@ -13,8 +13,9 @@
 class OSMDirectionModel: public BaseModel{
 
 public:
-    bool isValid;
+    bool isValid = false;
     double distance;
+    // время в пути в часах
     double duration;
 
     OSMDirectionModel() {};

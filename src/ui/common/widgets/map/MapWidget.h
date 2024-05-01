@@ -11,6 +11,7 @@
 #include "src/data/db/dbconnector/models/routemodel/RouteModel.h"
 #include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
 #include "src/domain/models/transportgraph/TransportGraphModel.h"
+#include "src/domain/models/area/Area.h"
 
 class MapWidget: public QFrame {
 
@@ -30,6 +31,7 @@ private:
 
     QList<RouteModel*> routes;
     TransportGraphModel graph;
+    Area area;
 
     QPoint latLonToXY(double lat, double lon);
     QJsonDocument russia;
@@ -55,6 +57,7 @@ public:
 
     void setRoutes(QList<RouteModel*> routes);
     void setAirports(TransportGraphModel graph);
+    void setArea(Area area);
 
 private slots:
     void onZoomChange(QString name);

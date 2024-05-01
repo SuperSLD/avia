@@ -23,6 +23,8 @@ private:
 
     OSMNetRepository *netRep;
 
+    int progress = 0;
+
 public:
     AreaTabFragment();
     ~AreaTabFragment();
@@ -36,7 +38,8 @@ private slots:
     void onAirportsLoadedChangeProgress(int progress);
 
     void startCalculation();
-    void onAreaCalculated();
+    void onAreaCalculated(Area area);
+    void onChangeCalculateAreaProgress(int progress);
 };
 
 #endif //AVIA_AREATABFRAGMENT_H

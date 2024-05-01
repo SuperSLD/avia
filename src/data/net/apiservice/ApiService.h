@@ -37,8 +37,8 @@ private:
      * @return реквест для отправки.
      */
     QNetworkRequest createRequest(QString url) {
-        qDebug() << "AppNetworkService: make request";
-        qDebug() << "AppNetworkService: " << baseUrl + "/" + url;
+        if (debug) qDebug() << "AppNetworkService: make request";
+        if (debug) qDebug() << "AppNetworkService: " << baseUrl + "/" + url;
         QNetworkRequest request(QUrl(baseUrl + "/" + url));
         request.setHeader(
                 QNetworkRequest::ContentTypeHeader,
@@ -62,7 +62,7 @@ private:
     QString createResponseHandler(void (*handler)(QJsonObject, BaseRep*)) {
         HandlerData handlerData = HandlerData();
         handlerData.handler = handler;
-        qDebug() << "AppNetworkService: handler UUID -" << handlerData.uuid;
+        if (debug) qDebug() << "AppNetworkService: handler UUID -" << handlerData.uuid;
         handlers.append(handlerData);
         return handlerData.uuid;
     }
@@ -91,7 +91,7 @@ public:
         QNetworkRequest req = createRequest(url);
         QString uuid = createResponseHandler(handler);
         QNetworkReply* reply;
-        qDebug() << "AppNetworkService: GET" << uuid;
+        if (debug) qDebug() << "AppNetworkService: GET" << uuid;
         reply = networkManager->get(req);
         reply->setProperty("request_id", uuid);
     }
@@ -104,8 +104,8 @@ public:
         QNetworkRequest req = createRequest(url);
         QString uuid = createResponseHandler(handler);
         QNetworkReply* reply;
-        qDebug() << "AppNetworkService: POST" << uuid;
-        qDebug() << "AppNetworkService: BODY-" << QJsonDocument(param).toJson(QJsonDocument::Compact) << Qt::endl << "BODY uuid-" << uuid << Qt::endl;
+        if (debug) qDebug() << "AppNetworkService: POST" << uuid;
+        if (debug) qDebug() << "AppNetworkService: BODY-" << QJsonDocument(param).toJson(QJsonDocument::Compact) << Qt::endl << "BODY uuid-" << uuid << Qt::endl;
         reply = networkManager->post(
                 req, QJsonDocument(param).toJson(QJsonDocument::Compact)
         );
@@ -115,18 +115,18 @@ public:
 private slots:
     void onHttpResult(QNetworkReply *reply) {
         QString uuid = reply->property("request_id").toString();
-        qDebug() << "AppNetworkService: response UUID -" << uuid;
+        if (debug) qDebug() << "AppNetworkService: response UUID -" << uuid;
         HandlerData handlerData;
         int handlerIndex = -1;
         QVariant statusCode = reply->attribute( QNetworkRequest::HttpStatusCodeAttribute );
         if ( statusCode.isValid() ) {
-            qDebug() << "AppNetworkService: STATUS CODE -" << statusCode.toString() << uuid;
+            if (debug) qDebug() << "AppNetworkService: STATUS CODE -" << statusCode.toString() << uuid;
         }
         for (int i = 0; i < handlers.size(); i++) {
             if (handlers[i].uuid == uuid) {
                 handlerData = handlers[i];
                 handlerIndex = i;
-                qDebug() << "AppNetworkService: success found handler -" << uuid;
+                if (debug) qDebug() << "AppNetworkService: success found handler -" << uuid;
             }
         }
 
@@ -141,20 +141,20 @@ private slots:
             if(!doc.isNull()) {
                 if(doc.isObject()) {
                     obj = doc.object();
-                    qDebug() << "AppNetworkService: success parse -" << uuid;
+                    if (debug) qDebug() << "AppNetworkService: success parse -" << uuid;
                     handlerData.handler(obj, rep);
                 } else {
-                    qDebug() << "AppNetworkService: Document is not an object" << uuid;
+                    if (debug) qDebug() << "AppNetworkService: Document is not an object" << uuid;
                     errorResponse.insert("message", "Неправильный ответ сервера");
                     handlerData.handler(errorResponse, rep);
                 }
             } else {
-                qDebug() << "AppNetworkService: Invalid JSON...\n" << uuid;
+                if (debug) qDebug() << "AppNetworkService: Invalid JSON...\n" << uuid;
                 errorResponse.insert("message", "Неправильный ответ сервера");
                 handlerData.handler(errorResponse, rep);
             }
         } else {
-            qDebug() << "AppNetworkService: http response error -" << uuid;
+            if (debug) qDebug() << "AppNetworkService: http response error -" << uuid;
             errorResponse.insert("message", "Ошибка подключения");
             handlerData.handler(errorResponse, rep);
 
@@ -163,7 +163,7 @@ private slots:
         // удаляем хэндлер запроса если он найден
         if (handlerIndex >= 0) {
             handlers.removeAt(handlerIndex);
-            qDebug() << "AppNetworkService: handler remove -" << handlers.size();
+            if (debug) qDebug() << "AppNetworkService: handler remove -" << handlers.size();
         }
     };
 };
