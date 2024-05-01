@@ -119,15 +119,26 @@ void MapWidget::paintEvent(QPaintEvent *event) {
     }
 
     // зоны доступности
+    QHash<int, QPainterPath> layers;
+    for(int i = 0; i < colors.size(); i++) {
+        layers[i] = QPainterPath();
+    }
     foreach(auto line, area.points) {
         foreach(auto point, line) {
-                QPainterPath path;
-                auto p1 = latLonToXY(point.lat, point.lon);
-                path.addRect(p1.x(), p1.y(), point.w * 5 * zoom + 1, point.h * 10 * zoom + 1);
-                auto color = QColor(colors[(int) (point.distance / (double) area.maxDistance * (colors.size() - 1))]);
-                color.setAlphaF(0.3);
-                painter.fillPath(path, color);
+            auto colorIndex = (int) (point.distance / (double) area.maxDistance * (colors.size() - 1));
+            auto p1 = latLonToXY(point.lat, point.lon);
+            layers[colorIndex].addRect(
+                    p1.x(),
+                    p1.y(),
+                    point.w * 5 * zoom,
+                    point.h * 10 * zoom
+            );
         }
+    }
+    foreach(auto ci, layers.keys()) {
+        auto color = QColor(colors[ci]);
+        color.setAlphaF(0.3);
+        painter.fillPath(layers[ci], color);
     }
 
     // аэропорты
