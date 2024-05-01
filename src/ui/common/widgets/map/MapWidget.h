@@ -12,13 +12,13 @@
 #include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
 #include "src/domain/models/transportgraph/TransportGraphModel.h"
 #include "src/domain/models/area/Area.h"
+#include "src/data/settings/SettingsRepository.h"
 
 class MapWidget: public QFrame {
 
 private:
     int AIRPORT_POINT_SIZE_MAX = 15;
     int AIRPORT_POINT_SIZE_MIN = 8;
-    int maxAirportFlightCount = 0;
     QList<QString> colors = QList<QString> {
             "#86C28E",
             "#BBE48D",

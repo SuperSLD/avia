@@ -60,9 +60,11 @@ void GraphTabFragment::onConnectionChecked(bool isConnected) {
     }
 }
 
-void GraphTabFragment::onAirportsLoaded(TransportGraphModel graph) {
-    loadingContainer->stopLoading();
-    this->graph = graph;
+void GraphTabFragment::onAirportsLoaded(TransportGraphModel graph, bool fromDB) {
+    if (fromDB) {
+        loadingContainer->stopLoading();
+        this->graph = graph;
+    }
 }
 
 void GraphTabFragment::onAirportsLoadedChangeProgress(int progress) {

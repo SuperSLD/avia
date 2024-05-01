@@ -130,9 +130,9 @@ void DBConnector::loadAirports() {
     }
 }
 
-void DBConnector::handleAirportsLoaded(TransportGraphModel graph) {
+void DBConnector::handleAirportsLoaded(TransportGraphModel graph, bool fromDB) {
     getAirportsWorkerIsStart = false;
-    emit onAirportsLoaded(graph);
+    emit onAirportsLoaded(graph, fromDB);
 }
 
 void DBConnector::handleAirportsLoadedProgress(int progress) {
@@ -166,4 +166,12 @@ void DBConnector::calculateGraph(TransportGraphModel graph) {
 
 void DBConnector::handleCalculatedGraph() {
     emit onGraphCalculated();
+}
+
+void DBConnector::loadSavedData() {
+    if (loadSavedDataWorker != nullptr) loadSavedDataWorker->exit();
+    loadSavedDataWorker = new LoadSavedDataWorker();
+    connect(loadSavedDataWorker, &LoadSavedDataWorker::areaLolad, this, &DBConnector::handleCalculatedArea);
+    connect(loadSavedDataWorker, &LoadSavedDataWorker::airportsLolad, this, &DBConnector::handleAirportsLoaded);
+    loadSavedDataWorker->start();
 }

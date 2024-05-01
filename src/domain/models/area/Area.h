@@ -9,6 +9,7 @@
 #include "src/domain/models/area/areapoint/AreaPoint.h"
 
 #include <QList>
+#include <QJsonArray>
 
 class Area: public BaseModel {
 
@@ -27,7 +28,35 @@ public:
         }
     }
 
+    Area(QJsonObject json) {
+        foreach(auto line, json["points"].toArray()) {
+            QList<AreaPoint> arr;
+            foreach(auto point, line.toArray()) {
+                auto areaPoint = AreaPoint(point.toObject());
+                arr.append(areaPoint);
+                if (areaPoint.distance > maxDistance) {
+                    maxDistance = areaPoint.distance;
+                }
+            }
+            points.append(arr);
+        }
+    }
+
     Area() {}
+
+    QJsonObject toJson() override {
+        auto json = QJsonObject();
+        auto arr = QJsonArray();
+        foreach(auto line, points) {
+            auto lonArr = QJsonArray();
+            foreach(auto point, line) {
+                lonArr.append(point.toJson());
+            }
+            arr.append(lonArr);
+        }
+        json["points"] = arr;
+        return json;
+    }
 };
 
 #endif //AVIA_AREA_H

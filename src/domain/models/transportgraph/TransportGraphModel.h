@@ -13,13 +13,17 @@ class TransportGraphModel: public BaseModel {
 
 public:
     QList<AirportModel> airports;
+    int maxAirportFlightCount = 0;
 
     TransportGraphModel(QList<AirportModel> airports);
+    TransportGraphModel(QJsonObject json);
     TransportGraphModel() {}
 
     TransportGraphModel getWithEmptyEdges();
 
     AirportModel getMinDistanceAirport(double lon, double lat);
+
+    QJsonObject toJson() override;
 };
 
 

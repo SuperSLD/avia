@@ -177,6 +177,7 @@ void MainFragment::onResume() {
     if (!airportsLoadingStarted) {
         airportsLoadingStarted = true;
         connector->loadAirports();
+        connector->loadSavedData();
     }
 }
 

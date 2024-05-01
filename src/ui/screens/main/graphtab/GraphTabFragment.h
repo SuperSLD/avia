@@ -29,7 +29,7 @@ public:
 
 private slots:
     void onConnectionChecked(bool isConnected);
-    void onAirportsLoaded(TransportGraphModel graph);
+    void onAirportsLoaded(TransportGraphModel graph, bool fromDB);
     void onAirportsLoadedChangeProgress(int progress);
 
     void startCalculation();

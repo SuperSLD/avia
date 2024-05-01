@@ -166,6 +166,8 @@ set(PROJECT_SOURCES
         src/domain/usecases/area/countryshape/CountryShape.h
         src/domain/models/area/Area.h
         src/domain/models/area/areapoint/AreaPoint.h
+        src/domain/usecases/loadsaveddata/LoadSavedDataWorker.cpp
+        src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

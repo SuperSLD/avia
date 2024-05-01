@@ -17,6 +17,7 @@
 #include "src/data/db/dbconnector/workers/getairports/GetAirportsWorker.h"
 #include "src/domain/usecases/area/CalculateAreaWorker.h"
 #include "src/domain/usecases/graph/CalculateGraphWorker.h"
+#include "src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h"
 
 class DBConnector: public QObject {
     Q_OBJECT
@@ -36,6 +37,8 @@ private:
 
     CalculateAreaWorker *calculateAreaWorker;
     CalculateGraphWorker *calculateGraphWorker;
+
+    LoadSavedDataWorker *loadSavedDataWorker;
 
 public:
     DBConnector(QString url, QString user, QString password);
@@ -58,6 +61,8 @@ public:
     void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep);
     void calculateGraph(TransportGraphModel graph);
 
+    void loadSavedData();
+
 private slots:
     void handleConnectionChecked(bool isConnected);
 
@@ -69,7 +74,7 @@ private slots:
     void handleRoutesLoaded(QList<RouteModel*> routes);
     void handleAllRoutesLoadedProgress(int progress);
 
-    void handleAirportsLoaded(TransportGraphModel graph);
+    void handleAirportsLoaded(TransportGraphModel graph, bool fromDB);
     void handleAirportsLoadedProgress(int progress);
 
     void handleCalculatedArea(Area area);
@@ -88,7 +93,7 @@ signals:
     void onRoutesLoaded(QList<RouteModel*> routes);
     void onChangeRoutesLoadedProgress(int progress);
 
-    void onAirportsLoaded(TransportGraphModel graph);
+    void onAirportsLoaded(TransportGraphModel graph, bool fromDB);
     void onChangeAirportsLoadedProgress(int progress);
 
     void onAreaCalculated(Area area);

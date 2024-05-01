@@ -2,10 +2,27 @@
 // Created by Леонид Соляной on 22.04.2024.
 //
 
+#include <QJsonArray>
 #include "TransportGraphModel.h"
 
 TransportGraphModel::TransportGraphModel(QList<AirportModel> airports) {
     this->airports = airports;
+    foreach(auto airport, airports) {
+        if (maxAirportFlightCount < airport.flightCount) {
+            maxAirportFlightCount = airport.flightCount;
+        }
+    }
+}
+
+TransportGraphModel::TransportGraphModel(QJsonObject json) {
+    foreach(auto airport, json["airports"].toArray()) {
+        airports.append(AirportModel(airport.toObject()));
+    }
+    foreach(auto airport, airports) {
+        if (maxAirportFlightCount < airport.flightCount) {
+            maxAirportFlightCount = airport.flightCount;
+        }
+    }
 }
 
 TransportGraphModel TransportGraphModel::getWithEmptyEdges() {
@@ -27,4 +44,14 @@ AirportModel TransportGraphModel::getMinDistanceAirport(double lon, double lat) 
         }
     }
     return minDistanceAirport;
+}
+
+QJsonObject TransportGraphModel::toJson() {
+    auto json = QJsonObject();
+    auto airportsJson = QJsonArray();
+    foreach(auto airport, airports) {
+        airportsJson.append(airport.toJson());
+    }
+    json["airports"] = airportsJson;
+    return json;
 }

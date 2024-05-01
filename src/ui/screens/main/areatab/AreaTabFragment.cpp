@@ -66,9 +66,11 @@ void AreaTabFragment::onConnectionChecked(bool isConnected) {
     }
 }
 
-void AreaTabFragment::onAirportsLoaded(TransportGraphModel graph) {
-    loadingContainer->stopLoading();
-    this->graph = graph;
+void AreaTabFragment::onAirportsLoaded(TransportGraphModel graph, bool fromDB) {
+    if (fromDB) {
+        loadingContainer->stopLoading();
+        this->graph = graph;
+    }
 }
 
 void AreaTabFragment::onAirportsLoadedChangeProgress(int progress) {

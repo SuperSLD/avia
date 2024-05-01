@@ -58,7 +58,7 @@ void MapTabFragment::setConnector(DBConnector *connector) {
     connect(connector, &DBConnector::onAreaCalculated, this, &MapTabFragment::onAreaCalculated);
 }
 
-void MapTabFragment::onAirportsLoaded(TransportGraphModel graph) {
+void MapTabFragment::onAirportsLoaded(TransportGraphModel graph, bool fromDB) {
     loadingContainer->stopLoading();
     map->setAirports(graph);
 }

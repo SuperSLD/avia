@@ -9,12 +9,13 @@
 #include "src/domain/models/transportgraph/TransportGraphModel.h"
 #include "src/data/net/osmnetrepository/OSMNetRepository.h"
 #include "src/domain/models/area/Area.h"
+#include "src/data/settings/SettingsRepository.h"
 
 class CalculateAreaWorker: public QThread {
     Q_OBJECT
 
 private:
-    const double DISTANCE_BETWEEN_POINT = 0.3;
+    const double DISTANCE_BETWEEN_POINT = 0.5;
 
     QString uriString;
     TransportGraphModel graph;
@@ -28,10 +29,17 @@ private:
     double currentLon;
     double currentLat;
 
+    SettingsRepository *settingsRepository;
+
 public:
     CalculateAreaWorker(QString uri, TransportGraphModel graph) {
         this->uriString = uri;
         this->graph = graph;
+        settingsRepository = new SettingsRepository();
+    }
+
+    ~CalculateAreaWorker() {
+        delete settingsRepository;
     }
 
     void run() override;

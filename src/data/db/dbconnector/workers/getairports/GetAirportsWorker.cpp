@@ -65,9 +65,12 @@ void GetAirportsWorker::run() {
             index++;
             emit onChangeProgress(index / count * 100);
         }
-        emit resultReady(TransportGraphModel(airports.values()));
+
+        auto graph = TransportGraphModel(airports.values());
+        settingsRepository->setJson("airports", graph.toJson());
+        emit resultReady(graph, true);
     } catch (std::exception& e) {
         qDebug("%s", e.what());
-        emit resultReady(TransportGraphModel(airports.values()));
+        emit resultReady(TransportGraphModel(airports.values()), true);
     }
 }

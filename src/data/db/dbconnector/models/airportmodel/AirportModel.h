@@ -32,6 +32,7 @@ public:
         long passengersCountIn,
         QList<QString> connectedAirports
     );
+    AirportModel(QJsonObject json);
     AirportModel() {};
 
     QString getId() override;
@@ -39,6 +40,8 @@ public:
     void addConnection(QString id);
     void incFlight();
     void incPassengerCount(int count, bool in);
+
+    QJsonObject toJson() override;
 
     AirportModel getWithEmptyEdges();
 };

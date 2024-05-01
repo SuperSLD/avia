@@ -58,7 +58,9 @@ void CalculateAreaWorker::run() {
 
     qDebug() << "CalculateAreaWorker все посчитал" << points.size();
 
-    emit resultReady(Area(points));
+    auto area = Area(points);
+    settingsRepository->setJson("area", area.toJson());
+    emit resultReady(area);
 }
 
 void CalculateAreaWorker::directionLoad(OSMDirectionModel direction) {

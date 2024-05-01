@@ -59,7 +59,6 @@ MapWidget::MapWidget() {
 }
 
 MapWidget::~MapWidget() {
-
 }
 
 void MapWidget::setRoutes(QList<RouteModel*> routes) {
@@ -136,8 +135,8 @@ void MapWidget::paintEvent(QPaintEvent *event) {
         auto p = latLonToXY(airport.lat, airport.lon);
         if (p.x() >= 0 && p.x() <= this->width() && p.y() > 0 && p.y() < this->height()) {
             auto r = AIRPORT_POINT_SIZE_MIN + (AIRPORT_POINT_SIZE_MAX - AIRPORT_POINT_SIZE_MIN) *
-                                              (airport.flightCount / (double) maxAirportFlightCount);
-            auto color = colors[(int) (airport.flightCount / (double) maxAirportFlightCount * (colors.size() - 1))];
+                                              (airport.flightCount / (double) graph.maxAirportFlightCount);
+            auto color = colors[(int) (airport.flightCount / (double) graph.maxAirportFlightCount * (colors.size() - 1))];
             QPainterPath path;
             path.addEllipse(p, r, r);
             painter.fillPath(path, QColor(color));
@@ -209,12 +208,6 @@ void MapWidget::onZoomChange(QString name) {
 }
 
 void MapWidget::setAirports(TransportGraphModel graph) {
-    foreach(auto airport, graph.airports) {
-        if (maxAirportFlightCount < airport.flightCount) {
-            maxAirportFlightCount = airport.flightCount;
-        }
-    }
-    qDebug() << maxAirportFlightCount;
     this->graph = graph;
     repaint();
 }

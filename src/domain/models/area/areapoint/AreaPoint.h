@@ -46,7 +46,33 @@ public:
         isValid = false;
     }
 
+    AreaPoint(
+            QJsonObject json
+    ) {
+        this->airportId = json["airportId"].toString();
+        this->distance = json["distance"].toDouble();
+        this->duration = json["duration"].toDouble();
+        this->isValid = json["isValid"].toBool();
+        this->w = json["w"].toDouble();
+        this->h = json["h"].toDouble();
+        this->lon = json["lon"].toDouble();
+        this->lat = json["lat"].toDouble();
+    }
+
     AreaPoint() {};
+
+    QJsonObject toJson() override {
+        auto json = QJsonObject();
+        json["airportId"] = airportId;
+        json["distance"] = distance;
+        json["duration"] = duration;
+        json["isValid"] = isValid;
+        json["w"] = w;
+        json["h"] = h;
+        json["lon"] = lon;
+        json["lat"] = lat;
+        return json;
+    }
 };
 
 #endif //AVIA_AREAPOINT_H
