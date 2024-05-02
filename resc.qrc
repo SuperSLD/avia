@@ -29,5 +29,7 @@
         <file>resc/plus.svg</file>
         <file>resc/calc.svg</file>
         <file>resc/calc_dark.svg</file>
+        <file>resc/checkbox_of.svg</file>
+        <file>resc/checkbox_on.svg</file>
     </qresource>
 </RCC>
