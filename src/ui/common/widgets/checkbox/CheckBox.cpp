@@ -40,14 +40,11 @@ CheckBox::CheckBox(QString text, bool checked) {
 }
 
 void CheckBox::selfClick(QString name) {
-    qDebug() << "CheckBox::selfClick";
     isChecked = !isChecked;
     if (isChecked) {
-        qDebug() << "CheckBox::selfClick = true";
         checkboxOf->hide();
         checkboxOn->show();
     } else {
-        qDebug() << "CheckBox::selfClick = false";
         checkboxOn->hide();
         checkboxOf->show();
     }
