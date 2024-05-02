@@ -48,8 +48,8 @@ void CheckBox::selfClick(QString name) {
         checkboxOn->show();
     } else {
         qDebug() << "CheckBox::selfClick = false";
-        checkboxOf->show();
         checkboxOn->hide();
+        checkboxOf->show();
     }
     emit onChangeState(isChecked);
 }

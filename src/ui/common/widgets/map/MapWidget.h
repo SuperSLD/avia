@@ -38,7 +38,9 @@ private:
 
     QList<RouteModel*> routes;
     TransportGraphModel graph;
+    bool graphVisible = true;
     Area area;
+    bool areaVisible = true;
 
     QPoint latLonToXY(double lat, double lon);
     QJsonDocument russia;
@@ -68,6 +70,8 @@ public:
 
 private slots:
     void onZoomChange(QString name);
+    void onChangeAirportsVisible(bool checked);
+    void onChangeAreaVisible(bool checked);
 };
 
 
