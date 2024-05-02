@@ -45,7 +45,6 @@ public:
     }
 
     void setSelected(bool selected) {
-        isSelected = selected;
         if (selected) {
             textStyle(id + "t", textLabel, 16, colorWhite(), true);
             coloredCardStyle(
