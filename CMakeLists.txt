@@ -71,6 +71,8 @@ set(PROJECT_SOURCES
         resc/plus.svg
         resc/calc.svg
         resc/calc_dark.svg
+        resc/checkbox_of.svg
+        resc/checkbox_on.svg
         main.cpp
         src/mainwindow.cpp
         src/mainwindow.h
@@ -162,6 +164,8 @@ set(PROJECT_SOURCES
         src/data/net/models/osm/versions/OSMVersionsModel.h
         src/data/net/apiservice/HandlerData.h
         src/data/net/apiservice/BaseRep.h
+        src/ui/common/widgets/checkbox/CheckBox.cpp
+        src/ui/common/widgets/checkbox/CheckBox.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
