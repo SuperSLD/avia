@@ -66,7 +66,6 @@ MapWidget::MapWidget() {
     buttonsCardContainer->addWidget(baseGraphBox);
     connect(baseGraphBox, &CheckBox::onChangeState, this, &MapWidget::onChangeBaseGraphVisible);
 
-
     auto *areaBox = new CheckBox("Зоны доступности", areaVisible);
     buttonsCardContainer->addWidget(areaBox);
     connect(areaBox, &CheckBox::onChangeState, this, &MapWidget::onChangeAreaVisible);
