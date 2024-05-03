@@ -11,9 +11,13 @@
 
 class TransportGraphModel: public BaseModel {
 
+private:
+    void calcDataForView();
+
 public:
     QList<AirportModel> airports;
     int maxAirportFlightCount = 0;
+    QList<QList<double>> viewLines;
 
     TransportGraphModel(QList<AirportModel> airports);
     TransportGraphModel(QJsonObject json);
@@ -22,6 +26,7 @@ public:
     TransportGraphModel getWithEmptyEdges();
 
     AirportModel getMinDistanceAirport(double lon, double lat);
+    AirportModel findAirport(QString id);
 
     QJsonObject toJson() override;
 };

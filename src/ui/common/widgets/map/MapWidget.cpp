@@ -58,9 +58,14 @@ MapWidget::MapWidget() {
     connect(plusButton, &SwgButton::onClicked, this, &MapWidget::onZoomChange);
     buttonsCardContainer->addWidget(plusButton);
 
-    auto *airportsBox = new CheckBox("Аэропорты", graphVisible);
+    auto *airportsBox = new CheckBox("Аэропорты", airportsVisible);
     buttonsCardContainer->addWidget(airportsBox);
     connect(airportsBox, &CheckBox::onChangeState, this, &MapWidget::onChangeAirportsVisible);
+
+    auto *baseGraphBox = new CheckBox("Базовая сеть", baseGraphVisible);
+    buttonsCardContainer->addWidget(baseGraphBox);
+    connect(baseGraphBox, &CheckBox::onChangeState, this, &MapWidget::onChangeBaseGraphVisible);
+
 
     auto *areaBox = new CheckBox("Зоны доступности", areaVisible);
     buttonsCardContainer->addWidget(areaBox);
@@ -78,7 +83,20 @@ void MapWidget::setRoutes(QList<RouteModel*> routes) {
 void MapWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
     QPainter painter(this);
+    drawBack(&painter);
+    if (areaVisible) {
+        drawArea(&painter);
+    }
+    if (baseGraphVisible) {
+        drawGraph(graph, &painter, colorBlack());
+    }
+    if (airportsVisible) {
+        drawAirports(&painter);
+    }
+}
 
+
+void MapWidget::drawBack(QPainter *painter) {
     // заливка
     foreach(auto region, russia.object()) {
         auto points = region.toObject()["0"].toArray();
@@ -91,91 +109,83 @@ void MapWidget::paintEvent(QPaintEvent *event) {
                 path.lineTo(p);
             }
         }
-        painter.fillPath(path, QColor(colorBorder()));
+        painter->fillPath(path, QColor(colorBorder()));
     }
     // границы
-    painter.setPen(QPen(QColor(colorGraySecondary()), 1));
-            foreach(auto region, russia.object()) {
-            auto points = region.toObject()["0"].toArray();
-            QPainterPath path;
-            for (int i = 0; i < points.size(); i++) {
-                auto p = latLonToXY(points[i].toArray()[0].toDouble(), points[i].toArray()[1].toDouble());
-                if (i == 0) {
-                    path.moveTo(p);
-                } else {
-                    path.lineTo(p);
-                }
-            }
-            painter.drawPath(path);
-        }
-
-    // полеты
-    painter.setPen(QPen(QColor(colorPrimary()), 2));
-    for(int i = 0; i < routes.size(); i++) {
+    painter->setPen(QPen(QColor(colorGraySecondary()), 1));
+    foreach(auto region, russia.object()) {
+        auto points = region.toObject()["0"].toArray();
         QPainterPath path;
-        auto points = routes[i]->data.list;
-        if (points.size() > 0) {
-            for(int j = 0; j < points.size(); j += 1) {
-                auto p = latLonToXY(points[j].lat, points[j].lon);
-                if (j == 0) {
-                    path.moveTo(p);
-                } else {
-                    path.lineTo(p);
-                }
+        for (int i = 0; i < points.size(); i++) {
+            auto p = latLonToXY(points[i].toArray()[0].toDouble(), points[i].toArray()[1].toDouble());
+            if (i == 0) {
+                path.moveTo(p);
+            } else {
+                path.lineTo(p);
             }
         }
-        painter.drawPath(path);
+        painter->drawPath(path);
     }
+}
 
-    if (areaVisible) {
-        // зоны доступности
-        QHash<int, QPainterPath> layers;
-        for (int i = 0; i < colors.size(); i++) {
-            layers[i] = QPainterPath();
-        }
-        foreach(auto line, area.points) {
-            foreach(auto point, line) {
-                auto colorIndex = (int) (point.distance / (double) area.maxDistance * (colors.size() - 1));
-                auto p1 = latLonToXY(point.lat, point.lon);
-                layers[colorIndex].addRect(
-                        p1.x(),
-                        p1.y(),
-                        point.w * 5 * zoom,
-                        point.h * 10 * zoom
-                );
-            }
-        }
-        foreach(auto ci, layers.keys()) {
-            auto color = QColor(colors[ci]);
-            color.setAlphaF(0.3);
-            painter.fillPath(layers[ci], color);
+void MapWidget::drawArea(QPainter *painter) {
+// зоны доступности
+    QHash<int, QPainterPath> layers;
+    for (int i = 0; i < colors.size(); i++) {
+        layers[i] = QPainterPath();
+    }
+    foreach(auto line, area.points) {
+        foreach(auto point, line) {
+            auto colorIndex = (int) (point.distance / (double) area.maxDistance * (colors.size() - 1));
+            auto p1 = latLonToXY(point.lat, point.lon);
+            layers[colorIndex].addRect(
+                    p1.x(),
+                    p1.y(),
+                    point.w * 5 * zoom,
+                    point.h * 10 * zoom
+            );
         }
     }
+    foreach(auto ci, layers.keys()) {
+        auto color = QColor(colors[ci]);
+        color.setAlphaF(0.3);
+        painter->fillPath(layers[ci], color);
+    }
+}
 
-    if (graphVisible) {
-        // аэропорты
-        foreach(auto airport, graph.airports) {
-            auto p = latLonToXY(airport.lat, airport.lon);
-            if (p.x() >= 0 && p.x() <= this->width() && p.y() > 0 && p.y() < this->height()) {
-                auto r = AIRPORT_POINT_SIZE_MIN + (AIRPORT_POINT_SIZE_MAX - AIRPORT_POINT_SIZE_MIN) *
-                                                  (airport.flightCount / (double) graph.maxAirportFlightCount);
-                auto color = colors[(int) (airport.flightCount / (double) graph.maxAirportFlightCount * (colors.size() - 1))];
-                QPainterPath path;
-                path.addEllipse(p, r, r);
-                painter.fillPath(path, QColor(color));
-                if (zoom > 14) {
-                    painter.setPen(QPen(QColor(colorBlack()), 2));
-                    painter.setFont(QFont("Roboto", 16, QFont::Bold));
-                    painter.drawText(p.x() - r, p.y() + r * 3, airport.id);
-                    painter.setFont(QFont("Roboto", 12, QFont::Normal));
-                    painter.drawText(p.x() - r, p.y() + r * 3 + 16, airport.name);
-                    painter.drawText(p.x() - r, p.y() + r * 3 + 28, airport.city);
-                    painter.setPen(QPen(QColor(color), 2));
-                    painter.drawText(p.x() - r, p.y() + r * 3 + 40, "Пассажиров: " + QString::number(airport.passengersCountIn + airport.passengersCountOut));
-                    painter.drawText(p.x() - r, p.y() + r * 3 + 52, "Вылетов: " + QString::number(airport.flightCount));
-                }
+void MapWidget::drawAirports(QPainter *painter) {
+    // аэропорты
+    foreach(auto airport, graph.airports) {
+        auto p = latLonToXY(airport.lat, airport.lon);
+        if (p.x() >= 0 && p.x() <= this->width() && p.y() > 0 && p.y() < this->height()) {
+            auto r = AIRPORT_POINT_SIZE_MIN + (AIRPORT_POINT_SIZE_MAX - AIRPORT_POINT_SIZE_MIN) *
+                                              (airport.flightCount / (double) graph.maxAirportFlightCount);
+            auto color = colors[(int) (airport.flightCount / (double) graph.maxAirportFlightCount * (colors.size() - 1))];
+            QPainterPath path;
+            path.addEllipse(p, r, r);
+            painter->fillPath(path, QColor(color));
+            if (zoom > 14) {
+                painter->setPen(QPen(QColor(colorBlack()), 2));
+                painter->setFont(QFont("Roboto", 16, QFont::Bold));
+                painter->drawText(p.x() - r, p.y() + r * 3, airport.id);
+                painter->setFont(QFont("Roboto", 12, QFont::Normal));
+                painter->drawText(p.x() - r, p.y() + r * 3 + 16, airport.name);
+                painter->drawText(p.x() - r, p.y() + r * 3 + 28, airport.city);
+                painter->setPen(QPen(QColor(color), 2));
+                painter->drawText(p.x() - r, p.y() + r * 3 + 40, "Пассажиров: " + QString::number(airport.passengersCountIn + airport.passengersCountOut));
+                painter->drawText(p.x() - r, p.y() + r * 3 + 52, "Вылетов: " + QString::number(airport.flightCount));
             }
         }
+    }
+}
+
+
+void MapWidget::drawGraph(TransportGraphModel graphForDraw, QPainter *painter, QString color) {
+    painter->setPen(QColor(color));
+    foreach(auto line, graphForDraw.viewLines) {
+        auto p1 = latLonToXY(line[1], line[0]);
+        auto p2 = latLonToXY(line[3], line[2]);
+        painter->drawLine(p1, p2);
     }
 }
 
@@ -242,11 +252,16 @@ void MapWidget::setArea(Area area) {
 }
 
 void MapWidget::onChangeAirportsVisible(bool checked) {
-    graphVisible = checked;
+    airportsVisible = checked;
     repaint();
 }
 
 void MapWidget::onChangeAreaVisible(bool checked) {
     areaVisible = checked;
+    repaint();
+}
+
+void MapWidget::onChangeBaseGraphVisible(bool checked) {
+    baseGraphVisible = checked;
     repaint();
 }

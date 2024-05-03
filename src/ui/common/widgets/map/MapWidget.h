@@ -38,9 +38,10 @@ private:
 
     QList<RouteModel*> routes;
     TransportGraphModel graph;
-    bool graphVisible = true;
+    bool airportsVisible = true;
     Area area;
     bool areaVisible = true;
+    bool baseGraphVisible = true;
 
     QPoint latLonToXY(double lat, double lon);
     QJsonDocument russia;
@@ -53,6 +54,11 @@ private:
     int cameraY = 0;
     bool isMove = false;
     double zoom = 1;
+
+    void drawBack(QPainter *painter);
+    void drawArea(QPainter *painter);
+    void drawAirports(QPainter *painter);
+    void drawGraph(TransportGraphModel graphForDraw, QPainter *painter, QString color);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -72,6 +78,7 @@ private slots:
     void onZoomChange(QString name);
     void onChangeAirportsVisible(bool checked);
     void onChangeAreaVisible(bool checked);
+    void onChangeBaseGraphVisible(bool checked);
 };
 
 

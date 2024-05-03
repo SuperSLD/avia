@@ -3,6 +3,7 @@
 //
 
 #include <QJsonArray>
+#include <QHash>
 #include "TransportGraphModel.h"
 
 TransportGraphModel::TransportGraphModel(QList<AirportModel> airports) {
@@ -12,6 +13,7 @@ TransportGraphModel::TransportGraphModel(QList<AirportModel> airports) {
             maxAirportFlightCount = airport.flightCount;
         }
     }
+    calcDataForView();
 }
 
 TransportGraphModel::TransportGraphModel(QJsonObject json) {
@@ -23,6 +25,7 @@ TransportGraphModel::TransportGraphModel(QJsonObject json) {
             maxAirportFlightCount = airport.flightCount;
         }
     }
+    calcDataForView();
 }
 
 TransportGraphModel TransportGraphModel::getWithEmptyEdges() {
@@ -54,4 +57,32 @@ QJsonObject TransportGraphModel::toJson() {
     }
     json["airports"] = airportsJson;
     return json;
+}
+
+void TransportGraphModel::calcDataForView() {
+    QHash<QString, QList<double>> lines;
+    foreach(auto airport, airports) {
+        foreach(auto connectedAirportId, airport.connectedAirports) {
+            auto lineId = airport.id + connectedAirportId;
+            auto revLineId = connectedAirportId + airport.id;
+            if (!lines.contains(lineId) && !lines.contains(revLineId)) {
+                auto connectedAirport = findAirport(connectedAirportId);
+                lines[lineId] = QList<double> {
+                    airport.lon,
+                    airport.lat,
+                    connectedAirport.lon,
+                    connectedAirport.lat,
+                };
+            }
+        }
+    }
+    viewLines = lines.values();
+}
+
+AirportModel TransportGraphModel::findAirport(QString id) {
+    AirportModel airport;
+    foreach(auto a, airports) {
+        if (a.id == id) airport = a;
+    }
+    return airport;
 }
