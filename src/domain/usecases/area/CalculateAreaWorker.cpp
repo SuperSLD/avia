@@ -27,8 +27,9 @@ void CalculateAreaWorker::run() {
             if (country.pointInCountry(currentLon, currentLat)) {
                 auto minDistanceAirport = graph.getMinDistanceAirport(currentLon, currentLat);
                 airportId = minDistanceAirport.id;
-                auto d = sqrt(
-                        pow(currentLat - minDistanceAirport.lat, 2) + pow(currentLon - minDistanceAirport.lon, 2));
+                auto d = distanceInKm(currentLon, currentLat, minDistanceAirport.lon, minDistanceAirport.lat);
+//                        sqrt(
+//                        pow(currentLat - minDistanceAirport.lat, 2) + pow(currentLon - minDistanceAirport.lon, 2));
 //            emit direction(
 //                currentLon,
 //                currentLat,

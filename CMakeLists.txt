@@ -172,6 +172,7 @@ set(PROJECT_SOURCES
         src/domain/models/area/areapoint/AreaPoint.h
         src/domain/usecases/loadsaveddata/LoadSavedDataWorker.cpp
         src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h
+        src/domain/usecases/math/geometry.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

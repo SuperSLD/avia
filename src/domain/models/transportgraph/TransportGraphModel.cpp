@@ -6,6 +6,9 @@
 #include <QHash>
 #include "TransportGraphModel.h"
 
+#include "src/domain/usecases/math/geometry.h"
+using namespace geometry;
+
 TransportGraphModel::TransportGraphModel(QList<AirportModel> airports) {
     this->airports = airports;
     foreach(auto airport, airports) {
@@ -40,7 +43,7 @@ AirportModel TransportGraphModel::getMinDistanceAirport(double lon, double lat) 
     double minDistance = 100000000000.0;
     AirportModel minDistanceAirport;
     foreach(auto airport, airports) {
-        auto distance = sqrt(pow(lat - airport.lat, 2) + pow(lon - airport.lon, 2));
+        auto distance = distanceInKm(lon, lat, airport.lon, airport.lat);
         if (distance < minDistance) {
             minDistance = distance;
             minDistanceAirport = airport;
