@@ -36,7 +36,7 @@ CheckBox::CheckBox(QString text, bool checked) {
     hContainer->addWidget(label);
     this->setLayout(hContainer);
 
-    coloredCardStyle("checkbox", this, colorWhite(), 0);
+    coloredCardStyle("checkbox", this, colorWhite(), 0, 0);
 }
 
 void CheckBox::selfClick(QString name) {
