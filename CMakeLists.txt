@@ -155,6 +155,7 @@ set(PROJECT_SOURCES
         src/domain/models/transportgraph/TransportGraphModel.h
         src/domain/models/transportgraph/PassengersCountBlock.cpp
         src/domain/models/transportgraph/PassengersCountBlock.h
+        src/domain/usecases/graph/AntOptimisation.h
         src/data/net/models/datawrapper/DataWrapper.cpp
         src/data/net/models/datawrapper/DataWrapper.h
         src/data/net/apiservice/ApiService.h
