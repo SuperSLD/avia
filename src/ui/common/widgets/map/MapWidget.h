@@ -8,15 +8,22 @@
 
 #include <QFrame>
 #include <QJsonDocument>
+#include <QHBoxLayout>
 #include "src/data/db/dbconnector/models/routemodel/RouteModel.h"
 #include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
 #include "src/domain/models/transportgraph/TransportGraphModel.h"
 #include "src/domain/models/area/Area.h"
 #include "src/data/settings/SettingsRepository.h"
+#include "src/domain/usecases/area/countryshape/CountryShape.h"
 
 class MapWidget: public QFrame {
 
 private:
+
+    CountryShape *country;
+    QFrame *areaCard;
+    QHBoxLayout *areaCardContainer;
+
     int AIRPORT_POINT_SIZE_MAX = 15;
     int AIRPORT_POINT_SIZE_MIN = 8;
     QList<QString> colors = QList<QString> {
@@ -44,7 +51,6 @@ private:
     bool baseGraphVisible = true;
 
     QPoint latLonToXY(double lat, double lon);
-    QJsonDocument russia;
 
     int lastCameraX = 0;
     int lastCameraY = 0;
@@ -69,6 +75,8 @@ protected:
 public:
     MapWidget();
     ~MapWidget();
+
+    void clearList(QLayout *list);
 
     void setRoutes(QList<RouteModel*> routes);
     void setAirports(TransportGraphModel graph);

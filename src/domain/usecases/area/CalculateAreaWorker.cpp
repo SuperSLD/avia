@@ -44,7 +44,7 @@ void CalculateAreaWorker::run() {
                         AreaPoint(
                                 airportId,
                                 d,
-                                0,
+                                d / 60.0,
                                 lonDif / lonIterations,
                                 latDif / latIterations,
                                 currentLon,

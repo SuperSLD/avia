@@ -16,6 +16,7 @@ class Area: public BaseModel {
 public:
     QList<QList<AreaPoint>> points;
     double maxDistance = 0;
+    double maxTime = 0;
 
     Area(QList<QList<AreaPoint>> points) {
         this->points = points;
@@ -23,6 +24,9 @@ public:
             foreach(auto point, line) {
                 if (point.distance > maxDistance) {
                     maxDistance = point.distance;
+                }
+                if (point.duration > maxTime) {
+                    maxTime = point.duration;
                 }
             }
         }
@@ -36,6 +40,9 @@ public:
                 arr.append(areaPoint);
                 if (areaPoint.distance > maxDistance) {
                     maxDistance = areaPoint.distance;
+                }
+                if (areaPoint.duration > maxTime) {
+                    maxTime = areaPoint.duration;
                 }
             }
             points.append(arr);

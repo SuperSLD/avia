@@ -15,16 +15,12 @@
 #include <QFile>
 #include <QMouseEvent>
 #include <QVBoxLayout>
+#include <QLabel>
 
 using namespace theme;
 
 MapWidget::MapWidget() {
-    QFile file;
-    file.setFileName(":/resc/resc/jsondata/russia.json");
-    file.open(QIODevice::ReadOnly | QIODevice::Text);
-    auto val = file.readAll();
-    russia = QJsonDocument::fromJson(val);
-    file.close();
+    country = new CountryShape("russia");
     coloredCardStyle(
             "MapWidget",
             this,
@@ -43,6 +39,7 @@ MapWidget::MapWidget() {
     buttonsFrame->setLayout(buttonsContainer);
     buttonsContainer->setContentsMargins(24, 24, 24, 24);
 
+    // первый ряд кнопок управления
     auto *buttonsCard = new QFrame();
     coloredCardStyle("buttonsCard", buttonsCard, colorWhite(), 16, 0, 1, colorBorder());
     buttonsContainer->addWidget(buttonsCard);
@@ -69,9 +66,20 @@ MapWidget::MapWidget() {
     auto *areaBox = new CheckBox("Зоны доступности", areaVisible);
     buttonsCardContainer->addWidget(areaBox);
     connect(areaBox, &CheckBox::onChangeState, this, &MapWidget::onChangeAreaVisible);
+
+    // инфо о зонах доступности
+    areaCard = new QFrame();
+    coloredCardStyle("areaCard", areaCard, colorWhite(), 16, 0, 1, colorBorder());
+    buttonsContainer->addWidget(areaCard);
+    areaCardContainer = new QHBoxLayout;
+    areaCardContainer->setContentsMargins(16, 16, 16, 16);
+    areaCardContainer->setSpacing(0);
+    areaCard->setLayout(areaCardContainer);
+
 }
 
 MapWidget::~MapWidget() {
+    delete country;
 }
 
 void MapWidget::setRoutes(QList<RouteModel*> routes) {
@@ -97,11 +105,10 @@ void MapWidget::paintEvent(QPaintEvent *event) {
 
 void MapWidget::drawBack(QPainter *painter) {
     // заливка
-    foreach(auto region, russia.object()) {
-        auto points = region.toObject()["0"].toArray();
+    foreach(auto region, country->regions) {
         QPainterPath path;
-        for (int i = 0; i < points.size(); i++) {
-            auto p = latLonToXY(points[i].toArray()[0].toDouble(), points[i].toArray()[1].toDouble());
+        for (int i = 0; i < region.size(); i++) {
+            auto p = latLonToXY(region[i][1], region[i][0]);
             if (i == 0) {
                 path.moveTo(p);
             } else {
@@ -112,11 +119,10 @@ void MapWidget::drawBack(QPainter *painter) {
     }
     // границы
     painter->setPen(QPen(QColor(colorGraySecondary()), 1));
-    foreach(auto region, russia.object()) {
-        auto points = region.toObject()["0"].toArray();
+    foreach(auto region, country->regions) {
         QPainterPath path;
-        for (int i = 0; i < points.size(); i++) {
-            auto p = latLonToXY(points[i].toArray()[0].toDouble(), points[i].toArray()[1].toDouble());
+        for (int i = 0; i < region.size(); i++) {
+            auto p = latLonToXY(region[i][1], region[i][0]);
             if (i == 0) {
                 path.moveTo(p);
             } else {
@@ -246,6 +252,23 @@ void MapWidget::setAirports(TransportGraphModel graph) {
 }
 
 void MapWidget::setArea(Area area) {
+    qDebug() << "setArea maxTime" << area.maxTime;
+    clearList(areaCardContainer);
+    for (int i = 0; i < colors.size(); i++) {
+        auto *colorCard = new QFrame();
+        auto *colorContainer = new QVBoxLayout();
+        colorContainer->setSpacing(8);
+        colorContainer->setContentsMargins(0, 0, 0, 0);
+        colorCard->setLayout(colorContainer);
+        auto colorFrame = new QFrame();
+        auto colorLabel = new QLabel(QString::number((int) (area.maxTime / colors.size() * (i + 1))) + "ч");
+        colorContainer->addWidget(colorFrame);
+        colorFrame->setMinimumSize(QSize(24, 24));
+        coloredCardStyle("colorFrame", colorFrame, colors[i], 0, 0);
+        colorContainer->addWidget(colorLabel);
+        textStyle("colorLabel", colorLabel, 14, colorBlack());
+        areaCardContainer->addWidget(colorCard);
+    }
     this->area = area;
     repaint();
 }
@@ -263,4 +286,18 @@ void MapWidget::onChangeAreaVisible(bool checked) {
 void MapWidget::onChangeBaseGraphVisible(bool checked) {
     baseGraphVisible = checked;
     repaint();
+}
+
+void MapWidget::clearList(QLayout *list) {
+    QLayoutItem* child;
+    while(list->count()!=0) {
+        child = list->takeAt(0);
+        if(child->layout() != 0) {
+            clearList(child->layout());
+        }
+        else if(child->widget() != 0) {
+            delete child->widget();
+        }
+        delete child;
+    }
 }

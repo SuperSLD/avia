@@ -11,9 +11,9 @@
 
 class CountryShape {
 
+public:
     QList<QList<QList<double>>> regions;
 
-public:
     double maxLon = -181;
     double maxLat = -91;
     double minLon = 181;

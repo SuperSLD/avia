@@ -11,8 +11,12 @@
 class AreaPoint: public BaseModel {
 
 public:
+    // ближайший аэропорт
     QString airportId;
+    // расстояние до ближайшего аэропорта
     double distance;
+    // время до ближайшего аэропорта
+    // для средней скорости 60 км/ч
     double duration;
     bool isValid = false;
     double w;
