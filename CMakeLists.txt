@@ -29,7 +29,7 @@ set(CMAKE_OSX_ARCHITECTURES x86_64)
 #    endif()
 #endif()
 
-set(CMAKE_PREFIX_PATH "/Users/leonidsolanoj/Qt/5.15.2/clang_64")
+set(CMAKE_PREFIX_PATH "/Users/denizvukolov/Qt/5.15.2/clang_64")
 #set(Qt5_DIR "/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5")
 find_package(QT NAMES Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5Svg REQUIRED)
@@ -152,6 +152,7 @@ set(PROJECT_SOURCES
         src/domain/models/transportgraph/TransportGraphModel.h
         src/domain/models/transportgraph/PassengersCountBlock.cpp
         src/domain/models/transportgraph/PassengersCountBlock.h
+        src/domain/usecases/graph/AntOptimisation.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
