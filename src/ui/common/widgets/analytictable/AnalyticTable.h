@@ -13,13 +13,13 @@ class AnalyticTable: public QFrame {
 
 private:
     QVBoxLayout *rowsContainer;
-    AnalyticsModel analyticsModel;
+    BaseAnalyticModel *analyticsModel;
 
 public:
     AnalyticTable();
     ~AnalyticTable();
 
-    void setAnalytics(AnalyticsModel analytics);
+    void setAnalytics(BaseAnalyticModel *analytics);
     void clearList(QLayout *list);
 };
 

@@ -5,13 +5,19 @@
 #ifndef AVIA_AREA_H
 #define AVIA_AREA_H
 
-#include "src/ui/common/navigation/base/basemodel/BaseModel.h"
+#include "src/domain/models/analytics/BaseAnalyticModel.h"
 #include "src/domain/models/area/areapoint/AreaPoint.h"
+#include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
 
 #include <QList>
 #include <QJsonArray>
 
-class Area: public BaseModel {
+class Area: public BaseAnalyticModel {
+
+private:
+    void calcAnalyticsData() {
+
+    }
 
 public:
     QList<QList<AreaPoint>> points;
@@ -30,6 +36,7 @@ public:
                 }
             }
         }
+        calcAnalyticsData();
     }
 
     Area(QJsonObject json) {
@@ -47,6 +54,7 @@ public:
             }
             points.append(arr);
         }
+        calcAnalyticsData();
     }
 
     Area() {}
@@ -63,6 +71,23 @@ public:
         }
         json["points"] = arr;
         return json;
+    }
+
+    QList<AnalyticsRow> getRows() override {
+        QList<AnalyticsRow> rows;
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell*>({
+                   new TitleAnalyticsCell("Результаты вычислений"),
+            }), true)
+        );
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell*>({
+                   new NumberAnalyticsCell(QString::number(points.size()), "Общее количество\nсекторов", colorSecondary()),
+                   new NumberAnalyticsCell(QString::number((int) maxDistance) + " КМ", "Максимальное расстояние\nдо аэропорта", colorPrimary()),
+                   new NumberAnalyticsCell(QString::number((int) maxTime) + " Ч", "Максимальере время\nв пути", colorPrimary()),
+            }))
+        );
+        return rows;
     }
 };
 

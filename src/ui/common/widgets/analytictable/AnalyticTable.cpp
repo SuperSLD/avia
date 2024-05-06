@@ -44,9 +44,9 @@ AnalyticTable::~AnalyticTable() {
     delete rowsContainer;
 }
 
-void AnalyticTable::setAnalytics(AnalyticsModel analytics) {
+void AnalyticTable::setAnalytics(BaseAnalyticModel *analytics) {
     clearList(rowsContainer);
-    foreach(auto row, analytics.getRows()) {
+    foreach(auto row, analytics->getRows()) {
         rowsContainer->addWidget(row.getRowView());
     }
 }

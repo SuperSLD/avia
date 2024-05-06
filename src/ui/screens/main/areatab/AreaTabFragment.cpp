@@ -23,14 +23,23 @@ AreaTabFragment::AreaTabFragment() {
     auto *contentFrame = new QFrame();
     auto *contentContainer = new QVBoxLayout();
     contentContainer->setContentsMargins(0, 0, 0, 0);
+    contentContainer->setSpacing(0);
     contentFrame->setLayout(contentContainer);
     contentFrame->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
     contentContainer->setAlignment(Qt::AlignCenter);
 
+    table = new AnalyticTable();
+    table->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+    contentContainer->addWidget(table);
+
+    auto *buttonContainer = new QHBoxLayout;
+    buttonContainer->setAlignment(Qt::AlignRight);
+    buttonContainer->setContentsMargins(24, 24, 24, 24);
     auto startCalculationButton = new Button("startCalculationButton", "Начать вычисление", true);
     connect(startCalculationButton, &Button::clicked, this, &AreaTabFragment::startCalculation);
-    contentContainer->addWidget(startCalculationButton);
+    buttonContainer->addWidget(startCalculationButton);
+    contentContainer->addLayout(buttonContainer);
 
     loadingContainer = new LoadingContainerWidget(contentFrame);
     loadingContainer->startLoading("Проверка подключения");
@@ -41,6 +50,7 @@ AreaTabFragment::~AreaTabFragment() {
     delete settingsRep;
     delete loadingContainer;
     delete netRep;
+    delete table;
 }
 
 void AreaTabFragment::onResume() {
@@ -84,6 +94,8 @@ void AreaTabFragment::startCalculation() {
 
 void AreaTabFragment::onAreaCalculated(Area area) {
     loadingContainer->stopLoading();
+    qDebug() << "AreaTabFragment::onAreaCalculated";
+    table->setAnalytics(&area);
 }
 
 void AreaTabFragment::onChangeCalculateAreaProgress(int progress) {

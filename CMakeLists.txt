@@ -173,6 +173,7 @@ set(PROJECT_SOURCES
         src/domain/usecases/loadsaveddata/LoadSavedDataWorker.cpp
         src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h
         src/domain/usecases/math/geometry.h
+        src/domain/models/analytics/BaseAnalyticModel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -70,7 +70,7 @@ void AnalyticsTabFragment::onAnalyticsLoaded(AnalyticsModel analyticsModel) {
     analyticsLoaded = true;
     loadingContainer->stopLoading();
     this->analyticsModel = analyticsModel;
-    table->setAnalytics(analyticsModel);
+    table->setAnalytics(&analyticsModel);
     qDebug() << "AnalyticsTabFragment::onAnalyticsLoaded" << analyticsModel.allCount << analyticsModel.inRussiaCount;
 }
 
