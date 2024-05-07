@@ -109,12 +109,13 @@ void GraphTabFragment::onAirportsLoadedChangeProgress(int progress) {
 }
 
 void GraphTabFragment::startCalculation() {
-    QRegExp re("\\d*");
-    if (re.exactMatch(greedEdit->text()) && re.exactMatch(gregariousnessEdit->text())) {
-        dbConnector->calculateGraph(graph, save, greedEdit->text().toInt(), gregariousnessEdit->text().toInt(), passengersPartEdit->text().toDouble());
-    } else {
-        dbConnector->calculateGraph(graph, save, 1, 1, 0.001);
-    }
+    dbConnector->calculateGraph(
+            graph,
+            save,
+            greedEdit->text().toInt(),
+            gregariousnessEdit->text().toInt(),
+            passengersPartEdit->text().toDouble()
+    );
     loadingContainer->startLoading("Считаем");
 }
 

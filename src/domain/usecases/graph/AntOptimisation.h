@@ -35,8 +35,8 @@ class AntColonyOptimization: public QObject {
 public:
 
     QList<AirportModel> originalAirports;
-    vector<Airport> airports;
-    vector<Edge> edges;
+    std::vector<Airport> airports;
+    std::vector<Edge> edges;
     int numAirports;
     int numPassengers;
 
@@ -45,14 +45,14 @@ public:
     /// стадность
     double gregariousness = 1;
 
-    AntColonyOptimization(vector<Airport> airports, int numPassengers, QList<AirportModel> original, double greed, double gregariousness)
+    AntColonyOptimization(std::vector<Airport> airports, int numPassengers, QList<AirportModel> original, double greed, double gregariousness)
         : airports(airports), numAirports(airports.size()), numPassengers(numPassengers), originalAirports(original), greed(greed), gregariousness(gregariousness) {}
 
     // Инициализация ребер транспортной сети
     void initializeEdges() {
         // Создаем ребра между всеми парами аэропортов
-        for (int i = 0; i < numAirports; ++i) {
-            for (int j = i + 1; j < numAirports; ++j) {
+        for (int i = 0; i < airports.size(); ++i) {
+            for (int j = i + 1; j < airports.size(); ++j) {
                 auto d = distanceInKm(
                     airports[i].lon, airports[i].lat,
                     airports[j].lon, airports[j].lat
@@ -78,17 +78,21 @@ public:
 
     // Выбор следующего непосещенного ребра для распределения пассажиров
     int selectNextEdge() {
+        double sumP = 0;
         double maxP = 0;
         double maxPEdge = -1;
         for (int i = 0; i < edges.size(); i++) {
             if (airports[edges[i].source].passengersOut > 0 && airports[edges[i].destination].passengersIn > 0) {
                 auto p = probability(edges[i]);
+                sumP += p;
                 if (maxP < p) {
                     maxP = p;
                     maxPEdge = i;
                 }
             }
         }
+        qDebug() << "sumP =" << sumP;
+        if (maxPEdge < 0) return maxPEdge;
         auto edge = edges[maxPEdge];
         auto d = distanceInKm(
                 airports[edge.destination].lon, airports[edge.destination].lat,
@@ -113,16 +117,13 @@ public:
             }
             auto edge = edges[edgeIndex];
 
-            int count = 200;
+            int count = 100;
             int passengersToTransport = min(count, airports[edge.source].passengersOut);
             numPassengers -= passengersToTransport;
             airports[edge.source].passengersOut -= passengersToTransport;
             airports[edge.destination].passengersIn += passengersToTransport;
 
             emit changeProgress(numPassengers);
-            qDebug() << "distributePassengers transport =" << passengersToTransport << "all" << numPassengers;
-            qDebug() << airports[edge.source].id << "->" << airports[edge.destination].id;
-            qDebug() << airports[edge.source].passengersOut << "->" << airports[edge.destination].passengersIn;
         }
 
         return createGraph();
