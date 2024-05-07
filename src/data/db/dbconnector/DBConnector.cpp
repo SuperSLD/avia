@@ -157,15 +157,20 @@ void DBConnector::handleCalculatedArea(Area area) {
     emit onAreaCalculated(area);
 }
 
-void DBConnector::calculateGraph(TransportGraphModel graph) {
+void DBConnector::calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness) {
     if (calculateGraphWorker != nullptr) calculateGraphWorker->exit();
-    calculateGraphWorker = new CalculateGraphWorker("mongodb://" + user + ":" + password + "@" + url, graph);
+    calculateGraphWorker = new CalculateGraphWorker(key, graph, greed, gregariousness);
     connect(calculateGraphWorker, &CalculateGraphWorker::resultReady, this, &DBConnector::handleCalculatedGraph);
+    connect(calculateGraphWorker, &CalculateGraphWorker::onChangeProgress, this, &DBConnector::handleCalculatedGraphProgress);
     calculateGraphWorker->start();
 }
 
-void DBConnector::handleCalculatedGraph() {
-    emit onGraphCalculated();
+void DBConnector::handleCalculatedGraph(QString key, TransportGraphModel graph) {
+    emit onGraphCalculated(key, graph);
+}
+
+void DBConnector::handleCalculatedGraphProgress(int progress) {
+    emit onChangeCalculateGraphProgress(progress);
 }
 
 void DBConnector::loadSavedData() {
@@ -173,5 +178,7 @@ void DBConnector::loadSavedData() {
     loadSavedDataWorker = new LoadSavedDataWorker();
     connect(loadSavedDataWorker, &LoadSavedDataWorker::areaLolad, this, &DBConnector::handleCalculatedArea);
     connect(loadSavedDataWorker, &LoadSavedDataWorker::airportsLolad, this, &DBConnector::handleAirportsLoaded);
+    connect(loadSavedDataWorker, &LoadSavedDataWorker::graphLoad, this, &DBConnector::handleCalculatedGraph);
     loadSavedDataWorker->start();
 }
+

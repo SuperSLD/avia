@@ -18,31 +18,41 @@ using namespace std;
 
 void CalculateGraphWorker::run() {
 
-    // место для кода Дениза
+    QList<Airport> airports;
 
-        // Создание исходных данных для аэропортов
-        vector<Airport> airports = {
-            {10, 15, 0}, // Пример данных для аэропорта 1
-            {20, 25, 0}, // Пример данных для аэропорта 2
-            {15, 20, 0}  // Пример данных для аэропорта 3
-            // Можно добавить больше аэропортов по аналогии
-        };
+    // Общее количество пассажиров
+    int totalPassengers = 0;
 
-        // Общее количество пассажиров
-        int totalPassengers = 100;
+    foreach(auto a, graph.airports) {
+        int pIn = (int) (a.passengersCountIn * 0.001);
+        int pOut = (int) (a.passengersCountOut * 0.001);
+        airports.append(
+            {
+                a.id,
+                a.lon,
+                a.lat,
+                pIn,
+              pOut,
+                pIn + pOut
+            }
+        );
+        totalPassengers += pIn + pOut;
+    }
 
-        // Запуск муравьиного алгоритма
-        AntColonyOptimization aco(airports, totalPassengers);
-        aco.distributePassengers();
-
-        // Вывод результатов
-        for (int i = 0; i < airports.size(); ++i) {
-            cout << "Airport " << i + 1 << " Passengers In: " << airports[i].passengersIn
-                << " Passengers Out: " << airports[i].passengersOut
-                << " Passengers Currently: " << airports[i].passengersCurrently << endl;
-        }
+    // Запуск муравьиного алгоритма
+    auto *aco = new AntColonyOptimization(
+            airports.toVector().toStdVector(),
+            totalPassengers,
+            graph.airports,
+            greed,
+            gregariousness
+    );
+    connect(aco, &AntColonyOptimization::changeProgress, this, &CalculateGraphWorker::handleProgress);
+    auto newGraph = aco->distributePassengers();
 
     qDebug() << "CalculateGraphWorker все посчитал";
 
-    emit resultReady();
+    settingsRepository->setJson("airports" + key, newGraph.toJson());
+
+    emit resultReady(key, newGraph);
 }

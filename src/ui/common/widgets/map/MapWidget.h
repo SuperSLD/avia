@@ -45,6 +45,9 @@ private:
 
     QList<RouteModel*> routes;
     TransportGraphModel graph;
+    QString save = "s0";
+    QHash<QString, TransportGraphModel> saves;
+
     bool airportsVisible = true;
     Area area;
     bool areaVisible = true;
@@ -79,7 +82,7 @@ public:
     void clearList(QLayout *list);
 
     void setRoutes(QList<RouteModel*> routes);
-    void setAirports(TransportGraphModel graph);
+    void setGraph(TransportGraphModel graph, QString key = "");
     void setArea(Area area);
 
 private slots:
@@ -87,6 +90,8 @@ private slots:
     void onChangeAirportsVisible(bool checked);
     void onChangeAreaVisible(bool checked);
     void onChangeBaseGraphVisible(bool checked);
+
+    void onSaveSelected(QString save);
 };
 
 

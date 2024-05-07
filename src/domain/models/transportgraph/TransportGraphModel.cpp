@@ -7,15 +7,19 @@
 #include "TransportGraphModel.h"
 
 #include "src/domain/usecases/math/geometry.h"
+#include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
+
 using namespace geometry;
 
-TransportGraphModel::TransportGraphModel(QList<AirportModel> airports) {
+TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, double greed, double gregariousness) {
     this->airports = airports;
     foreach(auto airport, airports) {
         if (maxAirportFlightCount < airport.flightCount) {
             maxAirportFlightCount = airport.flightCount;
         }
     }
+    this->greed = greed;
+    this->gregariousness = gregariousness;
     calcDataForView();
 }
 
@@ -28,6 +32,8 @@ TransportGraphModel::TransportGraphModel(QJsonObject json) {
             maxAirportFlightCount = airport.flightCount;
         }
     }
+    this->greed = json["greed"].toDouble();
+    this->gregariousness = json["gregariousness"].toDouble();
     calcDataForView();
 }
 
@@ -59,6 +65,8 @@ QJsonObject TransportGraphModel::toJson() {
         airportsJson.append(airport.toJson());
     }
     json["airports"] = airportsJson;
+    json["greed"] = greed;
+    json["gregariousness"] = gregariousness;
     return json;
 }
 
@@ -88,4 +96,26 @@ AirportModel TransportGraphModel::findAirport(QString id) {
         if (a.id == id) airport = a;
     }
     return airport;
+}
+
+QList<AnalyticsRow> TransportGraphModel::getRows() {
+    QList<AnalyticsRow> rows;
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell*>({
+               new TitleAnalyticsCell("Результаты вычислений"),
+        }), true)
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell*>({
+               new NumberAnalyticsCell(QString::number(airports.count()), "Количество аэропортов", colorSecondary()),
+               new NumberAnalyticsCell(QString::number(viewLines.size()), "Количество связей", colorPrimary()),
+        }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell*>({
+           new NumberAnalyticsCell(QString::number(greed), "Жадность", colorPrimary()),
+           new NumberAnalyticsCell(QString::number(gregariousness), "Стадность", colorPrimary()),
+       }))
+    );
+    return rows;
 }

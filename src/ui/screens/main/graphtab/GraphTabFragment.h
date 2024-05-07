@@ -7,6 +7,8 @@
 
 #include "src/ui/common/navigation/base/basefragment/BaseFragment.h"
 #include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
+#include "src/ui/common/widgets/analytictable/AnalyticTable.h"
+#include "src/ui/common/widgets/textedit/TextEdit.h"
 
 class GraphTabFragment : public BaseFragment {
     Q_OBJECT
@@ -15,10 +17,17 @@ private:
     LoadingContainerWidget *loadingContainer;
     SettingsRepository *settingsRep = new SettingsRepository();
     DBConnector *dbConnector;
+    AnalyticTable *table;
+
+    TextEdit *greedEdit;
+    TextEdit *gregariousnessEdit;
 
     int progress = 0;
+    QString save = "s1";
 
     TransportGraphModel graph;
+
+    QHash<QString, TransportGraphModel> results;
 
 public:
     GraphTabFragment();
@@ -31,9 +40,12 @@ private slots:
     void onConnectionChecked(bool isConnected);
     void onAirportsLoaded(TransportGraphModel graph, bool fromDB);
     void onAirportsLoadedChangeProgress(int progress);
+    void onCalculateGraphProgressChange(int progress);
 
     void startCalculation();
-    void onGraphCalculated();
+    void onGraphCalculated(QString key, TransportGraphModel graph);
+
+    void onSaveSelected(QString save);
 };
 
 #endif //AVIA_GRAPHTABFRAGMENT_H

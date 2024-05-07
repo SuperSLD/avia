@@ -31,7 +31,7 @@ public:
 signals:
     void areaLolad(Area area);
     void airportsLolad(TransportGraphModel graph, bool fromDB);
-
+    void graphLoad(QString key, TransportGraphModel graph);
 };
 
 

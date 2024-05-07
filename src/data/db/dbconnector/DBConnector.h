@@ -59,7 +59,7 @@ public:
     void loadAirports();
 
     void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep);
-    void calculateGraph(TransportGraphModel graph);
+    void calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness);
 
     void loadSavedData();
 
@@ -80,7 +80,8 @@ private slots:
     void handleCalculatedArea(Area area);
     void handleCalculatedAreaProgress(int progress);
 
-    void handleCalculatedGraph();
+    void handleCalculatedGraph(QString key, TransportGraphModel graph);
+    void handleCalculatedGraphProgress(int progress);
 
 signals:
     void onConnectionChecked(bool isConnected);
@@ -99,7 +100,8 @@ signals:
     void onAreaCalculated(Area area);
     void onChangeCalculateAreaProgress(int progress);
 
-    void onGraphCalculated();
+    void onGraphCalculated(QString key, TransportGraphModel graph);
+    void onChangeCalculateGraphProgress(int progress);
 };
 
 #endif //AVIA_DBCONNECTOR_H

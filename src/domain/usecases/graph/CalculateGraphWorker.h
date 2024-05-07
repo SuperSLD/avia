@@ -14,19 +14,37 @@ class CalculateGraphWorker: public QThread {
 Q_OBJECT
 
 private:
-    QString uriString;
+    QString key;
     TransportGraphModel graph;
 
+    double greed;
+    double gregariousness;
+
+    SettingsRepository *settingsRepository;
+
 public:
-    CalculateGraphWorker(QString uri, TransportGraphModel graph) {
-        this->uriString = uri;
+    CalculateGraphWorker(QString key, TransportGraphModel graph, double greed, double gregariousness) {
+        this->key = key;
         this->graph = graph;
+        this->greed = greed;
+        this->gregariousness = gregariousness;
+        settingsRepository = new SettingsRepository();
+    }
+
+    ~CalculateGraphWorker() {
+        delete settingsRepository;
     }
 
     void run() override;
 
+private slots:
+    void handleProgress(int progress) {
+        emit onChangeProgress(progress);
+    };
+
 signals:
-    void resultReady();
+    void resultReady(QString key, TransportGraphModel graph);
+    void onChangeProgress(int progress);
 };
 
 #endif //AVIA_CALCULATEGRAPHWORKER_H

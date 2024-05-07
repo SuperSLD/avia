@@ -4,9 +4,18 @@
 
 #ifndef ANTOPTIMISATION_H
 #define ANTOPTIMISATION_H
+
+
+#include "src/domain/usecases/math/geometry.h"
+using namespace geometry;
 using namespace std;
+#include <QDebug>
+
 // Структура, представляющая аэропорт
 struct Airport {
+    QString id;
+    double lon;
+    double lat;
     int passengersIn;
     int passengersOut;
     int passengersCurrently;
@@ -16,82 +25,136 @@ struct Airport {
 struct Edge {
     int source;
     int destination;
-    int weight;
+    double weight;
+    double pheromone;
     bool visited;
 };
 
-class AntColonyOptimization {
-private:
+class AntColonyOptimization: public QObject {
+    Q_OBJECT;
+public:
+
+    QList<AirportModel> originalAirports;
     vector<Airport> airports;
     vector<Edge> edges;
     int numAirports;
     int numPassengers;
+
+    /// жадность
+    double greed = 1;
+    /// стадность
+    double gregariousness = 1;
+
+    AntColonyOptimization(vector<Airport> airports, int numPassengers, QList<AirportModel> original, double greed, double gregariousness)
+        : airports(airports), numAirports(airports.size()), numPassengers(numPassengers), originalAirports(original), greed(greed), gregariousness(gregariousness) {}
 
     // Инициализация ребер транспортной сети
     void initializeEdges() {
         // Создаем ребра между всеми парами аэропортов
         for (int i = 0; i < numAirports; ++i) {
             for (int j = i + 1; j < numAirports; ++j) {
+                auto d = distanceInKm(
+                    airports[i].lon, airports[i].lat,
+                    airports[j].lon, airports[j].lat
+                );
                 Edge e;
                 e.source = i;
                 e.destination = j;
-                e.weight = rand() % 100 + 1; // Случайный вес ребра
+                e.weight = 1 / d; //rand() % 100 + 1; // Случайный вес ребра
+                e.pheromone = 1 / d;
                 e.visited = false;
                 edges.push_back(e);
             }
         }
     }
 
+    double probability(Edge edge) {
+        double sum;
+        foreach(auto e, edges) {
+            sum += pow(e.weight, greed) * pow(e.pheromone, gregariousness);
+        }
+        return (pow(edge.weight, greed) * pow(edge.pheromone, gregariousness)) / sum;
+    }
+
     // Выбор следующего непосещенного ребра для распределения пассажиров
     int selectNextEdge() {
-        double totalWeight = 0.0;
-        for (const auto& edge : edges) {
-            if (!edge.visited) {
-                totalWeight += 1.0 / edge.weight; // Обратная величина веса
-            }
-        }
-
-        double randValue = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
-        double cumulativeProbability = 0.0;
-        for (int i = 0; i < edges.size(); ++i) {
-            if (!edges[i].visited) {
-                cumulativeProbability += (1.0 / edges[i].weight) / totalWeight;
-                if (randValue <= cumulativeProbability) {
-                    return i;
+        double maxP = 0;
+        double maxPEdge = -1;
+        for (int i = 0; i < edges.size(); i++) {
+            if (airports[edges[i].source].passengersOut > 0 && airports[edges[i].destination].passengersIn > 0) {
+                auto p = probability(edges[i]);
+                if (maxP < p) {
+                    maxP = p;
+                    maxPEdge = i;
                 }
             }
         }
-        return -1; // Если все ребра уже посещены
+        auto edge = edges[maxPEdge];
+        auto d = distanceInKm(
+                airports[edge.destination].lon, airports[edge.destination].lat,
+                airports[edge.source].lon, airports[edge.source].lat
+        );
+        edges[maxPEdge].pheromone += 1 / d;
+        edges[maxPEdge].visited = true;
+        return maxPEdge;
     }
 
-public:
-    AntColonyOptimization(vector<Airport> airports, int numPassengers)
-        : airports(airports), numAirports(airports.size()), numPassengers(numPassengers) {}
-
     // Распределение пассажиров с использованием муравьиного алгоритма
-    void distributePassengers() {
+    TransportGraphModel distributePassengers() {
         // Инициализация ребер
         initializeEdges();
 
         // Распределение пассажиров по ребрам
         while (numPassengers > 0) {
-            int edgeIndex = selectNextEdge();
-            if (edgeIndex == -1) {
-                break; // Если все ребра уже посещены
+            auto edgeIndex = selectNextEdge();
+            if (edgeIndex < 0) {
+                qDebug() << "distributePassengers -1 index";
+                return createGraph();
             }
-            Edge& e = edges[edgeIndex];
-            int passengersToTransport = min(numPassengers, e.weight);
-            e.visited = true;
+            auto edge = edges[edgeIndex];
+
+            int count = 200;
+            int passengersToTransport = min(count, airports[edge.source].passengersOut);
             numPassengers -= passengersToTransport;
-            airports[e.source].passengersCurrently += passengersToTransport;
-            airports[e.destination].passengersCurrently -= passengersToTransport;
+            airports[edge.source].passengersOut -= passengersToTransport;
+            airports[edge.destination].passengersIn += passengersToTransport;
+
+            emit changeProgress(numPassengers);
+            qDebug() << "distributePassengers transport =" << passengersToTransport << "all" << numPassengers;
+            qDebug() << airports[edge.source].id << "->" << airports[edge.destination].id;
+            qDebug() << airports[edge.source].passengersOut << "->" << airports[edge.destination].passengersIn;
         }
 
-        // Сброс использования всех рёбер
-        for (auto& edge : edges) {
-            edge.visited = false;
-        }
+        return createGraph();
     }
+
+    TransportGraphModel createGraph() {
+        foreach(auto a, originalAirports) {
+            a.connectedAirports = QList<QString>();
+        }
+        foreach(auto e, edges) {
+            if (e.visited) {
+                auto from = airports[e.source].id;
+                auto to = airports[e.destination].id;
+                int airportFrom = 0;
+                int airportTo = 0;
+                for (int i = 0; i < originalAirports.size(); i++) {
+                    if (originalAirports[i].id == from) {
+                        airportFrom = i;
+                    }
+                    if (originalAirports[i].id == to) {
+                        airportTo = i;
+                    }
+                }
+                originalAirports[airportFrom].addConnection(to);
+                originalAirports[airportTo].addConnection(from);
+            }
+        }
+        return TransportGraphModel(originalAirports, greed, gregariousness);
+    }
+
+signals:
+    void changeProgress(int progress);
 };
 
 

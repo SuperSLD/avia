@@ -5,6 +5,7 @@
 #include "MapWidget.h"
 #include "src/ui/common/widgets/swgbutton/SwgButton.h"
 #include "src/ui/common/widgets/checkbox/CheckBox.h"
+#include "src/ui/common/widgets/switcher/Switcher.h"
 
 #include <QPainter>
 
@@ -59,13 +60,25 @@ MapWidget::MapWidget() {
     buttonsCardContainer->addWidget(airportsBox);
     connect(airportsBox, &CheckBox::onChangeState, this, &MapWidget::onChangeAirportsVisible);
 
-    auto *baseGraphBox = new CheckBox("Базовая сеть", baseGraphVisible);
-    buttonsCardContainer->addWidget(baseGraphBox);
-    connect(baseGraphBox, &CheckBox::onChangeState, this, &MapWidget::onChangeBaseGraphVisible);
-
     auto *areaBox = new CheckBox("Зоны доступности", areaVisible);
     buttonsCardContainer->addWidget(areaBox);
     connect(areaBox, &CheckBox::onChangeState, this, &MapWidget::onChangeAreaVisible);
+
+    auto *baseGraphBox = new CheckBox("Граф", baseGraphVisible);
+    buttonsCardContainer->addWidget(baseGraphBox);
+    connect(baseGraphBox, &CheckBox::onChangeState, this, &MapWidget::onChangeBaseGraphVisible);
+
+    QList<QString> saves = QList<QString>();
+    saves.append("s0");
+    saves.append("s1");
+    saves.append("s2");
+    saves.append("s3");
+    saves.append("s4");
+    Switcher *saveSwitcher = new Switcher("saveSwitcher", saves, save);
+    connect(saveSwitcher, &Switcher::onVariantSwitched, this, &MapWidget::onSaveSelected);
+    saveSwitcher->setMinimumWidth(250);
+    //saveSwitcher->setMaximumHeight(36);
+    buttonsCardContainer->addWidget(saveSwitcher);
 
     // инфо о зонах доступности
     areaCard = new QFrame();
@@ -75,7 +88,6 @@ MapWidget::MapWidget() {
     areaCardContainer->setContentsMargins(16, 16, 16, 16);
     areaCardContainer->setSpacing(0);
     areaCard->setLayout(areaCardContainer);
-
 }
 
 MapWidget::~MapWidget() {
@@ -95,7 +107,13 @@ void MapWidget::paintEvent(QPaintEvent *event) {
         drawArea(&painter);
     }
     if (baseGraphVisible) {
-        drawGraph(graph, &painter, colorBlack());
+        if (save == "s0") {
+            drawGraph(graph, &painter, colorBlack());
+        } else {
+            auto graphForView = TransportGraphModel();
+            if (saves.contains(save)) graphForView = saves[save];
+            drawGraph(graphForView, &painter, colorBlack());
+        }
     }
     if (airportsVisible) {
         drawAirports(&painter);
@@ -246,8 +264,12 @@ void MapWidget::onZoomChange(QString name) {
     repaint();
 }
 
-void MapWidget::setAirports(TransportGraphModel graph) {
-    this->graph = graph;
+void MapWidget::setGraph(TransportGraphModel graph, QString key) {
+    if (key == "") {
+        this->graph = graph;
+    } else {
+        saves[key] = graph;
+    }
     repaint();
 }
 
@@ -300,4 +322,9 @@ void MapWidget::clearList(QLayout *list) {
         }
         delete child;
     }
+}
+
+void MapWidget::onSaveSelected(QString save) {
+    this->save = save;
+    repaint();
 }
