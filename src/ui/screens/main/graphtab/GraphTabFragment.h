@@ -19,6 +19,7 @@ private:
     DBConnector *dbConnector;
     AnalyticTable *table;
 
+    TextEdit *passengersPartEdit;
     TextEdit *greedEdit;
     TextEdit *gregariousnessEdit;
 

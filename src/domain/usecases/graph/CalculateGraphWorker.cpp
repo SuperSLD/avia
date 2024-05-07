@@ -24,8 +24,8 @@ void CalculateGraphWorker::run() {
     int totalPassengers = 0;
 
     foreach(auto a, graph.airports) {
-        int pIn = (int) (a.passengersCountIn * 0.001);
-        int pOut = (int) (a.passengersCountOut * 0.001);
+        int pIn = (int) (a.passengersCountIn * passengersPart);
+        int pOut = (int) (a.passengersCountOut * passengersPart);
         airports.append(
             {
                 a.id,

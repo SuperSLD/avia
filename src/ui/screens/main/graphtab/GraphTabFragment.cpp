@@ -35,11 +35,16 @@ GraphTabFragment::GraphTabFragment() {
     buttonContainer->setContentsMargins(24, 24, 24, 24);
     buttonContainer->setSpacing(16);
 
+    passengersPartEdit = new TextEdit("passengersPartEdit", "Часть пассажиров");
+    passengersPartEdit->setMaximumWidth(650);
+    passengersPartEdit->setText("0.001");
+    buttonContainer->addWidget(passengersPartEdit);
+
     greedEdit = new TextEdit("greedEdit", "Жадность");
     greedEdit->setMaximumWidth(650);
     buttonContainer->addWidget(greedEdit);
 
-    gregariousnessEdit = new TextEdit("greedEdit", "Стадность");
+    gregariousnessEdit = new TextEdit("gregariousnessEdit", "Стадность");
     gregariousnessEdit->setMaximumWidth(650);
     buttonContainer->addWidget(gregariousnessEdit);
 
@@ -106,9 +111,9 @@ void GraphTabFragment::onAirportsLoadedChangeProgress(int progress) {
 void GraphTabFragment::startCalculation() {
     QRegExp re("\\d*");
     if (re.exactMatch(greedEdit->text()) && re.exactMatch(gregariousnessEdit->text())) {
-        dbConnector->calculateGraph(graph, save, greedEdit->text().toInt(), gregariousnessEdit->text().toInt());
+        dbConnector->calculateGraph(graph, save, greedEdit->text().toInt(), gregariousnessEdit->text().toInt(), passengersPartEdit->text().toDouble());
     } else {
-        dbConnector->calculateGraph(graph, save, 1, 1);
+        dbConnector->calculateGraph(graph, save, 1, 1, 0.001);
     }
     loadingContainer->startLoading("Считаем");
 }

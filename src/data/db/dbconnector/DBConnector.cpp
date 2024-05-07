@@ -157,9 +157,9 @@ void DBConnector::handleCalculatedArea(Area area) {
     emit onAreaCalculated(area);
 }
 
-void DBConnector::calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness) {
+void DBConnector::calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness, double passengersPart) {
     if (calculateGraphWorker != nullptr) calculateGraphWorker->exit();
-    calculateGraphWorker = new CalculateGraphWorker(key, graph, greed, gregariousness);
+    calculateGraphWorker = new CalculateGraphWorker(key, graph, greed, gregariousness, passengersPart);
     connect(calculateGraphWorker, &CalculateGraphWorker::resultReady, this, &DBConnector::handleCalculatedGraph);
     connect(calculateGraphWorker, &CalculateGraphWorker::onChangeProgress, this, &DBConnector::handleCalculatedGraphProgress);
     calculateGraphWorker->start();

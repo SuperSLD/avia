@@ -19,16 +19,18 @@ private:
 
     double greed;
     double gregariousness;
+    double passengersPart;
 
     SettingsRepository *settingsRepository;
 
 public:
-    CalculateGraphWorker(QString key, TransportGraphModel graph, double greed, double gregariousness) {
+    CalculateGraphWorker(QString key, TransportGraphModel graph, double greed, double gregariousness, double passengersPart) {
         this->key = key;
         this->graph = graph;
         this->greed = greed;
         this->gregariousness = gregariousness;
         settingsRepository = new SettingsRepository();
+        this->passengersPart = passengersPart;
     }
 
     ~CalculateGraphWorker() {
