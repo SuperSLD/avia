@@ -35,7 +35,7 @@ AnalyticsModel::~AnalyticsModel() {
 void AnalyticsModel::createDataForCharts() {
     flightCountBarChart.append(
             ChartLine(
-                    QList<QString>({colorPrimary()}),
+                    QList<QString>({colorPrimary(), colorSecondary()}),
                     QList<double>({(double) inRussiaCount, (double)  notRussia}),
                     QList<QString>({"В россии и за границей"}),
                     QList<double>(),

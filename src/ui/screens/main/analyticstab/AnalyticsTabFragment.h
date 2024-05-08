@@ -32,6 +32,15 @@ private:
     bool analyticsLoaded = false;
     int progress = 0;
 
+    TransportGraphModel originalGraph;
+    bool originalGraphLoaded = false;
+
+    Area area;
+    bool areaLoaded = false;
+    QHash<QString, TransportGraphModel> graphs;
+
+    void setAnalytics();
+
 public:
     AnalyticsTabFragment();
     ~AnalyticsTabFragment();
@@ -43,6 +52,10 @@ private slots:
     void onConnectionChecked(bool isConnected);
     void onAnalyticsLoaded(AnalyticsModel analyticsModel);
     void onAnalyticsLoadedChangeProgress(int progress);
+
+    void onAreaCalculated(Area area);
+    void onAirportsLoaded(TransportGraphModel graph, bool fromDB);
+    void onGraphCalculated(QString key, TransportGraphModel graph);
 };
 
 #endif //AVIA_ANALYTICSTABFRAGMENT_H

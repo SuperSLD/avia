@@ -28,7 +28,7 @@ ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> li
     vContainer->addWidget(nameLabel);
 
     QFrame *chart;
-    if (type == "pie") {
+    if (type == "pie" || type == "pie_hide_values") {
         chart = new PieChartWidget(400 - 10, lines);
     } else if (type == "line") {
         chart = new LineChartWidget(400 - 10, lines);
@@ -49,7 +49,14 @@ ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> li
     if (type == "pie") {
         auto data = lines.first();
         for (int i = 0; i < data.values.size(); i++) {
-            auto *partLabel = new QLabel( "▲ " + data.name[i] + " (" + QString::number(data.values[i]) + ")");
+            auto *partLabel = new QLabel("▲ " + data.name[i] + " (" + QString::number(data.values[i]) + ")");
+            textStyle("partLabel", partLabel, 16, data.colors[i]);
+            labelsContainer->addWidget(partLabel);
+        }
+    } else if (type == "pie_hide_values") {
+        auto data = lines.first();
+        for (int i = 0; i < data.values.size(); i++) {
+            auto *partLabel = new QLabel("▲ " + data.name[i]);
             textStyle("partLabel", partLabel, 16, data.colors[i]);
             labelsContainer->addWidget(partLabel);
         }

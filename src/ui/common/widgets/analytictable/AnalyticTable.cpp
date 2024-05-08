@@ -51,6 +51,13 @@ void AnalyticTable::setAnalytics(BaseAnalyticModel *analytics) {
     }
 }
 
+void AnalyticTable::setAnalytics(QList<AnalyticsRow> rows) {
+    clearList(rowsContainer);
+            foreach(auto row, rows) {
+            rowsContainer->addWidget(row.getRowView());
+        }
+}
+
 void AnalyticTable::clearList(QLayout *list) {
     QLayoutItem* child;
     while(list->count()!=0) {

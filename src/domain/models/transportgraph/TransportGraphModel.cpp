@@ -8,10 +8,11 @@
 
 #include "src/domain/usecases/math/geometry.h"
 #include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
+#include "src/domain/models/analytics/view/chart/ChartAnalyticsCell.h"
 
 using namespace geometry;
 
-TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, double greed, double gregariousness) {
+TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString save, double greed, double gregariousness) {
     this->airports = airports;
     foreach(auto airport, airports) {
         if (maxAirportFlightCount < airport.flightCount) {
@@ -20,7 +21,9 @@ TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, double gr
     }
     this->greed = greed;
     this->gregariousness = gregariousness;
+    this->save = save;
     calcDataForView();
+    calcAnalyticData();
 }
 
 TransportGraphModel::TransportGraphModel(QJsonObject json) {
@@ -34,7 +37,9 @@ TransportGraphModel::TransportGraphModel(QJsonObject json) {
     }
     this->greed = json["greed"].toDouble();
     this->gregariousness = json["gregariousness"].toDouble();
+    this->save = json["save"].toString();
     calcDataForView();
+    calcAnalyticData();
 }
 
 TransportGraphModel TransportGraphModel::getWithEmptyEdges() {
@@ -67,6 +72,7 @@ QJsonObject TransportGraphModel::toJson() {
     json["airports"] = airportsJson;
     json["greed"] = greed;
     json["gregariousness"] = gregariousness;
+    json["save"] = save;
     return json;
 }
 
@@ -98,11 +104,28 @@ AirportModel TransportGraphModel::findAirport(QString id) {
     return airport;
 }
 
+void TransportGraphModel::calcAnalyticData() {
+    auto allIn = 0.0;
+    auto allOut = 0.0;
+    foreach(auto a, airports) {
+        passCount += a.passengersCountOut + a.passengersCountIn;
+        allIn += a.passengersCountIn;
+        allOut += a.passengersCountOut;
+    }
+    passCountPieChart.append(
+        ChartLine(
+                QList<QString>({colorPrimary(), colorSecondary()}),
+                QList<double>({(double) allOut, (double)  allIn}),
+                QList<QString>({"В аэропорты", "Из аэропортов"})
+        )
+    );
+}
+
 QList<AnalyticsRow> TransportGraphModel::getRows() {
     QList<AnalyticsRow> rows;
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-               new TitleAnalyticsCell("Результаты вычислений"),
+               new TitleAnalyticsCell("Результаты вычислений графа " + save),
         }), true)
     );
     rows.append(
@@ -116,6 +139,12 @@ QList<AnalyticsRow> TransportGraphModel::getRows() {
            new NumberAnalyticsCell(QString::number(greed), "Жадность", colorPrimary()),
            new NumberAnalyticsCell(QString::number(gregariousness), "Стадность", colorPrimary()),
        }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell*>({
+           new ChartAnalyticsCell("pie", "Баланс пассажиров", passCountPieChart),
+           new NumberAnalyticsCell(QString::number(passCount) + "\nпассажиров", "Общее количество\nперевезенных пассажиров", colorSecondary()),
+        }))
     );
     return rows;
 }

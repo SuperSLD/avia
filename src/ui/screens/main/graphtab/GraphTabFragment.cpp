@@ -121,8 +121,8 @@ void GraphTabFragment::startCalculation() {
 
 void GraphTabFragment::onGraphCalculated(QString key, TransportGraphModel graph) {
     loadingContainer->stopLoading();
-    results[key] = graph;
-    table->setAnalytics(&graph);
+    results[key] = TransportGraphModel(graph);
+    table->setAnalytics(&results[key]);
 }
 
 void GraphTabFragment::onCalculateGraphProgressChange(int progress) {

@@ -25,6 +25,8 @@ private:
 
     OSMNetRepository *netRep;
 
+    Area area;
+
     int progress = 0;
 
 public:

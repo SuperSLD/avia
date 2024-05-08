@@ -34,6 +34,7 @@ class AntColonyOptimization: public QObject {
     Q_OBJECT;
 public:
 
+    QString save;
     QList<AirportModel> originalAirports;
     std::vector<Airport> airports;
     std::vector<Edge> edges;
@@ -45,8 +46,8 @@ public:
     /// стадность
     double gregariousness = 1;
 
-    AntColonyOptimization(std::vector<Airport> airports, int numPassengers, QList<AirportModel> original, double greed, double gregariousness)
-        : airports(airports), numAirports(airports.size()), numPassengers(numPassengers), originalAirports(original), greed(greed), gregariousness(gregariousness) {}
+    AntColonyOptimization(QString save, std::vector<Airport> airports, int numPassengers, QList<AirportModel> original, double greed, double gregariousness)
+        : save(save), airports(airports), numAirports(airports.size()), numPassengers(numPassengers), originalAirports(original), greed(greed), gregariousness(gregariousness) {}
 
     // Инициализация ребер транспортной сети
     void initializeEdges() {
@@ -151,7 +152,7 @@ public:
                 originalAirports[airportTo].addConnection(from);
             }
         }
-        return TransportGraphModel(originalAirports, greed, gregariousness);
+        return TransportGraphModel(originalAirports, save, greed, gregariousness);
     }
 
 signals:

@@ -41,6 +41,7 @@ void CalculateGraphWorker::run() {
 
     // Запуск муравьиного алгоритма
     auto *aco = new AntColonyOptimization(
+            key,
             airports.toVector().toStdVector(),
             totalPassengers,
             graph.airports,

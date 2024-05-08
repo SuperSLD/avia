@@ -9,7 +9,6 @@
 
 #include <QPainter>
 
-#include <src/ui/theme/AppTheme.h>
 #include <QPainterPath>
 #include <QJsonArray>
 #include <QJsonObject>
@@ -18,6 +17,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 
+#include <src/ui/theme/AppTheme.h>
 using namespace theme;
 
 MapWidget::MapWidget() {

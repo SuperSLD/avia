@@ -26,22 +26,6 @@ private:
 
     int AIRPORT_POINT_SIZE_MAX = 15;
     int AIRPORT_POINT_SIZE_MIN = 8;
-    QList<QString> colors = QList<QString> {
-            "#88C78C",
-            "#9DC878",
-            "#AFC866",
-            "#C2C952",
-            "#D7CA3E",
-            "#E9CB2C",
-            "#FCCC19",
-            "#FFC216",
-            "#FFB716",
-            "#FFAB16",
-            "#FF9316",
-            "#FF8816",
-            "#FF8816",
-            "#FF7E16",
-    };
 
     QList<RouteModel*> routes;
     TransportGraphModel graph;

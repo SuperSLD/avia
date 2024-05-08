@@ -103,16 +103,20 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
 
     // бары
     for (int i = 0; i < lines.size(); i++) {
-        QPainterPath path;
         for (int j = 0; j < lines[i].values.size(); j++) {
+            QPainterPath path;
             path.addRect(
                     barSpace * (j + 1) + barWidth * j,
                     this->height() - this->height() * 0.2,
                     barWidth,
                     - barHeight * (lines[i].values[j] / max)
             );
+            if (lines[i].colors.size() == lines[i].values.size()) {
+                painter.fillPath(path, QColor(lines[i].colors[j]));
+            } else {
+                painter.fillPath(path, QColor(lines[i].colors.first()));
+            }
         }
-        painter.fillPath(path, QColor(lines[i].colors.first()));
     }
 }
 

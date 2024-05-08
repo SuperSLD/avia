@@ -17,7 +17,7 @@ AreaTabFragment::AreaTabFragment() {
     mainContainer->setContentsMargins(0, 0, 0, 0);
     mainContainer->setSpacing(0);
 
-    auto *toolbar = new Toolbar("Расчет транспортной доступности", "calc", "calc_dark");
+    auto *toolbar = new Toolbar("Расчет зон транспортной доступности", "calc", "calc_dark");
     mainContainer->addWidget(toolbar);
 
     auto *contentFrame = new QFrame();
@@ -94,8 +94,9 @@ void AreaTabFragment::startCalculation() {
 
 void AreaTabFragment::onAreaCalculated(Area area) {
     loadingContainer->stopLoading();
+    this->area = Area(area);
     qDebug() << "AreaTabFragment::onAreaCalculated";
-    table->setAnalytics(&area);
+    table->setAnalytics(&this->area);
 }
 
 void AreaTabFragment::onChangeCalculateAreaProgress(int progress) {

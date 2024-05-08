@@ -25,7 +25,7 @@ void PieChartWidget::paintEvent(QPaintEvent *event) {
     foreach(double a, data.values) {
         sum += a;
     }
-    auto degInOne = 360 / sum;
+    auto degInOne = (360 + 5) / sum;
     auto currentDeg = 0;
     for (int i = 0; i < data.values.size(); i++) {
         QPainterPath path;
@@ -33,7 +33,7 @@ void PieChartWidget::paintEvent(QPaintEvent *event) {
         if (i == data.values.size() - 1) {
             path.arcTo(rect, 90, -data.values[i] * degInOne);
         } else {
-            path.arcTo(rect, currentDeg + 90, data.values[i] * degInOne + 3);
+            path.arcTo(rect, currentDeg + 90, data.values[i] * degInOne);
         }
         //painter.setPen(QPen(QColor(data.colors[i]), Qt::SolidPattern));
         painter.fillPath(path, QColor(data.colors[i]));

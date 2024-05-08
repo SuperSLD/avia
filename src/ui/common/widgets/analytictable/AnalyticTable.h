@@ -20,6 +20,7 @@ public:
     ~AnalyticTable();
 
     void setAnalytics(BaseAnalyticModel *analytics);
+    void setAnalytics(QList<AnalyticsRow> rows);
     void clearList(QLayout *list);
 };
 
