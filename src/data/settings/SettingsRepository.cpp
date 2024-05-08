@@ -4,6 +4,9 @@
 
 #include "SettingsRepository.h"
 
+#include <QJsonDocument>
+#include <QJsonObject>
+
 SettingsRepository::SettingsRepository() {
     settings = new QSettings("settings.ini", QSettings::IniFormat);
 }
@@ -46,4 +49,16 @@ void SettingsRepository::setConnectionUser(QString user) {
 
 QString SettingsRepository::getConnectionUser() {
     return settings->contains("user") ? settings->value("user").toString() : "";
+}
+
+void SettingsRepository::setJson(QString key, QJsonObject json) {
+    auto doc = QJsonDocument(json);
+    auto str = QString(doc.toJson(QJsonDocument::Compact));
+    settings->setValue(key,str);
+    settings->sync();
+}
+
+QJsonObject SettingsRepository::getJson(QString key) {
+    auto jsonString = settings->contains(key) ? settings->value(key).toString() : "";
+    return QJsonDocument::fromJson(jsonString.toUtf8()).object();
 }

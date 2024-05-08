@@ -155,17 +155,26 @@ set(PROJECT_SOURCES
         src/domain/models/transportgraph/TransportGraphModel.h
         src/domain/models/transportgraph/PassengersCountBlock.cpp
         src/domain/models/transportgraph/PassengersCountBlock.h
+        src/domain/usecases/graph/AntOptimisation.h
         src/data/net/models/datawrapper/DataWrapper.cpp
         src/data/net/models/datawrapper/DataWrapper.h
         src/data/net/apiservice/ApiService.h
         src/data/net/osmnetrepository/OSMNetRepository.cpp
         src/data/net/osmnetrepository/OSMNetRepository.h
-        src/data/net/models/osm/versions/OSMVersionsModel.cpp
-        src/data/net/models/osm/versions/OSMVersionsModel.h
+        src/data/net/models/osm/direcrion/OSMDirectionModel.cpp
+        src/data/net/models/osm/direcrion/OSMDirectionModel.h
         src/data/net/apiservice/HandlerData.h
         src/data/net/apiservice/BaseRep.h
         src/ui/common/widgets/checkbox/CheckBox.cpp
         src/ui/common/widgets/checkbox/CheckBox.h
+        src/domain/usecases/area/countryshape/CountryShape.cpp
+        src/domain/usecases/area/countryshape/CountryShape.h
+        src/domain/models/area/Area.h
+        src/domain/models/area/areapoint/AreaPoint.h
+        src/domain/usecases/loadsaveddata/LoadSavedDataWorker.cpp
+        src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h
+        src/domain/usecases/math/geometry.h
+        src/domain/models/analytics/BaseAnalyticModel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

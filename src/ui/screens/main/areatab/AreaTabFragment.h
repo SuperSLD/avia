@@ -10,6 +10,7 @@
 #include "src/ui/common/widgets/loadingcontainer/LoadingContainerWidget.h"
 #include "src/ui/common/widgets/map/MapWidget.h"
 #include "src/data/net/osmnetrepository/OSMNetRepository.h"
+#include "src/ui/common/widgets/analytictable/AnalyticTable.h"
 
 class AreaTabFragment : public BaseFragment {
     Q_OBJECT
@@ -18,10 +19,15 @@ private:
     LoadingContainerWidget *loadingContainer;
     SettingsRepository *settingsRep = new SettingsRepository();
     DBConnector *dbConnector;
+    AnalyticTable *table;
 
     TransportGraphModel graph;
 
     OSMNetRepository *netRep;
+
+    Area area;
+
+    int progress = 0;
 
 public:
     AreaTabFragment();
@@ -32,11 +38,12 @@ public:
 
 private slots:
     void onConnectionChecked(bool isConnected);
-    void onAirportsLoaded(TransportGraphModel graph);
+    void onAirportsLoaded(TransportGraphModel graph, bool fromDB);
     void onAirportsLoadedChangeProgress(int progress);
 
     void startCalculation();
-    void onAreaCalculated();
+    void onAreaCalculated(Area area);
+    void onChangeCalculateAreaProgress(int progress);
 };
 
 #endif //AVIA_AREATABFRAGMENT_H

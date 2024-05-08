@@ -130,33 +130,55 @@ void DBConnector::loadAirports() {
     }
 }
 
-void DBConnector::handleAirportsLoaded(TransportGraphModel graph) {
+void DBConnector::handleAirportsLoaded(TransportGraphModel graph, bool fromDB) {
     getAirportsWorkerIsStart = false;
-    emit onAirportsLoaded(graph);
+    emit onAirportsLoaded(graph, fromDB);
 }
 
 void DBConnector::handleAirportsLoadedProgress(int progress) {
     emit onChangeAirportsLoadedProgress(progress);
 }
 
-void DBConnector::calculateArea(TransportGraphModel graph) {
+void DBConnector::calculateArea(TransportGraphModel graph, OSMNetRepository *netRep) {
     if (calculateAreaWorker != nullptr) calculateAreaWorker->exit();
     calculateAreaWorker = new CalculateAreaWorker("mongodb://" + user + ":" + password + "@" + url, graph);
     connect(calculateAreaWorker, &CalculateAreaWorker::resultReady, this, &DBConnector::handleCalculatedArea);
+    connect(calculateAreaWorker, &CalculateAreaWorker::onChangeProgress, this, &DBConnector::handleCalculatedAreaProgress);
+    connect(calculateAreaWorker, &CalculateAreaWorker::direction, netRep, &OSMNetRepository::direction);
+    connect(netRep, &OSMNetRepository::directionsLoad, calculateAreaWorker, &CalculateAreaWorker::directionLoad);
     calculateAreaWorker->start();
 }
 
-void DBConnector::handleCalculatedArea() {
-    emit onAreaCalculated();
+void DBConnector::handleCalculatedAreaProgress(int progress) {
+    emit onChangeCalculateAreaProgress(progress);
 }
 
-void DBConnector::calculateGraph(TransportGraphModel graph) {
+void DBConnector::handleCalculatedArea(Area area) {
+    emit onAreaCalculated(area);
+}
+
+void DBConnector::calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness, double passengersPart) {
     if (calculateGraphWorker != nullptr) calculateGraphWorker->exit();
-    calculateGraphWorker = new CalculateGraphWorker("mongodb://" + user + ":" + password + "@" + url, graph);
+    calculateGraphWorker = new CalculateGraphWorker(key, graph, greed, gregariousness, passengersPart);
     connect(calculateGraphWorker, &CalculateGraphWorker::resultReady, this, &DBConnector::handleCalculatedGraph);
+    connect(calculateGraphWorker, &CalculateGraphWorker::onChangeProgress, this, &DBConnector::handleCalculatedGraphProgress);
     calculateGraphWorker->start();
 }
 
-void DBConnector::handleCalculatedGraph() {
-    emit onGraphCalculated();
+void DBConnector::handleCalculatedGraph(QString key, TransportGraphModel graph) {
+    emit onGraphCalculated(key, graph);
 }
+
+void DBConnector::handleCalculatedGraphProgress(int progress) {
+    emit onChangeCalculateGraphProgress(progress);
+}
+
+void DBConnector::loadSavedData() {
+    if (loadSavedDataWorker != nullptr) loadSavedDataWorker->exit();
+    loadSavedDataWorker = new LoadSavedDataWorker();
+    connect(loadSavedDataWorker, &LoadSavedDataWorker::areaLolad, this, &DBConnector::handleCalculatedArea);
+    connect(loadSavedDataWorker, &LoadSavedDataWorker::airportsLolad, this, &DBConnector::handleAirportsLoaded);
+    connect(loadSavedDataWorker, &LoadSavedDataWorker::graphLoad, this, &DBConnector::handleCalculatedGraph);
+    loadSavedDataWorker->start();
+}
+

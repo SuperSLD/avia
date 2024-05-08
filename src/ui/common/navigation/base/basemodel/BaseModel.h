@@ -6,6 +6,8 @@
 #define AVIA_BASEMODEL_H
 
 
+#include <QJsonObject>
+
 /**
  * @brief The BaseModel class
  *
@@ -20,6 +22,8 @@ class BaseModel {
 public:
     BaseModel();
     virtual void pol();
+
+    virtual QJsonObject toJson();
 };
 
 

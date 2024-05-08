@@ -39,6 +39,23 @@ namespace theme {
     static const QString _DARK_COLOR_RED = "#FF7474";
     static const QColor  _DARK_COLOR_PRIMARY_QT = QColor(128, 198, 147);
 
+    static const QList<QString> colors = QList<QString> {
+            "#88C78C",
+            "#9DC878",
+            "#AFC866",
+            "#C2C952",
+            "#D7CA3E",
+            "#E9CB2C",
+            "#FCCC19",
+            "#FFC216",
+            "#FFB716",
+            "#FFAB16",
+            "#FF9316",
+            "#FF8816",
+            "#FF8816",
+            "#FF7E16",
+    };
+
     static QString colorPrimary() {
         return settingsRep.getTheme() ? _COLOR_PRIMARY : _DARK_COLOR_PRIMARY;
     }

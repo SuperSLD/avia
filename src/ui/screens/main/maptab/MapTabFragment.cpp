@@ -51,14 +51,24 @@ void MapTabFragment::onConnectionChecked(bool isConnected) {
 void MapTabFragment::setConnector(DBConnector *connector) {
     disconnect(connector, &DBConnector::onAirportsLoaded, this, &MapTabFragment::onAirportsLoaded);
     disconnect(connector, &DBConnector::onConnectionChecked, this, &MapTabFragment::onConnectionChecked);
+    disconnect(connector, &DBConnector::onAreaCalculated, this, &MapTabFragment::onAreaCalculated);
+    disconnect(connector, &DBConnector::onGraphCalculated, this, &MapTabFragment::onGraphCalculated);
     this->dbConnector = connector;
     connect(connector, &DBConnector::onConnectionChecked, this, &MapTabFragment::onConnectionChecked);
     connect(connector, &DBConnector::onAirportsLoaded, this, &MapTabFragment::onAirportsLoaded);
+    connect(connector, &DBConnector::onAreaCalculated, this, &MapTabFragment::onAreaCalculated);
+    connect(connector, &DBConnector::onGraphCalculated, this, &MapTabFragment::onGraphCalculated);
 }
 
-void MapTabFragment::onAirportsLoaded(TransportGraphModel graph) {
+void MapTabFragment::onAirportsLoaded(TransportGraphModel graph, bool fromDB) {
     loadingContainer->stopLoading();
-    map->setAirports(graph);
+    map->setGraph(graph);
 }
 
+void MapTabFragment::onAreaCalculated(Area area) {
+    map->setArea(area);
+}
 
+void MapTabFragment::onGraphCalculated(QString key, TransportGraphModel graph) {
+    map->setGraph(graph, key);
+}

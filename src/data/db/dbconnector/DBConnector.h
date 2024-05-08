@@ -17,6 +17,7 @@
 #include "src/data/db/dbconnector/workers/getairports/GetAirportsWorker.h"
 #include "src/domain/usecases/area/CalculateAreaWorker.h"
 #include "src/domain/usecases/graph/CalculateGraphWorker.h"
+#include "src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h"
 
 class DBConnector: public QObject {
     Q_OBJECT
@@ -37,6 +38,8 @@ private:
     CalculateAreaWorker *calculateAreaWorker;
     CalculateGraphWorker *calculateGraphWorker;
 
+    LoadSavedDataWorker *loadSavedDataWorker;
+
 public:
     DBConnector(QString url, QString user, QString password);
     ~DBConnector();
@@ -55,8 +58,10 @@ public:
 
     void loadAirports();
 
-    void calculateArea(TransportGraphModel graph);
-    void calculateGraph(TransportGraphModel graph);
+    void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep);
+    void calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness, double passengersPart);
+
+    void loadSavedData();
 
 private slots:
     void handleConnectionChecked(bool isConnected);
@@ -69,11 +74,14 @@ private slots:
     void handleRoutesLoaded(QList<RouteModel*> routes);
     void handleAllRoutesLoadedProgress(int progress);
 
-    void handleAirportsLoaded(TransportGraphModel graph);
+    void handleAirportsLoaded(TransportGraphModel graph, bool fromDB);
     void handleAirportsLoadedProgress(int progress);
 
-    void handleCalculatedArea();
-    void handleCalculatedGraph();
+    void handleCalculatedArea(Area area);
+    void handleCalculatedAreaProgress(int progress);
+
+    void handleCalculatedGraph(QString key, TransportGraphModel graph);
+    void handleCalculatedGraphProgress(int progress);
 
 signals:
     void onConnectionChecked(bool isConnected);
@@ -86,11 +94,14 @@ signals:
     void onRoutesLoaded(QList<RouteModel*> routes);
     void onChangeRoutesLoadedProgress(int progress);
 
-    void onAirportsLoaded(TransportGraphModel graph);
+    void onAirportsLoaded(TransportGraphModel graph, bool fromDB);
     void onChangeAirportsLoadedProgress(int progress);
 
-    void onAreaCalculated();
-    void onGraphCalculated();
+    void onAreaCalculated(Area area);
+    void onChangeCalculateAreaProgress(int progress);
+
+    void onGraphCalculated(QString key, TransportGraphModel graph);
+    void onChangeCalculateGraphProgress(int progress);
 };
 
 #endif //AVIA_DBCONNECTOR_H

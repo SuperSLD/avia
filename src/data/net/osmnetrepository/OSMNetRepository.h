@@ -13,8 +13,8 @@
 #include <QNetworkReply>
 #include <QUuid>
 #include "src/data/net/apiservice/ApiService.h"
-#include "src/data/net/models/osm/versions/OSMVersionsModel.h"
 #include "src/data/net/models/datawrapper/DataWrapper.h"
+#include "src/data/net/models/osm/direcrion/OSMDirectionModel.h"
 
 class OSMNetRepository: public QObject, BaseRep {
         Q_OBJECT
@@ -23,22 +23,15 @@ private:
     ApiService *service;
 
 public:
-    //https://api.openstreetmap.org/api/versions.json
     OSMNetRepository(bool debug = false);
     ~OSMNetRepository();
 
     QHash<QString, QString> headers() override;
 
-    /**
-     * @brief getCreativeGroups
-     *
-     * Получение творческих коллективов.
-     * Ответ приходит в: signal listenCreative
-     */
-    void getVersions();
+    void direction(double lon1, double lat1, double lon2, double lat2);
 
 signals:
-    void versionsLoad(OSMVersionsModel versions);
+    void directionsLoad(OSMDirectionModel direction);
 };
 
 

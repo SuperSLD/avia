@@ -71,7 +71,7 @@ public:
     }
 
     signals:
-            void onSelect(QString text);
+        void onSelect(QString text);
 };
 
 #endif //AVIA_SWITCHERVARIANT_H

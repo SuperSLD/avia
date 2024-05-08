@@ -6,3 +6,7 @@
 
 BaseModel::BaseModel() {}
 void BaseModel::pol() {}
+
+QJsonObject BaseModel::toJson() {
+    return QJsonObject();
+}

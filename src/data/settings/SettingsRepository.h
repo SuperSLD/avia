@@ -27,6 +27,9 @@ public:
 
     void setConnectionPassword(QString password);
     QString setConnectionPassword();
+
+    void setJson(QString key, QJsonObject json);
+    QJsonObject getJson(QString key);
 };
 
 #endif //AVIA_SETTINGSREPOSITORY_H

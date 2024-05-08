@@ -8,31 +8,36 @@
 
 #include <QFrame>
 #include <QJsonDocument>
+#include <QHBoxLayout>
 #include "src/data/db/dbconnector/models/routemodel/RouteModel.h"
 #include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
 #include "src/domain/models/transportgraph/TransportGraphModel.h"
+#include "src/domain/models/area/Area.h"
+#include "src/data/settings/SettingsRepository.h"
+#include "src/domain/usecases/area/countryshape/CountryShape.h"
 
 class MapWidget: public QFrame {
 
 private:
+
+    CountryShape *country;
+    QFrame *areaCard;
+    QHBoxLayout *areaCardContainer;
+
     int AIRPORT_POINT_SIZE_MAX = 15;
     int AIRPORT_POINT_SIZE_MIN = 8;
-    int maxAirportFlightCount = 0;
-    QList<QString> colors = QList<QString> {
-            "#86C28E",
-            "#BBE48D",
-            "#E0E182",
-            "#F6C961",
-            "#F1AE52",
-            "#FDA149",
-            "#F87D1E",
-    };
 
     QList<RouteModel*> routes;
     TransportGraphModel graph;
+    QString save = "s0";
+    QHash<QString, TransportGraphModel> saves;
+
+    bool airportsVisible = true;
+    Area area;
+    bool areaVisible = true;
+    bool baseGraphVisible = true;
 
     QPoint latLonToXY(double lat, double lon);
-    QJsonDocument russia;
 
     int lastCameraX = 0;
     int lastCameraY = 0;
@@ -42,6 +47,11 @@ private:
     int cameraY = 0;
     bool isMove = false;
     double zoom = 1;
+
+    void drawBack(QPainter *painter);
+    void drawArea(QPainter *painter);
+    void drawAirports(QPainter *painter);
+    void drawGraph(TransportGraphModel graphForDraw, QPainter *painter, QString color);
 
 protected:
     void paintEvent(QPaintEvent *event) override;
@@ -53,11 +63,19 @@ public:
     MapWidget();
     ~MapWidget();
 
+    void clearList(QLayout *list);
+
     void setRoutes(QList<RouteModel*> routes);
-    void setAirports(TransportGraphModel graph);
+    void setGraph(TransportGraphModel graph, QString key = "");
+    void setArea(Area area);
 
 private slots:
     void onZoomChange(QString name);
+    void onChangeAirportsVisible(bool checked);
+    void onChangeAreaVisible(bool checked);
+    void onChangeBaseGraphVisible(bool checked);
+
+    void onSaveSelected(QString save);
 };
 
 

@@ -44,11 +44,18 @@ AnalyticTable::~AnalyticTable() {
     delete rowsContainer;
 }
 
-void AnalyticTable::setAnalytics(AnalyticsModel analytics) {
+void AnalyticTable::setAnalytics(BaseAnalyticModel *analytics) {
     clearList(rowsContainer);
-    foreach(auto row, analytics.getRows()) {
+    foreach(auto row, analytics->getRows()) {
         rowsContainer->addWidget(row.getRowView());
     }
+}
+
+void AnalyticTable::setAnalytics(QList<AnalyticsRow> rows) {
+    clearList(rowsContainer);
+            foreach(auto row, rows) {
+            rowsContainer->addWidget(row.getRowView());
+        }
 }
 
 void AnalyticTable::clearList(QLayout *list) {

@@ -36,20 +36,17 @@ CheckBox::CheckBox(QString text, bool checked) {
     hContainer->addWidget(label);
     this->setLayout(hContainer);
 
-    coloredCardStyle("checkbox", this, colorWhite(), 0);
+    coloredCardStyle("checkbox", this, colorWhite(), 0, 0);
 }
 
 void CheckBox::selfClick(QString name) {
-    qDebug() << "CheckBox::selfClick";
     isChecked = !isChecked;
     if (isChecked) {
-        qDebug() << "CheckBox::selfClick = true";
         checkboxOf->hide();
         checkboxOn->show();
     } else {
-        qDebug() << "CheckBox::selfClick = false";
-        checkboxOf->show();
         checkboxOn->hide();
+        checkboxOf->show();
     }
     emit onChangeState(isChecked);
 }

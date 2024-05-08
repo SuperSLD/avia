@@ -10,9 +10,10 @@
 #include "src/data/db/dbconnector/models/flightmodel/FlightModel.h"
 #include "src/domain/models/analytics/view/AnalyticsRow.h"
 #include "src/domain/models/analytics/view/chart/ChartLine.h"
+#include "BaseAnalyticModel.h"
 #include <QList>
 
-class AnalyticsModel: public BaseModel {
+class AnalyticsModel: public BaseAnalyticModel {
 
 private:
     void createDataForCharts();
@@ -39,7 +40,7 @@ public:
     AnalyticsModel() {};
     ~AnalyticsModel();
 
-    QList<AnalyticsRow> getRows();
+    QList<AnalyticsRow> getRows() override;
 };
 
 
