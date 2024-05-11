@@ -126,7 +126,7 @@ public:
             AnalyticsRow(QList<BaseAnalyticsCell*>({
                    new NumberAnalyticsCell(QString::number(points.size() * maxPointsInLine), "Общее количество\nсекторов", colorSecondary()),
                    new NumberAnalyticsCell(QString::number((int) maxDistance) + " КМ", "Максимальное расстояние\nдо аэропорта", colorPrimary()),
-                   new NumberAnalyticsCell(QString::number((int) maxTime) + " Ч", "Максимальере время\nв пути", colorPrimary()),
+                   new NumberAnalyticsCell(QString::number((int) maxTime) + " Ч", "Максимальное время\nв пути", colorPrimary()),
             }))
         );
         rows.append(
