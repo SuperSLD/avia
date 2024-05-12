@@ -106,13 +106,13 @@ void AnalyticsTabFragment::onGraphCalculated(QString key, TransportGraphModel gr
 void AnalyticsTabFragment::setAnalytics() {
     QList<AnalyticsRow> rows;
 
-    if (analyticsLoaded) rows.append(analyticsModel.getRows());
-    if (areaLoaded) rows.append(area.getRows());
-    if (originalGraphLoaded) rows.append(originalGraph.getRows());
-    if (graphs.contains("s1")) rows.append(graphs["s1"].getRows());
-    if (graphs.contains("s2")) rows.append(graphs["s2"].getRows());
-    if (graphs.contains("s3")) rows.append(graphs["s3"].getRows());
-    if (graphs.contains("s4")) rows.append(graphs["s4"].getRows());
+    if (analyticsLoaded) rows.append(analyticsModel.getRows(false));
+    if (areaLoaded) rows.append(area.getRows(false));
+    if (originalGraphLoaded) rows.append(originalGraph.getRows(false));
+    if (graphs.contains("s1")) rows.append(graphs["s1"].getRows(false));
+    if (graphs.contains("s2")) rows.append(graphs["s2"].getRows(false));
+    if (graphs.contains("s3")) rows.append(graphs["s3"].getRows(false));
+    if (graphs.contains("s4")) rows.append(graphs["s4"].getRows(false));
 
     table->setAnalytics(rows);
 }

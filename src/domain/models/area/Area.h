@@ -9,6 +9,7 @@
 #include "src/domain/models/area/areapoint/AreaPoint.h"
 #include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
 #include "src/domain/models/analytics/view/chart/ChartAnalyticsCell.h"
+#include "src/domain/models/analytics/view/EmpyAnalyticsCell.h"
 
 #include <QList>
 #include <QJsonArray>
@@ -115,7 +116,7 @@ public:
         return json;
     }
 
-    QList<AnalyticsRow> getRows() override {
+    QList<AnalyticsRow> getRows(bool isSingle = true) override {
         QList<AnalyticsRow> rows;
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
@@ -140,6 +141,13 @@ public:
                 new NumberAnalyticsCell(QString::number(maxDistanceCount) + "\nсекторов", "Самая частая зона\nдоступности " + QString::number((int) (maxTime / colors.size() * (1 + maxDistanceCountZone))) + "ч составляет " + QString::number((int)(pointsDistance[maxDistanceCountZone]*100/pointDistanceSum)) + "% площади", colors[maxDistanceCountZone]),
             }))
         );
+        if (isSingle) {
+            rows.append(
+                AnalyticsRow(QList<BaseAnalyticsCell*>({
+                       new EmptyAnalyticsCell(),
+               }), true)
+            );
+        }
         return rows;
     }
 };

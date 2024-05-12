@@ -9,6 +9,7 @@
 #include "src/domain/usecases/math/geometry.h"
 #include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
 #include "src/domain/models/analytics/view/chart/ChartAnalyticsCell.h"
+#include "src/domain/models/analytics/view/EmpyAnalyticsCell.h"
 
 using namespace geometry;
 
@@ -121,7 +122,7 @@ void TransportGraphModel::calcAnalyticData() {
     );
 }
 
-QList<AnalyticsRow> TransportGraphModel::getRows() {
+QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
     QList<AnalyticsRow> rows;
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
@@ -140,11 +141,13 @@ QList<AnalyticsRow> TransportGraphModel::getRows() {
            new NumberAnalyticsCell(QString::number(gregariousness), "Стадность", colorPrimary()),
        }))
     );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell*>({
-           new ChartAnalyticsCell("pie", "Баланс пассажиров", passCountPieChart),
-           new NumberAnalyticsCell(QString::number(passCount) + "\nпассажиров", "Общее количество\nперевезенных пассажиров", colorSecondary()),
-        }))
-    );
+    if (isSingle) {
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell*>({
+                   new EmptyAnalyticsCell(),
+           }), true)
+        );
+    }
+
     return rows;
 }
