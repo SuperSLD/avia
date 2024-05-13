@@ -50,6 +50,7 @@ public:
     void bindData(BaseModel* model) override;
     void onResume() override;
     void onPause() override;
+    void onDestroy() override;
 };
 
 #endif //AVIA_MAINFRAGMENT_H

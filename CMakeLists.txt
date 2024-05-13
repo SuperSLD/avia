@@ -173,8 +173,15 @@ set(PROJECT_SOURCES
         src/domain/models/area/areapoint/AreaPoint.h
         src/domain/usecases/loadsaveddata/LoadSavedDataWorker.cpp
         src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h
-        src/domain/usecases/math/geometry.h
+        src/domain/usecases/math/math_functions.h
         src/domain/models/analytics/BaseAnalyticModel.h
+        src/ui/common/widgets/analytictable/empty/EmptyCellWidget.cpp
+        src/ui/common/widgets/analytictable/empty/EmptyCellWidget.h
+        src/domain/models/analytics/view/EmpyAnalyticsCell.h
+        src/domain/usecases/metrics/CalcMetricsWorker.cpp
+        src/domain/usecases/metrics/CalcMetricsWorker.h
+        src/data/db/dbconnector/models/metrics/MetricsModel.cpp
+        src/data/db/dbconnector/models/metrics/MetricsModel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -39,6 +39,9 @@ private:
     bool areaLoaded = false;
     QHash<QString, TransportGraphModel> graphs;
 
+    MetricsModel metrics;
+    bool metricsLoaded = false;
+
     void setAnalytics();
 
 public:
@@ -56,6 +59,7 @@ private slots:
     void onAreaCalculated(Area area);
     void onAirportsLoaded(TransportGraphModel graph, bool fromDB);
     void onGraphCalculated(QString key, TransportGraphModel graph);
+    void onUpdateMetrics(MetricsModel metrics);
 };
 
 #endif //AVIA_ANALYTICSTABFRAGMENT_H

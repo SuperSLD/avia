@@ -25,6 +25,7 @@ bool SettingsRepository::getTheme() {
 }
 
 void SettingsRepository::setConnectionIp(QString ip) {
+    qDebug() << "setConnectionIp" << ip;
     settings->setValue("ip", ip);
     settings->sync();
 }
@@ -34,6 +35,7 @@ QString SettingsRepository::getConnectionIp() {
 }
 
 void SettingsRepository::setConnectionPassword(QString password) {
+    qDebug() << "setConnectionPassword" << password.size();
     settings->setValue("password", password);
     settings->sync();
 }
@@ -43,6 +45,7 @@ QString SettingsRepository::setConnectionPassword() {
 }
 
 void SettingsRepository::setConnectionUser(QString user) {
+    qDebug() << "setConnectionUser" << user;
     settings->setValue("user",user);
     settings->sync();
 }

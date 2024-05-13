@@ -18,6 +18,7 @@
 #include "src/domain/usecases/area/CalculateAreaWorker.h"
 #include "src/domain/usecases/graph/CalculateGraphWorker.h"
 #include "src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h"
+#include "src/domain/usecases/metrics/CalcMetricsWorker.h"
 
 class DBConnector: public QObject {
     Q_OBJECT
@@ -40,6 +41,8 @@ private:
 
     LoadSavedDataWorker *loadSavedDataWorker;
 
+    CalcMetricsWorker *calcMetricsWorker;
+
 public:
     DBConnector(QString url, QString user, QString password);
     ~DBConnector();
@@ -58,10 +61,13 @@ public:
 
     void loadAirports();
 
-    void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep);
+    void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep, double diff);
     void calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness, double passengersPart);
 
     void loadSavedData();
+
+    void startMetricsCalculation();
+    void stopMetricsCalculation();
 
 private slots:
     void handleConnectionChecked(bool isConnected);
@@ -83,6 +89,8 @@ private slots:
     void handleCalculatedGraph(QString key, TransportGraphModel graph);
     void handleCalculatedGraphProgress(int progress);
 
+    void handleMetricsUpdated(MetricsModel metrics);
+
 signals:
     void onConnectionChecked(bool isConnected);
 
@@ -102,6 +110,8 @@ signals:
 
     void onGraphCalculated(QString key, TransportGraphModel graph);
     void onChangeCalculateGraphProgress(int progress);
+
+    void metricsUpdated(MetricsModel metrics);
 };
 
 #endif //AVIA_DBCONNECTOR_H

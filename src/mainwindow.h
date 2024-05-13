@@ -10,6 +10,7 @@ Q_DECLARE_METATYPE(AnalyticsModel)
 Q_DECLARE_METATYPE(QList<RouteModel*>)
 Q_DECLARE_METATYPE(TransportGraphModel)
 Q_DECLARE_METATYPE(Area)
+Q_DECLARE_METATYPE(MetricsModel)
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

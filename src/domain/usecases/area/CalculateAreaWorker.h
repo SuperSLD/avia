@@ -11,14 +11,14 @@
 #include "src/domain/models/area/Area.h"
 #include "src/data/settings/SettingsRepository.h"
 
-#include "src/domain/usecases/math/geometry.h"
-using namespace geometry;
+#include "src/domain/usecases/math/math_functions.h"
+using namespace math_functions;
 
 class CalculateAreaWorker: public QThread {
     Q_OBJECT
 
 private:
-    const double DISTANCE_BETWEEN_POINT = 0.5;
+    double DISTANCE_BETWEEN_POINT = 0.5;
 
     QString uriString;
     TransportGraphModel graph;
@@ -35,9 +35,10 @@ private:
     SettingsRepository *settingsRepository;
 
 public:
-    CalculateAreaWorker(QString uri, TransportGraphModel graph) {
+    CalculateAreaWorker(QString uri, TransportGraphModel graph, double diff) {
         this->uriString = uri;
         this->graph = graph;
+        this->DISTANCE_BETWEEN_POINT = diff;
         settingsRepository = new SettingsRepository();
     }
 

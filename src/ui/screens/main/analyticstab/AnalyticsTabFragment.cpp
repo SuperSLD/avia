@@ -67,6 +67,7 @@ void AnalyticsTabFragment::setConnector(DBConnector *connector) {
     connect(connector, &DBConnector::onAreaCalculated, this, &AnalyticsTabFragment::onAreaCalculated);
     connect(connector, &DBConnector::onGraphCalculated, this, &AnalyticsTabFragment::onGraphCalculated);
     connect(connector, &DBConnector::onAirportsLoaded, this, &AnalyticsTabFragment::onAirportsLoaded);
+    connect(connector, &DBConnector::metricsUpdated, this, &AnalyticsTabFragment::onUpdateMetrics);
 }
 
 void AnalyticsTabFragment::onAnalyticsLoaded(AnalyticsModel analyticsModel) {
@@ -103,16 +104,23 @@ void AnalyticsTabFragment::onGraphCalculated(QString key, TransportGraphModel gr
     setAnalytics();
 }
 
+void AnalyticsTabFragment::onUpdateMetrics(MetricsModel metrics) {
+    this->metrics = metrics;
+    metricsLoaded = true;
+    setAnalytics();
+}
+
 void AnalyticsTabFragment::setAnalytics() {
     QList<AnalyticsRow> rows;
 
-    if (analyticsLoaded) rows.append(analyticsModel.getRows());
-    if (areaLoaded) rows.append(area.getRows());
-    if (originalGraphLoaded) rows.append(originalGraph.getRows());
-    if (graphs.contains("s1")) rows.append(graphs["s1"].getRows());
-    if (graphs.contains("s2")) rows.append(graphs["s2"].getRows());
-    if (graphs.contains("s3")) rows.append(graphs["s3"].getRows());
-    if (graphs.contains("s4")) rows.append(graphs["s4"].getRows());
+    if (analyticsLoaded) rows.append(analyticsModel.getRows(false));
+    if (areaLoaded) rows.append(area.getRows(false));
+    if (originalGraphLoaded) rows.append(originalGraph.getRows(false));
+    if (graphs.contains("s1")) rows.append(graphs["s1"].getRows(false));
+    if (graphs.contains("s2")) rows.append(graphs["s2"].getRows(false));
+    if (graphs.contains("s3")) rows.append(graphs["s3"].getRows(false));
+    if (graphs.contains("s4")) rows.append(graphs["s4"].getRows(false));
+    if (metricsLoaded) rows.append(metrics.getRows(false));
 
     table->setAnalytics(rows);
 }

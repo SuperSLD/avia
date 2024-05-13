@@ -40,7 +40,7 @@ public:
     AnalyticsModel() {};
     ~AnalyticsModel();
 
-    QList<AnalyticsRow> getRows() override;
+    QList<AnalyticsRow> getRows(bool isSingle = true) override;
 };
 
 

@@ -27,3 +27,5 @@ void BaseFragment::clearList(QLayout *list) {
     }
 }
 
+void BaseFragment::onDestroy() {}
+

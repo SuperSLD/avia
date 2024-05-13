@@ -107,7 +107,7 @@ void AnalyticsModel::createDataForCharts() {
 }
 
 
-QList<AnalyticsRow> AnalyticsModel::getRows() {
+QList<AnalyticsRow> AnalyticsModel::getRows(bool isSingle) {
     QList<AnalyticsRow> rows;
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({

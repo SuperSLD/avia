@@ -15,6 +15,7 @@ DBConnector::DBConnector(QString url, QString user, QString password) {
     this->url = url;
     this->user = user;
     this->password = password;
+    qDebug() << "DBConnector invoke constructor" << url << user << password.size();
 }
 
 DBConnector::~DBConnector() {
@@ -139,9 +140,9 @@ void DBConnector::handleAirportsLoadedProgress(int progress) {
     emit onChangeAirportsLoadedProgress(progress);
 }
 
-void DBConnector::calculateArea(TransportGraphModel graph, OSMNetRepository *netRep) {
+void DBConnector::calculateArea(TransportGraphModel graph, OSMNetRepository *netRep, double diff) {
     if (calculateAreaWorker != nullptr) calculateAreaWorker->exit();
-    calculateAreaWorker = new CalculateAreaWorker("mongodb://" + user + ":" + password + "@" + url, graph);
+    calculateAreaWorker = new CalculateAreaWorker("mongodb://" + user + ":" + password + "@" + url, graph, diff);
     connect(calculateAreaWorker, &CalculateAreaWorker::resultReady, this, &DBConnector::handleCalculatedArea);
     connect(calculateAreaWorker, &CalculateAreaWorker::onChangeProgress, this, &DBConnector::handleCalculatedAreaProgress);
     connect(calculateAreaWorker, &CalculateAreaWorker::direction, netRep, &OSMNetRepository::direction);
@@ -180,5 +181,28 @@ void DBConnector::loadSavedData() {
     connect(loadSavedDataWorker, &LoadSavedDataWorker::airportsLolad, this, &DBConnector::handleAirportsLoaded);
     connect(loadSavedDataWorker, &LoadSavedDataWorker::graphLoad, this, &DBConnector::handleCalculatedGraph);
     loadSavedDataWorker->start();
+}
+
+void DBConnector::startMetricsCalculation() {
+    if (calcMetricsWorker != nullptr) calcMetricsWorker->exit();
+    calcMetricsWorker = new CalcMetricsWorker();
+    connect(this, &DBConnector::onAirportsLoaded, calcMetricsWorker, &CalcMetricsWorker::airportsLoad);
+    connect(this, &DBConnector::onGraphCalculated, calcMetricsWorker, &CalcMetricsWorker::onGraphLoaded);
+    connect(this, &DBConnector::onAreaCalculated, calcMetricsWorker, &CalcMetricsWorker::areaLoad);
+    connect(calcMetricsWorker, &CalcMetricsWorker::metricsUpdated, this, &DBConnector::handleMetricsUpdated);
+    calcMetricsWorker->start();
+}
+
+void DBConnector::handleMetricsUpdated(MetricsModel metrics) {
+    emit metricsUpdated(metrics);
+}
+
+void DBConnector::stopMetricsCalculation() {
+    qDebug() << "DBConnector::stopMetricsCalculation";
+    if (calcMetricsWorker != nullptr) {
+        qDebug() << "DBConnector::stopMetricsCalculation" << "calcMetricsWorker != nullptr";
+        calcMetricsWorker->disable();
+        calcMetricsWorker->exit();
+    }
 }
 

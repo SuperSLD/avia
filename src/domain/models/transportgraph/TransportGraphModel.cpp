@@ -6,11 +6,12 @@
 #include <QHash>
 #include "TransportGraphModel.h"
 
-#include "src/domain/usecases/math/geometry.h"
+#include "src/domain/usecases/math/math_functions.h"
 #include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
 #include "src/domain/models/analytics/view/chart/ChartAnalyticsCell.h"
+#include "src/domain/models/analytics/view/EmpyAnalyticsCell.h"
 
-using namespace geometry;
+using namespace math_functions;
 
 TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString save, double greed, double gregariousness) {
     this->airports = airports;
@@ -70,8 +71,8 @@ QJsonObject TransportGraphModel::toJson() {
         airportsJson.append(airport.toJson());
     }
     json["airports"] = airportsJson;
-    json["greed"] = greed;
-    json["gregariousness"] = gregariousness;
+    json["greed"] = (double) greed;
+    json["gregariousness"] = (double) gregariousness;
     json["save"] = save;
     return json;
 }
@@ -121,30 +122,46 @@ void TransportGraphModel::calcAnalyticData() {
     );
 }
 
-QList<AnalyticsRow> TransportGraphModel::getRows() {
+QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
     QList<AnalyticsRow> rows;
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell*>({
-               new TitleAnalyticsCell("Результаты вычислений графа " + save),
-        }), true)
-    );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell*>({
-               new NumberAnalyticsCell(QString::number(airports.count()), "Количество аэропортов", colorSecondary()),
-               new NumberAnalyticsCell(QString::number(viewLines.size()), "Количество связей", colorPrimary()),
-        }))
-    );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell*>({
-           new NumberAnalyticsCell(QString::number(greed), "Жадность", colorPrimary()),
-           new NumberAnalyticsCell(QString::number(gregariousness), "Стадность", colorPrimary()),
-       }))
-    );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell*>({
-           new ChartAnalyticsCell("pie", "Баланс пассажиров", passCountPieChart),
-           new NumberAnalyticsCell(QString::number(passCount) + "\nпассажиров", "Общее количество\nперевезенных пассажиров", colorSecondary()),
-        }))
-    );
+    bool isZeroSave = save == "s0";
+    if (viewLines.isEmpty()) {
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                    new TitleAnalyticsCell("Результаты вычислений графа " + save),
+            }), true)
+        );
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                new NumberAnalyticsCell("Граф еще не посчитан","Чтобы посчитать укажите параметры и нажмите кнопку", colorRed()),
+            }))
+        );
+    } else {
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                new TitleAnalyticsCell("Результаты вычислений графа " + save),
+            }), true)
+        );
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                    new NumberAnalyticsCell(QString::number(airports.count()),"Количество аэропортов", colorSecondary()),
+                    new NumberAnalyticsCell(QString::number(viewLines.size()),"Количество связей", colorPrimary()),
+            }))
+        );
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                new NumberAnalyticsCell(isZeroSave ? "Не указано" : QString::number(greed, 'f', 2),"Жадность", isZeroSave ? colorRed() : colorPrimary()),
+                new NumberAnalyticsCell(isZeroSave ? "Не указано" : QString::number(gregariousness, 'f', 2),"Стадность", isZeroSave ? colorRed() : colorPrimary()),
+            }))
+        );
+    }
+    if (isSingle) {
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell*>({
+                   new EmptyAnalyticsCell(),
+           }), true)
+        );
+    }
+
     return rows;
 }

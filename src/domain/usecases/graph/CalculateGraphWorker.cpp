@@ -18,6 +18,8 @@ using namespace std;
 
 void CalculateGraphWorker::run() {
 
+    qDebug() << "CalculateGraphWorker начал считать" << greed << gregariousness;
+
     QList<Airport> airports;
 
     // Общее количество пассажиров

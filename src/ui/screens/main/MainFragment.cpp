@@ -176,6 +176,7 @@ void MainFragment::onResume() {
     connector->checkConnection();
     if (!airportsLoadingStarted) {
         airportsLoadingStarted = true;
+        connector->startMetricsCalculation();
         connector->loadAirports();
         connector->loadSavedData();
     }
@@ -184,5 +185,12 @@ void MainFragment::onResume() {
 void MainFragment::onPause() {
     foreach(BaseFragment *tab, tabFragments) {
         tab->onPause();
+    }
+}
+
+void MainFragment::onDestroy() {
+    qDebug() << "MainFragment::onDestroy";
+    if (connector != nullptr) {
+        connector->stopMetricsCalculation();
     }
 }

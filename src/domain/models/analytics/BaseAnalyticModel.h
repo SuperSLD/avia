@@ -14,7 +14,7 @@ public:
     BaseAnalyticModel() {};
     ~BaseAnalyticModel() {};
 
-    virtual QList<AnalyticsRow> getRows() { return QList<AnalyticsRow>(); };
+    virtual QList<AnalyticsRow> getRows(bool isSingle = true) { return QList<AnalyticsRow>(); };
 };
 
 #endif //AVIA_BASEANALYTICMODEL_H
