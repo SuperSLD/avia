@@ -9,8 +9,6 @@
 AreaTabFragment::AreaTabFragment() {
     netRep = new OSMNetRepository(false);
 
-    netRep->direction(55.108529, 36.600162, 55.4088, 37.9063);
-
     auto *mainContainer = new QVBoxLayout;
     this->setLayout(mainContainer);
     this->setContentsMargins(0, 0 , 0, 0);
