@@ -11,6 +11,7 @@
 #include "src/ui/common/widgets/map/MapWidget.h"
 #include "src/data/net/osmnetrepository/OSMNetRepository.h"
 #include "src/ui/common/widgets/analytictable/AnalyticTable.h"
+#include "src/ui/common/widgets/textedit/TextEdit.h"
 
 class AreaTabFragment : public BaseFragment {
     Q_OBJECT
@@ -20,6 +21,7 @@ private:
     SettingsRepository *settingsRep = new SettingsRepository();
     DBConnector *dbConnector;
     AnalyticTable *table;
+    TextEdit *diffEdit;
 
     TransportGraphModel graph;
 

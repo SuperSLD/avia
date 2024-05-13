@@ -61,7 +61,7 @@ public:
 
     void loadAirports();
 
-    void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep);
+    void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep, double diff);
     void calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness, double passengersPart);
 
     void loadSavedData();

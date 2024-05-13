@@ -36,6 +36,13 @@ AreaTabFragment::AreaTabFragment() {
     auto *buttonContainer = new QHBoxLayout;
     buttonContainer->setAlignment(Qt::AlignRight);
     buttonContainer->setContentsMargins(24, 24, 24, 24);
+    buttonContainer->setSpacing(16);
+
+    diffEdit = new TextEdit("passengersPartEdit", "Расстояние между точками");
+    diffEdit->setMaximumWidth(650);
+    diffEdit->setText("0.5");
+    buttonContainer->addWidget(diffEdit);
+
     auto startCalculationButton = new Button("startCalculationButton", "Начать вычисление", true);
     connect(startCalculationButton, &Button::clicked, this, &AreaTabFragment::startCalculation);
     buttonContainer->addWidget(startCalculationButton);
@@ -88,7 +95,7 @@ void AreaTabFragment::onAirportsLoadedChangeProgress(int progress) {
 }
 
 void AreaTabFragment::startCalculation() {
-    dbConnector->calculateArea(graph, netRep);
+    dbConnector->calculateArea(graph, netRep, diffEdit->text().toDouble());
     loadingContainer->startLoading("Считаем");
 }
 

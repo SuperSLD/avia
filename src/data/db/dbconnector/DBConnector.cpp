@@ -140,9 +140,9 @@ void DBConnector::handleAirportsLoadedProgress(int progress) {
     emit onChangeAirportsLoadedProgress(progress);
 }
 
-void DBConnector::calculateArea(TransportGraphModel graph, OSMNetRepository *netRep) {
+void DBConnector::calculateArea(TransportGraphModel graph, OSMNetRepository *netRep, double diff) {
     if (calculateAreaWorker != nullptr) calculateAreaWorker->exit();
-    calculateAreaWorker = new CalculateAreaWorker("mongodb://" + user + ":" + password + "@" + url, graph);
+    calculateAreaWorker = new CalculateAreaWorker("mongodb://" + user + ":" + password + "@" + url, graph, diff);
     connect(calculateAreaWorker, &CalculateAreaWorker::resultReady, this, &DBConnector::handleCalculatedArea);
     connect(calculateAreaWorker, &CalculateAreaWorker::onChangeProgress, this, &DBConnector::handleCalculatedAreaProgress);
     connect(calculateAreaWorker, &CalculateAreaWorker::direction, netRep, &OSMNetRepository::direction);
