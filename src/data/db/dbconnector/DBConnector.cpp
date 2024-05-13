@@ -15,6 +15,7 @@ DBConnector::DBConnector(QString url, QString user, QString password) {
     this->url = url;
     this->user = user;
     this->password = password;
+    qDebug() << "DBConnector invoke constructor" << url << user << password.size();
 }
 
 DBConnector::~DBConnector() {

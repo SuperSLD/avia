@@ -112,8 +112,8 @@ void GraphTabFragment::startCalculation() {
     dbConnector->calculateGraph(
             graph,
             save,
-            greedEdit->text().toInt(),
-            gregariousnessEdit->text().toInt(),
+            greedEdit->text().toDouble(),
+            gregariousnessEdit->text().toDouble(),
             passengersPartEdit->text().toDouble()
     );
     loadingContainer->startLoading("Считаем");
@@ -122,7 +122,7 @@ void GraphTabFragment::startCalculation() {
 void GraphTabFragment::onGraphCalculated(QString key, TransportGraphModel graph) {
     loadingContainer->stopLoading();
     results[key] = TransportGraphModel(graph);
-    table->setAnalytics(&results[key]);
+    onSaveSelected(save);
 }
 
 void GraphTabFragment::onCalculateGraphProgressChange(int progress) {
