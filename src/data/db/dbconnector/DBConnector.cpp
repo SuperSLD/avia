@@ -183,3 +183,26 @@ void DBConnector::loadSavedData() {
     loadSavedDataWorker->start();
 }
 
+void DBConnector::startMetricsCalculation() {
+    if (calcMetricsWorker != nullptr) calcMetricsWorker->exit();
+    calcMetricsWorker = new CalcMetricsWorker();
+    connect(this, &DBConnector::onAirportsLoaded, calcMetricsWorker, &CalcMetricsWorker::airportsLoad);
+    connect(this, &DBConnector::onGraphCalculated, calcMetricsWorker, &CalcMetricsWorker::onGraphLoaded);
+    connect(this, &DBConnector::onAreaCalculated, calcMetricsWorker, &CalcMetricsWorker::areaLoad);
+    connect(calcMetricsWorker, &CalcMetricsWorker::metricsUpdated, this, &DBConnector::handleMetricsUpdated);
+    calcMetricsWorker->start();
+}
+
+void DBConnector::handleMetricsUpdated(MetricsModel metrics) {
+    emit metricsUpdated(metrics);
+}
+
+void DBConnector::stopMetricsCalculation() {
+    qDebug() << "DBConnector::stopMetricsCalculation";
+    if (calcMetricsWorker != nullptr) {
+        qDebug() << "DBConnector::stopMetricsCalculation" << "calcMetricsWorker != nullptr";
+        calcMetricsWorker->disable();
+        calcMetricsWorker->exit();
+    }
+}
+

@@ -178,6 +178,10 @@ set(PROJECT_SOURCES
         src/ui/common/widgets/analytictable/empty/EmptyCellWidget.cpp
         src/ui/common/widgets/analytictable/empty/EmptyCellWidget.h
         src/domain/models/analytics/view/EmpyAnalyticsCell.h
+        src/domain/usecases/metrics/CalcMetricsWorker.cpp
+        src/domain/usecases/metrics/CalcMetricsWorker.h
+        src/data/db/dbconnector/models/metrics/MetricsModel.cpp
+        src/data/db/dbconnector/models/metrics/MetricsModel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

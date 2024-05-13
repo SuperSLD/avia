@@ -46,6 +46,7 @@ void Router::back() {
 void Router::removeOnFinishLast() {
     disconnect(currentContainer, &SlidingStackedWidget::animationFinished, this, &Router::removeOnFinishLast);
     currentContainer->removeWidget(stack.last());
+    stack.last()->onDestroy();
     delete stack.last();
     stack.removeLast();
     connectFragment(stack.last());
@@ -67,6 +68,7 @@ void Router::removeOnReplace() {
     connectFragment(stack.last());
     BaseFragment* last = stack.last();
     stack.removeLast();
+    stack.last()->onDestroy();
     currentContainer->removeWidget(stack.last());
     stack.removeLast();
     stack.append(last);
@@ -87,6 +89,9 @@ void Router::newRootScreen(QString tag) {
 void Router::removeOnRoot() {
     disconnect(currentContainer, &SlidingStackedWidget::animationFinished, this, &Router::removeOnRoot);
     BaseFragment* last = stack.last();
+    foreach(auto screen, stack) {
+        screen->onDestroy();
+    }
     stack.clear();
     for(int i = 0; i <= currentContainer->count()-1; i++)
     {

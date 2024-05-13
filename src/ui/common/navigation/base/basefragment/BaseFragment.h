@@ -68,6 +68,8 @@ public:
     virtual void bindData(BaseModel* model);
 
     virtual void setConnector(DBConnector *connector);
+
+    virtual void onDestroy();
 };
 
 #endif //AVIA_BASEFRAGMENT_H
