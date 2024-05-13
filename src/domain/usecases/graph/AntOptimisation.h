@@ -6,8 +6,8 @@
 #define ANTOPTIMISATION_H
 
 
-#include "src/domain/usecases/math/geometry.h"
-using namespace geometry;
+#include "src/domain/usecases/math/math_functions.h"
+using namespace math_functions;
 using namespace std;
 #include <QDebug>
 
@@ -80,19 +80,23 @@ public:
     // Выбор следующего непосещенного ребра для распределения пассажиров
     int selectNextEdge() {
         double sumP = 0;
-        double maxP = 0;
         double maxPEdge = -1;
+        QHash<int, double> pList;
         for (int i = 0; i < edges.size(); i++) {
             if (airports[edges[i].source].passengersOut > 0 && airports[edges[i].destination].passengersIn > 0) {
                 auto p = probability(edges[i]);
+                pList[i] = p;
                 sumP += p;
-                if (maxP < p) {
-                    maxP = p;
-                    maxPEdge = i;
-                }
             }
         }
-        qDebug() << "sumP =" << sumP;
+        auto randVal = randInRange(0.0, sumP);
+        foreach(int key, pList.keys()) {
+            randVal -= pList[key];
+            if (randVal < 0) {
+                maxPEdge = key;
+                break;
+            }
+        }
         if (maxPEdge < 0) return maxPEdge;
         auto edge = edges[maxPEdge];
         auto d = distanceInKm(

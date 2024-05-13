@@ -6,12 +6,12 @@
 #include <QHash>
 #include "TransportGraphModel.h"
 
-#include "src/domain/usecases/math/geometry.h"
+#include "src/domain/usecases/math/math_functions.h"
 #include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
 #include "src/domain/models/analytics/view/chart/ChartAnalyticsCell.h"
 #include "src/domain/models/analytics/view/EmpyAnalyticsCell.h"
 
-using namespace geometry;
+using namespace math_functions;
 
 TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString save, double greed, double gregariousness) {
     this->airports = airports;

@@ -173,7 +173,7 @@ set(PROJECT_SOURCES
         src/domain/models/area/areapoint/AreaPoint.h
         src/domain/usecases/loadsaveddata/LoadSavedDataWorker.cpp
         src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h
-        src/domain/usecases/math/geometry.h
+        src/domain/usecases/math/math_functions.h
         src/domain/models/analytics/BaseAnalyticModel.h
         src/ui/common/widgets/analytictable/empty/EmptyCellWidget.cpp
         src/ui/common/widgets/analytictable/empty/EmptyCellWidget.h

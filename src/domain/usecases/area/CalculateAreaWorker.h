@@ -11,8 +11,8 @@
 #include "src/domain/models/area/Area.h"
 #include "src/data/settings/SettingsRepository.h"
 
-#include "src/domain/usecases/math/geometry.h"
-using namespace geometry;
+#include "src/domain/usecases/math/math_functions.h"
+using namespace math_functions;
 
 class CalculateAreaWorker: public QThread {
     Q_OBJECT

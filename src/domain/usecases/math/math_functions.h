@@ -2,12 +2,12 @@
 // Created by Леонид Соляной on 06.05.2024.
 //
 
-#ifndef AVIA_GEOMETRY_H
-#define AVIA_GEOMETRY_H
+#ifndef AVIA_MATH_FUNCTIONS_H
+#define AVIA_MATH_FUNCTIONS_H
 
 #include <math.h>
 
-namespace geometry {
+namespace math_functions {
 
     static const double EARTH_RADIUS = 6371.0;
     static const double PI = 3.14;
@@ -21,6 +21,15 @@ namespace geometry {
         auto D = acos(cosD);
         return D * EARTH_RADIUS;
     }
+
+    static int randInRange(int min, int max) {
+        return min + (std::rand() % (max - min + 1));
+    }
+
+    static double randInRange(double fMin, double fMax) {
+        double f = (double) rand() / RAND_MAX;
+        return fMin + f * (fMax - fMin);
+    }
 }
 
-#endif //AVIA_GEOMETRY_H
+#endif //AVIA_MATH_FUNCTIONS_H
