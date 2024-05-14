@@ -102,10 +102,11 @@ void MapWidget::setRoutes(QList<RouteModel*> routes) {
 void MapWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
     QPainter painter(this);
-    drawBack(&painter);
+    drawBack(&painter, true);
     if (areaVisible) {
         drawArea(&painter);
     }
+    drawBack(&painter, false);
     if (baseGraphVisible) {
         if (save == "s0") {
             drawGraph(graph, &painter, colorBlack());
@@ -121,33 +122,36 @@ void MapWidget::paintEvent(QPaintEvent *event) {
 }
 
 
-void MapWidget::drawBack(QPainter *painter) {
-    // заливка
-    foreach(auto region, country->regions) {
-        QPainterPath path;
-        for (int i = 0; i < region.second.size(); i++) {
-            auto p = latLonToXY(region.second[i][1], region.second[i][0]);
-            if (i == 0) {
-                path.moveTo(p);
-            } else {
-                path.lineTo(p);
+void MapWidget::drawBack(QPainter *painter, bool fill) {
+    if (fill) {
+        // заливка
+            foreach(auto region, country->regions) {
+                QPainterPath path;
+                for (int i = 0; i < region.second.size(); i++) {
+                    auto p = latLonToXY(region.second[i][1], region.second[i][0]);
+                    if (i == 0) {
+                        path.moveTo(p);
+                    } else {
+                        path.lineTo(p);
+                    }
+                }
+                painter->fillPath(path, QColor(colorBorder()));
             }
-        }
-        painter->fillPath(path, QColor(colorBorder()));
-    }
-    // границы
-    painter->setPen(QPen(QColor(colorGraySecondary()), 1));
-    foreach(auto region, country->regions) {
-        QPainterPath path;
-        for (int i = 0; i < region.second.size(); i++) {
-            auto p = latLonToXY(region.second[i][1], region.second[i][0]);
-            if (i == 0) {
-                path.moveTo(p);
-            } else {
-                path.lineTo(p);
+    } else {
+        // границы
+        painter->setPen(QPen(QColor(colorGraySecondary()), 1));
+                foreach(auto region, country->regions) {
+                QPainterPath path;
+                for (int i = 0; i < region.second.size(); i++) {
+                    auto p = latLonToXY(region.second[i][1], region.second[i][0]);
+                    if (i == 0) {
+                        path.moveTo(p);
+                    } else {
+                        path.lineTo(p);
+                    }
+                }
+                painter->drawPath(path);
             }
-        }
-        painter->drawPath(path);
     }
 }
 
