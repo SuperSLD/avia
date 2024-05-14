@@ -21,6 +21,7 @@ CountryShape::CountryShape(QString name) {
 
     foreach(auto district, russia.object().keys()) {
         QList<QList<double>> region;
+        auto p = russia[district].toObject()["p"].toDouble();
         auto districtPointsArray = russia[district].toObject()["0"].toArray();
         foreach(auto districtPoint, districtPointsArray) {
             auto lon = districtPoint[1].toDouble();
@@ -34,24 +35,26 @@ CountryShape::CountryShape(QString name) {
                 lon, lat
             });
         }
-        regions.append(region);
+        regions.append(QPair<double, QList<QList<double>>>(p, region));
     }
 
     qDebug() << minLon << maxLon << minLat << maxLat;
 }
 
-bool CountryShape::pointInCountry(double lon, double lat) {
-    auto sumResult = false;
+double CountryShape::pointInCountry(double lon, double lat) {
+    auto p = -1.0;
     foreach(auto region, regions) {
         auto result = false;
-        int j = region.size() - 1;
-        for (int i = 0; i < region.size(); i++) {
-            if ( (region[i][1] < lat && region[j][1] >= lat || region[j][1] < lat && region[i][1] >= lat) &&
-                 (region[i][0] + (lat - region[i][1]) / (region[j][1] - region[i][1]) * (region[j][0] - region[i][0]) < lon) )
+        int j = region.second.size() - 1;
+        for (int i = 0; i < region.second.size(); i++) {
+            if ( (region.second[i][1] < lat && region.second[j][1] >= lat || region.second[j][1] < lat && region.second[i][1] >= lat) &&
+                 (region.second[i][0] + (lat - region.second[i][1]) / (region.second[j][1] - region.second[i][1]) * (region.second[j][0] - region.second[i][0]) < lon) )
                 result = !result;
             j = i;
         }
-        if (result) sumResult = true;
+        if (result) {
+            p = region.first;
+        }
     }
-    return sumResult;
+    return p;
 }

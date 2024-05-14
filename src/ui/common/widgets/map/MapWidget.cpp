@@ -125,8 +125,8 @@ void MapWidget::drawBack(QPainter *painter) {
     // заливка
     foreach(auto region, country->regions) {
         QPainterPath path;
-        for (int i = 0; i < region.size(); i++) {
-            auto p = latLonToXY(region[i][1], region[i][0]);
+        for (int i = 0; i < region.second.size(); i++) {
+            auto p = latLonToXY(region.second[i][1], region.second[i][0]);
             if (i == 0) {
                 path.moveTo(p);
             } else {
@@ -139,8 +139,8 @@ void MapWidget::drawBack(QPainter *painter) {
     painter->setPen(QPen(QColor(colorGraySecondary()), 1));
     foreach(auto region, country->regions) {
         QPainterPath path;
-        for (int i = 0; i < region.size(); i++) {
-            auto p = latLonToXY(region[i][1], region[i][0]);
+        for (int i = 0; i < region.second.size(); i++) {
+            auto p = latLonToXY(region.second[i][1], region.second[i][0]);
             if (i == 0) {
                 path.moveTo(p);
             } else {

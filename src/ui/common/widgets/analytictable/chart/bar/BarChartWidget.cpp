@@ -38,6 +38,7 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
         }
     }
     if (max > 10000) shortLabels = true;
+    if (max > 1000000) shortShortLabels = true;
 
     auto barWidth = this->width() * 0.5 / barsCount;
     auto barFirstSpace = 0;
@@ -122,7 +123,11 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
 
 QString BarChartWidget::getLabel(double val) {
     if (shortLabels) {
-        return QString::number((int) (val / 1000)) + "K";
+        if (shortShortLabels) {
+            return QString::number((int) (val / 1000000)) + "M";
+        } else {
+            return QString::number((int) (val / 1000)) + "K";
+        }
     } else {
         return QString::number((int) val);
     }

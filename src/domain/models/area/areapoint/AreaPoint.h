@@ -18,6 +18,7 @@ private:
         auto a = distanceInKm(lon, lat, lon + w, lat);
         auto b = distanceInKm(lon, lat, lon, lat + h);
         this->s = a*b;
+        this->humanCount = s * p;
     }
 
 public:
@@ -34,8 +35,12 @@ public:
     double lon;
     double lat;
 
-    /// площадь сектора
+    /// площадь
     double s = 0;
+    /// плотность населения
+    double p = 0;
+    /// количество человек
+    double humanCount = 0;
 
     AreaPoint(
         QString airportId,
@@ -44,7 +49,8 @@ public:
         double w,
         double h,
         double lon,
-        double lat
+        double lat,
+        double p = 0
     ) {
         this->airportId = airportId;
         this->distance = distance;
@@ -53,6 +59,7 @@ public:
         this->h = h;
         this->lon = lon;
         this->lat = lat;
+        this->p = p;
         isValid = true;
         calcS();
     }
@@ -75,6 +82,7 @@ public:
         this->h = json["h"].toDouble();
         this->lon = json["lon"].toDouble();
         this->lat = json["lat"].toDouble();
+        this->p = json["p"].toDouble();
         calcS();
     }
 
@@ -90,6 +98,7 @@ public:
         json["h"] = h;
         json["lon"] = lon;
         json["lat"] = lat;
+        json["p"] = p;
         return json;
     }
 };
