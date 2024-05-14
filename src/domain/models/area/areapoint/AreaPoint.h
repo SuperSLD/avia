@@ -8,7 +8,17 @@
 #include <QString>
 #include "src/ui/common/navigation/base/basemodel/BaseModel.h"
 
+#include "src/domain/usecases/math/math_functions.h"
+using namespace math_functions;
+
 class AreaPoint: public BaseModel {
+
+private:
+    void calcS() {
+        auto a = distanceInKm(lon, lat, lon + w, lat);
+        auto b = distanceInKm(lon, lat, lon, lat + h);
+        this->s = a*b;
+    }
 
 public:
     // ближайший аэропорт
@@ -23,6 +33,9 @@ public:
     double h;
     double lon;
     double lat;
+
+    /// площадь сектора
+    double s = 0;
 
     AreaPoint(
         QString airportId,
@@ -41,6 +54,7 @@ public:
         this->lon = lon;
         this->lat = lat;
         isValid = true;
+        calcS();
     }
 
     AreaPoint(
@@ -61,6 +75,7 @@ public:
         this->h = json["h"].toDouble();
         this->lon = json["lon"].toDouble();
         this->lat = json["lat"].toDouble();
+        calcS();
     }
 
     AreaPoint() {};

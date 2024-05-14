@@ -4,12 +4,15 @@
 
 #include <QJsonArray>
 #include <QHash>
+#include <QThread>
 #include "TransportGraphModel.h"
 
 #include "src/domain/usecases/math/math_functions.h"
 #include "src/domain/models/analytics/view/TitleAnalyticsCell.h"
 #include "src/domain/models/analytics/view/chart/ChartAnalyticsCell.h"
 #include "src/domain/models/analytics/view/EmpyAnalyticsCell.h"
+
+#include "src/domain/models/transportgraph/PriorityQueue.h"
 
 using namespace math_functions;
 
@@ -108,10 +111,15 @@ AirportModel TransportGraphModel::findAirport(QString id) {
 void TransportGraphModel::calcAnalyticData() {
     auto allIn = 0.0;
     auto allOut = 0.0;
+    auto maxPass = 0;
     foreach(auto a, airports) {
         passCount += a.passengersCountOut + a.passengersCountIn;
         allIn += a.passengersCountIn;
         allOut += a.passengersCountOut;
+        if (a.passengersCountOut + a.passengersCountIn > maxPass) {
+            maxPass = a.passengersCountIn + a.passengersCountOut;
+            mainTransportNode = a;
+        }
     }
     passCountPieChart.append(
         ChartLine(
@@ -120,6 +128,23 @@ void TransportGraphModel::calcAnalyticData() {
                 QList<QString>({"В аэропорты", "Из аэропортов"})
         )
     );
+
+    if (airports.size() > 0) {
+        auto count = 0;
+        foreach (auto a, airports) {
+            // определение коэффициента непрямолинейности
+            if (a.id != mainTransportNode.id && !a.connectedAirports.isEmpty() && hasConnection(a.id, mainTransportNode.id)) {
+                auto flightDistance = distanceInKm(a.lon, a.lat, mainTransportNode.lon, mainTransportNode.lat);
+                auto realDistance = pathSize(findPath(a.id, mainTransportNode.id));
+                midFlightDistance += flightDistance;
+                midRealDistance += realDistance;
+                count++;
+            }
+        }
+        midFlightDistance /= count;
+        midRealDistance /= count;
+        nonStraightness = midRealDistance / midFlightDistance;
+    }
 }
 
 QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
@@ -144,6 +169,7 @@ QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell *>({
+                    new NumberAnalyticsCell(mainTransportNode.id,"Главный транспортный узел", colorSecondary()),
                     new NumberAnalyticsCell(QString::number(airports.count()),"Количество аэропортов", colorSecondary()),
                     new NumberAnalyticsCell(QString::number(viewLines.size()),"Количество связей", colorPrimary()),
             }))
@@ -152,6 +178,13 @@ QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
             AnalyticsRow(QList<BaseAnalyticsCell *>({
                 new NumberAnalyticsCell(isZeroSave ? "Не указано" : QString::number(greed, 'f', 2),"Жадность", isZeroSave ? colorRed() : colorPrimary()),
                 new NumberAnalyticsCell(isZeroSave ? "Не указано" : QString::number(gregariousness, 'f', 2),"Стадность", isZeroSave ? colorRed() : colorPrimary()),
+            }))
+        );
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                new NumberAnalyticsCell(QString::number(midFlightDistance, 'f', 1),"Cреднее расстояние до главного транспортного узла", colorPrimary()),
+                new NumberAnalyticsCell(QString::number(midRealDistance, 'f', 1),"Cредняя длинна маршрута до главного транспортного узла", colorPrimary()),
+                new NumberAnalyticsCell(QString::number(nonStraightness, 'f', 4),"Коэффициент непрямолинейности", colorPrimary()),
             }))
         );
     }
@@ -164,4 +197,78 @@ QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
     }
 
     return rows;
+}
+
+QList<QString> TransportGraphModel::findPath(QString from, QString to) {
+    auto fromAirport = findAirport(from);
+    auto toAirport = findAirport(to);
+
+    auto frontier = PriorityQueue<QString>();
+    frontier.put(from, 0.0);
+
+    auto cameFrom = QHash<QString, QString>();
+    auto costSoFar = QHash<QString, double>();
+    cameFrom[from] = nullptr;
+    costSoFar[from] = 0.0;
+
+    while (frontier.isNotEmpty()) {
+        auto current = frontier.get();
+        if (current == to) break;
+
+        foreach(auto next, findAirport(current).connectedAirports) {
+            if (current != next) {
+                auto currentAirport = findAirport(current);
+                auto nextAirport = findAirport(next);
+                auto newCost = costSoFar[current] +
+                               distanceInKm(currentAirport.lon, currentAirport.lat, nextAirport.lon, nextAirport.lat);
+
+                if (!costSoFar.contains(next) || newCost < costSoFar[next]) {
+                    costSoFar[next] = newCost + distanceInKm(toAirport.lon, toAirport.lat, currentAirport.lon,
+                                                             currentAirport.lat);
+                    frontier.put(next, newCost);
+                    cameFrom[next] = current;
+                }
+            }
+        }
+
+        if (cameFrom.size() >= airports.size() - 3) return { from, to };
+    }
+
+    return reconstructPath(cameFrom, from, to);
+}
+
+QList<QString> TransportGraphModel::reconstructPath(QHash<QString, QString> cameFrom, QString from, QString to) {
+    auto current = to;
+    auto path = QList<QString> { current };
+    while (current != from) {
+        current = cameFrom[current];
+        path.append(current);
+    }
+    std::reverse(path.begin(), path.end());
+    return path;
+}
+
+double TransportGraphModel::pathSize(QList<QString> path) {
+    auto distance = 0.0;
+    for(int i = 0; i < path.size() - 1; i++) {
+        auto from = findAirport(path[i]);
+        auto to = findAirport(path[i + 1]);
+        distance += distanceInKm(from.lon, from.lat, to.lon, to.lat);
+    }
+    return distance;
+}
+
+bool TransportGraphModel::hasConnection(QString from, QString to, QList<QString> visited) {
+    visited.append(from);
+    if (from == to) return true;
+    bool connected = false;
+    auto fromAirport = findAirport(from);
+    foreach(auto next, fromAirport.connectedAirports) {
+        if (!visited.contains(next)) {
+            if (hasConnection(next, to, visited)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }

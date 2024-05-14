@@ -26,8 +26,8 @@ private:
             pointsDistance.append(0.0);
         }
         foreach(auto line, points) {
-            if (line.size() > maxPointsInLine) maxPointsInLine = line.size();
             foreach(auto point, line) {
+                pointsCount++;
                 auto colorIndex = (int) (point.distance / (double) maxDistance * (colors.size() - 1));
                 pointsDistance[colorIndex] += 1.0;
                 pointDistanceSum += 1;
@@ -65,7 +65,7 @@ public:
     QList<QList<AreaPoint>> points;
     double maxDistance = 0;
     double maxTime = 0;
-    int maxPointsInLine = 0;
+    int pointsCount = 0;
 
     Area(QList<QList<AreaPoint>> points) {
         this->points = points;
@@ -125,7 +125,7 @@ public:
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                   new NumberAnalyticsCell(QString::number(points.size() * maxPointsInLine), "Общее количество\nсекторов", colorSecondary()),
+                   new NumberAnalyticsCell(QString::number(pointsCount), "Общее количество\nсекторов", colorSecondary()),
                    new NumberAnalyticsCell(QString::number((int) maxDistance) + " КМ", "Максимальное расстояние\nдо аэропорта", colorPrimary()),
                    new NumberAnalyticsCell(QString::number((int) maxTime) + " Ч", "Максимальере время\nв пути", colorPrimary()),
             }))

@@ -5,7 +5,22 @@
 #include "MetricsModel.h"
 
 MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphModel> graphs, Area area) {
+    auto saveNames = QList<QString> { original.save };
+    auto nonStraightness = QList<double> { original.nonStraightness };
+    foreach(auto graph, graphs) {
+        saveNames.append(graph.save);
+        nonStraightness.append(graph.nonStraightness);
+    }
 
+    nonStraightnessBarChart.append(
+        ChartLine(
+            QList<QString>({colorPrimary()}),
+            nonStraightness,
+            QList<QString>({"коэффициент непрямолинейности"}),
+            QList<double>(),
+            saveNames
+        )
+    );
 }
 
 QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
@@ -17,7 +32,7 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
     );
     rows.append(
          AnalyticsRow(QList<BaseAnalyticsCell *>({
-            new NumberAnalyticsCell("Тут будут результаты вычислений","Но пока их нет", colorSecondary()),
+            new ChartAnalyticsCell("bar", "Коэффициент непрямолинейности", nonStraightnessBarChart),
         }))
     );
     if (isSingle) {
