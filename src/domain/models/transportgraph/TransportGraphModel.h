@@ -21,6 +21,8 @@ public:
     QList<AirportModel> airports;
     int    maxAirportFlightCount = 0;
     QList<QList<double>> viewLines;
+    QList<double> viewLinesPassCount;
+    double lineMaxCount = 0.0;
 
     /// жадность
     double greed = 1.0;

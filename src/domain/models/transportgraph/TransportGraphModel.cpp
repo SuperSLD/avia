@@ -82,6 +82,7 @@ QJsonObject TransportGraphModel::toJson() {
 
 void TransportGraphModel::calcDataForView() {
     QHash<QString, QList<double>> lines;
+    QHash<QString, double> lineCount;
     foreach(auto airport, airports) {
         foreach(auto connectedAirportId, airport.connectedAirports) {
             auto lineId = airport.id + connectedAirportId;
@@ -94,10 +95,14 @@ void TransportGraphModel::calcDataForView() {
                     connectedAirport.lon,
                     connectedAirport.lat,
                 };
+                lineCount[lineId] = airport.connectedPassCount[connectedAirportId];
+                if (lineCount[lineId] > lineMaxCount) lineMaxCount = lineCount[lineId];
             }
         }
     }
     viewLines = lines.values();
+    viewLinesPassCount = lineCount.values();
+    lineMaxCount = 0.05 * lineMaxCount;
 }
 
 AirportModel TransportGraphModel::findAirport(QString id) {

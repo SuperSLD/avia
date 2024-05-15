@@ -37,6 +37,9 @@ AirportModel::AirportModel(QJsonObject json) {
         connectedAirports.append(val.toString());
     }
     this->flightCount = json["flightCount"].toInt();
+    for (int i = 0; i < json["connectedCountKeys"].toArray().count(); i++) {
+        connectedPassCount[json["connectedCountKeys"].toArray()[i].toString()] = json["connectedCountValues"].toArray()[i].toDouble();
+    }
 }
 
 QString AirportModel::getId() {
@@ -66,11 +69,16 @@ AirportModel AirportModel::getWithEmptyEdges() {
     );
 }
 
-void AirportModel::incPassengerCount(int count, bool in) {
+void AirportModel::incPassengerCount(int count, bool in, QString key) {
     if (in) {
         passengersCountIn += count;
     } else {
         passengersCountOut += count;
+    }
+    if (connectedPassCount.contains(key)) {
+        connectedPassCount[key] += count;
+    } else {
+        connectedPassCount[key] = count;
     }
 }
 
@@ -89,5 +97,13 @@ QJsonObject AirportModel::toJson() {
     }
     json["connectedAirports"] = airports;
     json["flightCount"] = flightCount;
+    auto connectedKeys = QJsonArray();
+    auto connectedValues = QJsonArray();
+    foreach(auto key, connectedPassCount.keys()) {
+        connectedKeys.append(key);
+        connectedValues.append(connectedPassCount[key]);
+    }
+    json["connectedCountKeys"] = connectedKeys;
+    json["connectedCountValues"] = connectedValues;
     return json;
 }

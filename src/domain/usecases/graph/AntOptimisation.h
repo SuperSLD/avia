@@ -28,6 +28,7 @@ struct Edge {
     double weight;
     double pheromone;
     bool visited;
+    int passCount = 0;
 };
 
 class AntColonyOptimization: public QObject {
@@ -125,6 +126,7 @@ public:
             int count = 100;
             int passengersToTransport = min(count, airports[edge.source].passengersOut);
             numPassengers -= passengersToTransport;
+            edges[edgeIndex].passCount += passengersToTransport;
             airports[edge.source].passengersOut -= passengersToTransport;
             airports[edge.destination].passengersIn += passengersToTransport;
 
@@ -153,7 +155,9 @@ public:
                     }
                 }
                 originalAirports[airportFrom].addConnection(to);
+                originalAirports[airportFrom].connectedPassCount[to] = e.passCount;
                 originalAirports[airportTo].addConnection(from);
+                originalAirports[airportTo].connectedPassCount[from] = e.passCount;
             }
         }
         return TransportGraphModel(originalAirports, save, greed, gregariousness);

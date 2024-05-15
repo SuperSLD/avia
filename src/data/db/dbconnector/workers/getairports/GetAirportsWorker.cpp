@@ -38,13 +38,14 @@ void GetAirportsWorker::run() {
             );
             auto flight = dynamic_cast<FlightModel*>(factory->createModel(document.object()));
             if (flight->data.inRussia()) {
+                auto passCount = passengersCount.passengersCount(0.8, flight->data.act);
                 auto airport = AirportModel(
                         flight->data.apdstia,
                         flight->data.apdstna,
                         flight->data.apdstci,
                         flight->data.apdstlo,
                         flight->data.apdstla,
-                        passengersCount.passengersCount(0.8, flight->data.act),
+                        passCount,
                         0,
                         QList<QString>()
                 );
@@ -52,11 +53,11 @@ void GetAirportsWorker::run() {
                     if (flight->data.aporgia.size() > 1) {
                         airports[airport.id].incFlight();
                         airports[airport.id].addConnection(flight->data.aporgia);
-                        auto pCount = passengersCount.passengersCount(0.8, flight->data.act);
+                        auto pCount = passCount;
                         if (airports.contains(flight->data.aporgia)) {
-                            airports[flight->data.aporgia].incPassengerCount(pCount, true);
+                            airports[flight->data.aporgia].incPassengerCount(pCount, true, flight->data.aporgia);
                         }
-                        airports[airport.id].incPassengerCount(pCount,false);
+                        airports[airport.id].incPassengerCount(pCount,false, flight->data.aporgia);
                     }
                 } else {
                     airports[airport.id] = airport;

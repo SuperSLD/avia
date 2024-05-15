@@ -20,6 +20,7 @@ public:
     long passengersCountOut;
     long passengersCountIn;
     QList<QString> connectedAirports;
+    QHash<QString, double> connectedPassCount;
     int flightCount = 1;
 
     AirportModel(
@@ -39,7 +40,7 @@ public:
 
     void addConnection(QString id);
     void incFlight();
-    void incPassengerCount(int count, bool in);
+    void incPassengerCount(int count, bool in, QString key);
 
     QJsonObject toJson() override;
 
