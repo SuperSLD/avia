@@ -48,7 +48,7 @@ private:
     bool isMove = false;
     double zoom = 1;
 
-    void drawBack(QPainter *painter);
+    void drawBack(QPainter *painter, bool fill);
     void drawArea(QPainter *painter);
     void drawAirports(QPainter *painter);
     void drawGraph(TransportGraphModel graphForDraw, QPainter *painter, QString color);

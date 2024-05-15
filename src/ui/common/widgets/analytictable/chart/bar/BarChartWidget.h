@@ -17,6 +17,7 @@ private:
     QList<ChartLine> lines;
 
     bool shortLabels;
+    bool shortShortLabels;
 
     QString getLabel(double val);
 

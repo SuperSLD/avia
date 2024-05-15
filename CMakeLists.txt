@@ -182,6 +182,7 @@ set(PROJECT_SOURCES
         src/domain/usecases/metrics/CalcMetricsWorker.h
         src/data/db/dbconnector/models/metrics/MetricsModel.cpp
         src/data/db/dbconnector/models/metrics/MetricsModel.h
+        src/domain/models/transportgraph/PriorityQueue.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

@@ -24,7 +24,8 @@ void CalculateAreaWorker::run() {
             requestFinished = false;
             currentLon = country.minLon + j * lonDif / (double) lonIterations;
             currentLat = country.minLat + i * latDif / (double) latIterations;
-            if (country.pointInCountry(currentLon, currentLat)) {
+            auto p = country.pointInCountry(currentLon, currentLat);
+            if (p >= 0) {
                 auto minDistanceAirport = graph.getMinDistanceAirport(currentLon, currentLat);
                 airportId = minDistanceAirport.id;
                 auto d = distanceInKm(currentLon, currentLat, minDistanceAirport.lon, minDistanceAirport.lat);
@@ -48,7 +49,8 @@ void CalculateAreaWorker::run() {
                                 lonDif / lonIterations,
                                 latDif / latIterations,
                                 currentLon,
-                                currentLat
+                                currentLat,
+                                p
                         )
                 );
             }

@@ -19,18 +19,26 @@ private:
 
 public:
     QList<AirportModel> airports;
-    int maxAirportFlightCount = 0;
+    int    maxAirportFlightCount = 0;
     QList<QList<double>> viewLines;
 
     /// жадность
     double greed = 1.0;
     /// стадность
     double gregariousness = 1.0;
+    /// средняя длинна маршрута по прямой
+    double midFlightDistance = 0.0;
+    /// средняя длинна маршрута
+    double midRealDistance = 0.0;
+    /// коэффициент непрямолинейности маршрутов
+    double nonStraightness = 0.0;
 
     QString save = "s0";
 
     qint64 passCount = 0;
     QList<ChartLine> passCountPieChart;
+
+    AirportModel mainTransportNode;
 
     TransportGraphModel(QList<AirportModel> airports, QString save = "s0", double greed = 1.0, double gregariousness = 1.0);
     TransportGraphModel(QJsonObject json);
@@ -44,6 +52,19 @@ public:
     QJsonObject toJson() override;
 
     QList<AnalyticsRow> getRows(bool isSingle = true) override;
+
+    bool hasConnection(QString from, QString to, QList<QString> visited = {});
+
+    /**
+     * Алгоритм A-star для поиска оптимальногом аршрута
+     * из начального аэропорта в конечный.
+     * @param from начальный аэропорт.
+     * @param to конечный аэропорт.
+     * @return путь из начального аэропорта в конечный.
+     */
+    QList<QString> findPath(QString from, QString to);
+    QList<QString> reconstructPath(QHash<QString, QString> cameFrom, QString from, QString to);
+    double pathSize(QList<QString> path);
 };
 
 

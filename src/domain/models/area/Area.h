@@ -24,13 +24,16 @@ private:
     void calcAnalyticsData() {
         for(int i = 0; i < colors.size(); i++) {
             pointsDistance.append(0.0);
+            pointsHumans.append(0.0);
         }
         foreach(auto line, points) {
-            if (line.size() > maxPointsInLine) maxPointsInLine = line.size();
             foreach(auto point, line) {
+                pointsCount++;
                 auto colorIndex = (int) (point.distance / (double) maxDistance * (colors.size() - 1));
                 pointsDistance[colorIndex] += 1.0;
-                pointDistanceSum += 1;
+                pointDistanceSum += 1.0;
+                pointsHumans[colorIndex] += point.humanCount;
+                pointsHumansSum += point.humanCount;
                 if (pointsDistance[colorIndex] > maxDistanceCount) {
                     maxDistanceCount = pointsDistance[colorIndex];
                     maxDistanceCountZone = colorIndex;
@@ -48,7 +51,16 @@ private:
             ChartLine(
                     colors,
                     pointsDistance,
-                    QList<QString>({"Распределение зон"}),
+                    QList<QString>({"Количество секторов"}),
+                    QList<double>(),
+                    pointsDistanceNames
+            )
+        );
+        pointsHumanPieChart.append(
+            ChartLine(
+                    colors,
+                    pointsHumans,
+                    QList<QString>({"Количество человек"}),
                     QList<double>(),
                     pointsDistanceNames
             )
@@ -59,13 +71,16 @@ private:
     int maxDistanceCountZone = 0;
     QList<double> pointsDistance;
     int pointDistanceSum = 0;
+    QList<double> pointsHumans;
+    double pointsHumansSum;
     QList<ChartLine> pointsDistancePieChart;
+    QList<ChartLine> pointsHumanPieChart;
 
 public:
     QList<QList<AreaPoint>> points;
     double maxDistance = 0;
     double maxTime = 0;
-    int maxPointsInLine = 0;
+    int pointsCount = 0;
 
     Area(QList<QList<AreaPoint>> points) {
         this->points = points;
@@ -125,7 +140,7 @@ public:
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                   new NumberAnalyticsCell(QString::number(points.size() * maxPointsInLine), "Общее количество\nсекторов", colorSecondary()),
+                   new NumberAnalyticsCell(QString::number(pointsCount), "Общее количество\nсекторов", colorSecondary()),
                    new NumberAnalyticsCell(QString::number((int) maxDistance) + " КМ", "Максимальное расстояние\nдо аэропорта", colorPrimary()),
                    new NumberAnalyticsCell(QString::number((int) maxTime) + " Ч", "Максимальное время\nв пути", colorPrimary()),
             }))
@@ -136,9 +151,14 @@ public:
             }))
         );
         rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell*>({
+               new ChartAnalyticsCell("bar", "Распределение зон", pointsHumanPieChart),
+           }))
+        );
+        rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                new NumberAnalyticsCell(QString::number(pointsDistance[0]) + "\nсекторов", "В самой близкой зоне\nдоступности " + QString::number((int) (maxTime / colors.size())) + "ч находится " + QString::number((int)(pointsDistance[0]*100/pointDistanceSum)) + "% площади", colors[0]),
-                new NumberAnalyticsCell(QString::number(maxDistanceCount) + "\nсекторов", "Самая частая зона\nдоступности " + QString::number((int) (maxTime / colors.size() * (1 + maxDistanceCountZone))) + "ч составляет " + QString::number((int)(pointsDistance[maxDistanceCountZone]*100/pointDistanceSum)) + "% площади", colors[maxDistanceCountZone]),
+                new NumberAnalyticsCell(QString::number((int) (pointsHumans[0] / 1000)) + " К\nчеловеек", "В самой близкой зоне\nдоступности " + QString::number((int) (maxTime / colors.size())) + "ч находится " + QString::number((int)(pointsHumans[0]*100/pointsHumansSum)) + "% населения", colors[0]),
+                //new NumberAnalyticsCell(QString::number((int) (maxDistanceCount / 1000)) + " К\nчеловек", "Самая частая зона\nдоступности " + QString::number((int) (maxTime / colors.size() * (1 + maxDistanceCountZone))) + "ч составляет " + QString::number((int)(pointsDistance[maxDistanceCountZone]*100/pointDistanceSum)) + "% населения", colors[maxDistanceCountZone]),
             }))
         );
         if (isSingle) {

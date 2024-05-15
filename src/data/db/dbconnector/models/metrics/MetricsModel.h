@@ -12,7 +12,12 @@
 
 class MetricsModel: public BaseAnalyticModel {
 
+private:
+
+    QList<ChartLine> nonStraightnessBarChart;
+
 public:
+
     MetricsModel(TransportGraphModel original, QList<TransportGraphModel> graphs, Area area);
     MetricsModel() {}
 

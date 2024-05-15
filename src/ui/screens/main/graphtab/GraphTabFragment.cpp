@@ -6,6 +6,7 @@
 #include "src/ui/common/widgets/toolbar/Toolbar.h"
 #include "src/ui/common/widgets/button/Button.h"
 #include "src/ui/common/widgets/switcher/Switcher.h"
+#include "src/domain/models/transportgraph/PriorityQueue.h"
 
 GraphTabFragment::GraphTabFragment() {
     auto *mainContainer = new QVBoxLayout;
