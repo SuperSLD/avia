@@ -4,7 +4,7 @@
 
 #include "GetAirportsWorker.h"
 #include "src/data/db/dbconnector/models/flightmodel/FlightModel.h"
-#include "src/domain/models/transportgraph/PassengersCountBlock.h"
+#include "src/domain/models/transportgraph/aircraftmodels/AircraftModelsBlock.h"
 
 #include <mongocxx/uri.hpp>
 #include <mongocxx/client.hpp>
@@ -23,7 +23,7 @@ using bsoncxx::builder::basic::make_array;
 using bsoncxx::builder::basic::make_document;
 
 void GetAirportsWorker::run() {
-    auto passengersCount = PassengersCountBlock();
+    auto passengersCount = AircraftModelsBlock();
     try {
         mongocxx::uri uri((uriString.toStdString()));
         mongocxx::client client(uri);

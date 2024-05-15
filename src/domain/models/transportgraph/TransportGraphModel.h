@@ -34,7 +34,7 @@ public:
     double midRealDistance = 0.0;
     /// коэффициент непрямолинейности маршрутов
     double nonStraightness = 0.0;
-
+    /// название сохранения
     QString save = "s0";
 
     qint64 passCount = 0;

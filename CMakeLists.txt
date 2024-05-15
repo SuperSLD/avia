@@ -153,8 +153,8 @@ set(PROJECT_SOURCES
         src/ui/screens/main/graphtab/GraphTabFragment.h
         src/domain/models/transportgraph/TransportGraphModel.cpp
         src/domain/models/transportgraph/TransportGraphModel.h
-        src/domain/models/transportgraph/PassengersCountBlock.cpp
-        src/domain/models/transportgraph/PassengersCountBlock.h
+        src/domain/models/transportgraph/aircraftmodels/AircraftModelsBlock.cpp
+        src/domain/models/transportgraph/aircraftmodels/AircraftModelsBlock.h
         src/domain/usecases/graph/AntOptimisation.h
         src/data/net/models/datawrapper/DataWrapper.cpp
         src/data/net/models/datawrapper/DataWrapper.h
@@ -183,6 +183,7 @@ set(PROJECT_SOURCES
         src/data/db/dbconnector/models/metrics/MetricsModel.cpp
         src/data/db/dbconnector/models/metrics/MetricsModel.h
         src/domain/models/transportgraph/PriorityQueue.h
+        src/domain/models/transportgraph/aircraftmodels/Aircraft.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

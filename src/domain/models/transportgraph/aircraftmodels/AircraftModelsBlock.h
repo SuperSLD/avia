@@ -2,25 +2,26 @@
 // Created by Леонид Соляной on 22.04.2024.
 //
 
-#ifndef AVIA_PASSENGERSCOUNTBLOCK_H
-#define AVIA_PASSENGERSCOUNTBLOCK_H
+#ifndef AVIA_AIRCRAFTMODELSBLOCK_H
+#define AVIA_AIRCRAFTMODELSBLOCK_H
 
 
 #include <QHash>
+#include "Aircraft.h"
 
 /**
  * Блок вычисления количества пассажиров на рейсе.
  * На ход подается коэффициент загруженности самолета 0 .. 100 и модель самолета.
  * На выходе получается оценочное количество пассажиров, которые находятся в самолете.
  */
-class PassengersCountBlock {
+class AircraftModelsBlock {
 
 private:
-    QHash<QString, int> seatsByType;
+    QList<Aircraft> aircraftList;
     int middleCount = 0;
 
 public:
-    PassengersCountBlock();
+    AircraftModelsBlock();
 
     /**
      * Определение оценочного количества пассажиров.
@@ -30,7 +31,15 @@ public:
      * @return количество пассажиров
      */
     int passengersCount(double k, QString aircraftModel);
+
+    /**
+     * Определение опимального самолета, подходящего для выполнения рейса.
+     * @param distance расстояние между аэропортами.
+     * @param passCount перевозимое количество пассажиров.
+     * @return модель самолета, подходящего для выполнения рейса.
+     */
+    Aircraft getOptimalAircraft(double distance, double passCount);
 };
 
 
-#endif //AVIA_PASSENGERSCOUNTBLOCK_H
+#endif //AVIA_AIRCRAFTMODELSBLOCK_H
