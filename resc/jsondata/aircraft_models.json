@@ -1,226 +1,450 @@
 [
   {
     "model": "A321",
-    "seatsCount": 220
+    "seatsCount": 220,
+    "modelName": "Airbus A321",
+    "kilometerCost": 1.0,
+    "speed": 833.0,
+    "use": true
   },
   {
     "model": "B738",
-    "seatsCount": 189
+    "seatsCount": 189,
+    "modelName": "Boeing 737-800",
+    "kilometerCost": 1.0,
+    "speed": 828.0,
+    "use": true
   },
   {
     "model": "A20N",
-    "seatsCount": 164
+    "seatsCount": 164,
+    "modelName": "Airbus A320neo",
+    "kilometerCost": 1.0,
+    "speed": 828.0,
+    "use": true
   },
   {
     "model": "A320",
-    "seatsCount": 146
+    "seatsCount": 146,
+    "modelName": "Airbus A320",
+    "kilometerCost": 1.0,
+    "speed": 840.0,
+    "use": true
   },
   {
     "model": "SU95",
-    "seatsCount": 98
+    "seatsCount": 98,
+    "modelName": "Sukhoi Superjet 100",
+    "kilometerCost": 1.0,
+    "speed": 841.0,
+    "use": true
   },
   {
     "model": "IL76",
-    "seatsCount": 10
+    "seatsCount": 10,
+    "modelName": "IL-76",
+    "kilometerCost": 1.0,
+    "speed": 900.0,
+    "use": true
   },
   {
     "model": "A319",
-    "seatsCount": 156
+    "seatsCount": 156,
+    "modelName": "Airbus A319",
+    "kilometerCost": 1.0,
+    "speed": 931.0,
+    "use": true
   },
   {
     "model": "BE9L",
-    "seatsCount": 9
+    "seatsCount": 9,
+    "modelName": "BEECH E90 King Air",
+    "kilometerCost": 1.0,
+    "speed": 459.0,
+    "use": true
   },
   {
     "model": "CL35",
-    "seatsCount": 10
+    "seatsCount": 10,
+    "modelName": "Bombardier Challenger 350",
+    "kilometerCost": 1.0,
+    "speed": 850.0,
+    "use": true
   },
   {
     "model": "CRJ2",
-    "seatsCount": 50
+    "seatsCount": 50,
+    "modelName": "Bombardier CRJ200",
+    "kilometerCost": 1.0,
+    "speed": 785.0,
+    "use": true
   },
   {
     "model": "A21N",
-    "seatsCount": 220
+    "seatsCount": 220,
+    "modelName": "Airbus A321neo",
+    "kilometerCost": 1.0,
+    "speed": 833.0,
+    "use": true
   },
   {
     "model": "E190",
-    "seatsCount": 100
+    "seatsCount": 100,
+    "modelName": "Embraer E190",
+    "kilometerCost": 1.0,
+    "speed": 829.0,
+    "use": true
   },
   {
     "model": "B734",
-    "seatsCount": 159
+    "seatsCount": 159,
+    "modelName": "Boeing 737-400",
+    "kilometerCost": 1.0,
+    "speed": 796.0,
+    "use": true
   },
   {
     "model": "DH8D",
-    "seatsCount": 78
+    "seatsCount": 78,
+    "modelName": "Bombardier Dash 8 Q400",
+    "kilometerCost": 1.0,
+    "speed": 667.0,
+    "use": true
   },
   {
     "model": "YK42",
-    "seatsCount": 120
+    "seatsCount": 120,
+    "modelName": "Yak-42",
+    "kilometerCost": 1.0,
+    "speed": 700.0,
+    "use": true
   },
   {
     "model": "B773",
-    "seatsCount": 550
+    "seatsCount": 550,
+    "modelName": "Boeing 777-300",
+    "kilometerCost": 1.0,
+    "speed": 905.0,
+    "use": true
   },
   {
     "model": "A359",
-    "seatsCount": 440
+    "seatsCount": 440,
+    "modelName": "Airbus A350-900",
+    "kilometerCost": 1.0,
+    "speed": 903.0,
+    "use": true
   },
   {
     "model": "B77W",
-    "seatsCount": 550
+    "seatsCount": 550,
+    "modelName": "Boeing 777-300ER",
+    "kilometerCost": 1.0,
+    "speed": 905.0,
+    "use": true
   },
   {
     "model": "B735",
-    "seatsCount": 132
+    "seatsCount": 132,
+    "modelName": "Boeing 737-500",
+    "kilometerCost": 1.0,
+    "speed": 807.0,
+    "use": true
   },
   {
     "model": "AT72",
-    "seatsCount": 74
+    "seatsCount": 74,
+    "modelName": "ATR 72-600",
+    "kilometerCost": 1.0,
+    "speed": 500.0,
+    "use": true
   },
   {
     "model": "CL60",
-    "seatsCount": 19
+    "seatsCount": 19,
+    "modelName": "Bombardier Challenger 600",
+    "kilometerCost": 1.0,
+    "speed": 850.0,
+    "use": true
   },
   {
     "model": "B739",
-    "seatsCount": 188
+    "seatsCount": 188,
+    "modelName": "Boeing 737-900",
+    "kilometerCost": 1.0,
+    "speed": 823.0,
+    "use": true
   },
   {
     "model": "B733",
-    "seatsCount": 149
+    "seatsCount": 149,
+    "modelName": "Boeing 737-300",
+    "kilometerCost": 1.0,
+    "speed": 796.0,
+    "use": true
   },
   {
     "model": "B737",
-    "seatsCount": 188
+    "seatsCount": 188,
+    "modelName": "Boeing 737-700",
+    "kilometerCost": 1.0,
+    "speed": 852.0,
+    "use": true
   },
   {
     "model": "",
-    "seatsCount": 100
+    "seatsCount": 100,
+    "modelName": "",
+    "kilometerCost": 1.0,
+    "speed": 1.0,
+    "use": false
   },
   {
     "model": "B752",
-    "seatsCount": 200
+    "seatsCount": 200,
+    "modelName": "Boeing 757-200",
+    "kilometerCost": 1.0,
+    "speed": 850.0,
+    "use": true
   },
   {
     "model": "PC12",
-    "seatsCount": 9
+    "seatsCount": 9,
+    "modelName": "Pilatus PC-12",
+    "kilometerCost": 1.0,
+    "speed": 537.0,
+    "use": true
   },
   {
     "model": "GLEX",
-    "seatsCount": 19
+    "seatsCount": 19,
+    "modelName": "Bombardier Global Express",
+    "kilometerCost": 1.0,
+    "speed": 904.0,
+    "use": true
   },
   {
     "model": "A148",
-    "seatsCount": 75
+    "seatsCount": 75,
+    "modelName": "An-148",
+    "kilometerCost": 1.0,
+    "speed": 835.0,
+    "use": true
   },
   {
     "model": "B350",
-    "seatsCount": 9
+    "seatsCount": 9,
+    "modelName": "Beechcraft Super Kibg Air 350",
+    "kilometerCost": 1.0,
+    "speed": 487.0,
+    "use": true
   },
   {
     "model": "E35L",
-    "seatsCount": 13
+    "seatsCount": 13,
+    "modelName": "Embraer Legacy 600",
+    "kilometerCost": 1.0,
+    "speed": 834.0,
+    "use": true
   },
   {
     "model": "L410",
-    "seatsCount": 19
+    "seatsCount": 19,
+    "modelName": "Let L-410 Turbolet",
+    "kilometerCost": 1.0,
+    "speed": 417.0,
+    "use": true
   },
   {
     "model": "A333",
-    "seatsCount": 440
+    "seatsCount": 440,
+    "modelName": "Airbus A330-300",
+    "kilometerCost": 1.0,
+    "speed": 871.0,
+    "use": true
   },
   {
     "model": "DHC6",
-    "seatsCount": 19
+    "seatsCount": 19,
+    "modelName": "De Havilland Canada DHC-6 Twin Otter",
+    "kilometerCost": 1.0,
+    "speed": 278.0,
+    "use": true
   },
   {
     "model": "T204",
-    "seatsCount": 26
+    "seatsCount": 26,
+    "modelName": "Tu-204",
+    "kilometerCost": 1.0,
+    "speed": 840.0,
+    "use": true
   },
   {
     "model": "E170",
-    "seatsCount": 100
+    "seatsCount": 100,
+    "modelName": "Embraer E170",
+    "kilometerCost": 1.0,
+    "speed": 797.0,
+    "use": true
   },
   {
     "model": "GLF6",
-    "seatsCount": 18
+    "seatsCount": 18,
+    "modelName": "Gulfstream G650",
+    "kilometerCost": 1.0,
+    "speed": 904.0,
+    "use": true
   },
   {
     "model": "CRJ1",
-    "seatsCount": 50
+    "seatsCount": 50,
+    "modelName": "Bombardier CRJ-100",
+    "kilometerCost": 1.0,
+    "speed": 786.0,
+    "use": true
   },
   {
     "model": "A124",
-    "seatsCount": 7
+    "seatsCount": 7,
+    "modelName": "An-124",
+    "kilometerCost": 1.0,
+    "speed": 840.0,
+    "use": true
   },
   {
     "model": "B38M",
-    "seatsCount": 189
+    "seatsCount": 189,
+    "modelName": "Boeing 737 MAX 8",
+    "kilometerCost": 1.0,
+    "speed": 842.0,
+    "use": true
   },
   {
     "model": "IL62",
-    "seatsCount": 195
+    "seatsCount": 195,
+    "modelName": "Il-62",
+    "kilometerCost": 1.0,
+    "speed": 820.0,
+    "use": true
   },
   {
     "model": "E75L",
-    "seatsCount": 80
+    "seatsCount": 80,
+    "modelName": "Embraer E175",
+    "kilometerCost": 1.0,
+    "speed": 797.0,
+    "use": true
   },
   {
     "model": "BR23",
-    "seatsCount": 2
+    "seatsCount": 2,
+    "modelName": "Bristell b23",
+    "kilometerCost": 1.0,
+    "speed": 185.0,
+    "use": true
   },
   {
     "model": "A332",
-    "seatsCount": 380
+    "seatsCount": 380,
+    "modelName": "Airbus A330-200",
+    "kilometerCost": 1.0,
+    "speed": 871.0,
+    "use": true
   },
   {
     "model": "FA7X",
-    "seatsCount": 14
+    "seatsCount": 14,
+    "modelName": "Dassault Falcon 7X",
+    "kilometerCost": 1.0,
+    "speed": 904.0,
+    "use": true
   },
   {
     "model": "F900",
-    "seatsCount": 19
+    "seatsCount": 19,
+    "modelName": "Dassault Falcon 900",
+    "kilometerCost": 1.0,
+    "speed": 915.0,
+    "use": true
   },
   {
     "model": "GLF4",
-    "seatsCount": 16
+    "seatsCount": 16,
+    "modelName": "Gulfstream IV",
+    "kilometerCost": 1.0,
+    "speed": 875.0,
+    "use": true
   },
   {
     "model": "B763",
-    "seatsCount": 202
+    "seatsCount": 202,
+    "modelName": "Boeing 767-300",
+    "kilometerCost": 1.0,
+    "speed": 851.0,
+    "use": true
   },
   {
     "model": "T154",
-    "seatsCount": 180
+    "seatsCount": 180,
+    "modelName": "Tupolev Tu-154",
+    "kilometerCost": 1.0,
+    "speed": 925.0,
+    "use": true
   },
   {
     "model": "SIRA",
-    "seatsCount": 10
+    "seatsCount": 2,
+    "modelName": "Tecnam P2002 Sierra",
+    "kilometerCost": 1.0,
+    "speed": 222.0,
+    "use": true
   },
   {
     "model": "GLF5",
-    "seatsCount": 19
+    "seatsCount": 19,
+    "modelName": "Gulfstream V",
+    "kilometerCost": 1.0,
+    "speed": 882.0,
+    "use": true
   },
   {
     "model": "B789",
-    "seatsCount": 246
+    "seatsCount": 246,
+    "modelName": "Boeing 787 Dreamliner",
+    "kilometerCost": 1.0,
+    "speed": 903.0,
+    "use": true
   },
   {
     "model": "GRND",
-    "seatsCount": 10
+    "seatsCount": 10,
+    "modelName": "",
+    "kilometerCost": 1.0,
+    "speed": 1.0,
+    "use": false
   },
   {
     "model": "AEST",
-    "seatsCount": 2
+    "seatsCount": 2,
+    "modelName": "Piper Aerostar",
+    "kilometerCost": 1.0,
+    "speed": 390.0,
+    "use": true
   },
   {
     "model": "GL5T",
-    "seatsCount": 16
+    "seatsCount": 16,
+    "modelName": "Bombardier Global Express 5000",
+    "kilometerCost": 1.0,
+    "speed": 904.0,
+    "use": true
   },
   {
     "model": "EC35",
-    "seatsCount": 5
+    "seatsCount": 5,
+    "modelName": "Eurocopter EC-135",
+    "kilometerCost": 1.0,
+    "speed": 254.0,
+    "use": true
   }
 ]
