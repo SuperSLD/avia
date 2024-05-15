@@ -16,6 +16,8 @@ private:
 
     QList<ChartLine> nonStraightnessBarChart;
 
+    QList<QList<QString>> aircraftModelsTable;
+
 public:
 
     MetricsModel(TransportGraphModel original, QList<TransportGraphModel> graphs, Area area);

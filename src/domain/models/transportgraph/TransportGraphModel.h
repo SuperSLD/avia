@@ -36,6 +36,12 @@ public:
     double nonStraightness = 0.0;
     /// название сохранения
     QString save = "s0";
+    /// распределение самолетов по типам
+    QHash<QString, int> aircraftCount;
+    /// общее количество самолетов
+    int allTypesCount = 0;
+    /// среднее количество пассажиров на рейсе
+    double midPassCount = 0.0;
 
     qint64 passCount = 0;
     QList<ChartLine> passCountPieChart;
@@ -67,6 +73,8 @@ public:
     QList<QString> findPath(QString from, QString to);
     QList<QString> reconstructPath(QHash<QString, QString> cameFrom, QString from, QString to);
     double pathSize(QList<QString> path);
+
+    void setAircraftCount(QHash<QString, int> aircraftCount);
 };
 
 

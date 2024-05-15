@@ -184,6 +184,9 @@ set(PROJECT_SOURCES
         src/data/db/dbconnector/models/metrics/MetricsModel.h
         src/domain/models/transportgraph/PriorityQueue.h
         src/domain/models/transportgraph/aircraftmodels/Aircraft.h
+        src/ui/common/widgets/analytictable/table/TableCellWidget.cpp
+        src/ui/common/widgets/analytictable/table/TableCellWidget.h
+        src/domain/models/analytics/view/TableAnalyticsCell.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

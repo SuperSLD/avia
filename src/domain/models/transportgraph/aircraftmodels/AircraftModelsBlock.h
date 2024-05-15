@@ -33,6 +33,8 @@ public:
      */
     int passengersCount(double k, QString aircraftModel);
 
+    Aircraft getByModel(QString model);
+
     /**
      * Определение опимального самолета, подходящего для выполнения рейса.
      * @param distance расстояние между аэропортами.

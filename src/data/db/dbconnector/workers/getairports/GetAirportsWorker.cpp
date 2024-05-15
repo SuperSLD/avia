@@ -24,6 +24,7 @@ using bsoncxx::builder::basic::make_document;
 
 void GetAirportsWorker::run() {
     auto passengersCount = AircraftModelsBlock();
+    auto aircraftHash = QHash<QString, int>();
     try {
         mongocxx::uri uri((uriString.toStdString()));
         mongocxx::client client(uri);
@@ -37,8 +38,15 @@ void GetAirportsWorker::run() {
                     )
             );
             auto flight = dynamic_cast<FlightModel*>(factory->createModel(document.object()));
+
             if (flight->data.inRussia()) {
-                auto passCount = passengersCount.passengersCount(0.8, flight->data.act);
+                auto aircraftModel = flight->data.act;
+                if (aircraftHash.contains(aircraftModel)) {
+                    aircraftHash[aircraftModel] += 1;
+                } else {
+                    aircraftHash[aircraftModel] = 1;
+                }
+                auto passCount = passengersCount.passengersCount(0.8, aircraftModel);
                 auto airport = AirportModel(
                         flight->data.apdstia,
                         flight->data.apdstna,
@@ -68,6 +76,7 @@ void GetAirportsWorker::run() {
         }
 
         auto graph = TransportGraphModel(airports.values());
+        graph.setAircraftCount(aircraftHash);
         settingsRepository->setJson("airports", graph.toJson());
         emit resultReady(graph, true);
     } catch (std::exception& e) {

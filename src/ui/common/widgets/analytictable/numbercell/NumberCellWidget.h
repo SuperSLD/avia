@@ -5,7 +5,6 @@
 #ifndef AVIA_NUMBERCELLWIDGET_H
 #define AVIA_NUMBERCELLWIDGET_H
 
-
 #include <QFrame>
 
 class NumberCellWidget: public QFrame {

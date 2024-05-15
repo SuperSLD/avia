@@ -41,5 +41,21 @@ int AircraftModelsBlock::passengersCount(double k, QString aircraftModel) {
 }
 
 Aircraft AircraftModelsBlock::getOptimalAircraft(double distance, double passCount) {
+    auto min = 299792458000.0;
+    Aircraft optimal = aircraftList.first();
+    foreach(auto aircraft, aircraftList) {
+        auto current = abs(1 - (aircraft.range / distance) * (aircraft.seatsCount / (double) middleCount));
+        if (aircraft.range > distance and current < min) {
+            optimal = aircraft;
+            min = current;
+        }
+    }
+    return optimal;
+}
+
+Aircraft AircraftModelsBlock::getByModel(QString model) {
+    foreach(auto aircraft, aircraftList) {
+        if (aircraft.model == model) return aircraft;
+    }
     return aircraftList.first();
 }
