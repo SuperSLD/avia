@@ -5,7 +5,8 @@
     "modelName": "Airbus A321",
     "kilometerCost": 1.0,
     "speed": 833.0,
-    "use": true
+    "use": true,
+    "range": 5930.0
   },
   {
     "model": "B738",
@@ -13,7 +14,8 @@
     "modelName": "Boeing 737-800",
     "kilometerCost": 1.0,
     "speed": 828.0,
-    "use": true
+    "use": true,
+    "range": 5713.0
   },
   {
     "model": "A20N",
@@ -21,7 +23,8 @@
     "modelName": "Airbus A320neo",
     "kilometerCost": 1.0,
     "speed": 828.0,
-    "use": true
+    "use": true,
+    "range": 6500.0
   },
   {
     "model": "A320",
@@ -29,7 +32,8 @@
     "modelName": "Airbus A320",
     "kilometerCost": 1.0,
     "speed": 840.0,
-    "use": true
+    "use": true,
+    "range": 6100.0
   },
   {
     "model": "SU95",
@@ -37,7 +41,8 @@
     "modelName": "Sukhoi Superjet 100",
     "kilometerCost": 1.0,
     "speed": 841.0,
-    "use": true
+    "use": true,
+    "range": 3048.0
   },
   {
     "model": "IL76",
@@ -45,7 +50,8 @@
     "modelName": "IL-76",
     "kilometerCost": 1.0,
     "speed": 900.0,
-    "use": true
+    "use": true,
+    "range": 4400.0
   },
   {
     "model": "A319",
@@ -53,7 +59,8 @@
     "modelName": "Airbus A319",
     "kilometerCost": 1.0,
     "speed": 931.0,
-    "use": true
+    "use": true,
+    "range": 6940.0
   },
   {
     "model": "BE9L",
@@ -61,7 +68,8 @@
     "modelName": "BEECH E90 King Air",
     "kilometerCost": 1.0,
     "speed": 459.0,
-    "use": true
+    "use": true,
+    "range": 2446.0
   },
   {
     "model": "CL35",
@@ -69,7 +77,8 @@
     "modelName": "Bombardier Challenger 350",
     "kilometerCost": 1.0,
     "speed": 850.0,
-    "use": true
+    "use": true,
+    "range": 5900.0
   },
   {
     "model": "CRJ2",
@@ -77,7 +86,8 @@
     "modelName": "Bombardier CRJ200",
     "kilometerCost": 1.0,
     "speed": 785.0,
-    "use": true
+    "use": true,
+    "range": 3050.0
   },
   {
     "model": "A21N",
@@ -85,7 +95,8 @@
     "modelName": "Airbus A321neo",
     "kilometerCost": 1.0,
     "speed": 833.0,
-    "use": true
+    "use": true,
+    "range": 7400.0
   },
   {
     "model": "E190",
@@ -93,7 +104,8 @@
     "modelName": "Embraer E190",
     "kilometerCost": 1.0,
     "speed": 829.0,
-    "use": true
+    "use": true,
+    "range": 4537.0
   },
   {
     "model": "B734",
@@ -101,7 +113,8 @@
     "modelName": "Boeing 737-400",
     "kilometerCost": 1.0,
     "speed": 796.0,
-    "use": true
+    "use": true,
+    "range": 3820.0
   },
   {
     "model": "DH8D",
@@ -109,7 +122,8 @@
     "modelName": "Bombardier Dash 8 Q400",
     "kilometerCost": 1.0,
     "speed": 667.0,
-    "use": true
+    "use": true,
+    "range": 2040.0
   },
   {
     "model": "YK42",
@@ -117,7 +131,8 @@
     "modelName": "Yak-42",
     "kilometerCost": 1.0,
     "speed": 700.0,
-    "use": true
+    "use": true,
+    "range": 1900.0
   },
   {
     "model": "B773",
@@ -125,7 +140,8 @@
     "modelName": "Boeing 777-300",
     "kilometerCost": 1.0,
     "speed": 905.0,
-    "use": true
+    "use": true,
+    "range": 7035.0
   },
   {
     "model": "A359",
@@ -133,7 +149,8 @@
     "modelName": "Airbus A350-900",
     "kilometerCost": 1.0,
     "speed": 903.0,
-    "use": true
+    "use": true,
+    "range": 15372.0
   },
   {
     "model": "B77W",
@@ -141,7 +158,8 @@
     "modelName": "Boeing 777-300ER",
     "kilometerCost": 1.0,
     "speed": 905.0,
-    "use": true
+    "use": true,
+    "range": 10190.0
   },
   {
     "model": "B735",
@@ -149,7 +167,8 @@
     "modelName": "Boeing 737-500",
     "kilometerCost": 1.0,
     "speed": 807.0,
-    "use": true
+    "use": true,
+    "range": 4398.0
   },
   {
     "model": "AT72",
@@ -157,7 +176,8 @@
     "modelName": "ATR 72-600",
     "kilometerCost": 1.0,
     "speed": 500.0,
-    "use": true
+    "use": true,
+    "range": 1665.0
   },
   {
     "model": "CL60",
@@ -165,7 +185,8 @@
     "modelName": "Bombardier Challenger 600",
     "kilometerCost": 1.0,
     "speed": 850.0,
-    "use": true
+    "use": true,
+    "range": 7400.0
   },
   {
     "model": "B739",
@@ -173,7 +194,8 @@
     "modelName": "Boeing 737-900",
     "kilometerCost": 1.0,
     "speed": 823.0,
-    "use": true
+    "use": true,
+    "range": 5460.0
   },
   {
     "model": "B733",
@@ -181,7 +203,8 @@
     "modelName": "Boeing 737-300",
     "kilometerCost": 1.0,
     "speed": 796.0,
-    "use": true
+    "use": true,
+    "range": 4176.0
   },
   {
     "model": "B737",
@@ -189,7 +212,8 @@
     "modelName": "Boeing 737-700",
     "kilometerCost": 1.0,
     "speed": 852.0,
-    "use": true
+    "use": true,
+    "range": 5570.0
   },
   {
     "model": "",
@@ -197,7 +221,8 @@
     "modelName": "",
     "kilometerCost": 1.0,
     "speed": 1.0,
-    "use": false
+    "use": false,
+    "range": 1.0
   },
   {
     "model": "B752",
@@ -205,7 +230,8 @@
     "modelName": "Boeing 757-200",
     "kilometerCost": 1.0,
     "speed": 850.0,
-    "use": true
+    "use": true,
+    "range": 7250.0
   },
   {
     "model": "PC12",
@@ -213,7 +239,8 @@
     "modelName": "Pilatus PC-12",
     "kilometerCost": 1.0,
     "speed": 537.0,
-    "use": true
+    "use": true,
+    "range": 3269.0
   },
   {
     "model": "GLEX",
@@ -221,7 +248,8 @@
     "modelName": "Bombardier Global Express",
     "kilometerCost": 1.0,
     "speed": 904.0,
-    "use": true
+    "use": true,
+    "range": 11130.0
   },
   {
     "model": "A148",
@@ -229,15 +257,17 @@
     "modelName": "An-148",
     "kilometerCost": 1.0,
     "speed": 835.0,
-    "use": true
+    "use": true,
+    "range": 4400.0
   },
   {
     "model": "B350",
     "seatsCount": 9,
-    "modelName": "Beechcraft Super Kibg Air 350",
+    "modelName": "Beechcraft Super King Air 350",
     "kilometerCost": 1.0,
     "speed": 487.0,
-    "use": true
+    "use": true,
+    "range": 3345.0
   },
   {
     "model": "E35L",
@@ -245,7 +275,8 @@
     "modelName": "Embraer Legacy 600",
     "kilometerCost": 1.0,
     "speed": 834.0,
-    "use": true
+    "use": true,
+    "range": 6300.0
   },
   {
     "model": "L410",
@@ -253,7 +284,8 @@
     "modelName": "Let L-410 Turbolet",
     "kilometerCost": 1.0,
     "speed": 417.0,
-    "use": true
+    "use": true,
+    "range": 1430.0
   },
   {
     "model": "A333",
@@ -261,7 +293,8 @@
     "modelName": "Airbus A330-300",
     "kilometerCost": 1.0,
     "speed": 871.0,
-    "use": true
+    "use": true,
+    "range": 11750.0
   },
   {
     "model": "DHC6",
@@ -269,7 +302,8 @@
     "modelName": "De Havilland Canada DHC-6 Twin Otter",
     "kilometerCost": 1.0,
     "speed": 278.0,
-    "use": true
+    "use": true,
+    "range": 1480.0
   },
   {
     "model": "T204",
@@ -277,7 +311,8 @@
     "modelName": "Tu-204",
     "kilometerCost": 1.0,
     "speed": 840.0,
-    "use": true
+    "use": true,
+    "range": 6000.0
   },
   {
     "model": "E170",
@@ -285,7 +320,8 @@
     "modelName": "Embraer E170",
     "kilometerCost": 1.0,
     "speed": 797.0,
-    "use": true
+    "use": true,
+    "range": 3982.0
   },
   {
     "model": "GLF6",
@@ -293,7 +329,8 @@
     "modelName": "Gulfstream G650",
     "kilometerCost": 1.0,
     "speed": 904.0,
-    "use": true
+    "use": true,
+    "range": 13000.0
   },
   {
     "model": "CRJ1",
@@ -301,7 +338,8 @@
     "modelName": "Bombardier CRJ-100",
     "kilometerCost": 1.0,
     "speed": 786.0,
-    "use": true
+    "use": true,
+    "range": 3056.0
   },
   {
     "model": "A124",
@@ -309,7 +347,8 @@
     "modelName": "An-124",
     "kilometerCost": 1.0,
     "speed": 840.0,
-    "use": true
+    "use": true,
+    "range": 3700.0
   },
   {
     "model": "B38M",
@@ -317,7 +356,8 @@
     "modelName": "Boeing 737 MAX 8",
     "kilometerCost": 1.0,
     "speed": 842.0,
-    "use": true
+    "use": true,
+    "range": 6500.0
   },
   {
     "model": "IL62",
@@ -325,7 +365,8 @@
     "modelName": "Il-62",
     "kilometerCost": 1.0,
     "speed": 820.0,
-    "use": true
+    "use": true,
+    "range": 10000.0
   },
   {
     "model": "E75L",
@@ -333,7 +374,8 @@
     "modelName": "Embraer E175",
     "kilometerCost": 1.0,
     "speed": 797.0,
-    "use": true
+    "use": true,
+    "range": 4074.0
   },
   {
     "model": "BR23",
@@ -341,7 +383,8 @@
     "modelName": "Bristell b23",
     "kilometerCost": 1.0,
     "speed": 185.0,
-    "use": true
+    "use": true,
+    "range": 1112.0
   },
   {
     "model": "A332",
@@ -349,7 +392,8 @@
     "modelName": "Airbus A330-200",
     "kilometerCost": 1.0,
     "speed": 871.0,
-    "use": true
+    "use": true,
+    "range": 13450.0
   },
   {
     "model": "FA7X",
@@ -357,7 +401,8 @@
     "modelName": "Dassault Falcon 7X",
     "kilometerCost": 1.0,
     "speed": 904.0,
-    "use": true
+    "use": true,
+    "range": 11019.0
   },
   {
     "model": "F900",
@@ -365,7 +410,8 @@
     "modelName": "Dassault Falcon 900",
     "kilometerCost": 1.0,
     "speed": 915.0,
-    "use": true
+    "use": true,
+    "range": 7400.0
   },
   {
     "model": "GLF4",
@@ -373,7 +419,8 @@
     "modelName": "Gulfstream IV",
     "kilometerCost": 1.0,
     "speed": 875.0,
-    "use": true
+    "use": true,
+    "range": 7815.0
   },
   {
     "model": "B763",
@@ -381,7 +428,8 @@
     "modelName": "Boeing 767-300",
     "kilometerCost": 1.0,
     "speed": 851.0,
-    "use": true
+    "use": true,
+    "range": 7200.0
   },
   {
     "model": "T154",
@@ -389,7 +437,8 @@
     "modelName": "Tupolev Tu-154",
     "kilometerCost": 1.0,
     "speed": 925.0,
-    "use": true
+    "use": true,
+    "range": 2500.0
   },
   {
     "model": "SIRA",
@@ -397,7 +446,8 @@
     "modelName": "Tecnam P2002 Sierra",
     "kilometerCost": 1.0,
     "speed": 222.0,
-    "use": true
+    "use": true,
+    "range": 1092.0
   },
   {
     "model": "GLF5",
@@ -405,7 +455,8 @@
     "modelName": "Gulfstream V",
     "kilometerCost": 1.0,
     "speed": 882.0,
-    "use": true
+    "use": true,
+    "range": 10186.0
   },
   {
     "model": "B789",
@@ -413,7 +464,8 @@
     "modelName": "Boeing 787 Dreamliner",
     "kilometerCost": 1.0,
     "speed": 903.0,
-    "use": true
+    "use": true,
+    "range": 14140.0
   },
   {
     "model": "GRND",
@@ -421,7 +473,8 @@
     "modelName": "",
     "kilometerCost": 1.0,
     "speed": 1.0,
-    "use": false
+    "use": false,
+    "range": 1.0
   },
   {
     "model": "AEST",
@@ -429,7 +482,8 @@
     "modelName": "Piper Aerostar",
     "kilometerCost": 1.0,
     "speed": 390.0,
-    "use": true
+    "use": true,
+    "range": 1648.0
   },
   {
     "model": "GL5T",
@@ -437,7 +491,8 @@
     "modelName": "Bombardier Global Express 5000",
     "kilometerCost": 1.0,
     "speed": 904.0,
-    "use": true
+    "use": true,
+    "range": 9630.0
   },
   {
     "model": "EC35",
@@ -445,6 +500,7 @@
     "modelName": "Eurocopter EC-135",
     "kilometerCost": 1.0,
     "speed": 254.0,
-    "use": true
+    "use": true,
+    "range": 635.0
   }
 ]
