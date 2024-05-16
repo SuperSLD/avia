@@ -183,6 +183,10 @@ set(PROJECT_SOURCES
         src/data/db/dbconnector/models/metrics/MetricsModel.cpp
         src/data/db/dbconnector/models/metrics/MetricsModel.h
         src/domain/models/transportgraph/PriorityQueue.h
+        src/domain/usecases/area/atime/ATime.cpp
+        src/domain/usecases/area/atime/ATime.h
+        src/domain/usecases/area/taccessibility/TAccessibility.cpp
+        src/domain/usecases/area/taccessibility/TAccessibility.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
