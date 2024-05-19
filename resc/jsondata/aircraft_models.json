@@ -50,7 +50,7 @@
     "modelName": "IL-76",
     "kilometerCost": 1.0,
     "speed": 900.0,
-    "use": true,
+    "use": false,
     "range": 4400.0
   },
   {
