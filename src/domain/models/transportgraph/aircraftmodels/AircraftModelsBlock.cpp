@@ -15,6 +15,7 @@ AircraftModelsBlock::AircraftModelsBlock() {
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     auto val = file.readAll();
     auto array = QJsonDocument::fromJson(val).array();
+    auto useCount = 0;
     foreach(auto v, array) {
         auto aircraft = v.toObject();
         aircraftList.append(
@@ -28,9 +29,12 @@ AircraftModelsBlock::AircraftModelsBlock() {
                 aircraft["use"].toBool()
             )
         );
-        middleCount += aircraft["seatsCount"].toInt();
+        if (aircraftList.last().use) {
+            useCount++;
+            middleCount += aircraftList.last().seatsCount;
+        }
     }
-    middleCount /= array.count();
+    middleCount /= useCount;
 }
 
 int AircraftModelsBlock::passengersCount(double k, QString aircraftModel) {
@@ -44,10 +48,12 @@ Aircraft AircraftModelsBlock::getOptimalAircraft(double distance, double passCou
     auto min = 299792458000.0;
     Aircraft optimal = aircraftList.first();
     foreach(auto aircraft, aircraftList) {
-        auto current = abs(1 - (aircraft.range / distance) * (aircraft.seatsCount / (double) middleCount));
-        if (aircraft.range > distance and current < min) {
-            optimal = aircraft;
-            min = current;
+        if (aircraft.use) {
+            auto current = abs(1 - (aircraft.range / distance) * (aircraft.seatsCount / (double) middleCount));
+            if (aircraft.range > distance and current < min) {
+                optimal = aircraft;
+                min = current;
+            }
         }
     }
     return optimal;

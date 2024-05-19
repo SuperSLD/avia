@@ -68,7 +68,7 @@
     "modelName": "BEECH E90 King Air",
     "kilometerCost": 1.0,
     "speed": 459.0,
-    "use": true,
+    "use": false,
     "range": 2446.0
   },
   {
@@ -77,7 +77,7 @@
     "modelName": "Bombardier Challenger 350",
     "kilometerCost": 1.0,
     "speed": 850.0,
-    "use": true,
+    "use": false,
     "range": 5900.0
   },
   {
@@ -185,7 +185,7 @@
     "modelName": "Bombardier Challenger 600",
     "kilometerCost": 1.0,
     "speed": 850.0,
-    "use": true,
+    "use": false,
     "range": 7400.0
   },
   {
@@ -239,7 +239,7 @@
     "modelName": "Pilatus PC-12",
     "kilometerCost": 1.0,
     "speed": 537.0,
-    "use": true,
+    "use": false,
     "range": 3269.0
   },
   {
@@ -248,7 +248,7 @@
     "modelName": "Bombardier Global Express",
     "kilometerCost": 1.0,
     "speed": 904.0,
-    "use": true,
+    "use": false,
     "range": 11130.0
   },
   {
@@ -266,7 +266,7 @@
     "modelName": "Beechcraft Super King Air 350",
     "kilometerCost": 1.0,
     "speed": 487.0,
-    "use": true,
+    "use": false,
     "range": 3345.0
   },
   {
@@ -275,7 +275,7 @@
     "modelName": "Embraer Legacy 600",
     "kilometerCost": 1.0,
     "speed": 834.0,
-    "use": true,
+    "use": false,
     "range": 6300.0
   },
   {
@@ -284,7 +284,7 @@
     "modelName": "Let L-410 Turbolet",
     "kilometerCost": 1.0,
     "speed": 417.0,
-    "use": true,
+    "use": false,
     "range": 1430.0
   },
   {
@@ -302,7 +302,7 @@
     "modelName": "De Havilland Canada DHC-6 Twin Otter",
     "kilometerCost": 1.0,
     "speed": 278.0,
-    "use": true,
+    "use": false,
     "range": 1480.0
   },
   {
@@ -311,7 +311,7 @@
     "modelName": "Tu-204",
     "kilometerCost": 1.0,
     "speed": 840.0,
-    "use": true,
+    "use": false,
     "range": 6000.0
   },
   {
@@ -329,7 +329,7 @@
     "modelName": "Gulfstream G650",
     "kilometerCost": 1.0,
     "speed": 904.0,
-    "use": true,
+    "use": false,
     "range": 13000.0
   },
   {
@@ -347,7 +347,7 @@
     "modelName": "An-124",
     "kilometerCost": 1.0,
     "speed": 840.0,
-    "use": true,
+    "use": false,
     "range": 3700.0
   },
   {
@@ -383,7 +383,7 @@
     "modelName": "Bristell b23",
     "kilometerCost": 1.0,
     "speed": 185.0,
-    "use": true,
+    "use": false,
     "range": 1112.0
   },
   {
@@ -401,7 +401,7 @@
     "modelName": "Dassault Falcon 7X",
     "kilometerCost": 1.0,
     "speed": 904.0,
-    "use": true,
+    "use": false,
     "range": 11019.0
   },
   {
@@ -410,7 +410,7 @@
     "modelName": "Dassault Falcon 900",
     "kilometerCost": 1.0,
     "speed": 915.0,
-    "use": true,
+    "use": false,
     "range": 7400.0
   },
   {
@@ -419,7 +419,7 @@
     "modelName": "Gulfstream IV",
     "kilometerCost": 1.0,
     "speed": 875.0,
-    "use": true,
+    "use": false,
     "range": 7815.0
   },
   {
@@ -446,7 +446,7 @@
     "modelName": "Tecnam P2002 Sierra",
     "kilometerCost": 1.0,
     "speed": 222.0,
-    "use": true,
+    "use": false,
     "range": 1092.0
   },
   {
@@ -455,7 +455,7 @@
     "modelName": "Gulfstream V",
     "kilometerCost": 1.0,
     "speed": 882.0,
-    "use": true,
+    "use": false,
     "range": 10186.0
   },
   {
@@ -482,7 +482,7 @@
     "modelName": "Piper Aerostar",
     "kilometerCost": 1.0,
     "speed": 390.0,
-    "use": true,
+    "use": false,
     "range": 1648.0
   },
   {
@@ -491,7 +491,7 @@
     "modelName": "Bombardier Global Express 5000",
     "kilometerCost": 1.0,
     "speed": 904.0,
-    "use": true,
+    "use": false,
     "range": 9630.0
   },
   {
@@ -500,7 +500,7 @@
     "modelName": "Eurocopter EC-135",
     "kilometerCost": 1.0,
     "speed": 254.0,
-    "use": true,
+    "use": false,
     "range": 635.0
   }
 ]
