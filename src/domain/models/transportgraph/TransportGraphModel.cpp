@@ -16,7 +16,7 @@
 
 using namespace math_functions;
 
-TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString save, double greed, double gregariousness) {
+TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString save, double greed, double gregariousness, double cost, double part) {
     this->airports = airports;
     foreach(auto airport, airports) {
         if (maxAirportFlightCount < airport.flightCount) {
@@ -26,6 +26,8 @@ TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString s
     this->greed = greed;
     this->gregariousness = gregariousness;
     this->save = save;
+    this->cost = cost;
+    this->part = part;
     calcDataForView();
     calcAnalyticData();
 }
@@ -47,6 +49,8 @@ TransportGraphModel::TransportGraphModel(QJsonObject json) {
     }
     allTypesCount = json["allTypesCount"].toInt();
     midPassCount = json["midPassCount"].toDouble();
+    this->cost = json["cost"].toDouble();
+    this->part = json["part"].toDouble();
     calcDataForView();
     calcAnalyticData();
 }
@@ -92,6 +96,8 @@ QJsonObject TransportGraphModel::toJson() {
     json["aircraftCountValues"] = aircraftCountValues;
     json["allTypesCount"] = allTypesCount;
     json["midPassCount"] = midPassCount;
+    json["cost"] = cost;
+    json["part"] = part;
     return json;
 }
 

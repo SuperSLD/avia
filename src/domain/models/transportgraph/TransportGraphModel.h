@@ -42,13 +42,17 @@ public:
     int allTypesCount = 0;
     /// среднее количество пассажиров на рейсе
     double midPassCount = 0.0;
+    /// стоимость перевозок
+    double cost = 0.0;
+    /// часть распределенных пассажиров
+    double part = 1.0;
 
     qint64 passCount = 0;
     QList<ChartLine> passCountPieChart;
 
     AirportModel mainTransportNode;
 
-    TransportGraphModel(QList<AirportModel> airports, QString save = "s0", double greed = 1.0, double gregariousness = 1.0);
+    TransportGraphModel(QList<AirportModel> airports, QString save = "s0", double greed = 1.0, double gregariousness = 1.0, double cost = 1, double part = 1.0);
     TransportGraphModel(QJsonObject json);
     TransportGraphModel() {}
 

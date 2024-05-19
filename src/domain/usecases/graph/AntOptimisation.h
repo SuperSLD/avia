@@ -42,13 +42,15 @@ public:
     int numAirports;
     int numPassengers;
 
+    /// часть распределяемых пассажиров
+    double part;
     /// жадность
     double greed = 1;
     /// стадность
     double gregariousness = 1;
 
-    AntColonyOptimization(QString save, std::vector<Airport> airports, int numPassengers, QList<AirportModel> original, double greed, double gregariousness)
-        : save(save), airports(airports), numAirports(airports.size()), numPassengers(numPassengers), originalAirports(original), greed(greed), gregariousness(gregariousness) {}
+    AntColonyOptimization(QString save, std::vector<Airport> airports, int numPassengers, QList<AirportModel> original, double greed, double gregariousness, double part)
+        : save(save), airports(airports), numAirports(airports.size()), numPassengers(numPassengers), originalAirports(original), greed(greed), gregariousness(gregariousness), part(part) {}
 
     // Инициализация ребер транспортной сети
     void initializeEdges() {
@@ -120,13 +122,14 @@ public:
 
         auto aircraftHash = QHash<QString, int>();
         auto aircraftModels = AircraftModelsBlock();
+        auto sumCost = 0.0;
 
         // Распределение пассажиров по ребрам
         while (numPassengers > 0) {
             auto edgeIndex = selectNextEdge();
             if (edgeIndex < 0) {
                 qDebug() << "distributePassengers -1 index";
-                return createGraph(aircraftHash);
+                return createGraph(aircraftHash, sumCost);
             }
             auto edge = edges[edgeIndex];
 
@@ -135,6 +138,7 @@ public:
                     airports[edge.destination].lon, airports[edge.destination].lat
             );
             auto optimalAircraft = aircraftModels.getOptimalAircraft(distance, airports[edge.source].passengersOut);
+            sumCost += distance * optimalAircraft.kilometerCost;
 
             int count = optimalAircraft.seatsCount;
             int passengersToTransport = min(count, airports[edge.source].passengersOut);
@@ -152,10 +156,10 @@ public:
             emit changeProgress(numPassengers);
         }
 
-        return createGraph(aircraftHash);
+        return createGraph(aircraftHash, sumCost);
     }
 
-    TransportGraphModel createGraph(QHash<QString, int> aircraftHash) {
+    TransportGraphModel createGraph(QHash<QString, int> aircraftHash, double cost) {
         foreach(auto a, originalAirports) {
             a.connectedAirports = QList<QString>();
         }
@@ -179,7 +183,7 @@ public:
                 originalAirports[airportTo].connectedPassCount[from] = e.passCount;
             }
         }
-        auto graph = TransportGraphModel(originalAirports, save, greed, gregariousness);
+        auto graph = TransportGraphModel(originalAirports, save, greed, gregariousness, cost, part);
         graph.setAircraftCount(aircraftHash);
         return graph;
     }

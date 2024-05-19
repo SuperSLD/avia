@@ -17,6 +17,7 @@ private:
     QList<ChartLine> nonStraightnessBarChart;
 
     QList<QList<QString>> aircraftModelsTable;
+    QList<QList<QString>> parkDiffTable;
 
 public:
 

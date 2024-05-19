@@ -52,6 +52,33 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
             aircraftModelsTable.append(row);
         }
     }
+
+
+    auto allGraphs = QList<TransportGraphModel> {original};
+    foreach (auto graph, graphs) {
+        allGraphs.append(graph);
+    }
+    titleRow = QList<QString> {""};
+    auto typeRow = QList<QString> {"Количество типов"};
+    auto costRow = QList<QString> {"Стоимость перевозок"};
+    auto countRow = QList<QString> {"Количество самолетов"};
+    auto partRow = QList<QString> {"Расчетная часть пассажиров"};
+    foreach(auto graph, allGraphs) {
+        auto typeCount = 0;
+        foreach(auto type, graph.aircraftCount.values()) {
+            if (type * 100 / (double) graph.allTypesCount >= 0.1) typeCount++;
+        }
+        titleRow.append(graph.save);
+        typeRow.append(QString::number(typeCount));
+        costRow.append(QString::number((graph.cost / graph.part) / (double) 1000000, 'f', 2) + "M");
+        countRow.append(QString::number((int) (graph.allTypesCount / graph.part) / 1000) + "K");
+        partRow.append(QString::number(graph.part * 100, 'f', 2) + "%");
+    }
+    parkDiffTable.append(titleRow);
+    parkDiffTable.append(typeRow);
+    parkDiffTable.append(costRow);
+    parkDiffTable.append(countRow);
+    parkDiffTable.append(partRow);
 }
 
 QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
@@ -69,6 +96,11 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell *>({
             new TableAnalyticsCell(aircraftModelsTable, true),
+        }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell *>({
+            new TableAnalyticsCell(parkDiffTable, true),
         }))
     );
     if (isSingle) {
