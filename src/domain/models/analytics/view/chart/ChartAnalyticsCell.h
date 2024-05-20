@@ -12,6 +12,11 @@
 
 #include <QList>
 
+/**
+ * Ячейка с графиком.
+ *
+ * (самая запарная и загадочная ячейка в аналитической таблице)
+ */
 class ChartAnalyticsCell: public BaseAnalyticsCell {
 
 public:
@@ -19,6 +24,29 @@ public:
     QString name;
     QList<ChartLine> lines;
 
+    /**
+     * Ячейка с графиком.
+     *
+     * Используется для отображения графика.
+     * Доступные типы графиков:
+     * 1) Круговая диаграмма (pie, pie_hide_values)
+     *    1.1) Круговая диаграмма с подписями значений (pie).
+     *    1.2) Круговая диаграмма без подписей значений (pie_hide_values).
+     * 2) Линии (line)
+     * 3) Столбцы (bar)
+     *
+     * Когда использовать:
+     * Использовать в случае, когда нужно отобразить график.
+     *
+     * Пример использования:
+     * new ChartAnalyticsCell("bar", "Распределение рейсов", flightCountBarChart),
+     * new ChartAnalyticsCell("pie", "Распределение рейсов", flightCountPieChart),
+     *
+     * @param type тип графика (pie, pie_hide_values, line, bar)
+     * @param name название графика
+     * @param lines данные для отображения графика.
+     *              (смотри ChartLine для подробностей)
+     */
     ChartAnalyticsCell(
             QString type,
             QString name,

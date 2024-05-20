@@ -1,0 +1,418 @@
+[
+  {
+    "name": "URJ",
+    "len": 3250.0
+  },
+  {
+    "name": "URS",
+    "len": 2500.0
+  },
+  {
+    "name": "KUF",
+    "len": 3001.0
+  },
+  {
+    "name": "IAA",
+    "len": 2513.0
+  },
+  {
+    "name": "HMA",
+    "len": 2800.0
+  },
+  {
+    "name": "PKV",
+    "len": 2514.0
+  },
+  {
+    "name": "VKO",
+    "len": 3500.0
+  },
+  {
+    "name": "PKC",
+    "len": 3400.0
+  },
+  {
+    "name": "UFA",
+    "len": 3761.0
+  },
+  {
+    "name": "TJM",
+    "len": 3003.0
+  },
+  {
+    "name": "IAR",
+    "len": 3010.0
+  },
+  {
+    "name": "CEE",
+    "len": 2523.0
+  },
+  {
+    "name": "VUS",
+    "len": 1799.0
+  },
+  {
+    "name": "IWA",
+    "len": 2504.0
+  },
+  {
+    "name": "UUD",
+    "len": 3400.0
+  },
+  {
+    "name": "ARH",
+    "len": 2500.0
+  },
+  {
+    "name": "VGD",
+    "len": 1500.0
+  },
+  {
+    "name": "LED",
+    "len": 3780.0
+  },
+  {
+    "name": "HTA",
+    "len": 2800.0
+  },
+  {
+    "name": "REN",
+    "len": 2500.0
+  },
+  {
+    "name": "KZN",
+    "len": 3750.0
+  },
+  {
+    "name": "TLK",
+    "len": 3100.0
+  },
+  {
+    "name": "SCW",
+    "len": 2500.0
+  },
+  {
+    "name": "GDX",
+    "len": 3452.0
+  },
+  {
+    "name": "SVO",
+    "len": 3700.0
+  },
+  {
+    "name": "STW",
+    "len": 2600.0
+  },
+  {
+    "name": "KVK",
+    "len": 2500.0
+  },
+  {
+    "name": "TOF",
+    "len": 2800.0
+  },
+  {
+    "name": "TBW",
+    "len": 2100.0
+  },
+  {
+    "name": "OVB",
+    "len": 3602.0
+  },
+  {
+    "name": "ABA",
+    "len": 3250.0
+  },
+  {
+    "name": "KHV",
+    "len": 4000.0
+  },
+  {
+    "name": "MRV",
+    "len": 3900.0
+  },
+  {
+    "name": "NBC",
+    "len": 2499.0
+  },
+  {
+    "name": "VVO",
+    "len": 3500.0
+  },
+  {
+    "name": "ITU",
+    "len": 2300.0
+  },
+  {
+    "name": "USK",
+    "len": 2502.0
+  },
+  {
+    "name": "PEE",
+    "len": 3204.0
+  },
+  {
+    "name": "AER",
+    "len": 2895.0
+  },
+  {
+    "name": "BAX",
+    "len": 2853.0
+  },
+  {
+    "name": "OSF",
+    "len": 2050.0
+  },
+  {
+    "name": "KEJ",
+    "len": 3200.0
+  },
+  {
+    "name": "RGK",
+    "len": 2300.0
+  },
+  {
+    "name": "BTK",
+    "len": 3160.0
+  },
+  {
+    "name": "NER",
+    "len": 3610.0
+  },
+  {
+    "name": "MQF",
+    "len": 3250.0
+  },
+  {
+    "name": "OHH",
+    "len": 1300.0
+  },
+  {
+    "name": "DME",
+    "len": 3800.0
+  },
+  {
+    "name": "IJK",
+    "len": 2500.0
+  },
+  {
+    "name": "YKS",
+    "len": 3600.0
+  },
+  {
+    "name": "NYM",
+    "len": 2548.0
+  },
+  {
+    "name": "KLF",
+    "len": 2200.0
+  },
+  {
+    "name": "IKT",
+    "len": 3565.0
+  },
+  {
+    "name": "PES",
+    "len": 2500.0
+  },
+  {
+    "name": "BQS",
+    "len": 3000.0
+  },
+  {
+    "name": "DEE",
+    "len": 2055.0
+  },
+  {
+    "name": "ZIA",
+    "len": 4600.0
+  },
+  {
+    "name": "SVX",
+    "len": 3025.0
+  },
+  {
+    "name": "SGC",
+    "len": 2780.0
+  },
+  {
+    "name": "CEK",
+    "len": 3200.0
+  },
+  {
+    "name": "OVS",
+    "len": 2502.0
+  },
+  {
+    "name": "UUS",
+    "len": 3400.0
+  },
+  {
+    "name": "GSV",
+    "len": 3000.0
+  },
+  {
+    "name": "NAL",
+    "len": 2200.0
+  },
+  {
+    "name": "UCT",
+    "len": 2652.0
+  },
+  {
+    "name": "ULV",
+    "len": 3100.0
+  },
+  {
+    "name": "SKX",
+    "len": 2802.0
+  },
+  {
+    "name": "GDZ",
+    "len": 3100.0
+  },
+  {
+    "name": "MJZ",
+    "len": 2800.0
+  },
+  {
+    "name": "GRV",
+    "len": 3900.0
+  },
+  {
+    "name": "IGT",
+    "len": 3000.0
+  },
+  {
+    "name": "NJC",
+    "len": 3200.0
+  },
+  {
+    "name": "NOJ",
+    "len": 2506.0
+  },
+  {
+    "name": "PWE",
+    "len": 2500.0
+  },
+  {
+    "name": "VKV",
+    "len": 2441.0
+  },
+  {
+    "name": "GOJ",
+    "len": 3000.0
+  },
+  {
+    "name": "KSZ",
+    "len": 1800.0
+  },
+  {
+    "name": "EYK",
+    "len": 2142.0
+  },
+  {
+    "name": "MCX",
+    "len": 2640.0
+  },
+  {
+    "name": "PEZ",
+    "len": 2800.0
+  },
+  {
+    "name": "KRO",
+    "len": 2601.0
+  },
+  {
+    "name": "ASF",
+    "len": 3200.0
+  },
+  {
+    "name": "OMS",
+    "len": 2501.0
+  },
+  {
+    "name": "CKL",
+    "len": 3632.0
+  },
+  {
+    "name": "ULY",
+    "len": 5000.0
+  },
+  {
+    "name": "NSK",
+    "len": 2821.0
+  },
+  {
+    "name": "VOG",
+    "len": 2800.0
+  },
+  {
+    "name": "SLY",
+    "len": 2723.0
+  },
+  {
+    "name": "KGD",
+    "len": 3350.0
+  },
+  {
+    "name": "KJA",
+    "len": 3700.0
+  },
+  {
+    "name": "MMK",
+    "len": 2500.0
+  },
+  {
+    "name": "KYZ",
+    "len": 2700.0
+  },
+  {
+    "name": "NOZ",
+    "len": 2679.0
+  },
+  {
+    "name": "NYA",
+    "len": 2532.0
+  },
+  {
+    "name": "OGZ",
+    "len": 3000.0
+  },
+  {
+    "name": "NUX",
+    "len": 2550.0
+  },
+  {
+    "name": "DYR",
+    "len": 3500.0
+  },
+  {
+    "name": "KGP",
+    "len": 2507.0
+  },
+  {
+    "name": "EKS",
+    "len": 1625.0
+  },
+  {
+    "name": "NLI",
+    "len": 1860.0
+  },
+  {
+    "name": "NGK",
+    "len": 1750.0
+  },
+  {
+    "name": "NNM",
+    "len": 2562.0
+  },
+  {
+    "name": "CSY",
+    "len": 2512.0
+  },
+  {
+    "name": "OSW",
+    "len": 2900.0
+  }
+]

@@ -8,6 +8,13 @@
 #include <QString>
 #include <QList>
 
+/**
+ * Линия графика.
+ *
+ * Оторбажается для каждого типа графика по своему.
+ * Согласен, это было хорошим решением, сделать настолько
+ * непрозрачную схему.
+ */
 class ChartLine {
 
 public:
@@ -17,6 +24,18 @@ public:
     QList<double> valuesByX;
     QList<QString> valuesName;
 
+    /**
+     * Линия графика.
+     *
+     * Надеюсь не придется использовать это.
+     * В случае вопросов писать автору.
+     *
+     * @param colors
+     * @param values
+     * @param name
+     * @param valuesByX
+     * @param valuesName
+     */
     ChartLine(
         QList<QString> colors,
         QList<double> values,

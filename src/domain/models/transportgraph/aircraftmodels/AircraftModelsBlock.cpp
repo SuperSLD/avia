@@ -15,6 +15,7 @@ AircraftModelsBlock::AircraftModelsBlock() {
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     auto val = file.readAll();
     auto array = QJsonDocument::fromJson(val).array();
+    file.close();
     auto useCount = 0;
     foreach(auto v, array) {
         auto aircraft = v.toObject();
@@ -35,6 +36,15 @@ AircraftModelsBlock::AircraftModelsBlock() {
         }
     }
     middleCount /= useCount;
+
+    file.setFileName(":/resc/resc/jsondata/russia_vpp.json");
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    val = file.readAll();
+    array = QJsonDocument::fromJson(val).array();
+    foreach(auto v, array) {
+        auto airport = v.toObject();
+        vppInfo[airport["name"].toString()] = airport["len"].toDouble();
+    }
 }
 
 int AircraftModelsBlock::passengersCount(double k, QString aircraftModel) {

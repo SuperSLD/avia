@@ -9,7 +9,7 @@
 #include <src/ui/theme/AppTheme.h>
 using namespace theme;
 
-TitleCellWidget::TitleCellWidget(QString title) {
+TitleCellWidget::TitleCellWidget(QString title, bool isSmall) {
     auto *vContainer = new QVBoxLayout;
     vContainer->setAlignment(Qt::AlignHCenter);
     vContainer->setSpacing(24);
@@ -18,7 +18,11 @@ TitleCellWidget::TitleCellWidget(QString title) {
     auto *titleLabel = new QLabel(title);
 
     vContainer->addWidget(titleLabel);
-    textStyle("titleLabel", titleLabel, 36, colorBlack(), true);
+    if (isSmall) {
+        textStyle("titleLabel", titleLabel, 24, colorTextGray(), false);
+    } else {
+        textStyle("titleLabel", titleLabel, 36, colorBlack(), true);
+    }
 
     coloredCardStyle("TitleCellWidget", this, colorWhite(), 24, 0);
     this->setLayout(vContainer);

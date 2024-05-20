@@ -11,6 +11,9 @@
 #include "BaseAnalyticsCell.h"
 #include "src/ui/common/widgets/analytictable/numbercell/NumberCellWidget.h"
 
+/**
+ * Ячейка аналитики с числом.
+ */
 class NumberAnalyticsCell: public BaseAnalyticsCell {
 
 public:
@@ -18,6 +21,23 @@ public:
     QString name;
     QString color;
 
+    /**
+     * Ячейка аналитики с одним значением.
+     *
+     * Когда использовать:
+     * Использовать в случае, когда нужно отобразить одно
+     * значение любого типа.
+     *
+     * Пример использования:
+     * new NumberAnalyticsCell(mainTransportNode.id,"Главный транспортный узел", colorSecondary()),
+     * new NumberAnalyticsCell(QString::number(viewLines.size()),"Количество связей", colorPrimary()),
+     *
+     * @param value значение, которое будет отображено
+     *              большим шрифтом в центре ячейки.
+     * @param name небольшой текст, который будет написан под
+     *             значением.
+     * @param color цвет текста value.
+     */
     NumberAnalyticsCell(
         QString value,
         QString name,
