@@ -3,10 +3,11 @@
     "model": "A321",
     "seatsCount": 220,
     "modelName": "Airbus A321",
-    "kilometerCost": 1.0,
-    "speed": 833.0,
+    "kilometerCost": 2.615,
+    "speed": 840.0,
     "use": true,
-    "range": 5930.0
+    "range": 3800.0,
+    "vpp": 2180
   },
   {
     "model": "B738",
