@@ -166,6 +166,12 @@ void TransportGraphModel::calcAnalyticData() {
                 midRealDistance += realDistance;
                 count++;
             }
+            // складывание дистанций маршрутов
+            foreach(auto connected, a.connectedAirports) {
+                auto connectedAirport = findAirport(connected);
+                auto flightDistance = distanceInKm(a.lon, a.lat, connectedAirport.lon, connectedAirport.lat);
+                sumDistance += flightDistance;
+            }
         }
         midFlightDistance /= count;
         midRealDistance /= count;
@@ -209,7 +215,7 @@ QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell *>({
                 new NumberAnalyticsCell(QString::number(midFlightDistance, 'f', 1),"Cреднее расстояние до главного транспортного узла", colorPrimary()),
-                new NumberAnalyticsCell(QString::number(midRealDistance, 'f', 1),"Cредняя длинна маршрута до главного транспортного узла", colorPrimary()),
+                new NumberAnalyticsCell(QString::number(midRealDistance, 'f', 1),"Cредняя длина маршрута до главного транспортного узла", colorPrimary()),
                 new NumberAnalyticsCell(QString::number(nonStraightness, 'f', 4),"Коэффициент непрямолинейности", colorPrimary()),
             }))
         );

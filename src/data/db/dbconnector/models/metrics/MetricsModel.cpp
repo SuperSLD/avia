@@ -9,9 +9,11 @@
 MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphModel> graphs, Area area) {
     auto nonStraightness = QList<double> { original.nonStraightness };
     auto saveNames = QList<QString> { original.save };
+    auto plot = QList<double> { original.sumDistance / area.sumArea };
     foreach(auto graph, graphs) {
         saveNames.append(graph.save);
         nonStraightness.append(graph.nonStraightness);
+        plot.append(graph.sumDistance / area.sumArea);
     }
 
     nonStraightnessBarChart.append(
@@ -23,13 +25,22 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
             saveNames
         )
     );
+    plotBarChart.append(
+        ChartLine(
+            QList<QString>({colorPrimary()}),
+            plot,
+            QList<QString>({"плотность"}),
+            QList<double>(),
+            saveNames
+        )
+    );
 
     auto aircraftModelsBlock = AircraftModelsBlock();
     auto titleRow = QList<QString> { "Самолет", "Дальность", "Скорость", "Кресел", "s0" };
-    auto totalRow = QList<QString> { "Всего" , "-", "-", "-", QString::number(original.allTypesCount * 0.001)};
+    auto totalRow = QList<QString> { "Всего" , "-", "-", "-", QString::number(original.allTypesCount / 1000) + "K"};
     foreach(auto save, graphs) {
         titleRow.append(save.save);
-        totalRow.append(QString::number(save.allTypesCount));
+        totalRow.append(QString::number(save.allTypesCount / save.part / 1000) + "K");
     }
     aircraftModelsTable.append(titleRow);
     aircraftModelsTable.append(totalRow);
@@ -91,6 +102,11 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
     rows.append(
          AnalyticsRow(QList<BaseAnalyticsCell *>({
             new ChartAnalyticsCell("bar", "Коэффициент непрямолинейности", nonStraightnessBarChart),
+        }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell *>({
+            new ChartAnalyticsCell("bar", "Плотность", plotBarChart),
         }))
     );
     rows.append(

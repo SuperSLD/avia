@@ -38,6 +38,7 @@ private:
                     maxDistanceCount = pointsDistance[colorIndex];
                     maxDistanceCountZone = colorIndex;
                 }
+                sumArea += point.s;
             }
         }
 
@@ -78,9 +79,15 @@ private:
 
 public:
     QList<QList<AreaPoint>> points;
+
+    /// максимальное расстояние до аэропорта
     double maxDistance = 0;
+    /// максимальное время до аэропорта
     double maxTime = 0;
+    /// количество точек
     int pointsCount = 0;
+    /// суммарная площадь секторов
+    double sumArea = 0.0;
 
     Area(QList<QList<AreaPoint>> points) {
         this->points = points;
