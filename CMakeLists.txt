@@ -42,6 +42,7 @@ set(PROJECT_SOURCES
         resc.qrc
         resc/jsondata/aircraft_models.json
         resc/jsondata/russia.json
+        resc/jsondata/russia_vpp.json
         resc/splash.svg
         resc/settings.svg
         resc/routes.svg
