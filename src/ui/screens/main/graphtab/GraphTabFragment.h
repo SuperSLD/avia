@@ -27,6 +27,7 @@ private:
     QString save = "s1";
 
     TransportGraphModel graph;
+    bool graphLoaded = false;
 
     QHash<QString, TransportGraphModel> results;
 

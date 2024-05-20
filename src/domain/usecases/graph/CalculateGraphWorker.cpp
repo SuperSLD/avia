@@ -48,7 +48,8 @@ void CalculateGraphWorker::run() {
             totalPassengers,
             graph.airports,
             greed,
-            gregariousness
+            gregariousness,
+            passengersPart
     );
     connect(aco, &AntColonyOptimization::changeProgress, this, &CalculateGraphWorker::handleProgress);
     auto newGraph = aco->distributePassengers();

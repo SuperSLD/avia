@@ -21,6 +21,8 @@ public:
     QList<AirportModel> airports;
     int    maxAirportFlightCount = 0;
     QList<QList<double>> viewLines;
+    QList<double> viewLinesPassCount;
+    double lineMaxCount = 0.0;
 
     /// жадность
     double greed = 1.0;
@@ -32,15 +34,25 @@ public:
     double midRealDistance = 0.0;
     /// коэффициент непрямолинейности маршрутов
     double nonStraightness = 0.0;
-
+    /// название сохранения
     QString save = "s0";
+    /// распределение самолетов по типам
+    QHash<QString, int> aircraftCount;
+    /// общее количество самолетов
+    int allTypesCount = 0;
+    /// среднее количество пассажиров на рейсе
+    double midPassCount = 0.0;
+    /// стоимость перевозок
+    double cost = 0.0;
+    /// часть распределенных пассажиров
+    double part = 1.0;
 
     qint64 passCount = 0;
     QList<ChartLine> passCountPieChart;
 
     AirportModel mainTransportNode;
 
-    TransportGraphModel(QList<AirportModel> airports, QString save = "s0", double greed = 1.0, double gregariousness = 1.0);
+    TransportGraphModel(QList<AirportModel> airports, QString save = "s0", double greed = 1.0, double gregariousness = 1.0, double cost = 1, double part = 1.0);
     TransportGraphModel(QJsonObject json);
     TransportGraphModel() {}
 
@@ -65,6 +77,8 @@ public:
     QList<QString> findPath(QString from, QString to);
     QList<QString> reconstructPath(QHash<QString, QString> cameFrom, QString from, QString to);
     double pathSize(QList<QString> path);
+
+    void setAircraftCount(QHash<QString, int> aircraftCount);
 };
 
 

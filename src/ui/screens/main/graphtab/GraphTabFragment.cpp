@@ -101,6 +101,7 @@ void GraphTabFragment::onConnectionChecked(bool isConnected) {
 void GraphTabFragment::onAirportsLoaded(TransportGraphModel graph, bool fromDB) {
     if (fromDB) {
         loadingContainer->stopLoading();
+        graphLoaded = true;
         this->graph = graph;
     }
 }
@@ -121,13 +122,13 @@ void GraphTabFragment::startCalculation() {
 }
 
 void GraphTabFragment::onGraphCalculated(QString key, TransportGraphModel graph) {
-    loadingContainer->stopLoading();
+    if (graphLoaded) loadingContainer->stopLoading();
     results[key] = TransportGraphModel(graph);
     onSaveSelected(save);
 }
 
 void GraphTabFragment::onCalculateGraphProgressChange(int progress) {
-    loadingContainer->startLoading("Нераспределенные пассажиры " + QString::number(progress));
+    loadingContainer->startLoading(save + " -> Нераспределенные пассажиры " + QString::number(progress));
 }
 
 void GraphTabFragment::onSaveSelected(QString save) {

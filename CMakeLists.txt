@@ -29,7 +29,7 @@ set(CMAKE_OSX_ARCHITECTURES x86_64)
 #    endif()
 #endif()
 
-set(CMAKE_PREFIX_PATH "/Users/egor/Qt/5.15.2/clang_64")
+set(CMAKE_PREFIX_PATH "/Users/leonidsolanoj/Qt/5.15.2/clang_64")
 #set(Qt5_DIR "/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5")
 find_package(QT NAMES Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5Svg REQUIRED)
@@ -153,8 +153,8 @@ set(PROJECT_SOURCES
         src/ui/screens/main/graphtab/GraphTabFragment.h
         src/domain/models/transportgraph/TransportGraphModel.cpp
         src/domain/models/transportgraph/TransportGraphModel.h
-        src/domain/models/transportgraph/PassengersCountBlock.cpp
-        src/domain/models/transportgraph/PassengersCountBlock.h
+        src/domain/models/transportgraph/aircraftmodels/AircraftModelsBlock.cpp
+        src/domain/models/transportgraph/aircraftmodels/AircraftModelsBlock.h
         src/domain/usecases/graph/AntOptimisation.h
         src/data/net/models/datawrapper/DataWrapper.cpp
         src/data/net/models/datawrapper/DataWrapper.h
@@ -183,10 +183,10 @@ set(PROJECT_SOURCES
         src/data/db/dbconnector/models/metrics/MetricsModel.cpp
         src/data/db/dbconnector/models/metrics/MetricsModel.h
         src/domain/models/transportgraph/PriorityQueue.h
-        src/domain/usecases/area/atime/ATime.cpp
-        src/domain/usecases/area/atime/ATime.h
-        src/domain/usecases/area/taccessibility/TAccessibility.cpp
-        src/domain/usecases/area/taccessibility/TAccessibility.h
+        src/domain/models/transportgraph/aircraftmodels/Aircraft.h
+        src/ui/common/widgets/analytictable/table/TableCellWidget.cpp
+        src/ui/common/widgets/analytictable/table/TableCellWidget.h
+        src/domain/models/analytics/view/TableAnalyticsCell.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

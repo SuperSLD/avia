@@ -206,10 +206,14 @@ void MapWidget::drawAirports(QPainter *painter) {
     }
 }
 
-
 void MapWidget::drawGraph(TransportGraphModel graphForDraw, QPainter *painter, QString color) {
-    painter->setPen(QColor(color));
-    foreach(auto line, graphForDraw.viewLines) {
+    for (int i = 0; i < graphForDraw.viewLines.size(); i++) {
+        auto line = graphForDraw.viewLines[i];
+        auto passCount = graphForDraw.viewLinesPassCount[i];
+        if (passCount > graphForDraw.lineMaxCount) passCount = graphForDraw.lineMaxCount;
+        auto lineColor = colors[(int) (passCount / (double) graphForDraw.lineMaxCount * (colors.size() - 1))];
+    //auto lineColor = colors[colors.size() - 1 - (int) (passCount / (double) graphForDraw.lineMaxCount * (colors.size() - 1))];
+        painter->setPen(QColor(lineColor));
         auto p1 = latLonToXY(line[1], line[0]);
         auto p2 = latLonToXY(line[3], line[2]);
         painter->drawLine(p1, p2);

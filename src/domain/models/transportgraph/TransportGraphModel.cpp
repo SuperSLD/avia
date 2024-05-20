@@ -16,7 +16,7 @@
 
 using namespace math_functions;
 
-TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString save, double greed, double gregariousness) {
+TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString save, double greed, double gregariousness, double cost, double part) {
     this->airports = airports;
     foreach(auto airport, airports) {
         if (maxAirportFlightCount < airport.flightCount) {
@@ -26,6 +26,8 @@ TransportGraphModel::TransportGraphModel(QList<AirportModel> airports, QString s
     this->greed = greed;
     this->gregariousness = gregariousness;
     this->save = save;
+    this->cost = cost;
+    this->part = part;
     calcDataForView();
     calcAnalyticData();
 }
@@ -42,6 +44,13 @@ TransportGraphModel::TransportGraphModel(QJsonObject json) {
     this->greed = json["greed"].toDouble();
     this->gregariousness = json["gregariousness"].toDouble();
     this->save = json["save"].toString();
+    for (int i = 0; i < json["aircraftCountKeys"].toArray().count(); i++) {
+        aircraftCount[json["aircraftCountKeys"].toArray()[i].toString()] = json["aircraftCountValues"].toArray()[i].toInt();
+    }
+    allTypesCount = json["allTypesCount"].toInt();
+    midPassCount = json["midPassCount"].toDouble();
+    this->cost = json["cost"].toDouble();
+    this->part = json["part"].toDouble();
     calcDataForView();
     calcAnalyticData();
 }
@@ -77,11 +86,24 @@ QJsonObject TransportGraphModel::toJson() {
     json["greed"] = (double) greed;
     json["gregariousness"] = (double) gregariousness;
     json["save"] = save;
+    auto aircraftCountKeys = QJsonArray();
+    auto aircraftCountValues = QJsonArray();
+    foreach(auto key, aircraftCount.keys()) {
+        aircraftCountKeys.append(key);
+        aircraftCountValues.append(aircraftCount[key]);
+    }
+    json["aircraftCountKeys"] = aircraftCountKeys;
+    json["aircraftCountValues"] = aircraftCountValues;
+    json["allTypesCount"] = allTypesCount;
+    json["midPassCount"] = midPassCount;
+    json["cost"] = cost;
+    json["part"] = part;
     return json;
 }
 
 void TransportGraphModel::calcDataForView() {
     QHash<QString, QList<double>> lines;
+    QHash<QString, double> lineCount;
     foreach(auto airport, airports) {
         foreach(auto connectedAirportId, airport.connectedAirports) {
             auto lineId = airport.id + connectedAirportId;
@@ -94,10 +116,14 @@ void TransportGraphModel::calcDataForView() {
                     connectedAirport.lon,
                     connectedAirport.lat,
                 };
+                lineCount[lineId] = airport.connectedPassCount[connectedAirportId];
+                if (lineCount[lineId] > lineMaxCount) lineMaxCount = lineCount[lineId];
             }
         }
     }
     viewLines = lines.values();
+    viewLinesPassCount = lineCount.values();
+    lineMaxCount = 0.05 * lineMaxCount;
 }
 
 AirportModel TransportGraphModel::findAirport(QString id) {
@@ -271,4 +297,11 @@ bool TransportGraphModel::hasConnection(QString from, QString to, QList<QString>
         }
     }
     return false;
+}
+
+void TransportGraphModel::setAircraftCount(QHash<QString, int> aircraftCount) {
+    this->aircraftCount = aircraftCount;
+    foreach(auto count, aircraftCount.values()) {
+        allTypesCount += count;
+    }
 }
