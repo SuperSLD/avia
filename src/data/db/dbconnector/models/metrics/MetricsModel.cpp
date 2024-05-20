@@ -100,6 +100,11 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
         }), true)
     );
     rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell *>({
+            new TitleAnalyticsCell("Результаты сравнения графов", true),
+        }), true)
+    );
+    rows.append(
          AnalyticsRow(QList<BaseAnalyticsCell *>({
             new ChartAnalyticsCell("bar", "Коэффициент непрямолинейности", nonStraightnessBarChart),
         }))
@@ -108,6 +113,11 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
         AnalyticsRow(QList<BaseAnalyticsCell *>({
             new ChartAnalyticsCell("bar", "Плотность", plotBarChart),
         }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell *>({
+            new TitleAnalyticsCell("Результаты сравнения парков воздушных судов", true),
+        }), true)
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell *>({

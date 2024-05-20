@@ -16,6 +16,7 @@ class TitleAnalyticsCell: public BaseAnalyticsCell {
 
 public:
     QString title;
+    bool isSmall;
 
     /**
      * Ячейка с заголовком.
@@ -28,15 +29,18 @@ public:
      * new TitleAnalyticsCell("Результаты вычислений графа " + save)
      *
      * @param title заголовок, отображающийся крупным шрифтоа.
+     * @param isSmall true, если заголовок маленький.
      */
     TitleAnalyticsCell(
-        QString title
+        QString title,
+        bool isSmall = false
     ) {
         this->title = title;
+        this->isSmall = isSmall;
     }
 
     QWidget* getView() override {
-        return new TitleCellWidget(title);
+        return new TitleCellWidget(title, isSmall);
     }
 };
 
