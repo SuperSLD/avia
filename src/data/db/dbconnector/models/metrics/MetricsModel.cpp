@@ -35,6 +35,7 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
         if (graph.cost < minCost) {
             minCost = graph.cost;
             minCostSaveIndex = saveIndex;
+            optimalSave = graph.save;
         }
 
         greedLine[graph.greed] = graph.cost;
@@ -93,7 +94,6 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
             aircraftModelsTable.append(row);
         }
     }
-
 
     auto allGraphs = QList<TransportGraphModel> {original};
     foreach (auto graph, graphs) {
@@ -209,6 +209,34 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
         )
     );
 
+    optimalParkTable.append(QList<QString>{ "Модель", "Код", "Скорость", "Кресел", "ВПП", "Дальность", "Количество" });
+    auto optimalTypes = QList<double>();
+    auto optimalTypesKeys = QList<QString>();
+    foreach(auto key, graphs[minCostSaveIndex].aircraftCount.keys()) {
+        auto aircraft = aircraftModelsBlock.getByModel(key);
+        optimalParkTable.append(
+            QList<QString> {
+                aircraft.modelName,
+                aircraft.model,
+                QString::number(aircraft.speed) + " км/ч",
+                QString::number(aircraft.seatsCount),
+                QString::number(aircraft.vppLen) + " м",
+                QString::number(aircraft.range) + " км",
+                QString::number(graphs[minCostSaveIndex].aircraftCount[key] * 100 / (double) graphs[minCostSaveIndex].allTypesCount, 'f', 1) + "%"
+            }
+        );
+        optimalTypes.append(graphs[minCostSaveIndex].aircraftCount[key] * 100 / (double) graphs[minCostSaveIndex].allTypesCount);
+        optimalTypesKeys.append(key);
+    }
+
+    optimalTypesPieChart.append(
+            ChartLine(
+                    QList<QString>({ colors }),
+                    optimalTypes,
+                    optimalTypesKeys
+            )
+    );
+
     qDebug() << sortedGregariousnessKeys;
     qDebug() << sortedGregariousnessValues;
     qDebug() << sortedGreedKeys;
@@ -273,6 +301,21 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
         AnalyticsRow(QList<BaseAnalyticsCell *>({
             new ChartAnalyticsCell("line", "Жадность от стоимости", greedLineChart),
             new ChartAnalyticsCell("line", "Стадность от стоимости", gregariousnessLineChart),
+        }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell *>({
+            new TitleAnalyticsCell("Оптимальным парком по стоимости является " + optimalSave + "\nНиже приведена информация о нем.", true),
+        }), true)
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell *>({
+                new ChartAnalyticsCell("pie", "Распределение типов ВС", optimalTypesPieChart),
+        }))
+    );
+    rows.append(
+        AnalyticsRow(QList<BaseAnalyticsCell *>({
+            new TableAnalyticsCell(optimalParkTable, true),
         }))
     );
     if (isSingle) {

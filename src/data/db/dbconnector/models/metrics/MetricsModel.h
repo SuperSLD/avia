@@ -18,6 +18,7 @@ private:
     QList<ChartLine> nonStraightnessBarChart;
     /// график плотности
     QList<ChartLine> plotBarChart;
+
     /// график количества типов
     QList<ChartLine> typesBarChart;
     /// график стоимости парка
@@ -31,8 +32,17 @@ private:
     /// график зависимости стадности от стоимости
     QList<ChartLine> gregariousnessLineChart;
 
+    /// таблица всех самолетов в парках
     QList<QList<QString>> aircraftModelsTable;
+    /// таблица сравнения показателей парков
     QList<QList<QString>> parkDiffTable;
+
+    /// название оптимального графа
+    QString optimalSave;
+    /// таблица данных о лучшем парке
+    QList<QList<QString>> optimalParkTable;
+    /// диаграмма типов парка
+    QList<ChartLine> optimalTypesPieChart;
 
 public:
 

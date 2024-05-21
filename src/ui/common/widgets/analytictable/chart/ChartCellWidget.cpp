@@ -49,7 +49,7 @@ ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> li
     if (type == "pie") {
         auto data = lines.first();
         for (int i = 0; i < data.values.size(); i++) {
-            auto *partLabel = new QLabel("▲ " + data.name[i] + " (" + QString::number(data.values[i]) + ")");
+            auto *partLabel = new QLabel("▲ " + data.name[i] + " (" + QString::number(data.values[i], 'f', 1) + ")");
             textStyle("partLabel", partLabel, 16, data.colors[i]);
             labelsContainer->addWidget(partLabel);
         }

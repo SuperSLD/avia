@@ -130,11 +130,15 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
 }
 
 QString LineChartWidget::getLabel(double val, bool isSecond) {
-    if (shortLabels && !isSecond) {
-        if (shortShortLabels) {
-            return QString::number((int) (val / 1000000)) + "M";
+    if (!isSecond) {
+        if (shortLabels) {
+            if (shortShortLabels) {
+                return QString::number((int) (val / 1000000)) + "M";
+            } else {
+                return QString::number((int) (val / 1000)) + "K";
+            }
         } else {
-            return QString::number((int) (val / 1000)) + "K";
+            return QString::number(val, 'f', 2);
         }
     } else {
         if (secondShortLabels) {
