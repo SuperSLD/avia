@@ -16,7 +16,8 @@ public:
     ChartCellWidget(
         QString type,
         QString name,
-        QList<ChartLine> lines
+        QList<ChartLine> lines,
+        bool min
     );
     ~ChartCellWidget();
 

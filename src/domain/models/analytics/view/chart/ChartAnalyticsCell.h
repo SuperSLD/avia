@@ -23,6 +23,7 @@ public:
     QString type;
     QString name;
     QList<ChartLine> lines;
+    bool min = false;
 
     /**
      * Ячейка с графиком.
@@ -50,17 +51,19 @@ public:
     ChartAnalyticsCell(
             QString type,
             QString name,
-            QList<ChartLine> lines
+            QList<ChartLine> lines,
+            bool min = false
     ) {
         this->type = type;
         this->name = name;
         this->lines = lines;
+        this->min = min;
     }
 
     ChartAnalyticsCell() {}
 
     QWidget* getView() override {
-        return new ChartCellWidget(type, name, lines);
+        return new ChartCellWidget(type, name, lines, min);
     }
 };
 

@@ -14,8 +14,22 @@ class MetricsModel: public BaseAnalyticModel {
 
 private:
 
+    /// график непрямолинейности
     QList<ChartLine> nonStraightnessBarChart;
+    /// график плотности
     QList<ChartLine> plotBarChart;
+    /// график количества типов
+    QList<ChartLine> typesBarChart;
+    /// график стоимости парка
+    QList<ChartLine> costBarChart;
+    /// график количества рейсов
+    QList<ChartLine> flightBarChart;
+    /// график зависимости стоимости от другого
+    QList<ChartLine> costLineChart;
+    /// график зависимости жадности от стоимости
+    QList<ChartLine> greedLineChart;
+    /// график зависимости стадности от стоимости
+    QList<ChartLine> gregariousnessLineChart;
 
     QList<QList<QString>> aircraftModelsTable;
     QList<QList<QString>> parkDiffTable;

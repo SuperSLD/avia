@@ -10,9 +10,10 @@
 #include <src/ui/theme/AppTheme.h>
 using namespace theme;
 
-BarChartWidget::BarChartWidget(int h, QList<ChartLine> lines) {
+BarChartWidget::BarChartWidget(int h, QList<ChartLine> lines, bool min) {
     this->lines = lines;
     this->h = h;
+    this->min = min;
 }
 
 BarChartWidget::~BarChartWidget() {
@@ -23,7 +24,8 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
     QPainter painter(this);
 
-    auto max = -1000000000.0;
+    auto max = -9999999999.0;
+    auto min =  9999999999.0;
     auto barsCount = 0;
     auto lineWithMaxBarCount = 0;
     for (int i = 0; i < lines.size(); i++) {
@@ -32,9 +34,8 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
             lineWithMaxBarCount = i;
         }
         for (int j = 0; j < lines[i].values.size(); j++) {
-            if (max < lines[i].values[j]) {
-                max = lines[i].values[j];
-            }
+            if (max < lines[i].values[j]) max = lines[i].values[j];
+            if (min > lines[i].values[j]) min = lines[i].values[j];
         }
     }
     if (max > 10000) shortLabels = true;
@@ -115,6 +116,8 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
             );
             if (lines[i].colors.size() == lines[i].values.size()) {
                 painter.fillPath(path, QColor(lines[i].colors[j]));
+            } else if (lines[i].colors.size() == 2) {
+                painter.fillPath(path, QColor(lines[i].colors[lines[i].values[j] == (this->min ? min : max) ? 0 : 1]));
             } else {
                 painter.fillPath(path, QColor(lines[i].colors.first()));
             }

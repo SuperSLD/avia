@@ -15,7 +15,7 @@
 #include <src/ui/theme/AppTheme.h>
 using namespace theme;
 
-ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> lines) {
+ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> lines, bool min) {
     auto *vContainer = new QVBoxLayout;
     vContainer->setSpacing(24);
     vContainer->setContentsMargins(24, 24, 24, 24);
@@ -33,7 +33,7 @@ ChartCellWidget::ChartCellWidget(QString type, QString name, QList<ChartLine> li
     } else if (type == "line") {
         chart = new LineChartWidget(400 - 10, lines);
     } else if (type == "bar") {
-        chart = new BarChartWidget(400 - 10, lines);
+        chart = new BarChartWidget(400 - 10, lines, min);
     } else {
         chart = new QFrame;
     }

@@ -25,6 +25,7 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
 
     auto max = -1000000000.0;
+    auto maxByX = -1000000000.0;
     auto pointCount = 0;
     auto lineWithMaxPointCount = 0;
     for (int i = 0; i < lines.size(); i++) {
@@ -33,12 +34,15 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
             lineWithMaxPointCount = i;
         }
         for (int j = 0; j < lines[i].values.size(); j++) {
-            if (max < lines[i].values[j]) {
-                max = lines[i].values[j];
-            }
+            if (max < lines[i].values[j]) max = lines[i].values[j];
+            if (maxByX < lines[i].valuesByX[j]) maxByX = lines[i].valuesByX[j];
         }
     }
     if (max > 10000) shortLabels = true;
+    if (max > 1000000) shortShortLabels = true;
+    if (maxByX > 10000) secondShortLabels = true;
+    if (maxByX > 1000000) secondShortShortLabels = true;
+
 
     // лейблы значений
     painter.setFont(QFont("Roboto", 16, QFont::Normal));
@@ -51,7 +55,7 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
                 this->height() * 0.1
         );
         painter.setPen(QPen(QColor(colorTextGray()), 3));
-        if (i != lineCount) painter.drawText(textRect, getLabel(lines[lineWithMaxPointCount].values.last() / lineCount * i));
+        if (i != lineCount) painter.drawText(textRect, getLabel(maxByX / lineCount * i,true));
         //painter.drawText(textRect, getLabel(i));
         painter.setPen(QPen(QColor(colorBorder()), 3));
         if (i != 0) {
@@ -111,7 +115,7 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
         QPainterPath path;
         for (int j = 0; j < lines[i].values.size(); j++) {
             auto point = QPointF(
-                    this->width() * j / (pointCount - 1),
+                    this->width() * (lines[i].valuesByX[j] / maxByX),
                     this->height() - 0.2 * this->height() - this->height() * 0.8 * lines[i].values[j] / max
             );
             if (j != 0) {
@@ -125,10 +129,22 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
     }
 }
 
-QString LineChartWidget::getLabel(double val) {
-    if (shortLabels) {
-        return QString::number((int) (val / 1000)) + "K";
+QString LineChartWidget::getLabel(double val, bool isSecond) {
+    if (shortLabels && !isSecond) {
+        if (shortShortLabels) {
+            return QString::number((int) (val / 1000000)) + "M";
+        } else {
+            return QString::number((int) (val / 1000)) + "K";
+        }
     } else {
-        return QString::number((int) val);
+        if (secondShortLabels) {
+            if (secondShortShortLabels) {
+                return QString::number((int) (val / 1000000)) + "M";
+            } else {
+                return QString::number((int) (val / 1000)) + "K";
+            }
+        } else {
+            return QString::number(val, 'f', 2);
+        }
     }
 }

@@ -17,8 +17,11 @@ private:
     QList<ChartLine> lines;
 
     bool shortLabels;
+    bool shortShortLabels;
+    bool secondShortLabels;
+    bool secondShortShortLabels;
 
-    QString getLabel(double val);
+    QString getLabel(double val, bool isSecond = false);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

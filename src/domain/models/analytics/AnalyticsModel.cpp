@@ -54,7 +54,7 @@ void AnalyticsModel::createDataForCharts() {
     distanceLineChart.append(
             ChartLine(
                     QList<QString>({colorPrimary()}),
-                    QList<double>({(double) 20.0, 24.0, 10.0, 54.0, 40.0}),
+                    QList<double>({(double) 200.0, 240.0, 100.0, 540.0, 400.0}),
                     QList<QString>({"Дистанция"}),
                     QList<double>({(double) 10, 20, 30, 40, 50})
             )
@@ -62,7 +62,7 @@ void AnalyticsModel::createDataForCharts() {
     distanceLineChart.append(
             ChartLine(
                     QList<QString>({colorSecondary()}),
-                    QList<double>({(double) 27.0, 14.0, 40.0, 30.0}),
+                    QList<double>({(double) 270.0, 140.0, 400.0, 300.0}),
                     QList<QString>({"Дистанция поменьше"}),
                     QList<double>({(double) 10, 20, 30, 40})
             )
