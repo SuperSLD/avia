@@ -15,6 +15,12 @@
 
 using namespace theme;
 
+/**
+ * Строка аналитической таблицы.
+ *
+ * Содержит в себе список BaseAnalyticsCell и
+ * отображает их по очереди. Этот клас не нужно трогать.
+ */
 class AnalyticsRow {
 
 public:
@@ -22,6 +28,13 @@ public:
     QList<BaseAnalyticsCell *> cells;
     bool alignLeft;
 
+    /**
+     * Строка аналитической таблицы.
+     *
+     * @param cells ячейки строки таблицы аналитики.
+     * @param alignLeft сдвигает все содержимое влево.
+     *                  По умолчанию ячейки занимают все свободное пространство.
+     */
     AnalyticsRow(
         QList<BaseAnalyticsCell *> cells,
         bool alignLeft = false

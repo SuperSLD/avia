@@ -21,6 +21,8 @@ private:
     QList<Aircraft> aircraftList;
     int middleCount = 0;
 
+    QHash<QString, double> vppInfo;
+
 public:
     AircraftModelsBlock();
 

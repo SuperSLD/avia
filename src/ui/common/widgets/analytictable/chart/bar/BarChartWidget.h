@@ -18,6 +18,7 @@ private:
 
     bool shortLabels;
     bool shortShortLabels;
+    bool isSmall;
 
     QString getLabel(double val);
 

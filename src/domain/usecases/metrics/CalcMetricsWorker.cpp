@@ -10,9 +10,14 @@ void CalcMetricsWorker::run() {
         if (dataChanged && areaLoaded && originalGraphLoaded && graphs.size() > 0) {
             qDebug() << "CalcMetricsWorker данные изменились" << id;
             dataChanged = false;
+            auto graphNames = QList<QString> {"s1", "s2", "s3", "s4"};
+            auto graphsList = QList<TransportGraphModel>();
+            foreach(auto save, graphNames) {
+                if (graphs.contains(save)) graphsList.append(graphs[save]);
+            }
             auto metrics = MetricsModel(
                 originalGraph,
-                graphs.values(),
+                graphsList,
                 area
             );
             emit metricsUpdated(metrics);

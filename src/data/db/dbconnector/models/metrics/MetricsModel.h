@@ -15,6 +15,7 @@ class MetricsModel: public BaseAnalyticModel {
 private:
 
     QList<ChartLine> nonStraightnessBarChart;
+    QList<ChartLine> plotBarChart;
 
     QList<QList<QString>> aircraftModelsTable;
     QList<QList<QString>> parkDiffTable;

@@ -12,7 +12,7 @@ class TitleCellWidget: public QFrame {
     Q_OBJECT
 
 public:
-    TitleCellWidget(QString title);
+    TitleCellWidget(QString title, bool isSmall);
 };
 
 

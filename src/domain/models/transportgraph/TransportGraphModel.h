@@ -46,6 +46,9 @@ public:
     double cost = 0.0;
     /// часть распределенных пассажиров
     double part = 1.0;
+    /// суммарная дальность перевозок до
+    /// главного транспортного узла
+    double sumDistance = 0.0;
 
     qint64 passCount = 0;
     QList<ChartLine> passCountPieChart;
