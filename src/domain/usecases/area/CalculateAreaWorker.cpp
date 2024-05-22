@@ -19,6 +19,7 @@ void CalculateAreaWorker::run() {
     QList<QList<AreaPoint>> points;
     //double TAccessibility = 0;
     int kolvo = 0;
+    TAcces =0;
     //double STime = 0;
     int index = 0;
     for(int k=0; k < graph.airports.size(); k++) {
@@ -52,7 +53,7 @@ void CalculateAreaWorker::run() {
                 //STime = STime +(d/60);
                 for (int l=0; l < atime.size(); l++) {
                     if (airportId == atime.at(l).id) {
-                        atime[l].aTime = + d/60;
+                        atime[l].aTime = atime[l].aTime + (d/60);
                         atime[l].count ++;
                     }
                 }
@@ -94,10 +95,12 @@ void CalculateAreaWorker::run() {
             TAcces = TAcces + tAcc.at(j).tAccessibility;
         }
     }
+    qDebug() << tAcc.at(0).id << tAcc.at(0).tAccessibility ;
+    qDebug() << "TAcces" << TAcces;
     TAcces = TAcces / kolvo;
     //TAccessibility = STime / kolvo;
     //qDebug() << graph.airports.size();
-    //qDebug() << "Количество расчетов расстояния" << kolvo;
+    qDebug() << "Количество расчетов расстояния" << kolvo;
     //qDebug() << "Суммарное время до аэропортов" << STime;
     qDebug() << "Общая транспортная доступность всех аэропортов = " << TAcces;
     qDebug() << "CalculateAreaWorker все посчитал" << points.size();
