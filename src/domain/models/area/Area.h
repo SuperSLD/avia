@@ -16,6 +16,8 @@
 
 #include <src/ui/theme/AppTheme.h>
 
+#include <cmath> // для round
+
 using namespace theme;
 
 class Area: public BaseAnalyticModel {
@@ -88,9 +90,12 @@ public:
     int pointsCount = 0;
     /// суммарная площадь секторов
     double sumArea = 0.0;
+    /// транспортная доступность России
+    double taccessibil = 0.0;
 
-    Area(QList<QList<AreaPoint>> points) {
+    Area(QList<QList<AreaPoint>> points, double TAccessibil) {
         this->points = points;
+        this->taccessibil = TAccessibil;
         foreach(auto line, points) {
             foreach(auto point, line) {
                 if (point.distance > maxDistance) {
@@ -119,6 +124,7 @@ public:
             }
             points.append(arr);
         }
+        taccessibil = json["TAccessibility"].toDouble();
         calcAnalyticsData();
     }
 
@@ -135,6 +141,7 @@ public:
             arr.append(lonArr);
         }
         json["points"] = arr;
+        json["TAccessibility"] = taccessibil;
         return json;
     }
 
@@ -147,7 +154,12 @@ public:
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                   new NumberAnalyticsCell(QString::number(pointsCount), "Общее количество\nсекторов", colorSecondary()),
+                   new NumberAnalyticsCell(QString::number(round(taccessibil*100)/100) + " Ч", "Значение транспортной \nдоступности России", colorSecondary()),
+            }))
+        );
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell*>({
+                   new NumberAnalyticsCell(QString::number(pointsCount), "Общее количество\nсекторов", colorPrimary()),
                    new NumberAnalyticsCell(QString::number((int) maxDistance) + " КМ", "Максимальное расстояние\nдо аэропорта", colorPrimary()),
                    new NumberAnalyticsCell(QString::number((int) maxTime) + " Ч", "Максимальное время\nв пути", colorPrimary()),
             }))
@@ -164,7 +176,7 @@ public:
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                new NumberAnalyticsCell(QString::number((int) (pointsHumans[0] / 1000)) + " К\nчеловеек", "В самой близкой зоне\nдоступности " + QString::number((int) (maxTime / colors.size())) + "ч находится " + QString::number((int)(pointsHumans[0]*100/pointsHumansSum)) + "% населения", colors[0]),
+                new NumberAnalyticsCell(QString::number((int) (pointsHumans[0] / 1000)) + " К\nчеловек", "В самой близкой зоне\nдоступности " + QString::number((int) (maxTime / colors.size())) + "ч находится " + QString::number((int)(pointsHumans[0]*100/pointsHumansSum)) + "% населения", colors[0]),
                 //new NumberAnalyticsCell(QString::number((int) (maxDistanceCount / 1000)) + " К\nчеловек", "Самая частая зона\nдоступности " + QString::number((int) (maxTime / colors.size() * (1 + maxDistanceCountZone))) + "ч составляет " + QString::number((int)(pointsDistance[maxDistanceCountZone]*100/pointDistanceSum)) + "% населения", colors[maxDistanceCountZone]),
             }))
         );

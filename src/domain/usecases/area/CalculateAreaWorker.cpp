@@ -95,17 +95,17 @@ void CalculateAreaWorker::run() {
             TAcces = TAcces + tAcc.at(j).tAccessibility;
         }
     }
-    qDebug() << tAcc.at(0).id << tAcc.at(0).tAccessibility ;
-    qDebug() << "TAcces" << TAcces;
+    //qDebug() << tAcc.at(0).id << tAcc.at(0).tAccessibility ;
+    //qDebug() << "TAcces" << TAcces;
     TAcces = TAcces / kolvo;
     //TAccessibility = STime / kolvo;
     //qDebug() << graph.airports.size();
-    qDebug() << "Количество расчетов расстояния" << kolvo;
+    //qDebug() << "Количество расчетов расстояния" << kolvo;
     //qDebug() << "Суммарное время до аэропортов" << STime;
-    qDebug() << "Общая транспортная доступность всех аэропортов = " << TAcces;
+    qDebug() << "Транспортная доступность России = " << TAcces;
     qDebug() << "CalculateAreaWorker все посчитал" << points.size();
 
-    auto area = Area(points);
+    auto area = Area(points, TAcces);
     settingsRepository->setJson("area", area.toJson());
     emit resultReady(area);
 }
