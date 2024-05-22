@@ -13,7 +13,7 @@ RoutesTabFragment::RoutesTabFragment() {
     this->setContentsMargins(0, 0, 0, 0);
     mainContainer->setContentsMargins(0, 0, 0, 0);
 
-    Toolbar *toolbar = new Toolbar("Данные о перелетах", "flights", "flights_dark");
+    Toolbar *toolbar = new Toolbar("Данные о маршрутах", "flights", "flights_dark");
     mainContainer->addWidget(toolbar);
 
     QFrame *contentFrame = new QFrame();
