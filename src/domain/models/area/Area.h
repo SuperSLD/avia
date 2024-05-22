@@ -171,7 +171,7 @@ public:
         );
         rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
-               new ChartAnalyticsCell("bar", "Распределение зон", pointsHumanPieChart),
+               new ChartAnalyticsCell("bar", "Распределение населения", pointsHumanPieChart),
            }))
         );
         rows.append(
