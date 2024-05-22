@@ -155,8 +155,8 @@ void TransportGraphModel::calcAnalyticData() {
         )
     );
 
+    auto count = 0;
     if (airports.size() > 0) {
-        auto count = 0;
         foreach (auto a, airports) {
             // определение коэффициента непрямолинейности
             if (a.id != mainTransportNode.id && !a.connectedAirports.isEmpty() && hasConnection(a.id, mainTransportNode.id)) {
@@ -173,10 +173,11 @@ void TransportGraphModel::calcAnalyticData() {
                 sumDistance += flightDistance;
             }
         }
-        midFlightDistance /= count;
-        midRealDistance /= count;
-        nonStraightness = midRealDistance / midFlightDistance;
     }
+    midFlightDistance /= count;
+    midRealDistance /= count;
+    midTime = midRealDistance / 700.0;
+    nonStraightness = midRealDistance / midFlightDistance;
 }
 
 QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
@@ -210,6 +211,7 @@ QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
             AnalyticsRow(QList<BaseAnalyticsCell *>({
                 new NumberAnalyticsCell(isZeroSave ? "Не указано" : QString::number(greed, 'f', 2),"Жадность", isZeroSave ? colorRed() : colorPrimary()),
                 new NumberAnalyticsCell(isZeroSave ? "Не указано" : QString::number(gregariousness, 'f', 2),"Стадность", isZeroSave ? colorRed() : colorPrimary()),
+                new NumberAnalyticsCell(QString::number(midTime, 'f', 3) + " ч","Средняя доступность", colorPrimary()),
             }))
         );
         rows.append(
@@ -310,4 +312,11 @@ void TransportGraphModel::setAircraftCount(QHash<QString, int> aircraftCount) {
     foreach(auto count, aircraftCount.values()) {
         allTypesCount += count;
     }
+}
+
+double TransportGraphModel::crit(bool isHub, double plot) {
+    auto p1 = plot;
+    auto p2 = !isHub ? (1 / nonStraightness) : nonStraightness;
+    auto p3 = 1 / midTime;
+    return p1 + p2 + p3;
 }

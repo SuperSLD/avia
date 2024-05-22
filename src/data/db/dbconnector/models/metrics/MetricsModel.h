@@ -18,6 +18,19 @@ private:
     QList<ChartLine> nonStraightnessBarChart;
     /// график плотности
     QList<ChartLine> plotBarChart;
+    /// график времени
+    QList<ChartLine> timeBarChart;
+    /// график критерия для хабов
+    QList<ChartLine> hubBarChart;
+    QString maxHubSave;
+    QList<QString> maxHubSaveValues;
+    /// график критерия не для хабов
+    QList<ChartLine> notHubBarChart;
+    QString maxNotHubSave;
+    QList<QString> maxNotHubSaveValues;
+    /// график зависимости крит функции от жадности и стадности
+    QList<ChartLine> hubByGreedLineChart;
+    QList<ChartLine> notHubByGreedLineChart;
 
     /// график количества типов
     QList<ChartLine> typesBarChart;
