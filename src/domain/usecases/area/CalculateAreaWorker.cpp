@@ -18,7 +18,7 @@ void CalculateAreaWorker::run() {
     qDebug() << "CountryShape" << lonDif << lonIterations << latDif << latIterations;
     QList<QList<AreaPoint>> points;
     //double TAccessibility = 0;
-    //int kolvo = 0;
+    int kolvo = 0;
     //double STime = 0;
     int index = 0;
     for(int k=0; k < graph.airports.size(); k++) {
@@ -69,8 +69,16 @@ void CalculateAreaWorker::run() {
                         )
                 );
 
+                //lonPoints.at(1).humanCount;
             }
             emit onChangeProgress((index * 100) / (latIterations * lonIterations));
+        }
+        for (int l = 0; l < lonPoints.size(); l++)
+        {
+            if (lonPoints.at(l).lon >= 69.8 && lonPoints.at(l).lon <= 77.3 && lonPoints.at(l).lat >= 73.0 && lonPoints.at(l).lat <= 113.55)
+            {
+                lonPoints[l].isValid = false;
+            }
         }
         points.append(lonPoints);
     }
@@ -78,11 +86,20 @@ void CalculateAreaWorker::run() {
         auto tacces = atime[i].aTime / atime[i].count;
         tAcc.append(TAccessibility(atime.at(i).id, tacces));
     }
+    for(int j=0; j < tAcc.size(); j++)
+    {
+        if (tAcc.at(j).tAccessibility >0 )
+        {
+            kolvo ++;
+            TAcces = TAcces + tAcc.at(j).tAccessibility;
+        }
+    }
+    TAcces = TAcces / kolvo;
     //TAccessibility = STime / kolvo;
     //qDebug() << graph.airports.size();
     //qDebug() << "Количество расчетов расстояния" << kolvo;
     //qDebug() << "Суммарное время до аэропортов" << STime;
-    //qDebug() << "Общая транспортная доступность всех аэропортов = " << TAccessibility;
+    qDebug() << "Общая транспортная доступность всех аэропортов = " << TAcces;
     qDebug() << "CalculateAreaWorker все посчитал" << points.size();
 
     auto area = Area(points);

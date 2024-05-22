@@ -29,7 +29,7 @@ set(CMAKE_OSX_ARCHITECTURES x86_64)
 #    endif()
 #endif()
 
-set(CMAKE_PREFIX_PATH "/Users/leonidsolanoj/Qt/5.15.2/clang_64")
+set(CMAKE_PREFIX_PATH "/Users/egor/Qt/5.15.2/clang_64")
 #set(Qt5_DIR "/Users/leonidsolanoj/Qt/5.15.2/clang_64/lib/cmake/Qt5")
 find_package(QT NAMES Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5Svg REQUIRED)
@@ -188,6 +188,10 @@ set(PROJECT_SOURCES
         src/ui/common/widgets/analytictable/table/TableCellWidget.cpp
         src/ui/common/widgets/analytictable/table/TableCellWidget.h
         src/domain/models/analytics/view/TableAnalyticsCell.h
+        src/domain/usecases/area/taccessibility/TAccessibility.h
+        src/domain/usecases/area/atime/ATime.h
+        src/domain/usecases/area/taccessibility/TAccessibility.cpp
+        src/domain/usecases/area/atime/ATime.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

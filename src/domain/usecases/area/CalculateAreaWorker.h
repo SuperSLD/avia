@@ -35,6 +35,7 @@ private:
     double latDif;
     double currentLon;
     double currentLat;
+    double TAcces;
 
     SettingsRepository *settingsRepository;
 
