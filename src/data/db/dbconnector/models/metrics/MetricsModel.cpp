@@ -445,7 +445,7 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell *>({
-                new ChartAnalyticsCell("pie", "Распределение типов ВС", optimalTypesPieChart),
+                new ChartAnalyticsCell("pie_hide_values", "Распределение типов ВС", optimalTypesPieChart),
         }))
     );
     rows.append(
