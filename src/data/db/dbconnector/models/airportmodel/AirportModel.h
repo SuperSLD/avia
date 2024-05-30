@@ -12,15 +12,25 @@ class AirportModel: public BaseDBModel{
 
 public:
 
+    /// код аэропорта
     QString id;
+    /// название аэропорта
     QString name;
+    /// город аэропорта
     QString city;
+    /// долгота
     double lon;
+    /// широта
     double lat;
+    /// количество пассажиров на вылет
     long passengersCountOut;
+    /// количество пассажиров на прибытие
     long passengersCountIn;
+    /// соединенные маршрутной сетью аэропорты
     QList<QString> connectedAirports;
+    /// количество пассажиров пролетевших выбранным рейсом
     QHash<QString, double> connectedPassCount;
+    /// количество вылетов и прилетов
     int flightCount = 1;
 
     AirportModel(
