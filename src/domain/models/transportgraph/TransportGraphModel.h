@@ -30,6 +30,8 @@ public:
     double gregariousness = 1.0;
     /// средняя длинна маршрута по прямой
     double midFlightDistance = 0.0;
+    /// среднее время
+    double midTime = 0.0;
     /// средняя длинна маршрута
     double midRealDistance = 0.0;
     /// коэффициент непрямолинейности маршрутов
@@ -82,6 +84,8 @@ public:
     double pathSize(QList<QString> path);
 
     void setAircraftCount(QHash<QString, int> aircraftCount);
+
+    double crit(bool isHub, double plot);
 };
 
 

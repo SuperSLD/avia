@@ -70,10 +70,11 @@ public:
                 edges.push_back(e);
             }
         }
+        qDebug() << "Количество проинициализированных ребер" << edges.size();
     }
 
     double probability(Edge edge) {
-        double sum;
+        double sum = 0.0;
         foreach(auto e, edges) {
             sum += pow(e.weight, greed) * pow(e.pheromone, gregariousness);
         }
@@ -137,7 +138,7 @@ public:
                     airports[edge.source].lon, airports[edge.source].lat,
                     airports[edge.destination].lon, airports[edge.destination].lat
             );
-            auto optimalAircraft = aircraftModels.getOptimalAircraft(distance, airports[edge.source].passengersOut);
+            auto optimalAircraft = aircraftModels.getOptimalAircraft(distance, airports[edge.destination].id, airports[edge.source].passengersOut);
             sumCost += distance * optimalAircraft.kilometerCost;
 
             int count = optimalAircraft.seatsCount;

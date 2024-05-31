@@ -31,6 +31,8 @@ public:
     double range;
     /// используется ли при вычислении
     bool use;
+    /// требуемая длина ВПП
+    double vppLen;
 
     Aircraft(
             QString model,
@@ -39,15 +41,17 @@ public:
             double kilometerCost,
             double speed,
             double range,
-            bool use
+            bool use,
+            double vppLen
     ) {
         this->model = model;
         this->modelName = modelName;
         this->seatsCount = seatsCount;
-        this->kilometerCost = kilometerCost;
+        this->kilometerCost = kilometerCost * seatsCount;
         this->speed = speed;
         this->range = range;
         this->use = use;
+        this->vppLen = vppLen;
     }
 };
 

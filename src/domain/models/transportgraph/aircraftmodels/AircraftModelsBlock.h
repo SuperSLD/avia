@@ -31,6 +31,7 @@ public:
      *
      * @param k коэффициент загруженности
      * @param aircraftModel сокращенная модель самолета
+     *
      * @return количество пассажиров
      */
     int passengersCount(double k, QString aircraftModel);
@@ -39,11 +40,17 @@ public:
 
     /**
      * Определение опимального самолета, подходящего для выполнения рейса.
+     *
      * @param distance расстояние между аэропортами.
-     * @param passCount перевозимое количество пассажиров.
+     * @param airportId код аэропорта, который будет принимать рейс.
+     *
      * @return модель самолета, подходящего для выполнения рейса.
      */
-    Aircraft getOptimalAircraft(double distance, double passCount);
+    Aircraft getOptimalAircraft(double distance, QString airportId, int outPassCount);
+
+    int getAircraftCount();
+
+    QList<QString> getKeys();
 };
 
 

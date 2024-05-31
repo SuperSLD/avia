@@ -15,6 +15,7 @@ class BarChartWidget: public QFrame {
 private:
     int h;
     QList<ChartLine> lines;
+    bool min;
 
     bool shortLabels;
     bool shortShortLabels;
@@ -26,7 +27,7 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 public:
-    BarChartWidget(int h, QList<ChartLine> lines);
+    BarChartWidget(int h, QList<ChartLine> lines, bool min);
     ~BarChartWidget();
 };
 
