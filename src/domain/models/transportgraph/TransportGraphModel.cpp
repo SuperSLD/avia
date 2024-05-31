@@ -13,6 +13,7 @@
 #include "src/domain/models/analytics/view/EmpyAnalyticsCell.h"
 
 #include "src/domain/models/transportgraph/PriorityQueue.h"
+#include "src/domain/models/transportgraph/aircraftmodels/AircraftModelsBlock.h"
 
 using namespace math_functions;
 
@@ -155,6 +156,7 @@ void TransportGraphModel::calcAnalyticData() {
         )
     );
 
+    auto aircraftModelsBlock = AircraftModelsBlock();
     auto count = 0;
     if (airports.size() > 0) {
         foreach (auto a, airports) {
@@ -171,6 +173,21 @@ void TransportGraphModel::calcAnalyticData() {
                 auto connectedAirport = findAirport(connected);
                 auto flightDistance = distanceInKm(a.lon, a.lat, connectedAirport.lon, connectedAirport.lat);
                 sumDistance += flightDistance;
+
+                if (save != "s0") {
+                    auto connectedAirport = findAirport(connected);
+                    auto passCount = a.connectedPassCount[connected];
+                    auto optimalAircraft = aircraftModelsBlock.getOptimalAircraft(flightDistance, connected, (int) passCount);
+                    auto optimalAircraftCount = (int) (a.connectedPassCount[connected] /
+                                                       optimalAircraft.seatsCount);
+                    if (aircraftCount.contains(optimalAircraft.model)) {
+                        aircraftCount[optimalAircraft.model] += optimalAircraftCount;
+                    } else {
+                        aircraftCount[optimalAircraft.model] = optimalAircraftCount;
+                    }
+                    allTypesCount += optimalAircraftCount;
+                    cost += flightDistance * optimalAircraft.kilometerCost;
+                }
             }
         }
     }

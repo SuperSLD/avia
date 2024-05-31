@@ -64,7 +64,7 @@ Aircraft AircraftModelsBlock::getOptimalAircraft(double distance, QString airpor
             auto C = aircraft.kilometerCost * distance;
             /// штраф за превышение нужной дальности полета
             auto p1 = (aircraft.range / distance);
-            /// штраф за перевоз слищком маленького количества человек
+            /// сколько самолетов нужно
             auto p2 = outPassCount / (double) aircraft.seatsCount;
             /// награда за скорость полета самолета
             auto p3 = 1 / aircraft.speed;

@@ -23,8 +23,8 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
     gregariousnessHubLine[original.gregariousness] = QPair<double, double>(hubBars.last(), notHubBars.last());
 
     auto typeBars = QList<double>();
-    auto flightBars = QList<double>();
-    auto costBars = QList<double>();
+    auto flightBars = QList<double>({ (double) original.allTypesCount });
+    auto costBars = QList<double>( { original.cost } );
     auto minCost = 299792458299792458.0;
     auto minCostSaveIndex = -1;
 
@@ -182,7 +182,7 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
     auto totalRow = QList<QString> { "Всего" , "-", "-", "-", "-", QString::number(original.allTypesCount / 1000) + "K"};
     foreach(auto save, graphs) {
         titleRow.append(save.save);
-        totalRow.append(QString::number(save.allTypesCount / save.part / 1000) + "K");
+        totalRow.append(QString::number((int) (save.allTypesCount / save.part / 1000)) + "K");
     }
     aircraftModelsTable.append(titleRow);
     aircraftModelsTable.append(totalRow);
@@ -227,9 +227,7 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
         countRow.append(QString::number((int) (graph.allTypesCount / graph.part) / 1000) + "K");
         partRow.append(QString::number(graph.part * 100, 'f', 2) + "%");
 
-        if (graph.save != "s0") {
-            typeBars.append(typeCount);
-        }
+        typeBars.append(typeCount);
     }
     parkDiffTable.append(titleRow);
     parkDiffTable.append(typeRow);
@@ -243,7 +241,7 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
             costBars,
             QList<QString>({"Стоимость рейсов"}),
             QList<double>(),
-            saveNamesNotFull
+            saveNames
         )
     );
     typesBarChart.append(
@@ -252,7 +250,7 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
             typeBars,
             QList<QString>({"Количество типов"}),
             QList<double>(),
-            saveNamesNotFull
+            saveNames
         )
     );
     flightBarChart.append(
@@ -261,7 +259,7 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
             flightBars,
             QList<QString>({"Количество рейсов"}),
             QList<double>(),
-            saveNamesNotFull
+            saveNames
         )
     );
 
@@ -443,11 +441,11 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
             new TitleAnalyticsCell("Оптимальным парком по стоимости является " + optimalSave + "\nНиже приведена информация о нем.", true),
         }), true)
     );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell *>({
-                new ChartAnalyticsCell("pie_hide_values", "Распределение типов ВС", optimalTypesPieChart),
-        }))
-    );
+//    rows.append(
+//        AnalyticsRow(QList<BaseAnalyticsCell *>({
+//                new ChartAnalyticsCell("pie_hide_values", "Распределение типов ВС", optimalTypesPieChart),
+//        }))
+//    );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell *>({
             new TableAnalyticsCell(optimalParkTable, true),
