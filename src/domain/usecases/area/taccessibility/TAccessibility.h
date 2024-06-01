@@ -11,11 +11,13 @@
 class TAccessibility: public BaseModel {
 
 public:
-    QString id;
+    double lon;
+    double  lat;
     double tAccessibility;
 
     TAccessibility(
-        QString id,
+        double lon,
+        double lat,
         double tAccessibility
     );
 };

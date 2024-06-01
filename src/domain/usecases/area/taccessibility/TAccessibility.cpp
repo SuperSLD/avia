@@ -4,9 +4,10 @@
 
 #include "TAccessibility.h"
 
-TAccessibility::TAccessibility(QString id, double tAccessibility)
+TAccessibility::TAccessibility(double lon,double lat, double tAccessibility)
 {
-    this->id = id;
+    this->lon = lon;
+    this->lat = lat;
     this->tAccessibility = tAccessibility;
 }
 

@@ -35,6 +35,7 @@ private:
     double latDif;
     double currentLon;
     double currentLat;
+    ///Значение транспортной доступности
     double TAcces;
 
     SettingsRepository *settingsRepository;
