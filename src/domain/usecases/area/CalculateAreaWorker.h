@@ -24,8 +24,7 @@ private:
 
     QString uriString;
     TransportGraphModel graph;
-    QList<ATime> atime;
-    QList<TAccessibility> tAcc;
+
 
     bool requestFinished = false;
     QString airportId;
@@ -35,8 +34,7 @@ private:
     double latDif;
     double currentLon;
     double currentLat;
-    ///Значение транспортной доступности
-    double TAcces;
+
 
     SettingsRepository *settingsRepository;
 

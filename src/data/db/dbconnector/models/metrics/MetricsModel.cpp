@@ -11,7 +11,7 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
     auto saveNames = QList<QString> { original.save };
     auto saveNamesNotFull = QList<QString>();
     auto plot = QList<double> { original.sumDistance / area.sumArea };
-    auto timeBars = QList<double>( { original.midTime } );
+    auto timeBars = QList<double>( { area.taccessibil } );
 
     auto typeBars = QList<double>();
     auto flightBars = QList<double>({ (double) original.allTypesCount });
@@ -396,18 +396,38 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
             new ChartAnalyticsCell("bar", "Доступность", timeBarChart, true),
         }))
     );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell *>({
-            new ChartAnalyticsCell("bar", "Хабовая структура", hubBarChart),
-            new NumberAnalyticsCell("Сеть " + maxHubSave,"Рациональная сеть для\nхабовой структуры\n\nНепрямолинейность: " + maxHubSaveValues[0] + "\nПлотность: " + maxHubSaveValues[1] + "\nДоступность: " + maxHubSaveValues[2] + " ч", colorPrimary()),
-        }))
-    );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell *>({
-            new ChartAnalyticsCell("bar", "Не хабовая структура", notHubBarChart),
-            new NumberAnalyticsCell("Сеть " + maxNotHubSave,"Рациональная сеть для\nне хабовой структуры\n\nНепрямолинейность: " + maxNotHubSaveValues[0] + "\nПлотность: " + maxNotHubSaveValues[1] + "\nДоступность: " + maxNotHubSaveValues[2] + " ч", colorPrimary()),
-        }))
-    );
+    if (maxHubSaveValues.size() > 0) {
+        rows.append(
+                AnalyticsRow(QList<BaseAnalyticsCell *>({
+                                                                new ChartAnalyticsCell("bar", "Хабовая структура",
+                                                                                       hubBarChart),
+                                                                new NumberAnalyticsCell("Сеть " + maxHubSave,
+                                                                                        "Рациональная сеть для\nхабовой структуры\n\nНепрямолинейность: " +
+                                                                                        maxHubSaveValues[0] +
+                                                                                        "\nПлотность: " +
+                                                                                        maxHubSaveValues[1] +
+                                                                                        "\nДоступность: " +
+                                                                                        maxHubSaveValues[2] + " ч",
+                                                                                        colorPrimary()),
+                                                        }))
+        );
+    }
+    if (maxNotHubSaveValues.size() > 0) {
+        rows.append(
+                AnalyticsRow(QList<BaseAnalyticsCell *>({
+                                                                new ChartAnalyticsCell("bar", "Не хабовая структура",
+                                                                                       notHubBarChart),
+                                                                new NumberAnalyticsCell("Сеть " + maxNotHubSave,
+                                                                                        "Рациональная сеть для\nне хабовой структуры\n\nНепрямолинейность: " +
+                                                                                        maxNotHubSaveValues[0] +
+                                                                                        "\nПлотность: " +
+                                                                                        maxNotHubSaveValues[1] +
+                                                                                        "\nДоступность: " +
+                                                                                        maxNotHubSaveValues[2] + " ч",
+                                                                                        colorPrimary()),
+                                                        }))
+        );
+    }
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell *>({
             new ChartAnalyticsCell("line", "Зависимость критерия от жадности", hubByGreedLineChart),
