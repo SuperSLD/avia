@@ -136,7 +136,7 @@ public:
             auto edge = edges[edgeIndex];
 
             int count = 100;
-            int passengersToTransport = min(count, airports[edge.source].passengersOut);
+            int passengersToTransport = min(min(count, airports[edge.source].passengersOut), min(count, airports[edge.destination].passengersIn));
             numPassengers -= passengersToTransport;
             edges[edgeIndex].passCount += passengersToTransport;
             airports[edge.source].passengersOut -= passengersToTransport;
@@ -149,8 +149,9 @@ public:
     }
 
     TransportGraphModel createGraph() {
-        foreach(auto a, originalAirports) {
-            a.connectedAirports = QList<QString>();
+        for(int i = 0; i < originalAirports.size(); i++) {
+            originalAirports[i].connectedAirports = QList<QString>();
+            originalAirports[i].connectedPassCount = QHash<QString, double>();
         }
         foreach(auto e, edges) {
             if (e.visited) {

@@ -23,7 +23,7 @@ TableCellWidget::TableCellWidget(QList<QList<QString>> table, bool firstIsBig) {
         foreach(auto cell, row) {
             auto cellLabel = new QLabel(cell);
             if (firstIsBig && cellIndex == 0) {
-                cellLabel->setMinimumWidth(350);
+                cellLabel->setMinimumWidth(250);
             }
             if (rowIndex == 0) {
                 textStyle("cellLabel", cellLabel, 16, colorPrimary(), true);

@@ -53,8 +53,10 @@ QList<DetailItem> FlightModel::getDetail() {
     detail.append(DetailItem("apdstco", "Страна вылета", data.apdstco));
     detail.append(DetailItem("apdstia", "Аэропорт вылета", data.apdstia));
     detail.append(DetailItem("apdstic", "", data.apdstic));
-    detail.append(DetailItem("apdstla", "", QString::number(data.apdstla)));
-    detail.append(DetailItem("apdstlo", "", QString::number(data.apdstlo)));
+    detail.append(DetailItem("apdstla", "LAT выл.", QString::number(data.apdstla)));
+    detail.append(DetailItem("apdstlo", "LON выл.", QString::number(data.apdstlo)));
+    detail.append(DetailItem("apdstla", "LAT приб.", QString::number(data.aporgla)));
+    detail.append(DetailItem("apdstlo", "LON приб.", QString::number(data.aporglo)));
     detail.append(DetailItem("apdstna", "", data.apdstna));
     detail.append(DetailItem("apdstst", "", data.apdstst));
     detail.append(DetailItem("apdsttz", "", QString::number(data.apdsttz)));

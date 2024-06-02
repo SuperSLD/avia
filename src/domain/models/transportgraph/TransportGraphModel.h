@@ -41,7 +41,7 @@ public:
     /// распределение самолетов по типам
     QHash<QString, int> aircraftCount;
     /// общее количество самолетов
-    int allTypesCount = 0;
+    double allTypesCount = 0;
     /// среднее количество пассажиров на рейсе
     double midPassCount = 0.0;
     /// стоимость перевозок
@@ -51,6 +51,15 @@ public:
     /// суммарная дальность перевозок до
     /// главного транспортного узла
     double sumDistance = 0.0;
+    /// общее количество пассажиров
+    double totalPassCount = 0.0;
+    /// общее количество пассажиров
+    double totalPassCountInOut = 0.0;
+
+    /// макс параметры для нормирования
+    double maxP1 = -1;
+    double maxP2 = -1;
+    double maxP3 = -1;
 
     qint64 passCount = 0;
     QList<ChartLine> passCountPieChart;
@@ -85,7 +94,15 @@ public:
 
     void setAircraftCount(QHash<QString, int> aircraftCount);
 
-    double crit(bool isHub, double plot);
+    double crit(
+            bool isHub,
+            double plot,
+            double maxNonStraightness,
+            double minNonStraightness,
+            double maxPlot,
+            double minPlot,
+            double maxMidTime
+    );
 };
 
 

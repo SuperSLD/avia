@@ -12,15 +12,6 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
     auto saveNamesNotFull = QList<QString>();
     auto plot = QList<double> { original.sumDistance / area.sumArea };
     auto timeBars = QList<double>( { original.midTime } );
-    auto hubBars = QList<double>( { original.crit(true, original.sumDistance/area.sumArea) } );
-    auto maxHub = -299792458299792458.0;
-    auto notHubBars = QList<double>( { original.crit(false, original.sumDistance/area.sumArea) } );
-    auto maxNotHub = -299792458299792458.0;
-
-    auto greedHubLine = QHash<double, QPair<double, double>>();
-    greedHubLine[original.greed] = QPair<double, double>(hubBars.last(), notHubBars.last());
-    auto gregariousnessHubLine = QHash<double, QPair<double, double>>();
-    gregariousnessHubLine[original.gregariousness] = QPair<double, double>(hubBars.last(), notHubBars.last());
 
     auto typeBars = QList<double>();
     auto flightBars = QList<double>({ (double) original.allTypesCount });
@@ -33,14 +24,43 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
     auto greedByCost = QHash<double, QPair<double, double>>();
 
     auto saveIndex = 0;
+
+    auto allGraphs = QList<TransportGraphModel> {original};
+    foreach (auto graph, graphs) {
+        allGraphs.append(graph);
+    }
+
+    double maxNonStraightness = 0.0;
+    double minNonStraightness = 0.0;
+    double maxPlot = 0.0;
+    double minPlot = 0.0;
+    double maxMidTime = 0.0;
+
+    foreach(auto graph, allGraphs) {
+        if (maxNonStraightness < graph.nonStraightness) maxNonStraightness = graph.nonStraightness;
+        if (minNonStraightness < 1 / graph.nonStraightness) minNonStraightness = 1 / graph.nonStraightness;
+        if (maxPlot < graph.sumDistance / area.sumArea) maxPlot = graph.sumDistance / area.sumArea;
+        if (minPlot < 1 / (graph.sumDistance / area.sumArea)) minPlot = 1 / (graph.sumDistance / area.sumArea);
+        if (maxMidTime < graph.midTime) maxMidTime = graph.midTime;
+    }
+
+    auto hubBars = QList<double>( { original.crit(true, original.sumDistance/area.sumArea, maxNonStraightness, minNonStraightness, maxPlot, minPlot, maxMidTime) } );
+    auto maxHub = -299792458299792458.0;
+    auto notHubBars = QList<double>( { original.crit(false, original.sumDistance/area.sumArea, maxNonStraightness, minNonStraightness, maxPlot, minPlot, maxMidTime) } );
+    auto maxNotHub = -299792458299792458.0;
+    auto greedHubLine = QHash<double, QPair<double, double>>();
+    //greedHubLine[original.greed] = QPair<double, double>(hubBars.last(), notHubBars.last());
+    auto gregariousnessHubLine = QHash<double, QPair<double, double>>();
+    //gregariousnessHubLine[original.gregariousness] = QPair<double, double>(hubBars.last(), notHubBars.last());
+
     foreach(auto graph, graphs) {
         saveNames.append(graph.save);
         saveNamesNotFull.append(graph.save);
         nonStraightness.append(graph.nonStraightness);
         plot.append(graph.sumDistance / area.sumArea);
         timeBars.append(graph.midTime);
-        hubBars.append(graph.crit(true, plot.last()));
-        notHubBars.append(graph.crit(false, plot.last()));
+        hubBars.append(graph.crit(true, plot.last(), maxNonStraightness, minNonStraightness, maxPlot, minPlot, maxMidTime));
+        notHubBars.append(graph.crit(false, plot.last(), maxNonStraightness, minNonStraightness, maxPlot, minPlot, maxMidTime));
 
         // данные для графиков анализа парков
         flightBars.append(graph.allTypesCount);
@@ -55,8 +75,8 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
         gregariousnessLine[graph.gregariousness] = graph.cost;
         greedByCost[graph.cost] = QPair<double, double>(graph.greed, graph.gregariousness);
 
-            greedHubLine[graph.greed] = QPair<double, double>(hubBars.last(), notHubBars.last());
-            gregariousnessHubLine[graph.gregariousness] = QPair<double, double>(hubBars.last(), notHubBars.last());
+        greedHubLine[graph.greed] = QPair<double, double>(hubBars.last(), notHubBars.last());
+        gregariousnessHubLine[graph.gregariousness] = QPair<double, double>(hubBars.last(), notHubBars.last());
 
         saveIndex++;
     }
@@ -207,10 +227,6 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
         }
     }
 
-    auto allGraphs = QList<TransportGraphModel> {original};
-    foreach (auto graph, graphs) {
-        allGraphs.append(graph);
-    }
     titleRow = QList<QString> {""};
     auto typeRow = QList<QString> {"Количество типов"};
     auto costRow = QList<QString> {"Стоимость перевозок"};
@@ -223,7 +239,11 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
         }
         titleRow.append(graph.save);
         typeRow.append(QString::number(typeCount));
-        costRow.append(QString::number((graph.cost / graph.part) / (double) 1000000, 'f', 2) + "M");
+        //if (graph.save != "s0") {
+            costRow.append(QString::number((graph.cost / graph.part) / (double) 1000000, 'f', 2) + "M");
+        //} else {
+        //    costRow.append("?");
+        //}
         countRow.append(QString::number((int) (graph.allTypesCount / graph.part) / 1000) + "K");
         partRow.append(QString::number(graph.part * 100, 'f', 2) + "%");
 

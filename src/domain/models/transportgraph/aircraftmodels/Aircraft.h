@@ -47,10 +47,10 @@ public:
         this->model = model;
         this->modelName = modelName;
         this->seatsCount = seatsCount;
-        this->kilometerCost = kilometerCost * seatsCount;
         this->speed = speed;
         this->range = range;
         this->use = use;
+        this->kilometerCost = kilometerCost * seatsCount;
         this->vppLen = vppLen;
     }
 };
