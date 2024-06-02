@@ -129,17 +129,23 @@ void CalculateAreaWorker::run() {
                 }
             }
             //qDebug() << averageTime << ", количество = " << countOf;
-            averageTime = averageTime / countOf;
-            tAcc.append(TAccessibility(points.at(i).at(j).lon, points.at(i).at(j).lat, averageTime));
+            if (averageTime > 0 && countOf >0)
+            {
+                averageTime = averageTime / countOf;
+                tAcc.append(TAccessibility(points.at(i).at(j).lon, points.at(i).at(j).lat, averageTime));
+            }
         }
     }
     double summm= 0.0;
     int kolichestvo = 0;
     for (int tt =0; tt < tAcc.size(); tt++)
     {
-        qDebug() << tAcc.at(tt).tAccessibility;
-        summm = summm + tAcc[tt].tAccessibility;
-        kolichestvo ++;
+        if (tAcc.at(tt).tAccessibility != std::numeric_limits<double>::infinity())
+        {
+            //qDebug() << tAcc.at(tt).tAccessibility;
+            summm = summm + tAcc[tt].tAccessibility;
+            kolichestvo ++;
+        }
     }
     TAcces = summm / kolichestvo;
     //for (int i=0; i < atime.size(); i++) {
