@@ -38,7 +38,7 @@ GraphTabFragment::GraphTabFragment() {
 
     passengersPartEdit = new TextEdit("passengersPartEdit", "Часть пассажиров");
     passengersPartEdit->setMaximumWidth(650);
-    passengersPartEdit->setText("0.001");
+    passengersPartEdit->setText("1");
     buttonContainer->addWidget(passengersPartEdit);
 
     greedEdit = new TextEdit("greedEdit", "Жадность");
