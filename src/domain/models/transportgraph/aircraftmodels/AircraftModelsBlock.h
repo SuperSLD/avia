@@ -23,6 +23,11 @@ private:
 
     QHash<QString, double> vppInfo;
 
+    double maxCost = -1;
+    double maxP1 = -1;
+    double maxP2 = -1;
+    double maxP3 = -1;
+
 public:
     AircraftModelsBlock();
 

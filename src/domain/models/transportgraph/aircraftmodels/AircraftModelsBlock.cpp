@@ -58,17 +58,29 @@ int AircraftModelsBlock::passengersCount(double k, QString aircraftModel) {
 Aircraft AircraftModelsBlock::getOptimalAircraft(double distance, QString airportId, int outPassCount) {
     auto min = 299792458000.0;
     Aircraft optimal = aircraftList.first();
+    if (maxCost == -1) {
+        foreach(auto aircraft, aircraftList) {
+                auto C = aircraft.kilometerCost * distance;
+                auto p1 = (aircraft.range / distance);
+                auto p2 = outPassCount / (double) aircraft.seatsCount;
+                auto p3 = 1 / aircraft.speed;
+                if (C > maxCost) maxCost = C;
+                if (p1 > maxP1) maxP1 = p1;
+                if (p2 > maxP2) maxP2 = p2;
+                if (p3 > maxP3) maxP3 = p3;
+        }
+    }
     foreach(auto aircraft, aircraftList) {
         if (aircraft.use && aircraft.range >= distance && aircraft.vppLen <= vppInfo[airportId]) {
             /// стоимость выполнения рейса
             auto C = aircraft.kilometerCost * distance;
             /// штраф за превышение нужной дальности полета
             auto p1 = (aircraft.range / distance);
-            /// штраф за перевоз слищком маленького количества человек
+            /// сколько самолетов нужно
             auto p2 = outPassCount / (double) aircraft.seatsCount;
             /// награда за скорость полета самолета
             auto p3 = 1 / aircraft.speed;
-            auto current = C * p1 * p2 * p3;
+            auto current = pow(C/maxCost, 0.1) * pow(p1/maxP1, 0.1) * pow(p2/maxP2, 0.4) * pow(p3/maxP3, 0.4);
             if (current < min) {
                 optimal = aircraft;
                 min = current;

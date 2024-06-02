@@ -1,0 +1,5 @@
+/Users/leonidsolanoj/Documents/GitHub/avia/build/CMakeFiles/Avia.dir
+/Users/leonidsolanoj/Documents/GitHub/avia/build/CMakeFiles/edit_cache.dir
+/Users/leonidsolanoj/Documents/GitHub/avia/build/CMakeFiles/rebuild_cache.dir
+/Users/leonidsolanoj/Documents/GitHub/avia/build/CMakeFiles/Avia_autogen_timestamp_deps.dir
+/Users/leonidsolanoj/Documents/GitHub/avia/build/CMakeFiles/Avia_autogen.dir

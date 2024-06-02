@@ -13,6 +13,7 @@
 #include "src/domain/models/analytics/view/EmpyAnalyticsCell.h"
 
 #include "src/domain/models/transportgraph/PriorityQueue.h"
+#include "src/domain/models/transportgraph/aircraftmodels/AircraftModelsBlock.h"
 
 using namespace math_functions;
 
@@ -44,12 +45,14 @@ TransportGraphModel::TransportGraphModel(QJsonObject json) {
     this->greed = json["greed"].toDouble();
     this->gregariousness = json["gregariousness"].toDouble();
     this->save = json["save"].toString();
-    for (int i = 0; i < json["aircraftCountKeys"].toArray().count(); i++) {
-        aircraftCount[json["aircraftCountKeys"].toArray()[i].toString()] = json["aircraftCountValues"].toArray()[i].toInt();
+    if (save == "s0") {
+        for (int i = 0; i < json["aircraftCountKeys"].toArray().count(); i++) {
+            aircraftCount[json["aircraftCountKeys"].toArray()[i].toString()] = json["aircraftCountValues"].toArray()[i].toInt();
+        }
+        allTypesCount = json["allTypesCount"].toInt();
+        this->cost = json["cost"].toDouble();
     }
-    allTypesCount = json["allTypesCount"].toInt();
     midPassCount = json["midPassCount"].toDouble();
-    this->cost = json["cost"].toDouble();
     this->part = json["part"].toDouble();
     calcDataForView();
     calcAnalyticData();
@@ -86,17 +89,19 @@ QJsonObject TransportGraphModel::toJson() {
     json["greed"] = (double) greed;
     json["gregariousness"] = (double) gregariousness;
     json["save"] = save;
-    auto aircraftCountKeys = QJsonArray();
-    auto aircraftCountValues = QJsonArray();
-    foreach(auto key, aircraftCount.keys()) {
-        aircraftCountKeys.append(key);
-        aircraftCountValues.append(aircraftCount[key]);
+    if (save == "s0") {
+        auto aircraftCountKeys = QJsonArray();
+        auto aircraftCountValues = QJsonArray();
+        foreach(auto key, aircraftCount.keys()) {
+            aircraftCountKeys.append(key);
+            aircraftCountValues.append(aircraftCount[key]);
+        }
+        json["aircraftCountKeys"] = aircraftCountKeys;
+        json["aircraftCountValues"] = aircraftCountValues;
+        json["allTypesCount"] = allTypesCount;
+        json["cost"] = cost;
     }
-    json["aircraftCountKeys"] = aircraftCountKeys;
-    json["aircraftCountValues"] = aircraftCountValues;
-    json["allTypesCount"] = allTypesCount;
     json["midPassCount"] = midPassCount;
-    json["cost"] = cost;
     json["part"] = part;
     return json;
 }
@@ -138,6 +143,7 @@ void TransportGraphModel::calcAnalyticData() {
     auto allIn = 0.0;
     auto allOut = 0.0;
     auto maxPass = 0;
+    allTypesCount = 0.0;
     foreach(auto a, airports) {
         passCount += a.passengersCountOut + a.passengersCountIn;
         allIn += a.passengersCountIn;
@@ -155,6 +161,7 @@ void TransportGraphModel::calcAnalyticData() {
         )
     );
 
+    auto aircraftModelsBlock = AircraftModelsBlock();
     auto count = 0;
     if (airports.size() > 0) {
         foreach (auto a, airports) {
@@ -171,13 +178,39 @@ void TransportGraphModel::calcAnalyticData() {
                 auto connectedAirport = findAirport(connected);
                 auto flightDistance = distanceInKm(a.lon, a.lat, connectedAirport.lon, connectedAirport.lat);
                 sumDistance += flightDistance;
+
+                if (save != "s0") {
+                    auto connectedAirport = findAirport(connected);
+                    auto passCount = a.connectedPassCount[connected];
+                    auto optimalAircraft = aircraftModelsBlock.getOptimalAircraft(flightDistance, connected, (int) passCount);
+                    auto optimalAircraftCount = (int) (passCount / optimalAircraft.seatsCount);
+                    if (aircraftCount.contains(optimalAircraft.model)) {
+                        aircraftCount[optimalAircraft.model] += optimalAircraftCount;
+                    } else {
+                        aircraftCount[optimalAircraft.model] = optimalAircraftCount;
+                    }
+                    allTypesCount += optimalAircraftCount;
+                    cost += flightDistance * optimalAircraft.kilometerCost * optimalAircraftCount;
+                }
+
+                totalPassCount += a.connectedPassCount[connected];
             }
+            totalPassCountInOut += a.passengersCountOut + a.passengersCountIn;
         }
     }
     midFlightDistance /= count;
     midRealDistance /= count;
     midTime = midRealDistance / 700.0;
     nonStraightness = midRealDistance / midFlightDistance;
+
+    foreach(auto key, aircraftCount.keys()) {
+        qDebug() << key << aircraftCount[key];
+    }
+
+    qDebug() << "TransportGraphModel" << save
+             << "-> allTypesCount =" << allTypesCount
+             << "totalPassCount =" << QString::number(totalPassCount / 1000) + "K"
+             << "totalPassCountInOut =" << QString::number(totalPassCountInOut / 1000) + "K";
 }
 
 QList<AnalyticsRow> TransportGraphModel::getRows(bool isSingle) {
@@ -314,9 +347,17 @@ void TransportGraphModel::setAircraftCount(QHash<QString, int> aircraftCount) {
     }
 }
 
-double TransportGraphModel::crit(bool isHub, double plot) {
-    auto p1 = plot;
-    auto p2 = !isHub ? (1 / nonStraightness) : nonStraightness;
-    auto p3 = 1 / midTime;
-    return p1 + p2 + p3;
+double TransportGraphModel::crit(
+        bool isHub,
+        double plot,
+        double maxNonStraightness,
+        double minNonStraightness,
+        double maxPlot,
+        double minPlot,
+        double maxMidTime
+) {
+    auto p1 = isHub ? (1 / plot) / minPlot : plot / maxPlot;
+    auto p2 = isHub ? nonStraightness / maxNonStraightness : (1 / nonStraightness) / maxNonStraightness;
+    auto p3 = 1 / (midTime / maxMidTime);
+    return pow(p1, 0.333) * pow(p2, 0.33) * pow(p3, 0.33);
 }

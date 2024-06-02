@@ -34,7 +34,7 @@ void GetAirportsWorker::run() {
         auto cursor_all = client["avianav"][factory->tableName().toStdString()].find({});
         auto count = client["avianav"][factory->tableName().toStdString()].count_documents({});
         double index = 0;
-        auto sumCost = 0;
+        auto sumCost = 0.0;
         for (auto doc : cursor_all) {
             auto document = QJsonDocument::fromJson(
                     QByteArray::fromStdString(
