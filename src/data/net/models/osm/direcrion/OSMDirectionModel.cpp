@@ -15,7 +15,7 @@ OSMDirectionModel::OSMDirectionModel(QJsonValue val) {
     isValid = !object.contains("error") && object.contains("routes");
 
     if (isValid) {
-        auto summary = object["routes"].toArray()[0].toObject()["summary"].toObject();
+        auto summary = object["routes"].toArray()[0].toObject()["legs"].toObject();
         this->distance = summary["distance"].toDouble();
         // время в пути в секундах переделываем в часы
         this->duration = summary["duration"].toDouble() / 60 / 60;

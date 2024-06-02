@@ -6,7 +6,6 @@
 
 void CalcMetricsWorker::run() {
     while (isActive) {
-        qDebug() << "CalcMetricsWorker новая итерация" << id << (originalGraphLoaded?"T":"F") << (areaLoaded?"T":"F") << graphs.size();
         if (dataChanged && areaLoaded && originalGraphLoaded && graphs.size() > 0) {
             qDebug() << "CalcMetricsWorker данные изменились" << id;
             dataChanged = false;

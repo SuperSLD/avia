@@ -10,6 +10,8 @@
 #include "src/data/net/osmnetrepository/OSMNetRepository.h"
 #include "src/domain/models/area/Area.h"
 #include "src/data/settings/SettingsRepository.h"
+#include "src/domain/usecases/area/atime/ATime.h"
+#include "src/domain/usecases/area/taccessibility/TAccessibility.h"
 
 #include "src/domain/usecases/math/math_functions.h"
 using namespace math_functions;
@@ -23,6 +25,7 @@ private:
     QString uriString;
     TransportGraphModel graph;
 
+
     bool requestFinished = false;
     QString airportId;
     AreaPoint currentRequestPoint;
@@ -31,6 +34,7 @@ private:
     double latDif;
     double currentLon;
     double currentLat;
+
 
     SettingsRepository *settingsRepository;
 

@@ -5,11 +5,10 @@
 #include "CalculateAreaWorker.h"
 #include "src/domain/usecases/area/countryshape/CountryShape.h"
 #include "src/domain/models/area/areapoint/AreaPoint.h"
+#include <unistd.h>
 
 void CalculateAreaWorker::run() {
-
     auto country = CountryShape("russia");
-
     lonDif = country.maxLon - country.minLon;
     auto lonIterations = (int) lonDif / DISTANCE_BETWEEN_POINT;
     latDif = country.maxLat - country.minLat;
@@ -29,18 +28,6 @@ void CalculateAreaWorker::run() {
                 auto minDistanceAirport = graph.getMinDistanceAirport(currentLon, currentLat);
                 airportId = minDistanceAirport.id;
                 auto d = distanceInKm(currentLon, currentLat, minDistanceAirport.lon, minDistanceAirport.lat);
-//                        sqrt(
-//                        pow(currentLat - minDistanceAirport.lat, 2) + pow(currentLon - minDistanceAirport.lon, 2));
-//            emit direction(
-//                currentLon,
-//                currentLat,
-//                minDistanceAirport.lon,
-//                minDistanceAirport.lat
-//            );
-//            while (!requestFinished) {}
-//            lonPoints.append(currentRequestPoint);
-//            sleep(5);
-                //qDebug() << "loaded point data:" << (currentRequestPoint.isValid ? "T" : "F") << currentRequestPoint.duration;
                 lonPoints.append(
                         AreaPoint(
                                 airportId,
@@ -59,15 +46,16 @@ void CalculateAreaWorker::run() {
         points.append(lonPoints);
     }
 
-    qDebug() << "CalculateAreaWorker все посчитал" << points.size();
-
     auto area = Area(points);
+    area.setTAccessibility(area.calcTime(graph));
     settingsRepository->setJson("area", area.toJson());
     emit resultReady(area);
 }
 
 void CalculateAreaWorker::directionLoad(OSMDirectionModel direction) {
+    auto country = CountryShape("russia");
     requestFinished = true;
+    auto p = country.pointInCountry(currentLon, currentLat);;
     if (direction.isValid) {
         currentRequestPoint = AreaPoint(
                     airportId,
@@ -76,7 +64,8 @@ void CalculateAreaWorker::directionLoad(OSMDirectionModel direction) {
                     lonDif,
                     latDif,
                     currentLon,
-                    currentLat
+                    currentLat,
+                    p
                 );
     } else {
         currentRequestPoint = AreaPoint(airportId);

@@ -26,7 +26,7 @@ public:
     OSMNetRepository(bool debug = false);
     ~OSMNetRepository();
 
-    QHash<QString, QString> headers() override;
+    //QHash<QString, QString> headers() override;
 
     void direction(double lon1, double lat1, double lon2, double lat2);
 

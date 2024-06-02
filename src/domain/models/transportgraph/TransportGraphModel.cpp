@@ -54,6 +54,7 @@ TransportGraphModel::TransportGraphModel(QJsonObject json) {
     }
     midPassCount = json["midPassCount"].toDouble();
     this->part = json["part"].toDouble();
+    this->midTime = json["midTime"].toDouble();
     calcDataForView();
     calcAnalyticData();
 }
@@ -103,6 +104,7 @@ QJsonObject TransportGraphModel::toJson() {
     }
     json["midPassCount"] = midPassCount;
     json["part"] = part;
+    json["midTime"] = midTime;
     return json;
 }
 
@@ -200,7 +202,6 @@ void TransportGraphModel::calcAnalyticData() {
     }
     midFlightDistance /= count;
     midRealDistance /= count;
-    midTime = midRealDistance / 700.0;
     nonStraightness = midRealDistance / midFlightDistance;
 
     foreach(auto key, aircraftCount.keys()) {
@@ -357,7 +358,7 @@ double TransportGraphModel::crit(
         double maxMidTime
 ) {
     auto p1 = isHub ? (1 / plot) / minPlot : plot / maxPlot;
-    auto p2 = isHub ? nonStraightness / maxNonStraightness : (1 / nonStraightness) / maxNonStraightness;
+    auto p2 = isHub ? nonStraightness / maxNonStraightness : (1 / nonStraightness) / minNonStraightness;
     auto p3 = 1 / (midTime / maxMidTime);
     return pow(p1, 0.333) * pow(p2, 0.33) * pow(p3, 0.33);
 }
