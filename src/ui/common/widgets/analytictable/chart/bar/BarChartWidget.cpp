@@ -24,8 +24,8 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
     QPainter painter(this);
 
-    auto max = -9999999999.0;
-    auto min =  9999999999.0;
+    auto max = -99999999999999999999.0;
+    auto min =  99999999999999999999.0;
     auto barsCount = 0;
     auto lineWithMaxBarCount = 0;
     for (int i = 0; i < lines.size(); i++) {
