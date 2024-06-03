@@ -174,6 +174,24 @@ void DBConnector::handleCalculatedGraphProgress(int progress) {
     emit onChangeCalculateGraphProgress(progress);
 }
 
+void DBConnector::calculateNewAirports(TransportGraphModel graph) {
+    if (newAirportsWorker != nullptr) newAirportsWorker->exit();
+    newAirportsWorker = new NewAirportsWorker(graph);
+    connect(newAirportsWorker, &NewAirportsWorker::resultReady, this, &DBConnector::handleCalculatedGraph);
+    connect(newAirportsWorker, &NewAirportsWorker::onChangeProgress, this, &DBConnector::handleNewAirportsProgress);
+    connect(newAirportsWorker, &NewAirportsWorker::onAllCalculated, this, &DBConnector::handleNewAirportsAllCalculated);
+    newAirportsWorker->start();
+}
+
+
+void DBConnector::handleNewAirportsAllCalculated() {
+    emit onNewAirportsAllCalculated();
+}
+
+void DBConnector::handleNewAirportsProgress(int progress) {
+    emit onChangeNewAirportsProgress(progress);
+}
+
 void DBConnector::loadSavedData() {
     if (loadSavedDataWorker != nullptr) loadSavedDataWorker->exit();
     loadSavedDataWorker = new LoadSavedDataWorker();

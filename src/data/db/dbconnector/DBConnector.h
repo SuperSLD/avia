@@ -19,6 +19,7 @@
 #include "src/domain/usecases/graph/CalculateGraphWorker.h"
 #include "src/domain/usecases/loadsaveddata/LoadSavedDataWorker.h"
 #include "src/domain/usecases/metrics/CalcMetricsWorker.h"
+#include "src/domain/usecases/newairports/NewAirportsWorker.h"
 
 class DBConnector: public QObject {
     Q_OBJECT
@@ -38,6 +39,7 @@ private:
 
     CalculateAreaWorker *calculateAreaWorker;
     CalculateGraphWorker *calculateGraphWorker;
+    NewAirportsWorker *newAirportsWorker;
 
     LoadSavedDataWorker *loadSavedDataWorker;
 
@@ -63,6 +65,7 @@ public:
 
     void calculateArea(TransportGraphModel graph, OSMNetRepository *netRep, double diff);
     void calculateGraph(TransportGraphModel graph, QString key, double greed, double gregariousness, double passengersPart);
+    void calculateNewAirports(TransportGraphModel graph);
 
     void loadSavedData();
 
@@ -89,6 +92,9 @@ private slots:
     void handleCalculatedGraph(QString key, TransportGraphModel graph);
     void handleCalculatedGraphProgress(int progress);
 
+    void handleNewAirportsAllCalculated();
+    void handleNewAirportsProgress(int progress);
+
     void handleMetricsUpdated(MetricsModel metrics);
 
 signals:
@@ -110,6 +116,9 @@ signals:
 
     void onGraphCalculated(QString key, TransportGraphModel graph);
     void onChangeCalculateGraphProgress(int progress);
+
+    void onNewAirportsAllCalculated();
+    void onChangeNewAirportsProgress(int progress);
 
     void metricsUpdated(MetricsModel metrics);
 };

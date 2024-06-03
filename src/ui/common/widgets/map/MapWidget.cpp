@@ -74,9 +74,10 @@ MapWidget::MapWidget() {
     saves.append("s2");
     saves.append("s3");
     saves.append("s4");
+    saves.append("s5");
     Switcher *saveSwitcher = new Switcher("saveSwitcher", saves, save);
     connect(saveSwitcher, &Switcher::onVariantSwitched, this, &MapWidget::onSaveSelected);
-    saveSwitcher->setMinimumWidth(250);
+    saveSwitcher->setMinimumWidth(280);
     //saveSwitcher->setMaximumHeight(36);
     buttonsCardContainer->addWidget(saveSwitcher);
 
@@ -120,7 +121,6 @@ void MapWidget::paintEvent(QPaintEvent *event) {
         drawAirports(&painter);
     }
 }
-
 
 void MapWidget::drawBack(QPainter *painter, bool fill) {
     if (fill) {

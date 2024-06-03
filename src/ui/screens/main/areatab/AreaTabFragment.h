@@ -12,6 +12,7 @@
 #include "src/data/net/osmnetrepository/OSMNetRepository.h"
 #include "src/ui/common/widgets/analytictable/AnalyticTable.h"
 #include "src/ui/common/widgets/textedit/TextEdit.h"
+#include "src/ui/common/widgets/button/Button.h"
 
 class AreaTabFragment : public BaseFragment {
     Q_OBJECT
@@ -22,6 +23,7 @@ private:
     DBConnector *dbConnector;
     AnalyticTable *table;
     TextEdit *diffEdit;
+    Button *addAirportsButton;
 
     TransportGraphModel graph;
 
@@ -44,8 +46,11 @@ private slots:
     void onAirportsLoadedChangeProgress(int progress);
 
     void startCalculation();
+    void addAirports();
     void onAreaCalculated(Area area);
     void onChangeCalculateAreaProgress(int progress);
+    void onNewAirportsChangeProgress(int progress);
+    void onAllNewAirportsCalculated();
 };
 
 #endif //AVIA_AREATABFRAGMENT_H

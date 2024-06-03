@@ -46,6 +46,11 @@ AreaTabFragment::AreaTabFragment() {
     buttonContainer->addWidget(startCalculationButton);
     contentContainer->addLayout(buttonContainer);
 
+    addAirportsButton = new Button("addAirportsButton", "Добавить аэропорты", false);
+    addAirportsButton->enabled(false);
+    connect(addAirportsButton, &Button::clicked, this, &AreaTabFragment::addAirports);
+    buttonContainer->addWidget(addAirportsButton);
+
     loadingContainer = new LoadingContainerWidget(contentFrame);
     loadingContainer->startLoading("Проверка подключения");
     mainContainer->addWidget(loadingContainer);
@@ -71,6 +76,8 @@ void AreaTabFragment::setConnector(DBConnector *connector) {
     connect(dbConnector, &DBConnector::onChangeAirportsLoadedProgress, this, &AreaTabFragment::onAirportsLoadedChangeProgress);
     connect(dbConnector, &DBConnector::onAreaCalculated, this, &AreaTabFragment::onAreaCalculated);
     connect(dbConnector, &DBConnector::onChangeCalculateAreaProgress, this, &AreaTabFragment::onChangeCalculateAreaProgress);
+    connect(dbConnector, &DBConnector::onChangeNewAirportsProgress, this, &AreaTabFragment::onNewAirportsChangeProgress);
+    connect(dbConnector, &DBConnector::onNewAirportsAllCalculated, this, &AreaTabFragment::onAllNewAirportsCalculated);
 }
 
 void AreaTabFragment::onConnectionChecked(bool isConnected) {
@@ -102,6 +109,7 @@ void AreaTabFragment::onAreaCalculated(Area area) {
     this->area = Area(area);
     qDebug() << "AreaTabFragment::onAreaCalculated";
     table->setAnalytics(&this->area);
+    addAirportsButton->enabled(true);
 }
 
 void AreaTabFragment::onChangeCalculateAreaProgress(int progress) {
@@ -109,4 +117,17 @@ void AreaTabFragment::onChangeCalculateAreaProgress(int progress) {
         this->progress = progress;
         loadingContainer->startLoading("Считаем " + QString::number(progress) + "%");
     }
+}
+
+void AreaTabFragment::addAirports() {
+    dbConnector->calculateNewAirports(graph);
+    loadingContainer->startLoading("Считаем");
+}
+
+void AreaTabFragment::onNewAirportsChangeProgress(int progress) {
+    loadingContainer->startLoading("Добавлено аэропортов " + QString::number(progress));
+}
+
+void AreaTabFragment::onAllNewAirportsCalculated() {
+    loadingContainer->stopLoading();
 }

@@ -49,8 +49,23 @@ public:
     /// стадность
     double gregariousness = 1;
 
-    AntColonyOptimization(QString save, std::vector<Airport> airports, int numPassengers, QList<AirportModel> original, double greed, double gregariousness, double part)
-        : save(save), airports(airports), numAirports(airports.size()), numPassengers(numPassengers / 2), originalAirports(original), greed(greed), gregariousness(gregariousness), part(part) {}
+    AntColonyOptimization(
+            QString save,
+            std::vector<Airport> airports,
+            int numPassengers,
+            QList<AirportModel> original,
+            double greed,
+            double gregariousness,
+            double part
+    ) {
+        this->save = save;
+        this->airports = airports;
+        this->numPassengers = numPassengers;
+        this->originalAirports = original;
+        this->greed = greed;
+        this->gregariousness = gregariousness;
+        this->part = part;
+    }
 
     // Инициализация ребер транспортной сети
     void initializeEdges() {

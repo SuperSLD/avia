@@ -191,6 +191,8 @@ set(PROJECT_SOURCES
         src/domain/usecases/area/atime/ATime.h
         src/domain/usecases/area/taccessibility/TAccessibility.cpp
         src/domain/usecases/area/atime/ATime.cpp
+        src/domain/usecases/newairports/NewAirportsWorker.cpp
+        src/domain/usecases/newairports/NewAirportsWorker.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

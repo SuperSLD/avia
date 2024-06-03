@@ -10,7 +10,7 @@ void LoadSavedDataWorker::run() {
     auto graph = TransportGraphModel(settingsRepository->getJson("airports"));
     emit airportsLolad(graph, false);
 
-    auto saves = QList<QString> {"s1", "s2", "s3", "s4"};
+    auto saves = QList<QString> {"s1", "s2", "s3", "s4", "s5"};
     foreach(auto s, saves) {
         emit graphLoad(s, TransportGraphModel(settingsRepository->getJson("airports" + s)));
     }

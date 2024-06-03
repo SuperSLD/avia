@@ -7,12 +7,16 @@
 
 
 #include <QPushButton>
+#include <QLabel>
 
 class Button: public QPushButton {
     Q_OBJECT
 
 private:
     bool isEnabled = true;
+    bool solid;
+    QString id;
+    QLabel *titleLabel;
 
 public:
     Button(QString id, QString title, bool solid = true);
