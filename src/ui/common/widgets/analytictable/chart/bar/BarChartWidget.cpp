@@ -56,13 +56,13 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
                 barWidth,
                 this->height() * 0.1
         );
-        painter.setPen(QPen(QColor(colorTextGray()), 3));
+        painter.setPen(QPen(QColor(colorBlack()), 3));
         if (lines[lineWithMaxBarCount].valuesName.isEmpty()) {
             painter.drawText(textRect, getLabel(lines[lineWithMaxBarCount].values[i]));
         } else {
             painter.drawText(textRect, lines[lineWithMaxBarCount].valuesName[i]);
         }
-        painter.setPen(QPen(QColor(colorBorder()), 3));
+        painter.setPen(QPen(QColor(colorTextGray()), 3));
         painter.drawLine(
                 barSpace * (i + 1) + barWidth * i + 2,
                 this->height() - 0.2 * this->height(),
@@ -72,7 +72,7 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
     }
 
     // нижняя линия
-    painter.setPen(QPen(QColor(colorBorder()), 3));
+    painter.setPen(QPen(QColor(colorTextGray()), 3));
     painter.drawLine(
             0,
             this->height() - 0.2 * this->height(),
@@ -89,10 +89,10 @@ void BarChartWidget::paintEvent(QPaintEvent *event) {
                 barSpace + barFirstSpace,
                 0.1 * this->height()
         );
-        painter.setPen(QPen(QColor(colorTextGray()), 3));
+        painter.setPen(QPen(QColor(colorBlack()), 3));
         painter.drawText(textRect, getLabel(max / 5 * i));
         if (i != 0) {
-            auto pen = QPen(QColor(colorBorder()), 2);
+            auto pen = QPen(QColor(colorGray()), 2);
             pen.setDashPattern({4, 4});
             painter.setPen(pen);
             painter.drawLine(

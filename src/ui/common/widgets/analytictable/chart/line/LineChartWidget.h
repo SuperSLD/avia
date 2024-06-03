@@ -18,8 +18,11 @@ private:
 
     bool shortLabels;
     bool shortShortLabels;
+    bool shortShortShortLabels;
     bool secondShortLabels;
     bool secondShortShortLabels;
+    bool secondShortShorttShortLabels;
+
 
     QString getLabel(double val, bool isSecond = false);
 

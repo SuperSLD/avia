@@ -40,8 +40,10 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
     }
     if (max > 10000) shortLabels = true;
     if (max > 1000000) shortShortLabels = true;
+    if (max > 1000000000) shortShortShortLabels = true;
     if (maxByX > 10000) secondShortLabels = true;
     if (maxByX > 1000000) secondShortShortLabels = true;
+    if (maxByX > 1000000000) secondShortShorttShortLabels = true;
 
 
     // лейблы значений
@@ -54,10 +56,10 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
                 this->width() / lineCount,
                 this->height() * 0.1
         );
-        painter.setPen(QPen(QColor(colorTextGray()), 3));
+        painter.setPen(QPen(QColor(colorBlack()), 3));
         if (i != lineCount) painter.drawText(textRect, getLabel(maxByX / lineCount * i,true));
         //painter.drawText(textRect, getLabel(i));
-        painter.setPen(QPen(QColor(colorBorder()), 3));
+        painter.setPen(QPen(QColor(colorTextGray()), 3));
         if (i != 0) {
             painter.drawLine(
                     this->width() / lineCount * i,
@@ -65,7 +67,7 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
                     this->width() / lineCount * i,
                     this->height() - 0.12 * this->height()
             );
-            auto pen = QPen(QColor(colorBorder()), 2);
+            auto pen = QPen(QColor(colorGray()), 2);
             pen.setDashPattern({4, 4});
             painter.setPen(pen);
             painter.drawLine(
@@ -78,7 +80,7 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
     }
 
     // нижняя линия
-    painter.setPen(QPen(QColor(colorBorder()), 3));
+    painter.setPen(QPen(QColor(colorTextGray()), 3));
     painter.drawLine(
             0,
             this->height() - 0.2 * this->height(),
@@ -95,10 +97,10 @@ void LineChartWidget::paintEvent(QPaintEvent *event) {
                 50,
                 0.1 * this->height()
         );
-        painter.setPen(QPen(QColor(colorTextGray()), 3));
+        painter.setPen(QPen(QColor(colorBlack()), 3));
         painter.drawText(textRect, getLabel(max / lineCount * i));
         if (i != 0) {
-            auto pen = QPen(QColor(colorBorder()), 2);
+            auto pen = QPen(QColor(colorGray()), 2);
             pen.setDashPattern({4, 4});
             painter.setPen(pen);
             painter.drawLine(
@@ -133,7 +135,11 @@ QString LineChartWidget::getLabel(double val, bool isSecond) {
     if (!isSecond) {
         if (shortLabels) {
             if (shortShortLabels) {
-                return QString::number((int) (val / 1000000)) + "M";
+                if (shortShortShortLabels) {
+                    return QString::number((int) (val / 1000000000)) + "КМ";
+                } else {
+                    return QString::number((int) (val / 1000000)) + "M";
+                }
             } else {
                 return QString::number((int) (val / 1000)) + "K";
             }
@@ -143,7 +149,11 @@ QString LineChartWidget::getLabel(double val, bool isSecond) {
     } else {
         if (secondShortLabels) {
             if (secondShortShortLabels) {
-                return QString::number((int) (val / 1000000)) + "M";
+                if (secondShortShorttShortLabels) {
+                    return QString::number((int) (val / 1000000000)) + "КM";
+                } else {
+                    return QString::number((int) (val / 1000000)) + "M";
+                }
             } else {
                 return QString::number((int) (val / 1000)) + "K";
             }
