@@ -51,16 +51,36 @@ public:
 
     AntColonyOptimization(
             QString save,
-            std::vector<Airport> airports,
-            int numPassengers,
             QList<AirportModel> original,
             double greed,
             double gregariousness,
             double part
     ) {
+
+        QList<Airport> airports;
+
+        // Общее количество пассажиров
+        int totalPassengers = 0;
+
+        foreach(auto a, original) {
+            int pIn = (int) (a.passengersCountIn * part);
+            int pOut = (int) (a.passengersCountOut * part);
+            airports.append(
+                    {
+                            a.id,
+                            a.lon,
+                            a.lat,
+                            pIn,
+                            pOut,
+                            pIn + pOut
+                    }
+            );
+            totalPassengers += pIn + pOut;
+        }
+
         this->save = save;
-        this->airports = airports;
-        this->numPassengers = numPassengers;
+        this->airports = airports.toVector().toStdVector();
+        this->numPassengers = totalPassengers / 2;
         this->originalAirports = original;
         this->greed = greed;
         this->gregariousness = gregariousness;

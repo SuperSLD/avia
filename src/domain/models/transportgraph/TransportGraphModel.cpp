@@ -204,10 +204,6 @@ void TransportGraphModel::calcAnalyticData() {
     midRealDistance /= count;
     nonStraightness = midRealDistance / midFlightDistance;
 
-    foreach(auto key, aircraftCount.keys()) {
-        qDebug() << key << aircraftCount[key];
-    }
-
     qDebug() << "TransportGraphModel" << save
              << "-> allTypesCount =" << allTypesCount
              << "totalPassCount =" << QString::number(totalPassCount / 1000) + "K"
