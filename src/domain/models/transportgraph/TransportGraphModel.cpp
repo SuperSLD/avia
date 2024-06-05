@@ -355,6 +355,6 @@ double TransportGraphModel::crit(
 ) {
     auto p1 = isHub ? (1 / plot) / minPlot : plot / maxPlot;
     auto p2 = isHub ? nonStraightness / maxNonStraightness : (1 / nonStraightness) / minNonStraightness;
-    auto p3 = 1 / (midTime / maxMidTime);
+    auto p3 = (1 / midTime) / maxMidTime;
     return pow(p1, 0.333) * pow(p2, 0.33) * pow(p3, 0.33);
 }

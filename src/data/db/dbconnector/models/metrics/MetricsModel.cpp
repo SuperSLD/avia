@@ -42,7 +42,7 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
         if (minNonStraightness < 1 / graph.nonStraightness) minNonStraightness = 1 / graph.nonStraightness;
         if (maxPlot < graph.sumDistance / area.sumArea) maxPlot = graph.sumDistance / area.sumArea;
         if (minPlot < 1 / (graph.sumDistance / area.sumArea)) minPlot = 1 / (graph.sumDistance / area.sumArea);
-        if (maxMidTime < graph.midTime) maxMidTime = graph.midTime;
+        if (maxMidTime < 1 / graph.midTime) maxMidTime = 1 / graph.midTime;
     }
 
     auto hubBars = QList<double>( { original.crit(true, original.sumDistance/area.sumArea, maxNonStraightness, minNonStraightness, maxPlot, minPlot, maxMidTime) } );
