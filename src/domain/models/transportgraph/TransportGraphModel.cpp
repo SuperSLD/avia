@@ -192,6 +192,7 @@ void TransportGraphModel::calcAnalyticData() {
                         aircraftCount[optimalAircraft.model] = optimalAircraftCount;
                     }
                     allTypesCount += optimalAircraftCount;
+                    a.connectedAircraft[connected] = optimalAircraft;
                     cost += flightDistance * optimalAircraft.kilometerCost * optimalAircraftCount;
                 }
 

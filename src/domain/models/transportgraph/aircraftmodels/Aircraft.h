@@ -53,6 +53,8 @@ public:
         this->kilometerCost = kilometerCost * seatsCount;
         this->vppLen = vppLen;
     }
+
+    Aircraft() {}
 };
 
 #endif //AVIA_AIRCRAFT_H

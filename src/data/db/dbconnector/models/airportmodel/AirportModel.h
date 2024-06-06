@@ -7,6 +7,7 @@
 
 
 #include "src/data/db/dbconnector/models/basedbmodel/BaseDBModel.h"
+#include "src/domain/models/transportgraph/aircraftmodels/Aircraft.h"
 
 class AirportModel: public BaseDBModel{
 
@@ -30,6 +31,7 @@ public:
     QList<QString> connectedAirports;
     /// количество пассажиров пролетевших выбранным рейсом
     QHash<QString, double> connectedPassCount;
+    QHash<QString, Aircraft> connectedAircraft;
     /// количество вылетов и прилетов
     int flightCount = 1;
 
