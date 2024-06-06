@@ -63,7 +63,7 @@ Aircraft AircraftModelsBlock::getOptimalAircraft(double distance, QString airpor
                 auto C = aircraft.kilometerCost * distance;
                 auto p1 = (aircraft.range / distance);
                 auto p2 = outPassCount / (double) aircraft.seatsCount;
-                auto p3 = 1 / aircraft.speed;
+                auto p3 = (24*30) / (distance / aircraft.speed);
                 if (C > maxCost) maxCost = C;
                 if (p1 > maxP1) maxP1 = p1;
                 if (p2 > maxP2) maxP2 = p2;
@@ -79,7 +79,7 @@ Aircraft AircraftModelsBlock::getOptimalAircraft(double distance, QString airpor
             /// сколько самолетов нужно
             auto p2 = outPassCount / (double) aircraft.seatsCount;
             /// награда за скорость полета самолета
-            auto p3 = 1 / aircraft.speed;
+            auto p3 = (24*30) / (distance / aircraft.speed);
             auto current = pow(C/maxCost, 0.1) * pow(p1/maxP1, 0.1) * pow(p2/maxP2, 0.4) * pow(p3/maxP3, 0.4);
             if (current < min) {
                 optimal = aircraft;
