@@ -8,6 +8,8 @@
 
 #include <QThread>
 #include "src/domain/models/transportgraph/TransportGraphModel.h"
+#include "src/data/db/dbconnector/models/airportmodel/AirportModel.h"
+#include "src/domain/usecases/area/CalculateAreaWorker.h"
 
 class NewAirportsWorker: public QThread {
     Q_OBJECT
@@ -25,6 +27,8 @@ public:
     ~NewAirportsWorker() {
         delete settingsRepository;
     }
+
+    QList<AirportModel> newAirports;
 
     void run() override;
 

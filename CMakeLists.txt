@@ -29,7 +29,7 @@ set(CMAKE_OSX_ARCHITECTURES x86_64)
 #    endif()
 #endif()
 
-set(CMAKE_PREFIX_PATH "/Users/leonidsolanoj/Qt/5.15.2/clang_64")
+set(CMAKE_PREFIX_PATH "/Users/egor/Qt/5.15.2/clang_64")
 find_package(QT NAMES Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt5Svg REQUIRED)
 find_package(Qt5 COMPONENTS Network REQUIRED)
@@ -193,6 +193,7 @@ set(PROJECT_SOURCES
         src/domain/usecases/area/atime/ATime.cpp
         src/domain/usecases/newairports/NewAirportsWorker.cpp
         src/domain/usecases/newairports/NewAirportsWorker.h
+        src/domain/usecases/area/CalcNewArea.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
