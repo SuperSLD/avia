@@ -8,5 +8,5 @@ ATime::ATime(QString id, double aTime, int count)
 {
     this->id = id;
     this->aTime = aTime;
-    this->count = count;
+    this->count=count;
 }

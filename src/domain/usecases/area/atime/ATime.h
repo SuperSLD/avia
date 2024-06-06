@@ -10,7 +10,9 @@
 class ATime: public BaseModel {
 
 public:
+    /// id аэропорта
     QString id;
+    ///среднее время маршрута по земле
     double aTime;
     int count;
 

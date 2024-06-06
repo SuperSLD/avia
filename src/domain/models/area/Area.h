@@ -200,11 +200,43 @@ public:
         double TAcces;
         QList<ATime> atime;
         QList<TAccessibility> tAcc;
+
+        for (int i =0; i < graph.airports.size(); i++)
+        {
+            double humans =0;
+            double averageTime =0;
+            int count = 0;
+            for (int j =0; j < points.size(); j++)
+            {
+                for (int k=0; k < points.at(j).size(); k++)
+                {
+                    if (points[j][k].airportId == graph.airports[i].id)
+                    {
+                        humans = humans + points[j][k].humanCount;
+                        count ++;
+                    }
+                }
+            }
+            for (int j =0; j < points.size(); j++)
+            {
+                for (int k=0; k < points.at(j).size(); k++)
+                {
+                    if (points[j][k].airportId == graph.airports[i].id)
+                    {
+                        averageTime = averageTime + (points[j][k].humanCount / humans * points[j][k].duration);
+                    }
+                }
+            }
+            atime.append(ATime(graph.airports[i].id, averageTime, count));
+        }
+        //
+        qDebug() << "Количество пассажиров - " << graph.passCount/2;
+        qint64 totalPass = graph.passCount;
+        double avTime = 0.0; // среднее время
+
         for (int i=0; i < points.size(); i++) {
             for (int j =0; j < points.at(i).size(); j++) {
-                double dur1 = points.at(i).at(j).duration; // длительность поездки на автомобиле в зоне конечного аэропорта
-                double averageTime = 0.0; // среднее время
-                int countOf = 0; // количество маршрутов для рассматриваемой зоны
+                double dur1 = 0; // длительность поездки на автомобиле в зоне конечного аэропорта
                 double dur2 = 0.0; // длительность перелета из начального аэропорта в конечный
                 double dur3 = 0.0; // длительность поездки на автомобиле в зоне начального аэропорта
                 int indIn = 0; // индекс конечного аэропорта
@@ -212,45 +244,47 @@ public:
                 for (int u=0; u < graph.airports.size(); u++) {
                     if (graph.airports.at(u).id == points.at(i).at(j).airportId) indIn = u;
                 }
-                long PassInAirport = graph.airports.at(indIn).passengersCountIn; // общий пассажиропоток на конечном аэропорте
-                long PassOutAirport =0; // общий пассажиропоток на начальном аэропорте
+                dur1 = atime[indIn].aTime;
                 for (int y=0; y < graph.airports.at(indIn).connectedAirports.size(); y++) {
                     double distanceOfFly = 0.0; // дистанция перелета
                     double PassFromTo = 0; // пассажиропотоке на конкретном перелете
                     for (int b = 0; b < graph.airports.size(); b++) {
-                        if (graph.airports.at(indIn).connectedAirports.at(y) == graph.airports.at(b).id) {
+                        if (graph.airports[indIn].connectedAirports.at(y) == graph.airports[b].id) {
                             indOut = b;
+                            dur3 = atime[indOut].aTime;
                             distanceOfFly = distanceInKm(graph.airports.at(indIn).lon, graph.airports.at(indIn).lat, graph.airports.at(indOut).lon, graph.airports.at(indOut).lat);
+                            //double speed;
+                            //for (int f=0; f < graph.airports[indIn].connectedAircraft.size(); f ++)
+                            //{
+                            //    speed = graph.airports[indIn].connectedAircraft.value(graph.airports[indOut].id).speed;
+                            //}
+                            //qDebug() << "скорость самолета - " << speed;
                             dur2 = distanceOfFly / 500;
-                            PassOutAirport = graph.airports.at(indOut).passengersCountOut;
                             PassFromTo = graph.airports.at(indIn).connectedPassCount.value(graph.airports.at(indOut).id);
-                            for (int f = 0; f < points.size(); f++) {
-                                for (int g = 0; g < points.at(f).size(); g++) {
-                                    if (points.at(f).at(g).airportId == graph.airports.at(indOut).id) {
-                                        dur3 = points.at(f).at(g).duration;
-                                        averageTime = averageTime +(dur1 * (PassFromTo/PassInAirport) + dur2 + dur3 * (PassFromTo/PassOutAirport));
-                                        countOf ++;
-                                    }
-                                }
-                            }
+                            avTime = avTime + (dur1 + dur2 + dur3)*(PassFromTo/totalPass)/atime[indIn].count;
+                            //for (int f = 0; f < points.size(); f++) {
+                              //  for (int g = 0; g < points.at(f).size(); g++) {
+                                //    if (points.at(f).at(g).airportId == graph.airports.at(indOut).id) {
+                                  //      avTime = avTime + (dur1 + dur2 + dur3)*(PassFromTo/totalPass);
+                                    //}
+                                //}
+                            //}
                         }
                     }
                 }
-                if (averageTime > 0 && countOf > 0) {
-                    averageTime = averageTime / countOf;
-                    tAcc.append(TAccessibility(points.at(i).at(j).lon, points.at(i).at(j).lat, averageTime));
-                }
+                //tAcc.append(TAccessibility(points.at(i).at(j).lon, points.at(i).at(j).lat, averageTime));
             }
         }
-        double summm= 0.0;
-        int kolichestvo = 0;
-        for (int tt =0; tt < tAcc.size(); tt++) {
-            if (tAcc.at(tt).tAccessibility != std::numeric_limits<double>::infinity()) {
-                summm = summm + tAcc[tt].tAccessibility;
-                kolichestvo ++;
-            }
-        }
-        TAcces = summm / kolichestvo;
+        //double summm= 0.0;
+        //int kolichestvo = 0;
+        //for (int tt =0; tt < tAcc.size(); tt++) {
+            //if (tAcc.at(tt).tAccessibility != std::numeric_limits<double>::infinity()) {
+                //summm = summm + tAcc[tt].tAccessibility;
+                //kolichestvo ++;
+            //}
+        //}
+        //TAcces = summm / kolichestvo;
+        TAcces = avTime;
         return TAcces;
     }
 };

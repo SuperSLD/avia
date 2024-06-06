@@ -12,6 +12,9 @@
 #include "src/data/settings/SettingsRepository.h"
 #include "src/domain/usecases/area/atime/ATime.h"
 #include "src/domain/usecases/area/taccessibility/TAccessibility.h"
+#include "src/domain/usecases/area/countryshape/CountryShape.h"
+#include "src/domain/models/area/areapoint/AreaPoint.h"
+#include <unistd.h>
 
 #include "src/domain/usecases/math/math_functions.h"
 using namespace math_functions;

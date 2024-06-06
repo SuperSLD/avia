@@ -25,21 +25,24 @@ void CalculateAreaWorker::run() {
             currentLat = country.minLat + i * latDif / (double) latIterations;
             auto p = country.pointInCountry(currentLon, currentLat);
             if (p >= 0) {
-                auto minDistanceAirport = graph.getMinDistanceAirport(currentLon, currentLat);
-                airportId = minDistanceAirport.id;
-                auto d = distanceInKm(currentLon, currentLat, minDistanceAirport.lon, minDistanceAirport.lat);
-                lonPoints.append(
-                        AreaPoint(
-                                airportId,
-                                d,
-                                d / 60.0,
-                                lonDif / lonIterations,
-                                latDif / latIterations,
-                                currentLon,
-                                currentLat,
-                                p
-                        )
-                );
+                if (!(currentLat >= 70.67))
+                {
+                    auto minDistanceAirport = graph.getMinDistanceAirport(currentLon, currentLat);
+                    airportId = minDistanceAirport.id;
+                    auto d = distanceInKm(currentLon, currentLat, minDistanceAirport.lon, minDistanceAirport.lat);
+                    lonPoints.append(
+                            AreaPoint(
+                                    airportId,
+                                    d,
+                                    d / 60.0,
+                                    lonDif / lonIterations,
+                                    latDif / latIterations,
+                                    currentLon,
+                                    currentLat,
+                                    p
+                            )
+                    );
+                }
             }
             emit onChangeProgress((index * 100) / (latIterations * lonIterations));
         }
@@ -51,6 +54,8 @@ void CalculateAreaWorker::run() {
     settingsRepository->setJson("area", area.toJson());
     emit resultReady(area);
 }
+
+
 
 void CalculateAreaWorker::directionLoad(OSMDirectionModel direction) {
     auto country = CountryShape("russia");
