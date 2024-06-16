@@ -47,7 +47,7 @@ void AnalyticsModel::createDataForCharts() {
             ChartLine(
                     QList<QString>({colorPrimary(), colorSecondary()}),
                     QList<double>({(double) inRussiaCount, (double)  notRussia}),
-                    QList<QString>({"В россии", "За границу"})
+                    QList<QString>({"Внутренние", "Внешние"})
             )
     );
 
@@ -92,7 +92,7 @@ void AnalyticsModel::createDataForCharts() {
             ChartLine(
                     QList<QString>({colorSecondary()}),
                     airportCountValue,
-                    QList<QString>({"Внутренние рейсы"}),
+                    QList<QString>({"Внутренние"}),
                     QList<double>(),
                     airportCountName
             )
@@ -101,7 +101,7 @@ void AnalyticsModel::createDataForCharts() {
             ChartLine(
                     QList<QString>({colorPrimary()}),
                     airportCountValueOut,
-                    QList<QString>({"Внешние рейсы"})
+                    QList<QString>({"Внешние"})
             )
     );
 }
