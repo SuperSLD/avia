@@ -14,6 +14,9 @@ class MetricsModel: public BaseAnalyticModel {
 
 private:
 
+    /// количество посчитанных/загруженных графов
+    int graphCount = 0;
+
     /// график непрямолинейности
     QList<ChartLine> nonStraightnessBarChart;
     /// график плотности
@@ -53,9 +56,11 @@ private:
     /// название оптимального графа
     QString optimalSave;
     /// таблица данных о лучшем парке
-    QList<QList<QString>> optimalParkTable;
+    //QList<QList<QString>> optimalParkTable;
+    QList<QList<QList<QString>>> optimalParkTable;
     /// диаграмма типов парка
-    QList<ChartLine> optimalTypesPieChart;
+    //QList<ChartLine> optimalTypesPieChart;
+    QList<QList<ChartLine>> optimalTypesPieChart;
 
 public:
 

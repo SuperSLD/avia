@@ -7,6 +7,8 @@
 #include "src/domain/models/analytics/view/TableAnalyticsCell.h"
 
 MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphModel> graphs, Area area) {
+    this->graphCount = graphs.size();
+
     auto nonStraightness = QList<double> { original.nonStraightness };
     auto saveNames = QList<QString> { original.save };
     auto saveNamesNotFull = QList<QString>();
@@ -340,33 +342,35 @@ MetricsModel::MetricsModel(TransportGraphModel original, QList<TransportGraphMod
         )
     );
 
-    optimalParkTable.append(QList<QString>{ "Модель", "Код", "Скорость", "Кресел", "ВПП", "Дальность", "Количество" });
-    auto optimalTypes = QList<double>();
-    auto optimalTypesKeys = QList<QString>();
-    foreach(auto key, graphs[minCostSaveIndex].aircraftCount.keys()) {
-        auto aircraft = aircraftModelsBlock.getByModel(key);
-        optimalParkTable.append(
-            QList<QString> {
-                aircraft.modelName,
-                aircraft.model,
-                QString::number(aircraft.speed) + " км/ч",
-                QString::number(aircraft.seatsCount),
-                QString::number(aircraft.vppLen) + " м",
-                QString::number(aircraft.range) + " км",
-                QString::number(graphs[minCostSaveIndex].aircraftCount[key] * 100 / (double) graphs[minCostSaveIndex].allTypesCount, 'f', 1) + "%"
-            }
-        );
-        optimalTypes.append(graphs[minCostSaveIndex].aircraftCount[key] * 100 / (double) graphs[minCostSaveIndex].allTypesCount);
-        optimalTypesKeys.append(key);
-    }
+    for (int i = 0; i < graphs.size(); i++) {
+        optimalParkTable.append(QList<QList<QString>>());
+        optimalParkTable[i].append(QList<QString>{ "Модель", "Кресел", "Процент" });
+        auto optimalTypes = QList<double>();
+        auto optimalTypesKeys = QList<QString>();
+        foreach(auto key, graphs[minCostSaveIndex].aircraftCount.keys()) {
+            auto aircraft = aircraftModelsBlock.getByModel(key);
+            optimalParkTable[i].append(
+                QList<QString> {
+                    aircraft.modelName,
+                    QString::number(aircraft.seatsCount),
+                    QString::number(graphs[minCostSaveIndex].aircraftCount[key] * 100 / (double) graphs[minCostSaveIndex].allTypesCount, 'f', 1) + "%"
+                }
+            );
+            optimalTypes.append(graphs[minCostSaveIndex].aircraftCount[key] * 100 / (double) graphs[minCostSaveIndex].allTypesCount);
+            optimalTypesKeys.append(key);
+        }
 
-    optimalTypesPieChart.append(
-            ChartLine(
-                    QList<QString>({ colors }),
-                    optimalTypes,
-                    optimalTypesKeys
-            )
-    );
+        optimalTypesPieChart.append(
+                QList<ChartLine>{
+                        ChartLine(
+                                QList<QString>({colors}),
+                                optimalTypes,
+                                optimalTypesKeys
+                        )
+                }
+        );
+
+    }
 
     qDebug() << sortedGregariousnessKeys;
     qDebug() << sortedGregariousnessValues;
@@ -473,19 +477,46 @@ QList<AnalyticsRow> MetricsModel::getRows(bool isSingle) {
     );
     rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell *>({
-            new TitleAnalyticsCell("Оптимальным парком по стоимости является " + optimalSave + "\nНиже приведена информация о нем.", true),
+            new TitleAnalyticsCell("Оптимальным парком по стоимости является " + optimalSave + "\nНиже приведена информация о всех сетях.", true),
         }), true)
     );
-//    rows.append(
-//        AnalyticsRow(QList<BaseAnalyticsCell *>({
-//                new ChartAnalyticsCell("pie_hide_values", "Распределение типов ВС", optimalTypesPieChart),
-//        }))
-//    );
-    rows.append(
-        AnalyticsRow(QList<BaseAnalyticsCell *>({
-            new TableAnalyticsCell(optimalParkTable, true),
-        }))
-    );
+    if (graphCount == 4) {
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                    new ChartAnalyticsCell("pie_hide_values",
+                                           "Распределение типов ВС S1",
+                                           optimalTypesPieChart[0]),
+                    new ChartAnalyticsCell("pie_hide_values",
+                                           "Распределение типов ВС S2",
+                                           optimalTypesPieChart[1]),
+            }))
+        );
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                    new ChartAnalyticsCell("pie_hide_values",
+                                           "Распределение типов ВС S3",
+                                           optimalTypesPieChart[2]),
+                    new ChartAnalyticsCell("pie_hide_values",
+                                           "Распределение типов ВС S4",
+                                           optimalTypesPieChart[3]),
+            }))
+        );
+    }
+    for(int i = 0; i < optimalParkTable.size(); i++) {
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                new TitleAnalyticsCell("Информация по типам для s" + QString::number(i + 1), true),
+            }))
+        );
+        rows.append(
+            AnalyticsRow(QList<BaseAnalyticsCell *>({
+                new TableAnalyticsCell(optimalParkTable[i], true),
+                new ChartAnalyticsCell("pie_hide_values",
+                                       "Распределение типов ВС для s" + QString::number(i + 1),
+                                       optimalTypesPieChart[i]),
+            }))
+        );
+    }
     if (isSingle) {
         rows.append(
         AnalyticsRow(QList<BaseAnalyticsCell*>({
