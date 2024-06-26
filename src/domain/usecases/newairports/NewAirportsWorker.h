@@ -29,6 +29,7 @@ public:
     }
 
     QList<AirportModel> newAirports;
+    QList<QString> zamena;
 
     void run() override;
 

@@ -29,6 +29,7 @@ public:
 
     QList<QList<AreaPoint>> calcPoints (TransportGraphModel graph)
     {
+        this->graph=graph;
         auto country = CountryShape("russia");
         lonDif = country.maxLon - country.minLon;
         auto lonIterations = (int) lonDif / DISTANCE_BETWEEN_POINT;
@@ -69,18 +70,42 @@ public:
                         auto minDistanceAirport = graph.getMinDistanceAirport(currentLon, currentLat);
                         airportId = minDistanceAirport.id;
                         auto d = distanceInKm(currentLon, currentLat, minDistanceAirport.lon, minDistanceAirport.lat);
-                        lonPoints.append(
+                        if (minDistanceAirport.lon > 70.67)
+                        {
+                            lonPoints.append(
                                 AreaPoint(
                                         airportId,
                                         d,
-                                        d / 25.0,
+                                        d / 35.0,
                                         lonDif / lonIterations,
                                         latDif / latIterations,
                                         currentLon,
                                         currentLat,
                                         p
                                 )
-                        );
+                            );
+                        }
+                        else
+                        {
+                            double h1 = currentLon - 70.67;
+                            double h2 = 70.67 - minDistanceAirport.lon;
+                            double h = currentLon - minDistanceAirport.lon;
+                            double k1 = h1/h ;
+                            double k2 = h2/h ;
+                            double durT = d*k1/35 + d*k2/60;
+                            lonPoints.append(
+                                AreaPoint(
+                                        airportId,
+                                        d,
+                                        durT,
+                                        lonDif / lonIterations,
+                                        latDif / latIterations,
+                                        currentLon,
+                                        currentLat,
+                                        p
+                                )
+                            );
+                        }
                     }
                 }
             }
