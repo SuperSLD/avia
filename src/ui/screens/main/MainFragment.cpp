@@ -75,7 +75,7 @@ MainFragment::MainFragment() {
     tabButtons.append(new MenuTabButton("Данные о перелетах", "flights", "flights_dark", FLIGHTS));
     tabButtons.append(new MenuTabButton("Данные о маршрутах", "routes", "routes_dark", ROUTES));
     tabButtons.append(new MenuTabButton("Расчет графа", "calc", "calc_dark", CALCULATE_GRAPH));
-    tabButtons.append(new MenuTabButton("Расчет зон", "calc", "calc_dark", CALCULATE_AREA));
+    tabButtons.append(new MenuTabButton("Расчет стандарта", "calc", "calc_dark", CALCULATE_AREA));
     tabButtons.append(new MenuTabButton("Транспортная сеть", "map", "map_dark", MAP));
     tabButtons.append(new MenuTabButton("Статистика", "analytics", "analytics_dark", ANALYTICS));
     tabButtons.append(new MenuTabButton("Настройки", "settings", "settings_dark", SETTINGS));

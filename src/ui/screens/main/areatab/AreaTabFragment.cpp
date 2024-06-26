@@ -15,7 +15,7 @@ AreaTabFragment::AreaTabFragment() {
     mainContainer->setContentsMargins(0, 0, 0, 0);
     mainContainer->setSpacing(0);
 
-    auto *toolbar = new Toolbar("Расчет зон транспортной доступности", "calc", "calc_dark");
+    auto *toolbar = new Toolbar("Расчет значения транспортного стандарта", "calc", "calc_dark");
     mainContainer->addWidget(toolbar);
 
     auto *contentFrame = new QFrame();

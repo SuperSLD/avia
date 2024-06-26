@@ -38,7 +38,7 @@ void OSMNetRepository::direction(double lon1, double lat1, double lon2, double l
     //body["coordinates"] = coordinates;
     //body["radiuses"] = radiuses;
     //body["maximum_speed"] = 100;
-    string urll = string("route/v1/driving/") + to_string(lat1) + string(",") + to_string(lon1) + string(";") + to_string(lat2) + string(",") + to_string(lon2);
+    string urll = string("route/v1/driving/") + to_string(lon1) + string(",") + to_string(lat1) + string(";") + to_string(lon2) + string(",") + to_string(lat2);
     QString urlll = QString::fromUtf8(urll.c_str());
 
     service->get( urlll,

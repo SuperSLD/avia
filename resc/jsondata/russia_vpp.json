@@ -414,5 +414,61 @@
   {
     "name": "OSW",
     "len": 2900.0
+  },
+  {
+    "name": "USDA",
+    "len": 2704.0
+  },
+  {
+    "name": "USDM",
+    "len": 1551.0
+  },
+  {
+    "name": "UODD",
+    "len": 1500.0
+  },
+  {
+    "name": "UODL",
+    "len": 1700.0
+  },
+  {
+    "name": "UOHH",
+    "len": 2705.0
+  },
+  {
+    "name": "UOHK",
+    "len": 1800.0
+  },
+  {
+    "name": "UERB",
+    "len": 2035.0
+  },
+  {
+    "name": "UETT",
+    "len": 1000.0
+  },
+  {
+    "name": "UESB",
+    "len": 1200.0
+  },
+  {
+    "name": "UEBK",
+    "len": 2000.0
+  },
+  {
+    "name": "UEBE",
+    "len": 3320.0
+  },
+  {
+    "name": "UESA",
+    "len": 1300.0
+  },
+  {
+    "name": "UESS",
+    "len": 1815.0
+  },
+  {
+    "name": "UHMB",
+    "len": 1410.0
   }
 ]
