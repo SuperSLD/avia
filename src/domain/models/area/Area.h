@@ -155,24 +155,24 @@ public:
         QList<AnalyticsRow> rows;
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                   new TitleAnalyticsCell("Результат расчета зон тр. дост."),
+                   new TitleAnalyticsCell("Результат расчета тр. стандарта"),
             }), true)
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                   new NumberAnalyticsCell(QString::number(round(taccessibil*100)/100) + " Ч", "Значение транспортной \nдоступности России", colorSecondary()),
+                   new NumberAnalyticsCell(QString::number(round(taccessibil*100)/100) + " Ч", "Значение транспортного \nстандарта России", colorSecondary()),
             }))
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                   new NumberAnalyticsCell(QString::number(pointsCount), "Общее количество\nсекторов", colorPrimary()),
+                   new NumberAnalyticsCell(QString::number(pointsCount), "Общее количество\nобластей", colorPrimary()),
                    new NumberAnalyticsCell(QString::number((int) maxDistance) + " КМ", "Максимальное расстояние\nдо аэропорта", colorPrimary()),
                    new NumberAnalyticsCell(QString::number((int) maxTime) + " Ч", "Максимальное время\nв пути", colorPrimary()),
             }))
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                new ChartAnalyticsCell("bar", "Распределение зон", pointsDistancePieChart),
+                new ChartAnalyticsCell("bar", "Распределение областей", pointsDistancePieChart),
             }))
         );
         rows.append(
@@ -182,7 +182,7 @@ public:
         );
         rows.append(
             AnalyticsRow(QList<BaseAnalyticsCell*>({
-                new NumberAnalyticsCell(QString::number((int) (pointsHumans[0] / 1000)) + " К\nчеловек", "В самой близкой зоне\nдоступности " + QString::number((int) (maxTime / colors.size())) + "ч находится " + QString::number((int)(pointsHumans[0]*100/pointsHumansSum)) + "% населения", colors[0]),
+                new NumberAnalyticsCell(QString::number((int) (pointsHumans[0] / 1000)) + " К\nчеловек", "В самой близкой области\nдоступности " + QString::number((int) (maxTime / colors.size())) + "ч находится " + QString::number((int)(pointsHumans[0]*100/pointsHumansSum)) + "% населения", colors[0]),
                 //new NumberAnalyticsCell(QString::number((int) (maxDistanceCount / 1000)) + " К\nчеловек", "Самая частая зона\nдоступности " + QString::number((int) (maxTime / colors.size() * (1 + maxDistanceCountZone))) + "ч составляет " + QString::number((int)(pointsDistance[maxDistanceCountZone]*100/pointDistanceSum)) + "% населения", colors[maxDistanceCountZone]),
             }))
         );
@@ -230,7 +230,7 @@ public:
             atime.append(ATime(graph.airports[i].id, averageTime, count));
         }
         //
-        qDebug() << "Количество пассажиров - " << graph.passCount/2;
+        qDebug() << "Количество пассажиров - " << graph.passCount;
         qint64 totalPass = graph.passCount;
         double avTime = 0.0; // среднее время
 
@@ -253,13 +253,20 @@ public:
                             indOut = b;
                             dur3 = atime[indOut].aTime;
                             distanceOfFly = distanceInKm(graph.airports.at(indIn).lon, graph.airports.at(indIn).lat, graph.airports.at(indOut).lon, graph.airports.at(indOut).lat);
-                            //double speed;
-                            //for (int f=0; f < graph.airports[indIn].connectedAircraft.size(); f ++)
-                            //{
-                            //    speed = graph.airports[indIn].connectedAircraft.value(graph.airports[indOut].id).speed;
-                            //}
+                            double speed;
+                            for (int f=0; f < graph.airports[indIn].connectedAircraft.size(); f ++)
+                            {
+                                speed = graph.airports[indIn].connectedAircraft.value(graph.airports[indOut].id).speed;
+                            }
                             //qDebug() << "скорость самолета - " << speed;
-                            dur2 = distanceOfFly / 500;
+                            if (speed > 1)
+                            {
+                                dur2 = distanceOfFly / speed;
+                            }
+                            else
+                            {
+                                dur2 = distanceOfFly / 650;
+                            }
                             PassFromTo = graph.airports.at(indIn).connectedPassCount.value(graph.airports.at(indOut).id);
                             avTime = avTime + (dur1 + dur2 + dur3)*(PassFromTo/totalPass)/atime[indIn].count;
                             //for (int f = 0; f < points.size(); f++) {
@@ -285,6 +292,7 @@ public:
         //}
         //TAcces = summm / kolichestvo;
         TAcces = avTime;
+        qDebug() << "Количество человек в самой близкой области" << (pointsHumans[0] / 1000);
         return TAcces;
     }
 };

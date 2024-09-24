@@ -55,6 +55,9 @@ public:
 
     void run() override;
 
+    QList<AirportModel> newAirports;
+    QList<QString> zamena;
+
 public slots:
     void directionLoad(OSMDirectionModel direction);
 
